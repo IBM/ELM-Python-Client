@@ -32,9 +32,9 @@ Installation
 
 Requirements:
 
-This version has **only been tested with Python 3.9.1 x64 on Windows 10 x64**. The only restrictive dependency that we are aware of is that the Requests package >2.24.0 doesn't appear to work when using a proxy (experienced when using Telerik Fiddler Classic to monitor communication to the server).
+This version has **only been tested with Python 3.9.1 x64 on Windows 10 x64**.
 
-The move to 3.9.1 was relatively recent - this code may work with 3.8.x and possibly earlier versions. Trying to install with Python 3.10 failed trying to install `lxml` - there may be other problems as didn't get past this.
+The move to 3.9.1 was relatively recent - this code may work with 3.8.x and possibly earlier versions. Trying to install using `pip` with Python 3.10 failed when getting `lxml` - there may be other problems as didn't get past this.
 
 The content on github is at https://github.com/IBM/ELM-Python-Client
 

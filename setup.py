@@ -22,7 +22,7 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/IBM/ELM-Python-Client",
     author="Ian Barnard",
-    author_email="ian.barnard@uk.ibm.com",
+#    author_email="ian.barnard@uk.ibm.com",
     license="MIT",
     classifiers=[
         "License :: OSI Approved :: MIT License",

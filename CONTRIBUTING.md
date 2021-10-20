@@ -1,27 +1,37 @@
 ## Contributing In General
+
 Our project welcomes external contributions. If you have an itch, please feel
 free to scratch it.
 
-To contribute code or documentation, please submit a **FIXME** [pull request](https://github.com/ibm/repo-template/pulls).
+To contribute code or documentation, please submit a [pull request](https://github.com/ibm/ELM-Python-Client/pulls).
 
 A good way to familiarize yourself with the codebase and contribution process is
-to look for and tackle low-hanging fruit in the **FIXME** [issue tracker](https://github.com/ibm/repo-template/issues).
+to look for and tackle low-hanging fruit in the [issue tracker](https://github.com/ibm/ELM-Python-Client/issues).
 Before embarking on a more ambitious contribution, please quickly [get in touch](#communication) with us.
 
 **Note: We appreciate your effort, and want to avoid a situation where a contribution
 requires extensive rework (by you or by us), sits in backlog for a long time, or
 cannot be accepted at all!**
 
+Pull requests are very welcome! Make sure your patches are well tested. Ideally create a topic branch for every separate change you make. For example:
+
+    Fork the repo
+    Create your feature branch (git checkout -b my-new-feature)
+    Commit your changes (git commit -am 'Added some feature')
+    Push to the branch (git push origin my-new-feature)
+    Create new Pull Request
+
+
 ### Proposing new features
 
-If you would like to implement a new feature, please **FIXME** [raise an issue](https://github.com/ibm/repo-template/issues)
+If you would like to implement a new feature, please [raise an issue](https://github.com/ibm/ELM-Python-Client/issues)
 before sending a pull request so the feature can be discussed. This is to avoid
 you wasting your valuable time working on a feature that the project developers
 are not interested in accepting into the code base.
 
 ### Fixing bugs
 
-If you would like to fix a bug, please **FIXME** [raise an issue](https://github.com/ibm/repo-template/issues) before sending a
+If you would like to fix a bug, please [raise an issue](https://github.com/ibm/ELM-Python-Client/issues) before sending a
 pull request so it can be tracked.
 
 ### Merge approval
@@ -34,16 +44,15 @@ For a list of the maintainers, see the [MAINTAINERS.md](MAINTAINERS.md) page.
 
 ## Legal
 
-Each source file must include a license header for the Apache
-Software License 2.0. Using the SPDX format is the simplest approach.
+Each source file must include a license header for the MIT License using the SPDX format is the simplest approach.
 e.g.
 
 ```
-/*
-Copyright <holder> All Rights Reserved.
-
-SPDX-License-Identifier: Apache-2.0
-*/
+#
+# Copyright <holder> All Rights Reserved.
+#
+# SPDX-License-Identifier: MIT
+#
 ```
 
 We have tried to make it as easy as possible to make contributions. This
@@ -69,16 +78,13 @@ git commit -s
 ```
 
 ## Communication
-**FIXME** Please feel free to connect with us on our [Slack channel](link).
+Please feel free to connect with us on our [Discussions](https://github.com/IBM/ELM-Python-Client/discussions).
 
 ## Setup
-**FIXME** Please add any special setup instructions for your project to help the developer
-become productive quickly.
+No specific setup, except installing for development extracting the zip download to a dedicated folder and then `pip install -e .`
 
 ## Testing
-**FIXME** Please provide information that helps the developer test any changes they make
-before submitting.
+Currently testing is by running `batchquery` using the included tests/tests.xlsx, against a private ELM server.
 
 ## Coding style guidelines
-**FIXME** Optional, but recommended: please share any specific style guidelines you might
-have for your project.
+Nothing specific, but preferably neater/more PEP8-compliant than the current code!

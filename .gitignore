@@ -1,0 +1,10 @@
+*.pyc
+.web_cache
+.venv
+*.log
+logs
+.cookies
+.cookies
+elmclient.egg-info
+build
+dist

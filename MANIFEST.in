@@ -1,0 +1,4 @@
+include elmclient/*.md
+include elmclient/examples/*.md
+include elmclient/tests/*.xlsx
+recursive-exclude elmclient *.pyc

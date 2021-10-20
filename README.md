@@ -1,77 +1,116 @@
-<!-- This should be the location of the title of the repository, normally the short name -->
-# repo-template
+# Python client for IBM Enterprise Lifecycle Management applications
 
-<!-- Build Status, is a great thing to have at the top of your repository, it shows that you take your CI/CD as first class citizens -->
-<!-- [![Build Status](https://travis-ci.org/jjasghar/ibm-cloud-cli.svg?branch=master)](https://travis-ci.org/jjasghar/ibm-cloud-cli) -->
 
-<!-- Not always needed, but a scope helps the user understand in a short sentance like below, why this repo exists -->
-## Scope
+ Python client for IBM Enterprise Lifecycle Management applications
 
-The purpose of this project is to provide a template for new open source repositories.
 
-<!-- A more detailed Usage or detailed explaination of the repository here -->
-## Usage
+ (c) Copyright 2021- IBM Inc. All rights reserved
+ SPDX-License-Identifier: MIT
 
-This repository contains some example best practices for open source repositories:
+ version="0.2.1"
 
-* [LICENSE](LICENSE)
-* [README.md](README.md)
-* [CONTRIBUTING.md](CONTRIBUTING.md)
-* [MAINTAINERS.md](MAINTAINERS.md)
-<!-- A Changelog allows you to track major changes and things that happen, https://github.com/github-changelog-generator/github-changelog-generator can help automate the process -->
-* [CHANGELOG.md](CHANGELOG.md)
 
-> These are optional
+Introduction
+============
 
-<!-- The following are OPTIONAL, but strongly suggested to have in your repository. -->
-* [dco.yml](.github/dco.yml) - This enables DCO bot for you, please take a look https://github.com/probot/dco for more details.
-* [travis.yml](.travis.yml) - This is a example `.travis.yml`, please take a look https://docs.travis-ci.com/user/tutorial/ for more details.
+The aim of this code is to provide a Python client for the IBM Enterprise Lifecycle Management applications.
 
-These may be copied into a new or existing project to make it easier for developers not on a project team to collaborate.
+IMPORTANT NOTES:
+* This code is not developed, delivered or supported in any way as part of the product
+* This code is not supported other than by the efforts of the author in this github repository
+* This code is not intended to be complete/comprehensive - it provides functionality needed by the examples and little else.
 
-<!-- A notes section is useful for anything that isn't covered in the Usage or Scope. Like what we have below. -->
-## Notes
+Included in this package are a few examples using `elmclient` which are reasonably functional:
+* OSLC Query able to work with DOORS Next (DN), Engineering Test Management (ETM), Engineering Workflow Management (EWM) and Global Configuration management (GCM)
+* ReqIF import/export for DOORS Next
+* Reportable REST for DOORS Next - very basic!
 
-**NOTE: While this boilerplate project uses the Apache 2.0 license, when
-establishing a new repo using this template, please use the
-license that was approved for your project.**
+There are links to these examples below.
 
-**NOTE: This repository has been configured with the [DCO bot](https://github.com/probot/dco).
-When you set up a new repository that uses the Apache license, you should
-use the DCO to manage contributions. The DCO bot will help enforce that.
-Please contact one of the IBM GH Org stewards.**
+Installation
+============
 
-<!-- Questions can be useful but optional, this gives you a place to say, "This is how to contact this project maintainers or create PRs -->
-If you have any questions or issues you can create a new [issue here][issues].
+Requirements:
 
-Pull requests are very welcome! Make sure your patches are well tested.
-Ideally create a topic branch for every separate change you make. For
-example:
+This version has **only been tested with Python 3.9.1 x64 on Windows 10 x64**. The only restrictive dependency that we are aware of is that the Requests package >2.24.0 doesn't appear to work when using a proxy (experienced when using Telerik Fiddler Classic to monitor communication to the server).
 
-1. Fork the repo
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Added some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+The move to 3.9.1 was relatively recent - this code may work with 3.8.x and possibly earlier versions. Trying to install with Python 3.10 failed trying to install `lxml` - there may be other problems as didn't get past this.
 
-## License
+The content on github is at https://github.com/IBM/ELM-Python-Client
 
-All source files must include a Copyright and License header. The SPDX license header is 
-preferred because it can be easily scanned.
+NOTE: the python package installed is call `elmclient`
 
-If you would like to see the detailed LICENSE click [here](LICENSE).
+Download the github zip.
 
-```text
-#
-# Copyright 2020- IBM Inc. All rights reserved
-# SPDX-License-Identifier: Apache2.0
-#
+Either, install using:
+
 ```
-## Authors
+python setup.py install
+```
 
-Optionally, you may include a list of authors, though this is redundant with the built-in
-GitHub list of contributors.
+This adds the example commands (e.g. `oslcquery`) to the Python Scripts folder - if this folder is in the path you can use the command from anywhere.
 
-- Author: New OpenSource IBMer <new-opensource-ibmer@ibm.com>
 
-[issues]: https://github.com/IBM/repo-template/issues/new
+Or, if you want to run from source because you want to modify the code then download the github zip then you can extract it to a directory of your choice and install as an editable package by opening a command prompt in the directory and using the command:
+
+```
+pip install -e .
+```
+
+This installs the elmclient and puts example commands into your scripts so a) they can be run simply by typing the command, e.g. `oslcquery` and b) as you edit the source code these commands automatically use the latest code.
+
+
+Or, once the package is available from pypi it will be installed using `pip` (NOTE there's isn't a -e for editable install option when using `pip` to install from `pypi`):
+
+```
+pip install elmclient
+```
+
+This will install the provided example commands such as `oslcquery`, `batchquery`, `reqif_io`, etc. to the python scripts folder; for ease of use, when installing make sure this is in your path.
+
+
+Coding using the elmclient
+==========================
+
+The basis of using the elmclient is to first create a "server", then add the needed application(s) to it - typically just one application such as rm, or perhaps more applications such as rm and gc.
+
+Then you can use the API functions to find projects, components, configurations, etc.
+
+The DN reportable REST example provides a simple functional example with hard-coded values for the project, configuration and the artifact ID to be queried. This is the easy way to get into using elmclient - by modifying this example.
+
+The other examples add fairly complex details around the use of elmclient to provide a commandline interface and should provide again a starting point for further development.
+
+
+Authentication (in httpops.py)
+==============================
+
+The auth code works with form authentication using Liberty in local user registry, LDAP and OIDC (Jazz Authorisation Server) modes. Other modes haven't been tested. You'll have to provide a username and password. The examples `oslcquery` and `reqif_io` layer methods on top of this to allow saving obfuscated credentials to a file so you don't have to provide these on the commandline every time. See the code for these examples.
+
+
+Handling different context roots
+================================
+
+It's possible to install the ELM applications to run on non-standard context roots like /rm1 for DOORS Next, or /scm for EWM. This is handled in `elmclient` using APPSTRINGs. These specify the domain of an application using rm, jts, gc, ccm, qm, and the context root as a string without the leading /. So for example /rm1 would be specified as `rm:rm1`, or /scm would be specified as `ccm:scm`.
+
+For example, if your DN is on /rm then just specify `rm`. Or, if it's on /rm23 then specify `rm:rm23`.
+
+If more than one application is needed then use a comma separate list (without spaces). The main application is specified first, but if jts is also on /jts1 then your APPSTRING could be `rm:rm1,jts:jts1`.
+
+
+Example code provided
+=====================
+
+These examples drove the evolution of `elmclient`:
+
+* OSLC Query - read more [here](elmclient/examples/OSLCQUERY.md) - this is the largest example by quite a margin. It enables commandline export to CSV from the supported applications using an abstract syntax for OSLC Query.
+* ReqIF import/export - read more [here](elmclient/examples/REQIF_IO.md) - this allows limited CRUD of reqif definitions in DOORS Next, performing multiple reqif export using a definition, and multiple reqif import
+* DOORS Next Reportable REST - read more [here](elmclient/examples/DN_REPREST.md) - this is a very simple example of using `elmclient` to access the DOORS Next Reportable REST API
+
+
+Reporting issues, and contributing
+==================================
+
+If you find a problem with elmclient you can report it on the github issues; note this is just for elmclient code. All other issues will likely be closed immediately.
+
+You can do a pull request to propose updates - there's no guarantee of if/when/how these will be merged.
+

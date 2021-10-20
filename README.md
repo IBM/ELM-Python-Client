@@ -7,7 +7,7 @@
  (c) Copyright 2021- IBM Inc. All rights reserved
  SPDX-License-Identifier: MIT
 
- version="0.2.1"
+ version="0.2.2"
 
 
 Introduction

@@ -13,11 +13,11 @@
 Introduction
 ============
 
-The aim of this code is to provide a Python client for the IBM Enterprise Lifecycle Management applications.
+The aim of this code is to provide a Python client for the IBM Enterprise Lifecycle Management (ELM) applications.
 
 IMPORTANT NOTES:
-* This code is not developed, delivered or supported in any way as part of the product
-* This code is not supported other than by the efforts of the author in this github repository
+* This code is not developed, delivered or supported in any way as part of the IBm ELM applications
+* This code is not supported other than by the efforts of the author and contributors in this github repository
 * This code is not intended to be complete/comprehensive - it provides functionality needed by the examples and little else.
 
 Included in this package are a few examples using `elmclient` which are reasonably functional:

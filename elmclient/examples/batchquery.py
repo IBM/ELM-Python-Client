@@ -85,6 +85,7 @@ def do_tests(inputargs=None):
     parser.add_argument('-g', '--group', default=None, help="Comma-separated list of regex pattern to match groups to be run, in the worksheet Group column")
     parser.add_argument('-j', '--just', default=None, help="Comma-separated list of tests to run, matching the TestId column in the worksheet")
     parser.add_argument('-L', '--loglevel', default=None, help="Set logging level - default is None - choose from INFO/DEBUG/ERROR")
+    parser.add_argument('-r', '--reps', default=1, type=int, help="Number of times to repeat the selected tests (must be >=1")
     parser.add_argument('-s', '--save', action="store_true", help="UNFINISHED Retrieve and save query results forever (used to save reference for -t testing")
     parser.add_argument('-t', '--test', action="store_true", help="UNFINISHED Retrieve data and do comparison to test that results match saved results from -s")
     parser.add_argument('-w', '--sheetname', default=None, help='Name of the worksheet with tests (if not specified the workbook must only have one worksheet, which is used)')
@@ -92,8 +93,11 @@ def do_tests(inputargs=None):
 
     args = parser.parse_args(inputargs)
 
-    justtests = [j.strip() for j in args.just.split(",")] if args.just else []
+    if args.reps<1:
+        raise Exception( f"Reps must be >=1" )
 
+    justtests = [j.strip() for j in args.just.split(",")] if args.just else []
+    
     wb = XL.load_workbook(filename=args.spreadsheet,data_only=True)
 
     wss=wb.sheetnames
@@ -127,86 +131,88 @@ def do_tests(inputargs=None):
     npassed = 0
     nfailed = 0
     firstquery = True
-    for n,row in enumerate(rows):
-        testnumber = row['TestId']
-        if not testnumber:
-            continue
-        if row['Disable'] and row['Disable'].startswith('#'):
-            continue
-        if args.group:
-            if not row['Group']:
+    for rep in range(args.reps):
+        for n,row in enumerate(rows):
+            testnumber = row['TestId']
+            if not testnumber:
                 continue
-            rowgroups = [j.strip() for j in row['Group'].split(",")]
-            regexes = [j.strip() for j in args.group.split(",")]
-            if not any([re.match(regex,group) for regex in regexes for group in rowgroups]):
+            if row['Disable'] and row['Disable'].startswith('#'):
                 continue
-        if justtests and str(testnumber) not in justtests:
-            continue
-        print( f"=====================================================================\n{testnumber=} {row.get('Description','')}" )
-        exceptionexpected = True if row['ExceptionExpected'] else False
-        csvname = "test_"+str(testnumber)+".csv"
-        queryargs=[]
-        for k,v in xlstoargs.items():
-            if k not in colheadings:
-                raise Exception( f"Heading {k} not present in spreadsheet!" )
-            cellvalue=row[k]
-            if cellvalue is not None:
-                if v:
-                    # if there's an option
-                    cellvalue=str(row[k]).strip()
-                    # check for options where the value starts with - - these have to be specified using -o=value
-                    if cellvalue.startswith("-"):
-                        # use -o=value
-                        queryargs.append( f"{v}={cellvalue}" )
+            if args.group:
+                if not row['Group']:
+                    continue
+                rowgroups = [j.strip() for j in row['Group'].split(",")]
+                regexes = [j.strip() for j in args.group.split(",")]
+                if not any([re.match(regex,group) for regex in regexes for group in rowgroups]):
+                    continue
+            if justtests and str(testnumber) not in justtests:
+                continue
+                
+            print( f"=====================================================================\n{testnumber=} {row.get('Description','')}" )
+            exceptionexpected = True if row['ExceptionExpected'] else False
+            csvname = "test_"+str(testnumber)+".csv"
+            queryargs=[]
+            for k,v in xlstoargs.items():
+                if k not in colheadings:
+                    raise Exception( f"Heading {k} not present in spreadsheet!" )
+                cellvalue=row[k]
+                if cellvalue is not None:
+                    if v:
+                        # if there's an option
+                        cellvalue=str(row[k]).strip()
+                        # check for options where the value starts with - - these have to be specified using -o=value
+                        if cellvalue.startswith("-"):
+                            # use -o=value
+                            queryargs.append( f"{v}={cellvalue}" )
+                        else:
+                            # use -o value
+                            queryargs.append(v)
+                            queryargs.append(cellvalue)
                     else:
-                        # use -o value
-                        queryargs.append(v)
-                        queryargs.append(cellvalue)
-                else:
-                    queryargs.append(str(cellvalue).strip())
-        if args.save:
-            queryargs.extend(['-0','-O',csvname])
-        if args.test:
-            queryargs.extend(['-0','-2',csvname])
-        if args.loglevel and "-L" not in queryargs:
-            queryargs.extend(['-L',args.loglevel])
+                        queryargs.append(str(cellvalue).strip())
+            if args.save:
+                queryargs.extend(['-0','-O',csvname])
+            if args.test:
+                queryargs.extend(['-0','-2',csvname])
+            if args.loglevel and "-L" not in queryargs:
+                queryargs.extend(['-L',args.loglevel])
 
-        # handle cache control passing on to oslcquery
-        if firstquery:
-            # if this is first query run and we have to wipe cache:
-            if args.cachecontrol==1:
-                queryargs.extend( [ "-W" ] )
+            # handle cache control passing on to oslcquery
+            if firstquery:
+                # if this is first query run and we have to wipe cache:
+                if args.cachecontrol==1:
+                    queryargs.extend( [ "-W" ] )
+                elif args.cachecontrol==2:
+                    queryargs.extend( [ "-WW" ] )
+                firstquery = False
             elif args.cachecontrol==2:
                 queryargs.extend( [ "-WW" ] )
-            firstquery = False
-        elif args.cachecontrol==2:
-            queryargs.extend( [ "-WW" ] )
 
-        # run it
-        try:
-            if args.dryrun:
-                print( f"Dry-run: query commandline is: oslcquery {argstocmd(queryargs)}" )
-                result = 0
+            # run it
+            try:
+                if args.dryrun:
+                    print( f"Dry-run: query commandline is: oslcquery {argstocmd(queryargs)}" )
+                    result = 0
+                else:
+                    print( f"Query commandline is: oslcquery {argstocmd(queryargs)}" )
+                    result = querymain.do_oslc_query(queryargs)
+                exceptionhappened = False
+            except Exception as e:
+                print( e )
+                result = 1
+                exceptionhappened = True
+    #            if not exceptionexpected:
+    #                raise
+            if (result != 0 and not exceptionexpected) or (result == 0 and exceptionexpected):
+                    nfailed += 1
+
+                    print( f" TEST {testnumber} FAILED!!!!!!!!!!!!!!!!!!!!!\n" )
+                    if args.stoponfail:
+                        print( f"Stopping after first failure, {rep} repetitions" )
+                        return
             else:
-                print( f"Query commandline is: oslcquery {argstocmd(queryargs)}" )
-                result = querymain.do_oslc_query(queryargs)
-            exceptionhappened = False
-        except Exception as e:
-            print( e )
-            result = 1
-            exceptionhappened = True
-#            if not exceptionexpected:
-#                raise
-        if (result != 0 and not exceptionexpected) or (result == 0 and exceptionexpected):
-                nfailed += 1
-
-                print( f" TEST {testnumber} FAILED!!!!!!!!!!!!!!!!!!!!!\n" )
-                if args.stoponfail:
-                    print( "Stopping after first failure" )
-                    return
-        else:
-            print( f"Test {testnumber} passed!" )
-            npassed += 1
+                print( f"Test {testnumber} passed!" )
+                npassed += 1
 
     if not args.dryrun:
         print( f"\nPassed {npassed} Failed {nfailed}" )

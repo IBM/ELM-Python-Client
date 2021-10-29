@@ -86,6 +86,8 @@ class _App( httpops.HttpOperations_Mixin ):
         return result
 
     def find_projectname_from_uri(self,name_or_uri):
+        self._load_projects()
+            
         if self.is_project_uri(name_or_uri):
             # find the project
             if name_or_uri in self._projects:
@@ -297,6 +299,13 @@ class _App( httpops.HttpOperations_Mixin ):
                     raise Exception( f"User {name} is not known on this server" )
                 return None
         raise Exception(f"Bad user  name {name}")
+
+    def resolve_project_nametouri(self, name, raiseifinvalid=True):
+        # find project for name
+        self._load_projects()
+        result = self._projects.get(name)
+        print( f"resolve_project_nametouri {name} {result}" )
+        return result
 
 #################################################################################################
 

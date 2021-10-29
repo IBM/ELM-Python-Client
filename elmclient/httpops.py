@@ -302,9 +302,13 @@ class HttpRequest():
     # categorize a Requests .send() exception e as to whether is retriable
     def _is_retryable_error(self, e):
         if self._session.auto_retry:
-            if e.response.status_code in [http.client.REQUEST_TIMEOUT,
-                                          http.client.LOCKED, http.client.INTERNAL_SERVER_ERROR,
-                                          http.client.SERVICE_UNAVAILABLE]:
+            if e.response.status_code in [
+                                                http.client.REQUEST_TIMEOUT,
+                                                http.client.LOCKED, 
+                                                http.client.INTERNAL_SERVER_ERROR,
+                                                http.client.SERVICE_UNAVAILABLE,
+#                                                http.client.BAD_REQUEST
+                                        ]:
                 return True
         return False
 

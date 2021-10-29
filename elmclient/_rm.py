@@ -539,7 +539,7 @@ class _RMProject(_project._Project):
         # get the query capability base URL
         qcbase = self.get_query_capability_uri("oslc_rm:Requirement")
         results = self.execute_oslc_query( qcbase, whereterms=[['dcterms:identifier','=',str(reqid)]],select=['rm_nav:parent'], prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms',rdfxml.RDF_DEFAULT_PREFIX["rm_nav"]:'rm_nav'})
-        logger.debug( f"{results=}" )
+        logger.debug( f"resolve_reqid_to_module_uris {results=}" )
         if len( results.keys() ) == 0:
             requris = None
         else:
@@ -549,6 +549,20 @@ class _RMProject(_project._Project):
                 if results[k].get('rm_nav:parent',None) is None:
                     requris.append(k)
         return requris
+
+    def resolve_modulename_to_uri( self, modulename ):
+        # get the query capability base URL
+        qcbase = self.get_query_capability_uri("oslc_rm:Requirement")
+        results = self.execute_oslc_query( qcbase, whereterms=[['and', ['dcterms:title','=',f'"{modulename}"'],['rdm_types:ArtifactFormat','=','jazz_rm:Module']]], prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms',rdfxml.RDF_DEFAULT_PREFIX["rdm_types"]:'rdm_types',rdfxml.RDF_DEFAULT_PREFIX["jazz_rm"]:'jazz_rm'})
+        logger.debug( f"resolve_modulename_to_uri {results=}" )
+        if len( results.keys() ) == 0:
+            result = None
+        else:
+            if len( results.keys() ) > 1:
+                raise Exception( f"More than one module named {modulename}!" )
+            result = list(results.keys())[0]
+            logger.info( f"rmtu {result=}" )
+        return result
 
     def resolve_uri_to_reqid( self, requri ):
         pass

@@ -76,6 +76,7 @@ value              : URI_REF_ESC
                     | valueidentifier
                     | urioffoldername
                     | uriofuser
+                    | uriofmodule
 
 valueidentifier     : ( ( URI_REF_ESC | NAME | "'" SPACYNAME "'" ) ":" )? NAME
                     | "'" SPACYNAME "'"
@@ -90,6 +91,8 @@ SPACYNAME           : /[a-zA-Z0-9_][^']*/
 urioffoldername     : "$" string_esc
 
 uriofuser           : "@" string_esc
+
+uriofmodule         : "^" string_esc
 
 typedliteralstring  : string_esc (langtag | ("^^" prefixedname))
 
@@ -162,7 +165,6 @@ where_expression    : compound_term
 
 # leafs of the tree are called first, returning results upwards
 class _ParseTreeToOSLCQuery(lark.visitors.Transformer):
-#    def __init__(self, shaperesolver=None, nameresolver=None, valueresolver=None,folder_nametouri_resolver=None,folder_uritoname_resolver=None,user_nametouri_resolver=None,user_uritoname_resolver=None):
     def __init__(self,resolverobject):
         super().__init__()
         self.resolverobject = resolverobject
@@ -170,6 +172,8 @@ class _ParseTreeToOSLCQuery(lark.visitors.Transformer):
         self.mapping_identifer_to_uri = {}
         self.mapping_folders = {} # contains both: key name->uri and key uri->name (uris and names never overlap)
         self.mapping_users = {} # contains both: key name->uri and key uri->name (uris and names never overlap)
+        self.mapping_modules = {} # contains both: key name->uri and key uri->name (uris and names never overlap)
+        self.mapping_projects = {} # contains both: key name->uri and key uri->name (uris and names never overlap)
 
     def where_expression(self, s):
         logger.debug( f"where_expression {s=}" )
@@ -334,7 +338,7 @@ class _ParseTreeToOSLCQuery(lark.visitors.Transformer):
             self.mapping_folders[uri]=name
             result = "<"+uri.folderuri+">"
         else:
-            raise Exception( "This application doesn'tsupport folder names!" )
+            raise Exception( "This application doesn't support folder names!" )
         return result
 
     def uriofuser(self,s):
@@ -348,8 +352,38 @@ class _ParseTreeToOSLCQuery(lark.visitors.Transformer):
             self.mapping_users[uri]=name
             result = "<"+uri+">"
         else:
-            raise Exception( "This application doesn'tsupport users names!" )
+            raise Exception( "This application doesn't support users names!" )
         return result
+
+    def uriofmodule(self,s):
+        logger.info( f"uriofmodule {s=}" )
+        name=s[0].strip('"')
+        if self.resolverobject.resolve_modulename_to_uri is not None:
+            uri = self.resolverobject.resolve_modulename_to_uri(name)
+            if uri is None:
+                raise Exception( f"Module name {name} not found!" )
+            logger.info( f"uriofmodule {uri=}" )
+            self.mapping_modules[name]=uri
+            self.mapping_modules[uri]=name
+            result = "<"+uri+">"
+        else:
+            raise Exception( "This application doesn't support module names!" )
+        return result
+
+#    def uriofproject(self,s):
+#        logger.info( f"uriofproject {s=}" )
+#        name=s[0].strip('"')
+#        if self.resolverobject.resolve_project_nametouri is not None:
+#            uri = self.resolverobject.resolve_project_nametouri(name)
+#            if uri is None:
+#                raise Exception( f"Project name {name} not found!" )
+#            logger.info( f"{uri=}" )
+#            self.mapping_projects[name]=uri
+#            self.mapping_projects[uri]=name
+#            result = "<"+uri+">"
+#        else:
+#            raise Exception( "This application doesn't support project names!" )
+#        return result
 
     def valueidentifier(self, s):
         logger.info( f"valueidentifier {s=}" )

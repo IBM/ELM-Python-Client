@@ -16,7 +16,7 @@ Introduction
 The aim of this code is to provide a Python client for the IBM Enterprise Lifecycle Management (ELM) applications.
 
 IMPORTANT NOTES:
-* This code is not developed, delivered or supported in any way as part of the IBm ELM applications
+* This code is not developed, delivered or supported in any way as part of the IBM ELM applications
 * This code is not supported other than by the efforts of the author and contributors in this github repository
 * This code is not intended to be complete/comprehensive - it provides functionality needed by the examples and little else.
 
@@ -32,15 +32,25 @@ Installation
 
 Requirements:
 
-This version has **only been tested with Python 3.9.1 x64 on Windows 10 x64**.
+This version has been tested with:
+* Python 3.9.1 x64 on Windows 10 x64**.
+* Python 3.9.6 x64 on CentOS (Redhat) 8.4
 
-The move to 3.9.1 was relatively recent - this code may work with 3.8.x and possibly earlier versions. Trying to install using `pip` with Python 3.10 failed when getting `lxml` - there may be other problems as didn't get past this.
+The only version constraint of the requirements is on Windows that requests==2.24.0 and urllib3==1.25.11 - On Windows there seems to be a problem with requests>=2.25.0 (latest is 2.26.0) when using Fiddler proxy on port 8888.
+
+The move to Python 3.9 was relatively recent - this code may work with 3.8.x and possibly earlier versions. Trying to install with Python 3.10 using `pip` failed when getting `lxml` - there may be other problems as didn't get past this.
 
 The content on github is at https://github.com/IBM/ELM-Python-Client
 
 NOTE: the python package installed is call `elmclient`
 
-Download the github zip.
+FIRST option is to install from the github.com zip:
+
+Download the github zip:
+
+* wget https://github.com/IBM/ELM-Python-Client/archive/refs/heads/master.zip
+
+Unzip to its own folder and open a command prompt in that folder.
 
 Either, install using:
 
@@ -60,13 +70,15 @@ pip install -e .
 This installs the elmclient and puts example commands into your scripts so a) they can be run simply by typing the command, e.g. `oslcquery` and b) as you edit the source code these commands automatically use the latest code.
 
 
-Or, once the package is available from pypi it will be installed using `pip` (NOTE there's isn't a -e for editable install option when using `pip` to install from `pypi`):
+SECOND option its to install from pypi using pip:
+
+The package is available from pypi it will be installed using `pip` (NOTE there's isn't a -e for editable install option when using `pip` to install from `pypi`):
 
 ```
 pip install elmclient
 ```
 
-This will install the provided example commands such as `oslcquery`, `batchquery`, `reqif_io`, etc. to the python scripts folder; for ease of use, when installing make sure this is in your path.
+This will install the provided example commands such as `oslcquery`, `batchquery`, `reqif_io`, etc. to the python scripts folder; for ease of use, when installing Python make sure this is in your path.
 
 
 Coding using the elmclient

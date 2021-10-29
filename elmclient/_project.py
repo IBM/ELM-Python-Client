@@ -328,6 +328,9 @@ class _Project(oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixin
     def user_uritoname_resolver(self, uri):
         return self.app.user_uritoname_resolver( uri )
 
+    def resolve_project_nametouri(self, name, raiseifinvalid=True):
+        return self.app.resolve_project_nametouri( name, raiseifinvalid=raiseifinvalid)
+
     def _generic_load_type_from_resource_shape(self, el, supershape=None):
         logger.debug( "Starting a shape")
         uri = rdfxml.xmlrdf_get_resource_uri(el)

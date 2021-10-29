@@ -420,6 +420,12 @@ To query for views: there is a prefix `rm_view` defined which allows using the v
 
 To query for Reqif definitions: there is a prefix `rm_reqif` defined which allows using the Reqif definition query capability like this: `oslcquery myproject -r rm_reqif:ReqIFDefinition`. For information and limitations of Reqifdefinition query, see https://jazz.net/wiki/bin/view/Main/DNGReqIF
 
+To find all artifacts in project/component in a specific module id 3892 `-q rm:module=~3892` - NOTE this is using the enhanced OSLC Query sytnax
+
+To find all artifacts in project/component in a specific module id 3892 modified since a specific date `-q rm:module=~3892 and dcterms:modified>"2020-08-01T21:51:40.979Z"^^xsd:dateTime` - NOTE this is using the enhanced OSLC Query sytnax for finding an artifact by id using ~
+
+To find all artifacts in project/component in a specific module id 3892 modified before a specific date `-q rm:module=~3892 and dcterms:modified<"2020-08-01T21:51:40.979Z"^^xsd:dateTime` - NOTE this is using the enhanced OSLC Query sytnax for finding an artifact by id using ~
+
 
 GCM basic usage
 ===============
@@ -468,16 +474,17 @@ Enhancements provided within an OSLC Query are:
 * For DN you can reference the name of a folder by prefixing the name with $ e.g. `rm_nav:parent=$"00 Requirements"` - NOTE If a folder name is unique you don't have to specify its path. Otherwise start the string with / and specify the full folder path finishing with the desired folder name
 * For DN you can reference a single core artifact e.g. id 1234 using syntax ~1234 - you can use this on the rhs of a query like `Satisfies=~1234` os `"Satisfies in [~1234,~7890]"` to match links to the core artifact - there's no way of specifying that the link must be from a core artifact - you can do that by adding e.g. `-v rm_nav:parent` to filter out non-core artifacts.
 * For DN you can reference any number of module artifacts for e.g. id 1234 using syntax *1234 - NOTE you can only use this as a query like `"Satisfies in [*1234,*7980]"` to match links to any number of (reused) module artifacts with that ID.
-* For EWM some property names are repeated on different shapes (work item types), and all properties are shape-specific (apart from `rtc_cm:type`). To refer to a shape-specific property use e.g. `Defect.Status` - if a name includes a space then put ' around it e.g. `Defect.'Work Status'` or `'Task Item'.'Work Status'`
+* For DN to reference a module by name use ^"module name" (quotes are required even if module name doesn't have a space)
+* For EWM some property names are repeated on different shapes (work item types), and all properties are shape-specific (apart from `rtc_cm:type`). To refer to a shape-specific property use e.g. `Defect.Status` - if a name includes a space then put ' around it e.g. `Defect.'Work Status'` or `'Task Item'.'Work Status'
 * For EWM Some property names are repeated within a shape - in this case an alternate name (altname) is displayed in the type system report - use the altname instead of the property name.
 * There are built-in RDF prefixes which can be displayed using the type system report.
-* This isn't part of the query syntax, but options -n and -v will post filter the query results to keep only artifacts with the named property not present (-n) or present (-v). This is useful to filter query results for example to keep only resources with a Satisfies link by specifing `-v Satisfies`, or without a Satisfies link by specifying `-n Satisfies`.
+* This isn't part of the query syntax, but options -n and -v will post filter the query results to keep only artifacts with the named property not present (-n) or present (-v). This is useful to filter query results for example for DN to keep only resources with a Satisfies link by specifing `-v Satisfies`, or without a Satisfies link by specifying `-n Satisfies`.
 
 Combining OSLC queries:
-* Apart from the `in` test, OSLC Queries are logical 'and' - no doubt this keeps the implementation simpler, but it can feel limiting, so this application provides syntax to combine multiple queries with OR and AND syntax.
-* By bracketing each OSLC query, these can be combined with set intersection (&&) and union (||) - NOTE that this is postprocessing, i.e. each of the OSLC Queries is made in full and then the results combined based on the resource URI. Each query selects the same properties, and each resource only appears in the overall results once. For example (although not sure this particular example makes much sense):
+* Apart from the `in` test, OSLC Queries are logical 'and' - no doubt this keeps the implementation simpler, but it can feel limiting, so this application provides syntax to combine multiple queries set-wise by surround each query with brackets ( ) with OR and AND syntax.
+* By bracketing each OSLC query, these can be combined with set intersection (&&) and union (||) - NOTE that this is post-processing, i.e. each of the OSLC Queries is made in full and then the results combined based on the resource URI. Each query selects the same properties, and each resource only appears in the overall results once. For example (although not sure this particular example makes much sense):
 ```
-     -q "( Status=Approved ) ||  ( ( Status=Rejected and Priority=Low ) || ( Severity=High) )"
+     -q "( Status=Approved ) ||  ( ( Status=Rejected and Priority=Low ) && ( Severity=High) )"
 ```
 NOTE this example will require three queries to be made to your server, one for each bracketed OSLC Query.
 
@@ -496,10 +503,12 @@ Server URLs, user IDs and Passwords, and obfuscated credentials
 Your query has to know what server URL to use, what the context roots for the jts and your target application are, what user id and what password to use for authentication.
 
 To specify these there are a range of methods, from simplest (but needs most typing) to, err, better:
+
 * The simplest way to provide your credentials is to specify them explicitly on the commandline whenever you run oslcquery.
 ```
 oslcquery -J https://myserver:port -U measadmin -P secret -A rm:rm1,jts:jts23 "My Project" -q dcterms:identifier=43
 ```
+
 * A less intrusive method useful if you're mostly querying one application is to set environment variables - NOTE you can override these on the commandline:
 ```
 set QUERY_JAZZURL=https://myserver:port
@@ -508,6 +517,7 @@ set QUERY_PASSWORD=secret
 set QUERY_APPSTRING=rm:rm1,jts:jts23
 oslcquery "My Project" -q dcterms:identifier=43
 ```
+
 * Using obfuscated credentials
 
 You can create a file containing obfuscated details which are very convenient particularly if wanting to query against multiple applications, because you just specify the credentials file corresponding to the server you want to use. The file content is encrypted, but as the source code is available it isn't terribly difficult to figure out how this done, which is why the term 'obfuscation' is used here; unless you take the option to provide a runtime password then the obfuscation can with some work be de-obfuscated. There are some basic protections against simply copying the credentials file built into the obfuscation irrespective of using the commandline or runtime password.
@@ -550,7 +560,7 @@ TO BE CLEAR: **NOTE the credentials file is only obfuscated, i.e. it's pretty ea
 Running a batch of queries, for regression testing or to automate data export
 =============================================================================
 
-There is an experimental (i.e. unfinished) `batchquery` application which can be used to do a simple regression test or to automate a series of queries. Examples of tests and results are below the tests folder. The example tests are in `test.xlsx` - it currently contains ~60 tests across all four ELM applications and also simple tests for the obfuscated credentials options.
+There is an experimental (i.e. unfinished) `batchquery` application which can be used to do a simple regression test or to automate a series of queries. Examples of tests and results are below the tests folder. The example tests are in `test.xlsx` - it currently contains >60 tests across all four ELM applications and also simple tests for the obfuscated credentials options.
 
 At this stage in the development of `batchquery` regression testing is very simply by comparing the number of results retrieved with an expected number. Obviously the tests specified in the spreadsheet relate to the data source tested aginst so you will have to adapt the spreadsheet with the data available to you.
 

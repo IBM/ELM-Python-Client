@@ -101,8 +101,8 @@ optional arguments:
   -v VALUE, --value VALUE
                         Post-filter: A property name that must have a value for the resource to be included in the results - you can specify this option more than once
   -A APPSTRINGS, --appstrings APPSTRINGS
-                        A comma-seperated list of apps, the query goes to the first entry, default "rm,gc,ccm". Each entry must be a domain or domain:contextroot e.g. rm
-                        or rm:rm1 - Default can be set using environemnt variable QUERY_APPSTRINGS
+                        A comma-seperated list of apps, the query goes to the first entry, default "rm". Each entry must be a domain or domain:contextroot e.g. rm
+                        or rm:rm1 - Default can be overridden using environemnt variable QUERY_APPSTRINGS
   -C COMPONENT, --component COMPONENT
                         The local component (optional, you *have* to specify the local configuration using -F)
   -D DELAYBETWEENPAGES, --delaybetweenpages DELAYBETWEENPAGES
@@ -412,15 +412,15 @@ To find all System Requirements without outgoing Satisfies link: `-q "oslc:insta
 
 To include Satisfies link in output file: `-s Satisfies -O artifacts_including_satisfaction.csv`
 
-To find all artifacts in any component in an opt-in DN project which has one or more components contributing to a global configuration called e.g. `gccomp Initial Development' in a GC project called 'gcproj': `-E gcproj -G "gccomp Initial Development"`
+To find all artifacts in any component in an opt-in DN project which has one or more components contributing to a global configuration called e.g. `gccomp Initial Development' in a GC project called 'gcproj': `-A rm,gc -E gcproj -G "gccomp Initial Development"`
 
-To query for folders: there is a prefix `rm_nav` defined which allows using the folder query capability like this: `oslcquery myproject -r rm_nav:folder` NOTE DN does not handle any select or where parameters to this query.  NOTE this returns the result of the Folder Query Capability which is just the root folder shown as "/" - an option to retrieve all folders isn't currently provided by oslcquery - this requires a series of queries, the next one being from the root folder.
+To query for folders: there is a pre-defined prefix `rm_nav` defined which allows using the folder query capability like this: `oslcquery myproject -r rm_nav:folder` NOTE DN does not handle any select or where parameters to this query.  NOTE this returns the result of the Folder Query Capability which is just the root folder shown as "/" - an option to retrieve all folders isn't currently provided by oslcquery - this requires a series of queries, the next one being from the root folder.
 
 To query for views: there is a prefix `rm_view` defined which allows using the view query capability like this: `oslcquery myproject -r rm_view:View`
 
 To query for Reqif definitions: there is a prefix `rm_reqif` defined which allows using the Reqif definition query capability like this: `oslcquery myproject -r rm_reqif:ReqIFDefinition`. For information and limitations of Reqifdefinition query, see https://jazz.net/wiki/bin/view/Main/DNGReqIF
 
-To find all artifacts in project/component in a specific module id 3892 `-q rm:module=~3892` - NOTE this is using the enhanced OSLC Query sytnax
+To find all artifacts in project/component in a specific module id 3892 `-q rm:module=~3892` - NOTE this is using the enhanced OSLC Query syntax (see below)
 
 To find all artifacts in project/component in a specific module id 3892 modified since a specific date `-q rm:module=~3892 and dcterms:modified>"2020-08-01T21:51:40.979Z"^^xsd:dateTime` - NOTE this is using the enhanced OSLC Query sytnax for finding an artifact by id using ~
 

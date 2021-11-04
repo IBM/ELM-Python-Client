@@ -60,7 +60,7 @@ def do_oslc_query(inputargs=None):
     USER        = os.environ.get("QUERY_USER"       ,"ibm" )
     PASSWORD    = os.environ.get("QUERY_PASSWORD"   ,"ibm" )
     JTS         = os.environ.get("QUERY_JTS"        ,"jts" )
-    APPSTRINGS  = os.environ.get("QUERY_APPSTRINGS" ,"rm,gc,ccm" )
+    APPSTRINGS  = os.environ.get("QUERY_APPSTRINGS" ,"rm" )
     LOGLEVEL    = os.environ.get("QUERY_LOGLEVEL"   ,None )
 
     # setup arghandler
@@ -140,7 +140,7 @@ def do_oslc_query(inputargs=None):
 #        if args.secret is None:
 #            raise Exception( "You MUST specify a secret using -3 or --secret if using -0/--readcreads" )
         try:
-            args.username,args.password,args.jazzurl,args.appstrings = json.loads( utils.fernet_decrypt(open(args.readcreds,"rb").read(),"=-=".join([socket.getfqdn(),os.path.abspath(args.readcreds),os.getcwd(),os.getenv('username'),args.secret,credspassword])) )
+            args.username,args.password,args.jazzurl,args.appstrings = json.loads( utils.fernet_decrypt(open(args.readcreds,"rb").read(),"=-=".join([socket.getfqdn(),os.path.abspath(args.readcreds),os.getcwd(),getpass.getuser(),args.secret,credspassword])) )
         except (cryptography.exceptions.InvalidSignature,cryptography.fernet.InvalidToken, TypeError):
             raise Exception( f"Unable to decrypt credentials from {args.readcreds}" )
         print( f"Credentials file {args.readcreds} read" )
@@ -148,7 +148,7 @@ def do_oslc_query(inputargs=None):
     if args.savecreds:
         if args.secret is None:
             raise Exception( "You MUST specify a secret using -3 or --secret if using -1/--savecreads" )
-        open(args.savecreds,"wb").write(utils.fernet_encrypt(json.dumps([args.username,args.password,args.jazzurl,args.appstrings]).encode(),"=-=".join([socket.getfqdn(),os.path.abspath(args.savecreds),os.getcwd(),os.getenv('username'),args.secret,credspassword]),utils.ITERATIONS))
+        open(args.savecreds,"wb").write(utils.fernet_encrypt(json.dumps([args.username,args.password,args.jazzurl,args.appstrings]).encode(),"=-=".join([socket.getfqdn(),os.path.abspath(args.savecreds),os.getcwd(),getpass.getuser(),args.secret,credspassword]),utils.ITERATIONS))
         print( f"Credentials file {args.savecreds} created" )
         return 0
 
@@ -497,7 +497,7 @@ def do_oslc_query(inputargs=None):
 
     # THIS IS UNTESTED!
     if args.outputfile or args.compareresults:
-        # write to CSV
+        # write to CSV and/or compare with CSV
         # build a list of all properties - these will be column headings for the CSV
         headings = []
         for k, v in list(results.items()):

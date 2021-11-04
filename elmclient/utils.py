@@ -17,16 +17,30 @@ import cryptography.hazmat.backends
 import cryptography.hazmat.primitives
 import cryptography.hazmat.primitives.kdf.pbkdf2
 
-logger = logging.getLogger(__name__)
-
 ############################################################################
 # setup logging
+
+# from https://stackoverflow.com/a/55276759/2318649
+
+import logging
+import functools
+
+# the TRACE level is between warning and info so the httpops can just log communication with the server without getting all the other info logs
+logging.TRACE = 25
+logging.addLevelName(logging.TRACE, 'TRACE')
+logging.Logger.trace = functools.partialmethod(logging.Logger.log, logging.TRACE)
+logging.trace = functools.partial(logging.log, logging.TRACE)
+
+#
+
+logger = logging.getLogger(__name__)
 
 LOGFOLDER = './logs'
 
 loglevels = {
         'DEBUG':        logging.DEBUG
         ,'INFO':        logging.INFO
+        ,'TRACE':       logging.TRACE
         ,'WARNING':     logging.WARNING
         ,'ERROR':       logging.ERROR
         ,'CRITICAL':    logging.CRITICAL
@@ -40,8 +54,8 @@ def setup_logging(consolelevel=None, filelevel=logging.INFO):
     if filelevel is not None or consolelevel is not None:
         # set default logging level
         log = logging.getLogger()  # init the root logger
-        log.setLevel(logging.DEBUG)
-
+#        log.setLevel(logging.DEBUG)
+        log.setLevel(max(filelevel or 0,consolelevel or 0))
         # make a formatter to use for the file logs
         filelogformatter = logging.Formatter("%(asctime)s [%(levelname)-5s|%(name)s] %(message)s")
 

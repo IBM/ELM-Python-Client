@@ -10,6 +10,7 @@ import inspect
 import logging
 import lxml.etree as ET
 import re
+import time
 import urllib
 
 import requests
@@ -94,7 +95,7 @@ class HttpOperations_Mixin():
         super().__init__()
 
 
-    def execute_get_xml(self, reluri='', *, params=None, headers=None, cacheable=True):
+    def execute_get_xml(self, reluri, *, params=None, headers=None, cacheable=True):
         reqheaders = {'Accept': 'application/xml'}
         if headers is not None:
             reqheaders.update(headers)
@@ -103,7 +104,7 @@ class HttpOperations_Mixin():
         result = ET.ElementTree(ET.fromstring(response.content))
         return result
 
-    def execute_get_rdf_xml(self, reluri='', *, params=None, headers=None,cacheable=True):
+    def execute_get_rdf_xml(self, reluri, *, params=None, headers=None,cacheable=True):
         if params is None:
             params = {}
         reqheaders = {'Accept': 'application/rdf+xml', 'OSLC-Core-Version': '2.0'}
@@ -114,7 +115,7 @@ class HttpOperations_Mixin():
         result = ET.ElementTree(ET.fromstring(response.content))
         return result
 
-    def execute_post_rdf_xml(self, reluri='', *, data=None, params=None, headers=None, cacheable=True, put=False):
+    def execute_post_rdf_xml(self, reluri, *, data=None, params=None, headers=None, cacheable=True, put=False):
         reqheaders = {'Accept': 'application/xml', 'Content-Type': 'application/rdf+xml'}
         if headers is not None:
             reqheaders.update(headers)
@@ -122,7 +123,7 @@ class HttpOperations_Mixin():
         response = request.execute(cacheable=cacheable)
         return response
 
-    def execute_delete(self, reluri='', *, params=None, headers=None):
+    def execute_delete(self, reluri, *, params=None, headers=None):
         reqheaders = {'Accept': 'application/xml', 'Content-Type': 'application/rdf+xml'}
         if headers is not None:
             reqheaders.update(headers)
@@ -130,7 +131,7 @@ class HttpOperations_Mixin():
         response = request.execute(cacheable=cacheable)
         return response
 
-    def execute_get_json(self, reluri='', *, params=None, headers=None,cacheable=True):
+    def execute_get_json(self, reluri, *, params=None, headers=None,cacheable=True):
         reqheaders = {'Accept': 'application/json'}
         if headers is not None:
             reqheaders.update(headers)
@@ -139,7 +140,7 @@ class HttpOperations_Mixin():
         result = json.loads(response.content)
         return result
 
-    def execute_get_binary( self, reluri='', *, params=None, headers=None, cacheable=True):
+    def execute_get_binary( self, reluri, *, params=None, headers=None, cacheable=True):
         reqheaders = {}
         if headers is not None:
             reqheaders.update(headers)
@@ -158,7 +159,7 @@ class HttpOperations_Mixin():
         response = request.execute(cacheable=cacheable)
         return response
 
-    def execute_get(self, reluri='', *, params=None, headers=None, cacheable=True):
+    def execute_get(self, reluri, *, params=None, headers=None, cacheable=True):
         reqheaders = {}
         if headers is not None:
             reqheaders.update(headers)
@@ -168,7 +169,7 @@ class HttpOperations_Mixin():
         return result
 
     # return the response (used to get at response headers such as etag)
-    def execute_get_raw(self, reluri='', *, params=None, headers=None, cacheable=True):
+    def execute_get_raw(self, reluri, *, params=None, headers=None, cacheable=True):
         reqheaders = {}
         if headers is not None:
             reqheaders.update(headers)
@@ -234,8 +235,8 @@ class HttpRequest():
             except requests.RequestException as e:
                 if wait_dur == 0 or not self._is_retryable_error(e):
                     raise
-                logger.info( f"Got error on HTTP request. URL: {request.url}, {e.response.status_code}, {e.response.text}")
-                logger.warning( f'RETRY: Retry after {wait_dur} seconds... URL: {request.url}' )
+                logger.info( f"Got error on HTTP request. URL: {self._req.url}, {e.response.status_code}, {e.response.text}")
+                logger.warning( f'RETRY: Retry after {wait_dur} seconds... URL: {self._req.url}' )
                 time.sleep(wait_dur)
         raise Exception('programming error this point should never be reached')
 
@@ -307,7 +308,7 @@ class HttpRequest():
                                                 http.client.LOCKED, 
                                                 http.client.INTERNAL_SERVER_ERROR,
                                                 http.client.SERVICE_UNAVAILABLE,
-#                                                http.client.BAD_REQUEST
+                                                http.client.BAD_REQUEST
                                         ]:
                 return True
         return False
@@ -335,9 +336,9 @@ class HttpRequest():
         # actually (try to) do the request
         try:
             prepped = self._session.prepare_request(request)
-            logger.debug( f"\nWIRE: do_execute request +++++ {request.method} {request.url}\n\n{self._log_request(prepped)}")
+            logger.trace( f"\nWIRE: do_execute request +++++ {request.method} {request.url}\n\n{self._log_request(prepped)}")
             response = self._session.send(prepped )
-            logger.debug(f"\nWIRE: do_execute response ----- {response.status_code}\n\n{self._log_response(response)}")
+            logger.trace(f"\nWIRE: do_execute response ----- {response.status_code}\n\n{self._log_response(response)}")
 
             response.raise_for_status()
 
@@ -345,30 +346,30 @@ class HttpRequest():
             # a special header (in which case the response is not the data requested)
             if 'X-com-ibm-team-repository-web-auth-msg' in response.headers:
                 if response.headers['X-com-ibm-team-repository-web-auth-msg'] == 'authrequired':
-                    logger.debug("WIRE: auth required")
+                    logger.trace("WIRE: auth required")
                     self._session.is_authenticated = False
                     response = self._jazz_form_authorize(request.url, request, response)
                     self._session.is_authenticated = True
-                    logger.debug("WIRE: auth done - retrying")
+                    logger.trace("WIRE: auth done - retrying")
                     retry_after_login_needed = True
 
         except requests.HTTPError as e:
             if not no_error_log:
-                logger.debug( f"HTTPError {e}" )
+                logger.trace( f"HTTPError {e}" )
             if e.response.status_code == 401 and 'X-jazz-web-oauth-url' in e.response.headers:
-                logger.debug("WIRE: need non-JAS login")
+                logger.trace("WIRE: need non-JAS login")
                 self._session.is_authenticated = False
                 auth_url = e.response.headers['X-jazz-web-oauth-url']
                 login_response = self._login(auth_url)
                 if login_response:
-                    logger.debug("WIRE: NOT retrying")
+                    logger.trace("WIRE: NOT retrying")
                     response = login_response
                 else:
-                    logger.debug("WIRE: retrying")
-                    logger.debug( f"Auth completed (in theory) result - 1" )
+                    logger.trace("WIRE: retrying")
+                    logger.trace( f"Auth completed (in theory) result - 1" )
                     retry_after_login_needed = True
             elif e.response.status_code == 401 and 'X-JSA-AUTHORIZATION-REDIRECT' in e.response.headers:
-                logger.debug("WIRE: JAS Login required!")
+                logger.trace("WIRE: JAS Login required!")
                 if 'WWW-Authenticate' not in e.response.headers:
                     raise Exception( "Login not possible because response has X-JSA-AUTHORIZATION-REDIRECT but no WWW-Authenticate header")
                 else:
@@ -380,17 +381,17 @@ class HttpRequest():
                 login_response = self._jsa_login(auth_url)
                 self._session.is_authenticated = True
                 if login_response:
-                    logger.debug("WIRE: Response received after JAS login")
+                    logger.trace("WIRE: Response received after JAS login")
                     response = login_response
-                    logger.debug( f"Auth completed (in theory) result - 2" )
+                    logger.trace( f"Auth completed (in theory) result - 2" )
                 else:
-                    logger.debug("WIRE: retrying after JAS login")
+                    logger.trace("WIRE: retrying after JAS login")
                     retry_after_login_needed = True
-                    logger.debug( f"Auth completed (in theory) result - 3" )
+                    logger.trace( f"Auth completed (in theory) result - 3" )
             elif e.response.status_code in [410,406,404]:
                 raise
             else:
-                logger.debug( "WIRE: handle content-style auth redirect" )
+                logger.trace( "WIRE: handle content-style auth redirect" )
                 # Handle content-style or Javascript-style auth redirect
                 body_content = e.response.text
                 m = re.search('AuthRedirect\((.*?)\)', body_content)
@@ -402,13 +403,13 @@ class HttpRequest():
                     self._login(auth_url)
                     self._session.is_authenticated = True
                     retry_after_login_needed = True
-                    logger.debug( "Retry needed" )
-                    logger.debug( f"Auth completed (in theory) result - 4" )
+                    logger.trace( "Retry needed" )
+                    logger.trace( f"Auth completed (in theory) result - 4" )
                 else:
                     if e.response.status_code == http.client.NOT_FOUND:
                         raise
                     if no_error_log or (( e.response.status_code == http.client.FORBIDDEN or e.response.status_code == http.client.CONFLICT) and body_content.find('X-Jazz-CSRF-Prevent')):
-                        logger.debug( f"Failed to complete request. URL: {request.url}, {e.response.status_code}, {e.response.text}" )
+                        logger.trace( f"Failed to complete request. URL: {request.url}, {e.response.status_code}, {e.response.text}" )
                     else:
                         logger.error( f"Exception on executing request. URL: {request.url}, {e.response.status_code}, {e.response.text}" )
                     raise
@@ -426,9 +427,9 @@ class HttpRequest():
                 # make sure this request isn't satisfied from cache!
                 request.headers.update({'Cache-Control': 'no-cache'})
                 prepped = self._session.prepare_request(request)
-                logger.debug( f"\nWIRE: do_execute request  RETRY +++++ {request.method} {request.url}\n\n{self._log_request(prepped)}" )
+                logger.trace( f"\nWIRE: do_execute request  RETRY +++++ {request.method} {request.url}\n\n{self._log_request(prepped)}" )
                 response = self._session.send(prepped)
-                logger.debug( f"\nWIRE: do_execute response RETRY ----- {response.status_code}\n\n{self._log_response(response)}" )
+                logger.trace( f"\nWIRE: do_execute response RETRY ----- {response.status_code}\n\n{self._log_response(response)}" )
                 response.raise_for_status()
             except requests.HTTPError as e:
                 logger.error( f"Exception on retrying request. URL: {request.url}, {e.response.status_code}, {e.response.text}")
@@ -448,11 +449,11 @@ class HttpRequest():
             auth_url_response = self._session.get(auth_url)  # Load up them cookies!
 
             if auth_url_response.headers.get('X-com-ibm-team-repository-web-auth-msg') != 'authrequired':
-                logger.debug("headers show auth not required")
+                logger.trace("headers show auth not required")
                 return None  # no more auth required
             login_url = auth_url_response.url  # Take the redirected URL and login action URL
             self._authorize(login_url)
-            logger.debug("authorized")
+            logger.trace("authorized")
         else:
             logger.error('''Something has changed since this script was written. I can no longer determine where to authorize myself.''')
             raise Exception("Login not possible(1)!")
@@ -510,9 +511,9 @@ class HttpRequest():
             request = requests.Request("GET",str(auth_url), headers=headers, data=data)
             prepped = self._session.prepare_request(request)
 
-            logger.debug( f"\nWIRE: __authorize request +++++= {request.method} {request.url}\n\n{self._log_request(prepped,donotlogbody=True)}" )
+            logger.trace( f"\nWIRE: __authorize request +++++= {request.method} {request.url}\n\n{self._log_request(prepped,donotlogbody=True)}" )
             response = self._session.send(prepped)
-            logger.debug( f"\nWIRE: __authorize response ----- {response.status_code}\n\n{self._log_response(response)}")
+            logger.trace( f"\nWIRE: __authorize response ----- {response.status_code}\n\n{self._log_response(response)}")
 
             response.raise_for_status()
             if 'X-com-ibm-team-repository-web-auth-msg' in response.headers:
@@ -535,11 +536,11 @@ class HttpRequest():
                                             urllib.parse.urlencode({'j_username': username, 'j_password': password}),
                                             ""])
         try:
-            logger.debug("\nWIRE: __jazz_form_authorize request +++++ GET " + request_url)
+            logger.trace("\nWIRE: __jazz_form_authorize request +++++ GET " + request_url)
 
             response = self._session.get(auth_url)
 
-            logger.debug( f"\nWIRE: __jazz_form_authorize response ----- {response.status_code}\n\n{self._log_response(response)}" )
+            logger.trace( f"\nWIRE: __jazz_form_authorize response ----- {response.status_code}\n\n{self._log_response(response)}" )
         except requests.HTTPError as e:
             logger.info( f"Failed to jazz_authorize with auth URL {auth_url} with exception {e}" )  # was logger.error despite subsequent authentication success
             raise Exception("Jazz FORM authorize not possible!")

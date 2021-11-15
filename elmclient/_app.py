@@ -106,8 +106,13 @@ class _App( httpops.HttpOperations_Mixin ):
     # So if you want an app-relative URL don't use a leading /
     def reluri(self, *reluris):
         url = self.baseurl
+        reluri_i = 0
         for reluri in reluris:
-            url = urllib.parse.urljoin(url,reluri)
+            if not reluri_i:
+                url = urllib.parse.urljoin(url,reluri)
+            else:
+                url += '/' + reluri
+            reluri_i += 1
         return url
 
     # load the projects from the project areas XML - doesn't create any project classes, this is done later when finding a project to open

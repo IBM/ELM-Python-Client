@@ -119,7 +119,7 @@ These examples drove the evolution of `elmclient`:
 * OSLC Query - read more [here](elmclient/examples/OSLCQUERY.md) - this is the largest example by quite a margin. It enables commandline export to CSV from the supported applications using an abstract syntax for OSLC Query.
 * ReqIF import/export - read more [here](elmclient/examples/REQIF_IO.md) - this allows limited CRUD of reqif definitions in DOORS Next, performing multiple reqif export using a definition, and multiple reqif import
 * Basic DOORS Next Reportable REST - read more [here](elmclient/examples/DN_REPREST.md) - this is a very simple example of using `elmclient` to access the DOORS Next Reportable REST API
-* General Reportable REST export to XML/CSV - read more [here]()elmclient/examples/REPREST.md) - currently only implemented for DOORS Next but with potential to expand to EWM and ETM.
+* General Reportable REST export to XML/CSV - read more [here](elmclient/examples/REPREST.md) - currently only implemented for DOORS Next but with potential to expand to EWM and ETM.
 
 Reporting issues, and contributing
 ==================================

@@ -315,6 +315,8 @@ class _RMProject(_project._Project):
                                 confs_to_load.append(thisconfu)
                         # maybe it's got configuration(s)
                         confmemberx = rdfxml.xml_find_elements(configs_xml, './/oslc_config:Configuration')
+                            or rdfxml.xml_find_elements(configs_xml, './/oslc_config:Stream')
+                            or rdfxml.xml_find_elements(configs_xml, './/oslc_config:Baseline')
                         for confmember in confmemberx:  
                             thisconfu = rdfxml.xmlrdf_get_resource_uri( confmember )
                             logger.debug( f"{thisconfu=}" )

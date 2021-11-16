@@ -246,7 +246,8 @@ class _CCMApp(_app._App, _typesystem.No_Type_System_Mixin):
     supports_configs = False
     supports_components = False
     reportablerestbase='rpt/repository'
-    supports_reportable_rest = True
+    supports_reportable_rest = False
+    reportable_rest_status = "Application supports Reportable REST but not implemented here yet"
     artifact_formats = [ # For RR
         'foundation'
         ,'scm'
@@ -261,7 +262,6 @@ class _CCMApp(_app._App, _typesystem.No_Type_System_Mixin):
         super().__init__(server, contextroot, jts=jts)
         self.rootservices_xml = self.execute_get_xml(self.reluri('rootservices'))
         self.serviceproviders = 'oslc_cm:cmServiceProviders'
-        self.reportablerestbase = self.contextroot+'/rpt/repository'
 
     def _get_headers(self, headers=None):
         result = super()._get_headers()
@@ -270,4 +270,57 @@ class _CCMApp(_app._App, _typesystem.No_Type_System_Mixin):
         if headers:
             result.update(headers)
         return result
+
+    @classmethod
+    def add_represt_arguments( cls, subparsers ):
+        '''
+        NOTE this is called on the class (i.e. is a class method) because at this point don't know which app with be queried
+        '''
+        parser_ccm = subparsers.add_parser('ccm', help='CCM Reportable REST actions')
+        
+        parser_ccm.add_argument('artifact_format', choices=cls.artifact_formats, default=None, help=f'CCM artifact format - possible values are {", ".join(cls.artifact_formats)}')
+
+        # SCOPE settings
+        parser_ccm.add_argument('-p', '--project', default=None, help='Scope: Name of project - required when using module/collection/view/resource/typename ID/typename as a filter')
+
+#        # Source Filters - only use one of these at once - all require a project and configuration!
+#        rmex1 = parser_ccm.add_mutually_exclusive_group()
+#        rmex1.add_argument('-c', '--collection', default=None, help='Sub-scope: RM: Name or ID of collection - you need to provide the project and local/global config')
+#        rmex1.add_argument('-m', '--module', default=None, help='Sub-scope: RM: Name or ID of module - you need to provide the project and local/global config')
+#        rmex1.add_argument('-v', '--view', default=None, help='Sub-scope: RM: Name of view - you need to provide the project and local/global config')
+#        rmex1.add_argument('-r', '--resourceIDs', default=None, help='Sub-scope: RM: Comma-separated IDs of resources - you need to provide the project and local/global config')
+#        rmex1.add_argument('-t', '--typename', default=None, help='Sub-scope: RM: Name of type - you need to provide the project and local/global config')
+        
+#        # Output FILTER settings - only use one of these at once
+#        parser_ccm.add_argument('-a', '--all', action="store_true", help="Filter: Report all resources")
+#        parser_ccm.add_argument('-d', '--modifiedsince', default=None, help='Filter: only return items modified since this date in format 2021-01-31T12:34:26Z')
+#    #    parser_ccm.add_argument('-f', '--fields', action="store_true", help="Filter using xpath (doesn't work for DNG?)")
+#        parser_ccm.add_argument('-x', '--expandEmbeddedArtifacts', action="store_true", help="Filter: Expand embedded artifacts")
+        
+#        # various options
+#    #    parser_ccm.add_argument('--forever', action='store_true', help="TESTING UNFINISHED: save web data forever (used for regression testing against stored data, may not need the target server if no requests fail)" )
+#        parser_ccm.add_argument('--nresults', default=-1, type=int, help="TESTING UNFINISHED: Number of results expected (used for regression testing against stored data, doesn't need the target server - use -1 to disable checking")
+#        parser_ccm.add_argument('--pagesize', default=100, type=int, help="Page size for results paging (default 100)")    
+        
+#        # Output controls - only use one of these at once!
+#        rmex2 = parser_ccm.add_mutually_exclusive_group()
+#        rmex2.add_argument('--attributes', default=None, help="Output: Comma separated list of attribute names to report (requires specifying project and configuration)")
+#        rmex2.add_argument('--schema', action="store_true", help="Output: Report the schema")
+#        rmex2.add_argument('--titles', action="store_true", help="Output: Report titles")
+#        rmex2.add_argument('--linksOnly', action="store_true", help="Output: Report links only")
+#        rmex2.add_argument('--history', action="store_true", help="Output: Report history")
+#        rmex2.add_argument('--coverPage', action="store_true", help="Output: Report cover page variables")
+#        rmex2.add_argument('--signaturePage', action="store_true", help="Output: Report signature page variables")
+#    #    rmex2.add_argument('--size', action="store_true", help="Output: Set size (required for ???)")
+
+    def process_represt_arguments( self, args ):
+        '''
+        Process above arguments, returning a dictionayt of parameters to add to the represt base URL
+        NOTE this does have some dependency on thje overall 
+        
+        NOTE this is called on an instance (i.e. not a class method) because by now we know which app is being queried
+        '''
+        params = {}
+        url = ""
+        return (url,params)
 

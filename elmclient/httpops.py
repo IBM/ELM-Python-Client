@@ -14,6 +14,9 @@ import time
 import urllib
 
 import requests
+import tqdm
+
+from elmclient import rdfxml
 
 logger = logging.getLogger(__name__)
 
@@ -94,61 +97,62 @@ class HttpOperations_Mixin():
     def __init__(self,*args,**kwargs): # only needed for mixins initialisation because other parent/mixins may have params, this ignores them
         super().__init__()
 
-
-    def execute_get_xml(self, reluri, *, params=None, headers=None, cacheable=True):
+    def execute_get_xml(self, reluri, *, params=None, headers=None, **kwargs):
         reqheaders = {'Accept': 'application/xml'}
         if headers is not None:
             reqheaders.update(headers)
         request = self._get_get_request(reluri=reluri, params=params, headers=reqheaders)
-        response = request.execute(cacheable=cacheable)
+        response = request.execute( **kwargs )
         result = ET.ElementTree(ET.fromstring(response.content))
         return result
 
-    def execute_get_rdf_xml(self, reluri, *, params=None, headers=None,cacheable=True):
+    def execute_get_rdf_xml(self, reluri, *, params=None, headers=None, **kwargs):
         if params is None:
             params = {}
         reqheaders = {'Accept': 'application/rdf+xml', 'OSLC-Core-Version': '2.0'}
         if headers is not None:
             reqheaders.update(headers)
         request = self._get_get_request(reluri=reluri, params=params, headers=reqheaders)
-        response = request.execute(cacheable=cacheable)
+        response = request.execute( **kwargs )
         result = ET.ElementTree(ET.fromstring(response.content))
         return result
 
-    def execute_post_rdf_xml(self, reluri, *, data=None, params=None, headers=None, cacheable=True, put=False):
+    def execute_post_rdf_xml(self, reluri, *, data=None, params=None, headers=None, put=False, **kwargs):
         reqheaders = {'Accept': 'application/xml', 'Content-Type': 'application/rdf+xml'}
         if headers is not None:
             reqheaders.update(headers)
-        request = self._get_post_request(reluri=reluri, data=ET.tostring(data), params=params, headers=reqheaders, put=put)
-        response = request.execute(cacheable=cacheable)
+        if type(data)!=str:
+            data = ET.tostring(data)
+        request = self._get_post_request(reluri=reluri, data=data, params=params, headers=reqheaders, put=put)
+        response = request.execute( **kwargs )
         return response
 
-    def execute_delete(self, reluri, *, params=None, headers=None):
+    def execute_delete(self, reluri, *, params=None, headers=None, **kwargs):
         reqheaders = {'Accept': 'application/xml', 'Content-Type': 'application/rdf+xml'}
         if headers is not None:
             reqheaders.update(headers)
         request = self.get_delete_request(reluri=reluri, params=params, headers=reqheaders)
-        response = request.execute(cacheable=cacheable)
+        response = request.execute( **kwargs )
         return response
 
-    def execute_get_json(self, reluri, *, params=None, headers=None,cacheable=True):
+    def execute_get_json(self, reluri, *, params=None, headers=None, **kwargs):
         reqheaders = {'Accept': 'application/json'}
         if headers is not None:
             reqheaders.update(headers)
         request = self._get_get_request(reluri=reluri, params=params, headers=reqheaders)
-        response = request.execute(cacheable=cacheable)
+        response = request.execute( **kwargs )
         result = json.loads(response.content)
         return result
 
-    def execute_get_binary( self, reluri, *, params=None, headers=None, cacheable=True):
+    def execute_get_binary( self, reluri, *, params=None, headers=None, **kwargs):
         reqheaders = {}
         if headers is not None:
             reqheaders.update(headers)
         request = self._get_get_request(reluri=reluri, params=params, headers=reqheaders)
-        response = request.execute(cacheable=cacheable)
+        response = request.execute( **kwargs )
         return response
 
-    def execute_post_content( self, uri, *, params=None, data=None, headers={}, put=False, cacheable=True):
+    def execute_post_content( self, uri, *, params=None, data=None, headers={}, put=False, **kwargs):
         data = data if data is not None else ""
         reqheaders = {}
         if headers is not None:
@@ -156,25 +160,25 @@ class HttpOperations_Mixin():
         request = self._get_post_request(str(uri), data=data, headers=reqheaders)
         if put:
             request.method = "PUT"
-        response = request.execute(cacheable=cacheable)
+        response = request.execute( **kwargs )
         return response
 
-    def execute_get(self, reluri, *, params=None, headers=None, cacheable=True):
+    def execute_get(self, reluri, *, params=None, headers=None, **kwargs):
         reqheaders = {}
         if headers is not None:
             reqheaders.update(headers)
         request = self._get_get_request(reluri=reluri, params=params, headers=reqheaders)
-        response = request.execute(cacheable=cacheable)
+        response = request.execute( **kwargs )
         result = response.content
         return result
 
     # return the response (used to get at response headers such as etag)
-    def execute_get_raw(self, reluri, *, params=None, headers=None, cacheable=True):
+    def execute_get_raw(self, reluri, *, params=None, headers=None, **kwargs):
         reqheaders = {}
         if headers is not None:
             reqheaders.update(headers)
         request = self._get_get_request(reluri=reluri, params=params, headers=reqheaders)
-        response = request.execute(cacheable=cacheable)
+        response = request.execute( **kwargs )
         return response
 
     def wait_for_tracker( self, location, *, interval=1.0, progressbar=False, msg='Waiting for tracker' ):
@@ -210,27 +214,25 @@ class HttpOperations_Mixin():
     def _get_delete_request(self, reluri='', *, params=None, headers=None ):
         return self._get_request('DELETE', reluri, params=params, headers=headers)
 
-
 class HttpRequest():
     def __init__(self, session, verb, uri, *, params=None, headers=None, data=None):
-        self._req = requests.Request(verb,uri, params=params, headers=headers, data=data)
+        self._req = requests.Request( verb,uri, params=params, headers=headers, data=data )
         self._session = session
 
     def get_user_password(self, url=None):
-        return (self._session.username, self._session.password)
+        return ( self._session.username, self._session.password )
 
-    def execute( self, no_error_log=False, close=False, cacheable=True ):
-        return self._execute_request( no_error_log=no_error_log, close=close, cacheable=cacheable )
+    def execute( self, no_error_log=False, close=False, **kwargs ):
+        return self._execute_request( no_error_log=no_error_log, close=close, **kwargs )
 
     # execute the request, retrying with increasing delays (login isn't handled at this level but at lower level)
-    def _execute_request(self, *, no_error_log=False, close=False, cacheable=True ):
+    def _execute_request( self, *, no_error_log=False, close=False, cacheable=True, **kwargs ):
         for wait_dur in [2, 5, 10, 0]:
             try:
                 if not cacheable:
-                    # add a parameter so the full URL is different each time
-#                    request.params["CachePrevention"]=str(int(time.time()*1000))
+                    # add a header so the response isnm't cached
                     self._req.headers['Cache-Control'] = "no-store, max-age=0"
-                result = self._execute_one_request_with_login( no_error_log=no_error_log, close=close)
+                result = self._execute_one_request_with_login( no_error_log=no_error_log, close=close, **kwargs)
                 return result
             except requests.RequestException as e:
                 if wait_dur == 0 or not self._is_retryable_error(e):
@@ -241,7 +243,7 @@ class HttpRequest():
         raise Exception('programming error this point should never be reached')
 
     # generate a string for logging of a http request with a stacktrace of the collers and showing URL, headers and any data
-    def _log_request(self, request,donotlogbody=False):
+    def _log_request( self, request,donotlogbody=False ):
         logtext = self._callers() + "\n\n"
         for k in sorted(request.headers.keys()):
             logtext += " " + k + ": " + to_text(request.headers[k]) + "\n"
@@ -266,7 +268,7 @@ class HttpRequest():
 
     # generate a compact stacktrace of function-line-file because it's often
     # helpful to know how the HTTP operation was called
-    def _callers(self):
+    def _callers( self ):
         caller_list = []
         # get the stacktrace and do a couple of f_back-s to remove the call to this function and to the _log_request()/_log_response() function
         frame = inspect.currentframe().f_back.f_back
@@ -278,7 +280,7 @@ class HttpRequest():
         return callers
 
     # generate a string for logging of a http response showing response code, headers and any data
-    def _log_response(self, response):
+    def _log_response( self, response ):
         logtext = ""
         for k in sorted(response.headers.keys()):
             logtext += " " + k + ": " + response.headers[k] + "\n"
@@ -301,7 +303,7 @@ class HttpRequest():
         return logtext
 
     # categorize a Requests .send() exception e as to whether is retriable
-    def _is_retryable_error(self, e):
+    def _is_retryable_error( self, e ):
         if self._session.auto_retry:
             if e.response.status_code in [
                                                 http.client.REQUEST_TIMEOUT,
@@ -317,9 +319,9 @@ class HttpRequest():
     #  1. if the response indicates login is required then login and try the request again
     #  2. if request is rejected for various reasons retry with the CSRF header applied
     # supports Jazz Form authorization and Jazz Authorization Server login
-    def _execute_one_request_with_login(self, *, no_error_log=False, close=False, donotlogbody=False):
+    def _execute_one_request_with_login( self, *, no_error_log=False, close=False, donotlogbody=False, retry_get_after_login=True ):
         retry_after_login_needed = False
-
+        logger.debug( f"{retry_get_after_login=}" )
         request = self._req
 
         # copy header Configuration-Context to oslc_config.context parameter so URL when cached is config-specific
@@ -335,9 +337,9 @@ class HttpRequest():
 
         # actually (try to) do the request
         try:
-            prepped = self._session.prepare_request(request)
+            prepped = self._session.prepare_request( request )
             logger.trace( f"\nWIRE: do_execute request +++++ {request.method} {request.url}\n\n{self._log_request(prepped)}")
-            response = self._session.send(prepped )
+            response = self._session.send( prepped )
             logger.trace(f"\nWIRE: do_execute response ----- {response.status_code}\n\n{self._log_response(response)}")
 
             response.raise_for_status()
@@ -414,7 +416,7 @@ class HttpRequest():
                         logger.error( f"Exception on executing request. URL: {request.url}, {e.response.status_code}, {e.response.text}" )
                     raise
 
-        if retry_after_login_needed:
+        if retry_after_login_needed and ( request.method != "GET" or retry_get_after_login):
 #            # completed login - save cookies! When run again, we try picking up these cookies, perhaps we'll avoid having to re-login
 #            # from https://stackoverflow.com/questions/13030095/how-to-save-requests-python-cookies-to-a-file
 #            if caching_save_creds(self.cachingcontrol):

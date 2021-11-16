@@ -26,6 +26,8 @@ class _App( httpops.HttpOperations_Mixin ):
     project_class = None
     artifact_formats = [] # For RR
     reportablerest_baseurl = "publish"
+    supports_reportable_rest = False
+    reportable_rest_status = "Not supported by application"
 
     def __init__(self, server, contextroot, jts=None):
         super().__init__()
@@ -104,11 +106,8 @@ class _App( httpops.HttpOperations_Mixin ):
     # NOTE if reluri has a leading / this will be relative to the serverhostname:port
     # i.e. the app context root will be removed.
     # So if you want an app-relative URL don't use a leading /
-    def reluri(self, *reluris):
-        url = self.baseurl
-        for reluri in reluris:
-            url = urllib.parse.urljoin(url,reluri)
-        return url
+    def reluri(self, reluri=''):
+        return urllib.parse.urljoin(self.baseurl,reluri)
 
     # load the projects from the project areas XML - doesn't create any project classes, this is done later when finding a project to open
     def _load_projects(self,include_archived=False,force=False):
@@ -315,6 +314,7 @@ class JTSApp(_App):
     project_class = None
     supports_configs = False
     supports_components = False
+    supports_reportable_rest = False
 
     def __init__(self, server, contextroot, jts=None):
         super().__init__(server, contextroot, jts=self)

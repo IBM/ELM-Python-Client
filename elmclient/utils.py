@@ -9,6 +9,7 @@ import datetime
 import inspect
 import base64
 import logging
+import xml.etree.ElementTree as ET
 
 from . import rdfxml
 
@@ -25,7 +26,7 @@ import cryptography.hazmat.primitives.kdf.pbkdf2
 import logging
 import functools
 
-# the TRACE level is between warning and info so the httpops can just log communication with the server without getting all the other info logs
+# the TRACE level is between warning and info so the httpops can just log communication with the server without getting all the other info/debug logged
 logging.TRACE = 25
 logging.addLevelName(logging.TRACE, 'TRACE')
 logging.Logger.trace = functools.partialmethod(logging.Logger.log, logging.TRACE)
@@ -83,26 +84,29 @@ def setup_logging(consolelevel=None, filelevel=logging.INFO):
 # code to support obfuscated credentials files
 
 ITERATIONS = 100000
+TTL = 28*24*60*60
 
-def _derive_key(password, salt, iterations = ITERATIONS):
+def _derive_key( password, salt, iterations=ITERATIONS ):
     kdf =  cryptography.hazmat.primitives.kdf.pbkdf2.PBKDF2HMAC(
         algorithm=cryptography.hazmat.primitives.hashes.SHA256(), length=32, salt=salt,
         iterations=iterations, backend=cryptography.hazmat.backends.default_backend())
     return base64.urlsafe_b64encode(kdf.derive(password))
 
-def fernet_encrypt(message, password, iterations = ITERATIONS):
+def fernet_encrypt( message, password, iterations=ITERATIONS ) :
     salt = os.urandom(16)
     key = _derive_key(password.encode(), salt, iterations)
     return base64.urlsafe_b64encode( b'%b%b%b' % ( salt, iterations.to_bytes(4, 'big'), base64.urlsafe_b64decode( cryptography.fernet.Fernet(key).encrypt(message)), ) )
 
-def fernet_decrypt(token, password):
+def fernet_decrypt( token, password, ttl=TTL ):
     decoded = base64.urlsafe_b64decode(token)
     salt, iter, token = decoded[:16], decoded[16:20], base64.urlsafe_b64encode(decoded[20:])
     iterations = int.from_bytes(iter, 'big')
     key = _derive_key(password.encode(), salt, iterations)
-    return  cryptography.fernet.Fernet(key).decrypt(token)
+    return  cryptography.fernet.Fernet(key).decrypt(token,ttl=ttl)
 
 ############################################################################
+#
+# For Reportable REST
 #
 # visit an xml tag hierarchy, extracting values into rows, one per first-level tag
 # this is aimed at Reportable REST XMl output
@@ -111,24 +115,30 @@ def fernet_decrypt(token, password):
 #   the path to a tag is turned into /-separated tag path
 #   at a level, all attributes of a tag are added to the tag path with "-attributename"
 #
-def getcontentrows( node, remove_ns=True ):
-    rows = []
-    allcolumns = []
-    children = list(node)
-    for child in children:
-        thisrowdict = {}
-        # work out the path to this node
-        if remove_ns and '}' in child.tag:
-            path = child.tag.split('}',1)[1]
-        else:
-            path = child.tag
-        (row,columns) = getcontentrow( child, thisrowdict, allcolumns, 1, path, remove_ns=remove_ns)
-        rows.append( dict(thisrowdict) )
-    return (rows,allcolumns)
+def getcontentrow( node, remove_ns=True ):
+    thisrowdict = {}
+    allcolumns=[]
+    path=""
+    row,columns = getacontentrow( node, thisrowdict, allcolumns, 1, path, remove_ns=remove_ns)
+    return row
 
-def getcontentrow( node, thisrowdict, allcolumns, level, path, remove_ns=True ):
+def getacontentrow( node, thisrowdict, allcolumns, level, path, remove_ns=True, merge_duplicates=False ):
+    logger.debug( f"2 {node=} {allcolumns=} {thisrowdict=}" )
     children = list(node)
 
+    # ensure path is unique
+    if path in allcolumns:
+        # add a digit to get a unique path
+        for i in range(1000):
+            if f"{path}{i}" not in allcolumns:
+                break
+        path = f"{path}{i}"
+        logger.debug( f"unique1 ============================= {path=}" )
+        
+    if path not in allcolumns:
+        allcolumns.append(path)
+        
+    logger.debug( f"{path=}" )
     # record attributes of node
     for k in node.keys():
         # work out the path to this attribute
@@ -137,10 +147,18 @@ def getcontentrow( node, thisrowdict, allcolumns, level, path, remove_ns=True ):
         else:
             k1 = k
 
-        kpath = f"{path}-{k1}"
+        if path:
+            kpath = f"{path}-{k1}"
+        else:
+            kpath = k1
+            
         # ensure the path is remembered in allcolumns
         if kpath not in allcolumns:
             allcolumns.append(kpath)
+        else:
+            logger.debug( f"{kpath=}" )
+            raise Exception( "Unexpected {kpath} not in allcolumns" )
+            
         # store the value into the row
         thisrowdict[kpath] = node.get(k,"")
 
@@ -150,7 +168,7 @@ def getcontentrow( node, thisrowdict, allcolumns, level, path, remove_ns=True ):
     if tail:
         raise Exception("XML has tail - can't handle this!")
 
-    if text or node.tag==f'{{{rdfxml.RDF_DEFAULT_PREFIX["rm_text"]}}}richTextBody':
+    if text or node.tag==f'{{{rdfxml.RDF_DEFAULT_PREFIX["rm_text"]}}}richTextBody':            
         if len(children)>0 and node.tag==f'{{{rdfxml.RDF_DEFAULT_PREFIX["rm_text"]}}}richTextBody':
             # this is a special case - this tag with children contains literal XHTML which we want
             # to use as-is so copy the string version of the text content and don't recurse into it
@@ -159,8 +177,6 @@ def getcontentrow( node, thisrowdict, allcolumns, level, path, remove_ns=True ):
             # this is just all the the content
             thisrowdict[path]=text+tail
         # remember paths that have a value stored
-        if path not in allcolumns:
-            allcolumns.append(path)
     elif len(children)>0:
         # recurse into the children
         for child in children:
@@ -170,7 +186,7 @@ def getcontentrow( node, thisrowdict, allcolumns, level, path, remove_ns=True ):
                 thistag=child.tag
             subpath = path + "/" + thistag if path !='' else thistag
             # recurse
-            getcontentrow( child, thisrowdict, allcolumns, level + 1, subpath, remove_ns=remove_ns)
+            getacontentrow( child, thisrowdict, allcolumns, level + 1, subpath, remove_ns=remove_ns)
     else:
         # empty tag
         pass

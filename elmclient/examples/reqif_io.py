@@ -25,6 +25,7 @@ import logging
 import re
 import socket
 import time
+import webbrowser
 
 import lxml.etree as ET
 import requests
@@ -100,9 +101,9 @@ def reqif_main():
     parser_create.add_argument('definitionname',help='The reqif definition name to create')
     parser_create.add_argument('-a', '--allcores', action="store_true", help="Add all core artifacts (not modules/collections) from the project/component")
     parser_create.add_argument('-f', '--folders', action="store_false", help="Don't include folders in the reqif (defaults to including) - if you need this off, specify it on the last update or on the create")
-    parser_create.add_argument('-i', '--identifiers', nargs='*', default=[], help='* for all core artifacts or or comma-separated list of requirement IDs to add - can specify this option more than once')
+    parser_create.add_argument('-i', '--identifiers', nargs='*', default=[], help='Use * for all core artifacts or comma-separated list of requirement IDs to add - can specify this option more than once')
     parser_create.add_argument('-l', '--links', action="store_false", help="Don't include links in the reqif (defaults to including) - if you need this off, specify it on the last update or on the create")
-    parser_create.add_argument('-m', '--modules', nargs='*', default=[], help='* or comma-separated list of module IDs or names of the module to add - for name you can use a regex - can specify this option more than once')
+    parser_create.add_argument('-m', '--modules', nargs='*', default=[], help='Use * or comma-separated list of module IDs or names of the module to add - for name you can use a regex - can specify this option more than once')
     parser_create.add_argument('-r', '--removeallartifacts', action="store_true", help="When updating, first remove all artifacts/modules/views")
     parser_create.add_argument('-s', '--description', default="-", help="Description for the definition")
     parser_create.add_argument('-t', '--tags', action="store_false", help="Don't include tags in the reqif (defaults to including) - if you need this off, specify it on the last update or on the create")
@@ -126,10 +127,7 @@ def reqif_main():
 
     logger = logging.getLogger(__name__)
 
-    ######################################################
-    # Credentials
     if args.erasecreds:
-        # overwrite the creds file a few times then erase it
         # read the file to work out length
         contentlen = len(open(args.erasecreds,"rb").read())
         # create same-length random data to overwrite
@@ -138,12 +136,13 @@ def reqif_main():
             open(args.erasecreds,"w+b").write(randomcontent)
         # and delete the file
         os.remove(args.erasecreds)
+
         print( f"Credentials file {args.erasecreds} overwritten then removed" )
-        return
+        return 0
 
     if args.credspassword:
         if args.readcreds is None and args.savecreds is None:
-            raise Exception( "When using -8 you must use -5 to specify a file to save credentials into, and/or -4 to specify a credentials file to read" )
+            raise Exception( "When using -4 you must use -0 to specify a file to save credentials into, and/or -1 to specify a credentials file to read" )
         #make sure the user enters at least one character
         credspassword = ""
         while len(credspassword)<1:
@@ -152,13 +151,20 @@ def reqif_main():
         credspassword = "N0tSecretAtAll"
 
     if args.readcreds:
-        args.username,args.password,args.jazzurls,args.appstrings = json.loads( utils.fernet_decrypt(open(args.readcreds,"rb").read(),"=-=".join([socket.getfqdn(),os.path.abspath(args.readcreds),os.getcwd(),os.getenv('username'),args.secret,credspassword])) )
+#        if args.secret is None:
+#            raise Exception( "You MUST specify a secret using -3 or --secret if using -0/--readcreads" )
+        try:
+            args.username,args.password,args.jazzurl,args.appstrings = json.loads( utils.fernet_decrypt(open(args.readcreds,"rb").read(),"=-=".join([socket.getfqdn(),os.path.abspath(args.readcreds),os.getcwd(),getpass.getuser(),args.secret,credspassword])) )
+        except (cryptography.exceptions.InvalidSignature,cryptography.fernet.InvalidToken, TypeError):
+            raise Exception( f"Unable to decrypt credentials from {args.readcreds}" )
         print( f"Credentials file {args.readcreds} read" )
 
     if args.savecreds:
-        open(args.savecreds,"wb").write(utils.fernet_encrypt(json.dumps([args.username,args.password,args.jazzurl,args.appstrings]).encode(),"=-=".join([socket.getfqdn(),os.path.abspath(args.savecreds),os.getcwd(),os.getenv('username'),args.secret,credspassword]),ITERATIONS))
+        if args.secret is None:
+            raise Exception( "You MUST specify a secret using -3 or --secret if using -1/--savecreads" )
+        open(args.savecreds,"wb").write(utils.fernet_encrypt(json.dumps([args.username,args.password,args.jazzurl,args.appstrings]).encode(),"=-=".join([socket.getfqdn(),os.path.abspath(args.savecreds),os.getcwd(),getpass.getuser(),args.secret,credspassword]),utils.ITERATIONS))
         print( f"Credentials file {args.savecreds} created" )
-        return
+        return 0
 
     # prompt for password
     if args.password is None or args.password=="PROMPT":
@@ -259,13 +265,13 @@ def reqif_main():
         queryon = theproj
 
     ######################################################
-
     # return True if string contains any of the characters that might be used in a regex
     def isregexp( s ):
         if any([c in s for c in r"^$?*[].+()"]):
             return True
         return False
 
+    ######################################################
     # return a list of dictionaries - one for each entry in definitionnames
     def getmatchingdefs(alldefs,definitionnames):
         results = []
@@ -279,7 +285,7 @@ def reqif_main():
 
             for k,v in alldefs.items():
                 title = v['dcterms:title']
-                if re.search(def_re,title, re.I ):
+                if re.search(def_re,title ):
                     matches[k]=dict(v)
                     matches[k]['exportdef']=exportdef
             results.append(dict(matches))
@@ -361,7 +367,7 @@ def reqif_main():
                         logger.debug( f"{pkg_x=}" )
                         # get the content and its filename
                         content_u =  rdfxml.xmlrdf_get_resource_uri( pkg_x, ".//dng_reqif:content" )
-                        response = queryon.execute_get_binary( content_un )
+                        response = queryon.execute_get_binary( content_u )
                         fname = response.headers.get('Content-Disposition').split( '"', 2 )[1]
                         if fname is None:
                             raise Exception( "No content-disposition!" )
@@ -418,7 +424,8 @@ def reqif_main():
 
             # execute post content
             logger.info('Uploading package {ifile}...')
-            response = queryon.execute_post_content(pkg_factory_u, data=body, headers={'Content-Type': content_type, 'userMimeType': 'application/zip', 'DNT': '1', 'filename':os.path.basename(ifile),'Accept': '*/*','X-Requested-With': None,'Origin': 'https://jazz.ibm.com:9443'})
+#            response = queryon.execute_post_content(pkg_factory_u, data=body, headers={'Content-Type': content_type, 'userMimeType': 'application/zip', 'DNT': '1', 'filename':os.path.basename(ifile),'Accept': '*/*','X-Requested-With': None,'Origin': 'https://jazz.ibm.com:9443'})
+            response = queryon.execute_post_content(pkg_factory_u, data=body, headers={'Content-Type': content_type, 'userMimeType': 'application/zip', 'filename':os.path.basename(ifile),'Accept': '*/*','X-Requested-With': None,'Origin': 'https://jazz.ibm.com:9443', 'OSLC-Core-Version': None})
 
             print( f"Triggering import for {os.path.basename(ifile)}" )
 
@@ -443,7 +450,7 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
 </rdf:RDF>"""
 
             logger.debug( f"{content=}" )
-            response = queryon.execute_post_rdf_xml( import_factory_u, data=content, cacheable=False, headers={'net.jazz.jfs.owning-context': queryon.project_uri} )
+            response = queryon.execute_post_rdf_xml( import_factory_u, data=content, cacheable=False, headers={'net.jazz.jfs.owning-context': queryon.project_uri, 'OSLC-Core-Version': None} )
             logger.debug( f" {response.status_code=} {response=}" )
             location = response.headers.get('Location')
             if response.status_code == 202 and location is not None:
@@ -500,7 +507,7 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
                 # get the existing definition XML
                 existing_u = list(existingdef.keys())[0]
 #                logger.debug( f"{existing_u=}" )
-                response = queryon.execute_get_raw( existing_u, headers={'Accept': 'application/rdf+xml'} )
+                response = queryon.execute_get_raw( existing_u, headers={'Accept': 'application/rdf+xml', 'OSLC-Core-Version': None, 'OSLC-Core-Version': None} )
                 defn_x = ET.ElementTree(ET.fromstring(response.content)).getroot()
                 etag = response.headers.get('ETag')
                 inctags = rdfxml.xmlrdf_get_resource_text( defn_x, './/dng_reqif:includeTags' )
@@ -707,9 +714,9 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
             rdfxml.xml_find_element( rootdef,'./dng_reqif:includeTags').text = "true" if args.tags else "false"
             rdfxml.xml_find_element( rootdef,'./dng_reqif:includeFolders').text = "true" if args.folders else "false"
             rdfxml.xml_find_element( rootdef,'./dng_reqif:includeLinks').text = "true" if args.links else "false"
-            headers = {}
+            headers = {'OSLC-Core-Version': None}
             if args.update:
-                headers = { 'if-match': etag }
+                headers.update({ 'if-match': etag } )
                 response = queryon.execute_post_rdf_xml( existing_u, data=defn_x, cacheable=False, put=True, headers=headers )
             else:
                 response = queryon.execute_post_rdf_xml( defn_factory_u, data=defn_x, cacheable=False, headers=headers )
@@ -719,7 +726,7 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
 
 
             logger.debug( f"{location=}" )
-
+            print( f"Created!" )
     elif args.subparser_name=='delete':
         #################################################################################
         # Delete a reqif definition

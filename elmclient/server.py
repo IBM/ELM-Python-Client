@@ -234,11 +234,8 @@ class JazzTeamServer( httpops.HttpOperations_Mixin ):
 #        return None
 
     # return the absolute URI for a relative URI
-    def reluri(self, *reluris):
-        url = self.baseurl
-        for reluri in reluris:
-            url = urllib.parse.urljoin(url,reluri)
-        return url
+    def reluri(self, reluri=''):
+        return urllib.parse.urljoin(self.baseurl,reluri)
 
     # a note about 'appstring':
     #
@@ -350,14 +347,14 @@ class JazzTeamServer( httpops.HttpOperations_Mixin ):
         logger.info( f"server_gh {result}" )
         return result
 
-    # get a request with local headers
-    def _get_request(self, verb, reluri='', *, params=None, headers=None, data=None):
-        fullheaders = self._get_headers()
-        if headers is not None:
-            fullheaders.update(headers)
-        sortedparams = None if params is None else {k:params[k] for k in sorted(params.keys())}
-        request = HttpRequest( self.app.server._session, verb, self.reluri(reluri), params=sortedparams, headers=fullheaders, data=data)
-        return request
+#    # get a request with local headers
+#    def _get_request(self, verb, reluri='', *, params=None, headers=None, data=None):
+#        fullheaders = self._get_headers()
+#        if headers is not None:
+#            fullheaders.update(headers)
+#        sortedparams = None if params is None else {k:params[k] for k in sorted(params.keys())}
+#        request = httpops.HttpRequest( self.app.server._session, verb, self.reluri(reluri), params=sortedparams, headers=fullheaders, data=data)
+#        return request
 
 
 

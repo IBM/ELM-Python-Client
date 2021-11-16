@@ -353,7 +353,8 @@ class _QMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
     project_class = _QMProject
     supports_configs = True
     supports_components = True
-    supports_reportable_rest = True
+    supports_reportable_rest = False
+    reportable_rest_status = "Application supports Reportable REST but not implemented here yet"
     reportablerestbase='publish'
     artifactformats = [ # For RR
             '*'

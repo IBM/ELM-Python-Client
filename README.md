@@ -5,6 +5,7 @@
 
 
  (c) Copyright 2021- IBM Inc. All rights reserved
+ 
  SPDX-License-Identifier: MIT
 
  version="0.2.8"
@@ -23,7 +24,8 @@ IMPORTANT NOTES:
 Included in this package are a few examples using `elmclient` which are reasonably functional:
 * OSLC Query able to work with DOORS Next (DN), Engineering Test Management (ETM), Engineering Workflow Management (EWM) and Global Configuration management (GCM)
 * ReqIF import/export for DOORS Next
-* Reportable REST for DOORS Next - very basic!
+* Basic Reportable REST for DOORS Next - very basic!
+* More general Reportable REST, currently only for DOORS Next but intended to expand to cover EWM and ETM.
 
 There are links to these examples below.
 
@@ -116,8 +118,8 @@ These examples drove the evolution of `elmclient`:
 
 * OSLC Query - read more [here](elmclient/examples/OSLCQUERY.md) - this is the largest example by quite a margin. It enables commandline export to CSV from the supported applications using an abstract syntax for OSLC Query.
 * ReqIF import/export - read more [here](elmclient/examples/REQIF_IO.md) - this allows limited CRUD of reqif definitions in DOORS Next, performing multiple reqif export using a definition, and multiple reqif import
-* DOORS Next Reportable REST - read more [here](elmclient/examples/DN_REPREST.md) - this is a very simple example of using `elmclient` to access the DOORS Next Reportable REST API
-
+* Basic DOORS Next Reportable REST - read more [here](elmclient/examples/DN_REPREST.md) - this is a very simple example of using `elmclient` to access the DOORS Next Reportable REST API
+* General Reportable REST export to XML/CSV - read more [here]()elmclient/examples/REPREST.md) - currently only implemented for DOORS Next but with potential to expand to EWM and ETM.
 
 Reporting issues, and contributing
 ==================================

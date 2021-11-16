@@ -3,14 +3,18 @@
 # SPDX-License-Identifier: MIT
 ##
 
-
+import datetime
 import logging
 import re
+import sys
 
 import anytree
+import dateutil.parser
+import dateutil.tz
 import lxml.etree as ET
 import requests
 import tqdm
+import pytz
 
 from . import _app
 from . import _project
@@ -275,6 +279,7 @@ class _RMProject(_project._Project):
                     self._components[defaultcompu]['configurations'][confu] = {'name': conftitle, 'conftype': conftype, 'confXml': confx, 'created': created}
                     self._configurations[defaultcompu] = self._components[defaultcompu]['configurations'][confu]
                     nconfs += 1
+                    burp
             else:
                 # full optin
                 cru = rdfxml.xmlrdf_get_resource_uri(projcx, 'oslc:creation')
@@ -288,27 +293,61 @@ class _RMProject(_project._Project):
                     self._components[compu] = {'name': comptitle, 'configurations': {}}
                     ncomps += 1
                     confu = rdfxml.xmlrdf_get_resource_uri(compx, './/oslc_config:configurations')
-                    configs_xml = self.execute_get_rdf_xml(confu)
-                    for confmemberx in rdfxml.xml_find_elements(configs_xml, './/rdfs:member'):
-                        thisconfu = confmemberx.get("{%s}resource" % rdfxml.RDF_DEFAULT_PREFIX["rdf"])
+                    confs_to_load = [confu]
+                    while True:
+                        if not confs_to_load:
+                            break
+                        confu = confs_to_load.pop()
+                        if not confu:
+                            # skip None in list
+                            continue
+                        logger.debug( f"Retrieving config {confu}" )
                         try:
-                            thisconfx = self.execute_get_rdf_xml(thisconfu)
-                            conftitle = rdfxml.xmlrdf_get_resource_text(thisconfx, './/dcterms:title')
-                            conftypeuri = rdfxml.xmlrdf_get_resource_uri(thisconfx, './/rdf:type')
-                            conftype = "Baseline" if "#Baseline" in conftypeuri else "Stream"
-                            created = rdfxml.xmlrdf_get_resource_uri(thisconfx, './/dcterms:created')
-                            self._components[compu]['configurations'][thisconfu] = {'name': conftitle, 'conftype': conftype
-                                                                                    ,'confXml': thisconfx
-                                                                                    ,'created': created
-                                                                                    }
-                            self._configurations[thisconfu] = self._components[compu]['configurations'][thisconfu]
-                            baselines_u = rdfxml.xmlrdf_get_resource_uri(thisconfx, './/oslc_config:baselines')
-                            logger.debug( f"{baselines_u=}" )
-                            if baselines_u is not None:
-                                baselines_x = self.execute_get_rdf_xml(baselines_u)
+                            configs_xml = self.execute_get_rdf_xml(confu)
+                        except:
+                            logger.info( f"Config ERROR {thisconfu} !!!!!!!" )
+                            continue
+                        confmemberx = rdfxml.xml_find_elements(configs_xml, './/rdfs:member[@rdf:resource]')
+                        if confmemberx:
+                            #  a list of members
+                            for confmember in confmemberx:
+                                thisconfu = confmember.get("{%s}resource" % rdfxml.RDF_DEFAULT_PREFIX["rdf"])
+                                confs_to_load.append(thisconfu)
+                        # maybe it's got configuration(s)
+                        confmemberx = rdfxml.xml_find_elements(configs_xml, './/oslc_config:Configuration')
+                        for confmember in confmemberx:  
+                            thisconfu = rdfxml.xmlrdf_get_resource_uri( confmember )
+                            logger.debug( f"{thisconfu=}" )
+                            conftitle = rdfxml.xmlrdf_get_resource_text(confmember, './/dcterms:title')
+                            if rdfxml.xmlrdf_get_resource_uri( confmember,'.//rdf:type[@rdf:resource="http://open-services.net/ns/config#ChangeSet"]') is not None:
+                                conftype = "ChangeSet"
+                            elif rdfxml.xmlrdf_get_resource_uri( confmember,'.//rdf:type[@rdf:resource="http://open-services.net/ns/config#Baseline"]') is not None:
+                                conftype = "Baseline"
+                            elif rdfxml.xmlrdf_get_resource_uri( confmember,'.//rdf:type[@rdf:resource="http://open-services.net/ns/config#Stream"]') is not None:
+                                conftype = "Stream"
+                            elif rdfxml.xmlrdf_get_resource_uri( confmember,'.//rdf:type[@rdf:resource="http://open-services.net/ns/config#Configuration"]') is not None:
+                                conftype = "Stream"
+                            else:
+                                print( ET.tostring(confmember) )
+                                raise Exception( f"Unrecognized configuration type" )
+                            created = rdfxml.xmlrdf_get_resource_uri(confmember, './/dcterms:created')
+                            if thisconfu not in self._components[compu]['configurations']:
+                                logger.debug( f"Adding {conftitle}" )
+                                self._components[compu]['configurations'][thisconfu] = {
+                                                                                            'name': conftitle
+                                                                                            , 'conftype': conftype
+                                                                                            ,'confXml': confmember
+                                                                                            ,'created': created
+                                                                                        }
+                                self._configurations[thisconfu] = self._components[compu]['configurations'][thisconfu]
+                            else:
+                                logger.debug( f"Skipping {thisconfu} because already defined" )
+                            # add baselines and changesets
+                            confs_to_load.append( rdfxml.xmlrdf_get_resource_uri(confmember, './oslc_config:streams') )
+                            confs_to_load.append( rdfxml.xmlrdf_get_resource_uri(confmember, './oslc_config:baselines') )
+                            confs_to_load.append( rdfxml.xmlrdf_get_resource_uri(confmember, './rm_config:changesets') )
+                                
                             nconfs += 1
-                        except requests.exceptions.HTTPError as e:
-                            pass
 
         # now create the "components"
         for cu, cd in self._components.items():
@@ -322,10 +361,25 @@ class _RMProject(_project._Project):
         return (ncomps, nconfs)
 
     def get_local_config(self, name_or_uri):
+        result = None
+        filter = None
+        if name_or_uri.startswith("S:"):
+            filter="Stream"
+            name_or_uri = name_or_uri[2:]
+        elif name_or_uri.startswith("B:"):
+            filter="Baseline"
+            name_or_uri = name_or_uri[2:]
+        elif name_or_uri.startswith("C:"):
+            filter="ChangeSet"
+            name_or_uri = name_or_uri[2:]
         for cu, cd in self._configurations.items():
+            if filter and cd['conftype'] != filter:
+                continue
             if cu == name_or_uri or cd['name'] == name_or_uri:
-                return cu
-        return None
+                if result:
+                    raise Exception( f"Config {name_or_uri} isn't unique - you could try prefixing it with S: for stream, B: for baseline, or C: for changeset")
+                result = cu
+        return result
 
     # for RM, load the typesystem using the OSLC shape resources listed for the Requirements and Requirements Collection creation factories
     def _load_types(self,force=False):
@@ -623,11 +677,11 @@ class _RMApp(_app._App, _typesystem.No_Type_System_Mixin):
     supports_components = True
     supports_reportable_rest = True
     reportablerestbase='publish'
+    reportable_rest_status = "Supported by applicaiton and implemented here"
     artifact_formats = [ # For RR
             'collections'
             ,'comments'
-            ,'comparisons'  # for 7.0.2
-            ,'diff'         # for 7.0.2
+            ,'comparison'  # new for 7.0.2
             ,'linktypes'
             ,'modules'
             ,'processes'
@@ -640,7 +694,6 @@ class _RMApp(_app._App, _typesystem.No_Type_System_Mixin):
             ,'text'
             ,'uisketches'
             ,'usecasediagrams'
-            ,'views'
         ]
     identifier_name = 'Identifier'
     identifier_uri = 'dcterms:identifier'
@@ -651,7 +704,7 @@ class _RMApp(_app._App, _typesystem.No_Type_System_Mixin):
         self.serviceproviders = 'oslc_rm_10:rmServiceProviders'
         self.version = rdfxml.xmlrdf_get_resource_text(self.rootservices_xml,'.//oslc_rm_10:version')
         self.majorversion = rdfxml.xmlrdf_get_resource_text(self.rootservices_xml,'.//oslc_rm_10:majorVersion')
-        self.reportablerestbase = self.contextroot+'/publish'
+#        self.reportablerestbase = 'publish'
         self.default_query_resource = None # RM doesn't provide any app-level queries
 
         logger.info( f"Versions {self.majorversion} {self.version}" )
@@ -664,3 +717,286 @@ class _RMApp(_app._App, _typesystem.No_Type_System_Mixin):
         logger.info( f"rmapp_gh {result}" )
         return result
 
+    @classmethod
+    def add_represt_arguments( cls, subparsers ):
+        '''
+        NOTE this is called on the class (i.e. is a class method) because at this point don't know which app with be queried
+        '''
+        parser_rm = subparsers.add_parser('rm', help='RM Reportable REST actions')
+        
+        parser_rm.add_argument('artifact_format', choices=cls.artifact_formats, default=None, help=f'RM artifact format - possible values are {", ".join(cls.artifact_formats)}')
+
+        # SCOPE settings
+        parser_rm.add_argument('-p', '--project', default=None, help='Scope: Name of project - required when using module/collection/view/resource/typename ID/typename as a filter')
+        parser_rm.add_argument('-c', '--component', default=None, help='Scope: Name of component - required when using module/collection/view/resource/typename ID/typename as a filter')
+        parser_rm.add_argument('-g', '--globalconfiguration', default=None, help='Scope: Name or ID of global config (make sure you define gc in --appstring!) - to use this you need to provide the project')
+        parser_rm.add_argument('-l', '--localconfiguration', default=None, help='Scope: Name of local config - you need to provide the project - defaults to the "Initial Stream" or "Initial Development" +same name as the project - if name is ambiguous specify a stream using "S:Project Initial Stream", a baseline using "B:my baseline", or changeset using "C:changesetname"')
+        parser_rm.add_argument('-e', '--targetconfiguration', default=None, help='Scope: Name of target configuration when using artifact_format comparison - see description of --localconfiguration for how to disambiguate names')
+
+        # Source Filters - only use one of these at once - all require a project and configuration!
+        rmex1 = parser_rm.add_mutually_exclusive_group()
+        rmex1.add_argument('-n', '--collection', default=None, help='Sub-scope: RM: Name or ID of collection - you need to provide the project and local/global config')
+        rmex1.add_argument('-m', '--module', default=None, help='Sub-scope: RM: Name or ID of module - you need to provide the project and local/global config')
+        
+        rmex2 = parser_rm.add_mutually_exclusive_group()
+        rmex2.add_argument('-v', '--view', default=None, help='Sub-scope: RM: Name of view - you need to provide the project and local/global config')
+        rmex2.add_argument('-q', '--moduleResourceID', default=None, help='Sub-scope: RM: Comma-separated IDs of module resources - you need to provide the project and local/global config')
+        rmex2.add_argument('-r', '--resourceID', default=None, help='Sub-scope: RM: Comma-separated IDs of core or module resources - you need to provide the project and local/global config')
+        rmex2.add_argument('-s', '--coreResourceID', default=None, help='Sub-scope: RM: Comma-separated IDs of core resources - you need to provide the project and local/global config')
+        rmex2.add_argument('-t', '--typename', default=None, help='Sub-scope: RM: Name of type - you need to provide the project and local/global config')
+        
+        # Output FILTER settings - only use one of these at once
+        parser_rm.add_argument('-a', '--all', action="store_true", help="Filter: Report all resources")
+        parser_rm.add_argument('-d', '--modifiedsince', default=None, help='Filter: only return items modified since this date - NOTE this is only for DCC ETL! Date must be in ISO 8601 format like 2021-01-31T12:34:26Z')
+        parser_rm.add_argument('-x', '--expandEmbeddedArtifacts', action="store_true", help="Filter: Expand embedded artifacts")
+        
+        # Output controls - only use one of these at once!
+        rmex3 = parser_rm.add_mutually_exclusive_group()
+        rmex3.add_argument('--attributes', default=None, help="Output: Comma separated list of attribute names to report (requires specifying project and configuration)")
+        rmex3.add_argument('--schema', action="store_true", help="Output: Report the schema")
+        rmex3.add_argument('--titles', action="store_true", help="Output: Report titles")
+        rmex3.add_argument('--linksOnly', action="store_true", help="Output: Report links only")
+        rmex3.add_argument('--history', action="store_true", help="Output: Report history")
+        rmex3.add_argument('--coverPage', action="store_true", help="Output: Report cover page variables")
+        rmex3.add_argument('--signaturePage', action="store_true", help="Output: Report signature page variables")
+
+    def process_represt_arguments( self, args, allapps ):
+        '''
+        Process above arguments, returning a dictionayt of parameters to add to the represt base URL
+        NOTE this does have some dependency on thje overall 
+        
+        NOTE this is called on an instance (i.e. not a class method) because by now we know which app is being queried
+        '''
+        queryparams = {}
+        queryurl = ""
+        queryheaders={}
+        
+        if not hasattr( args, 'artifact_format' ):
+            raise Exception( "FAILED - you must specify an application such as rm" )
+            
+        if args.artifact_format=="comparison":
+            if not args.project or not args.localconfiguration or not args.targetconfiguration:
+                raise Exception( "Comparison requires a project, explicit local configuration as the source and explicit target configuration" )
+                
+#        if args.artifact_format=="views":
+#            if not args.project or (not args.module and not args.resourceID and not args.moduleResourceID and not args.coreResourceID) or not args.view:
+#                raise Exception( "Using artifact_format views you MUST also specify project (and config if opt-in), a view, and either a module or a resource ID" )
+        
+        gcproj = None
+        gcconfiguri = None
+        gcapp = allapps.get('gc',None)
+        if not gcapp and args.globalconfiguration:
+            raise Exception( "gc app must be specified in APPSTRINGS/-A to use a global configuration" )
+
+        # most queries need a project and configuration - projects queried without a config will return data from the default configuraiotn (the default component's initial stream)
+        if args.all or args.collection or args.module or args.view or args.typename or args.resourceID or args.moduleResourceID or args.coreResourceID or args.schema or args.attributes or args.titles or args.linksOnly or args.history or args.artifact_format=='views':
+            if not args.project:
+                raise Exception( "Project and probably local or global config needed!" )
+                
+        if args.project:
+            # find the project
+            p = self.find_project(args.project)
+            if p is None:
+                raise Exception( f"Project '{args.project}' not found")
+
+            queryparams['projectURI']=p.iid
+
+            if p.singlemode and args.globalconfiguration:
+                raise Exception( "Don't specify a global configuration for an opt-out project" )
+                
+            if p.is_optin and not args.component:
+                args.component = args.project
+                
+            if args.globalconfiguration:
+                # now find the configuration config
+                # user can specify just an id
+                if utils.isint(args.globalconfiguration):
+                    # create GC URI using the id
+                    gcconfiguri = gcapp.reluri( f"configuration/{args.globalconfiguration}" )
+                else:
+                    if args.globalconfiguration.startswith( 'http://') or args.globalconfiguration.startswith( 'https://' ):
+                        if args.globalconfiguration.startswith( gcapp.reluri( "configuration" ) ):
+                            # assume user specified a URI
+                            gcconfiguri = args.globalconfiguration
+                        else:
+                            raise Exception( f"The -G globalconfiguration {args.globalconfiguration} isn't an integer id and doesn't start with the server gc path {gcapp.reluri( 'configuration' )}" )
+                    else:
+                        # do an OSLC query on either the GC app or the GC project
+                        if args.globalproject:
+                            # find the gc project to query in
+                            gc_query_on = gcapp.find_project(args.globalproject)
+                            if gc_query_on is None:
+                                raise Exception( f"Project '{args.globalproject}' not found")
+                        else:
+                            gc_query_on = gcapp
+
+                        # get the query capability base URL
+                        qcbase = gc_query_on.get_query_capability_uri("oslc_config:Configuration")
+                        # query for a configuration with title
+                        print( f"querying for gc config {args.globalconfiguration}" )
+                        conf = gc_query_on.execute_oslc_query( qcbase, whereterms=[['dcterms:title','=',f'"{args.globalconfiguration}"']], select=['*'], prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms'})
+                        if len( conf.keys() ) == 0:
+                            raise Exception( f"No GC configuration matches {args.globalconfiguration}" )
+                        elif len( conf.keys() ) > 1:
+                            raise Exception( f"Multiple matches for GC configuration {args.globalconfiguration}" )
+                        gcconfiguri = list(conf.keys())[0]
+                        logger.info( f"{gcconfiguri=}" )
+                        logger.debug( f"{gcconfiguri=}" )
+                        queryparams['oslc_config.context'] = gcconfiguri
+                        
+                # check the gc config uri exists - a GET from it shouldn't fail!
+                if not gcapp.check_valid_config_uri(gcconfiguri,raise_exception=False):
+                    raise Exception( f"GC configuration URI {gcconfiguri} not valid!" )
+
+            if p.singlemode and args.globalconfiguration is None:
+                args.component = args.project
+
+            if args.component:
+                c = p.find_local_component(args.component)
+                if not c:
+                    raise Exception( f"Component '{args.component}' not found in project {args.project}" )
+            else:
+                c = None
+                
+            # assert the default configuration for this component if none is specified
+            if not args.localconfiguration and not args.globalconfiguration and c:
+                args.localconfiguration = c.initial_stream_name()
+                print( f"Warning - project '{args.project}' is opt-in but for component '{args.component}' you didn't specify a local configuration - using default stream '{c.initial_stream_name()}'" )
+            logger.info( f"{args.localconfiguration=}" )
+            if p.is_optin:
+                if ( args.localconfiguration or p.singlemode ) and args.globalconfiguration is None:
+                    if p.singlemode:
+                        if args.localconfiguration is None:
+                            # default to the stream
+                            args.localconfiguration = c.get_default_stream_name()
+                    config = c.get_local_config(args.localconfiguration)
+                    if config is None:
+                        raise Exception( f"Configuration '{args.localconfiguration}' not found in component {args.component}" )
+                    queryon = c
+
+                elif gcconfiguri:
+                    config = None
+                    queryon=p
+                else:
+                    raise Exception( f"Project {args.project} is opt-in so you must provide a local or global configuration" )
+                    
+                if args.artifact_format=='comparison' and args.targetconfiguration:
+                    targetconfig = c.get_local_config(args.targetconfiguration)
+                    if targetconfig is None:
+                        raise Exception( f"Target configuration '{args.targetconfiguration}' not found in component {args.component}" )
+                    
+                    queryparams['targetConfigUri'] = targetconfig
+                    queryparams['sourceConfigUri'] = config
+            else:
+                queryon=p
+            queryon.set_local_config(config,gcconfiguri)
+            queryparams['oslc_config.context'] = config or gcconfiguri
+        if args.artifact_format=='comparison' and args.targetconfiguration:
+            if 'oslc_config.context' in queryparams:
+                del queryparams['oslc_config.context']
+
+        if args.module:
+            # get the query capability base URL for requirements
+            qcbase = queryon.get_query_capability_uri("oslc_rm:Requirement")
+            # query for a title and for format=module
+            modules = queryon.execute_oslc_query(
+                qcbase,
+                whereterms=[['dcterms:title','=',f'"{args.module}"'], ['rdm_types:ArtifactFormat','=','jazz_rm:Module']],
+                select=['*'],
+                prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms',rdfxml.RDF_DEFAULT_PREFIX["rdm_types"]:'rdm_types',rdfxml.RDF_DEFAULT_PREFIX["jazz_rm"]:'jazz_rm'})
+                
+            if len(modules)==0:
+                raise Exception( f"No module '{args.module}' with that name in {args.project} {args.component}" )
+            elif len(modules)>1:
+                for k,v in modules.items():
+                    print( f'{k} {v.get("dcterms:title","")}' )
+                raise Exception( "More than one module with that name in {args.project} {args.component}" )
+            queryparams['moduleUri'] = list(modules.keys())[0]
+        
+        if args.collection:
+            # find the collection IDs or names
+                # TBC ...
+            burp
+            #queryparams['collection']=
+            
+        if args.coverPage:
+            queryparams['coverpage']='true'
+
+        if args.signaturePage:
+            queryparams['signaturepage']='true'
+
+        if args.all:
+            queryurl = "*"
+                    
+        if args.schema:
+            queryparams['metadata']='schema'
+        
+        if args.resourceID or args.moduleResourceID or args.coreResourceID:
+            if args.project is None or (args.localconfiguration is None and args.globalconfiguration is None):
+                raise Exception( "To use resourceIDs you must specify project and either local or global config")
+            # split into numbers and search for them
+            ids = ( args.resourceID or args.moduleResourceID or args.coreResourceID ).split( ",")
+            # use OSLC query to find them
+            qcbase = queryon.get_query_capability_uri("oslc_rm:Requirement")
+            logger.debug( f"querying for gc config {args.globalconfiguration}" )
+            arts = queryon.execute_oslc_query( qcbase, whereterms=[['dcterms:identifier','in',ids]], select=['*'], prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms'})
+            logger.debug( f"{arts=}" )
+            uris = []
+            for k,v in arts.items():
+                logger.debug( f'{k} {v.get("dcterms:identifier","NOID")} {v.get("dcterms:title","NOTITLE")}  {v.get("rm_nav:parent","NONAV")}' )
+                if args.resourceID or (args.coreResourceID and "rm_nav:parent" in v) or (args.moduleResourceID and "rm_nav:parent" not in v):
+                    uris.append(k)
+            if not uris:
+                raise Exception( f"No resource IDs found!" )
+            queryparams['resourceURI']=",".join(uris)
+            
+        if args.view:
+            # find the view
+            # find a view http://jazz.net/ns/rm/dng/view#View
+            # get the query capability base URL
+            qcbase = queryon.get_query_capability_uri("http://jazz.net/ns/rm/dng/view#View")
+            # query for a configuration with title
+            logger.debug( f"querying for gc config {args.globalconfiguration}" )
+#                views = queryon.execute_oslc_query( qcbase, whereterms=[['dcterms:title','=',f'"{args.view}"']], select=['*'], prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms'})
+            # view queries don't support any oslc.where - will have to find the view by name from the results
+            views = queryon.execute_oslc_query( qcbase, select=['*'])
+#                logger.debug( f"{views=}" )
+            theview = None
+            for k,v in views.items():
+#                    logger.debug( f"{k} {v['dcterms:title']}" )
+                if v['dcterms:title']==args.view:
+                    theview = k
+            if theview is None:
+                raise Exception( f"No view '{args.view}' found in {args.project} {args.component}" )
+                
+            if args.artifact_format=='views':
+                queryparams['viewUri'] = theview
+            else:
+                queryparams['viewName'] = args.view
+
+        if args.modifiedsince:
+            # check it is a valid date!
+            #yyyy-MM-ddTHH:mm:ss.SSSZ
+            # TBC
+            DEFAULT_DATE = datetime.datetime(datetime.MINYEAR, 1, 1)
+            ts = dateutil.parser.parse(args.modifiedsince, default=DEFAULT_DATE,tzinfos=[dateutil.tz.tzlocal()])
+            utc_date_time = ts.astimezone(pytz.utc)
+            utc_date_time_s = utc_date_time.strftime('%G-%m-%dT%H:%M:%SZ')
+            if utc_date_time_s != args.modifiedsince:
+                print( f"Date-time {args.modifiedsince} normalised to {utc_date_time_s}" )
+            queryparams['modifiedSince'] = utc_date_time_s
+            
+        if args.history:
+            queryparams['history'] = True
+            
+        queryurl = self.reluri(self.reportablerestbase) + "/"+ args.artifact_format
+        
+        if args.all:
+            queryurl += "/*"
+
+        # check something is being requested
+        if not args.all and not queryparams:
+            raise Exception( "You need to specify something!" )
+            
+        return (queryurl,queryparams,queryheaders)
+        

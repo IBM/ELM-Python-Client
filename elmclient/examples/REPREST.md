@@ -39,8 +39,9 @@ Usage
 To get all the usage options use `represt -h` or `represt --help`:
 
 ```
-usage: represt [-h] [-A APPSTRINGS] [-C CSVOUTPUTFILE] [-D DELAYBETWEENPAGES] [-E CACHEEXPIRY] [-G PAGESIZE] [-J JAZZURL] [-K] [-L LOGLEVEL] [-M MAXRESULTS] [-P PASSWORD] [-S] [-T] [-U USERNAME] [-V] [-W]
-               [-X XMLOUTPUTFILE] [-Z PROXYPORT] [-0 SAVECREDS] [-1 READCREDS] [-2 ERASECREDS] [-3 SECRET] [-4]
+usage: represt [-h] [-A APPSTRINGS] [-C CSVOUTPUTFILE] [-D DELAYBETWEENPAGES] [-E CACHEEXPIRY] [-G PAGESIZE] [-H FORCEHEADER] [-J JAZZURL] [-K] [-L LOGLEVEL]
+               [-M MAXRESULTS] [-P PASSWORD] [-R FORCEPARAMETER] [-S] [-T] [-U USERNAME] [-V] [-W] [-X XMLOUTPUTFILE] [-Z PROXYPORT] [-0 SAVECREDS] [-1 READCREDS]
+               [-2 ERASECREDS] [-3 SECRET] [-4]
                {rm} ...
 
 Perform Reportable REST query on an application, with results output to CSV and/or XML - use -h to get some basic help. NOTE only rm queries are allowed at the moment.
@@ -52,33 +53,44 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   -A APPSTRINGS, --appstrings APPSTRINGS
-                        Must be comma-separated list of used domains or domain:contextroot, the FIRST one is where the reportable rest query goes, default rm,gc If using nonstandard context roots for just rm and gc like
-                        /rrc and /thegc then specify "rm:rrc,gc:thegc" NOTE if jts is not on /jts then add e.g. ",jts:/myjts" to the end of this string. Default can be set using environment variable QUERY_APPSTRINGS
+                        Must be comma-separated list of used domains or domain:contextroot, the FIRST one is where the reportable rest query goes, default rm If using
+                        nonstandard context roots for just rm and gc like /rrc and /thegc then specify "rm:rrc,gc:thegc" NOTE if jts is not on /jts but is on /myjts then
+                        add jts: and its context route without leading / e.g. "rm,jts:myjts" to the end of this string. Default can be set using environment variable
+                        QUERY_APPSTRINGS
   -C CSVOUTPUTFILE, --csvoutputfile CSVOUTPUTFILE
                         Name of file to save the CSV results to
   -D DELAYBETWEENPAGES, --delaybetweenpages DELAYBETWEENPAGES
-                        Delay in seconds between each page of results - use this to reduce overall server load particularly for large result sets or when retrieving many attributes
+                        Delay in seconds between each page of results - use this to reduce overall server load particularly for large result sets or when retrieving many
+                        attributes
   -E CACHEEXPIRY, --cacheexpiry CACHEEXPIRY
-                        Days to keep cached results from the server (NOTE query results are never cached) - set to 0 to erase current cache and suppress new caching - set to e.g. -7 to erase current cache and then cache
-                        for 7 days, set to 7 to maintain the current cache and keep new entries for 7 days
+                        Days to keep cached results from the server (NOTE query results are never cached) - set to 0 to erase current cache and suppress new caching -
+                        set to e.g. -7 to erase current cache and then cache for 7 days, set to 7 to maintain the current cache and keep new entries for 7 days
   -G PAGESIZE, --pagesize PAGESIZE
                         Page size for results paging (default is whatever the server does, e.g. 100)
+  -H FORCEHEADER, --forceheader FORCEHEADER
+                        Force adding header with value to the query - you must provide the header name=value. NOTE these override headers from the application. If you
+                        want to force deleting a header give it the value DELETE. There is no way of forcing a header to have the value DELETE
   -J JAZZURL, --jazzurl JAZZURL
                         jazz server url (without the /jts!) default {JAZZURL} Default can be set using environment variable QUERY_JAZZURL
   -K, --collapsetags    In CSV output rather than naming column for the tag hierarchy, just use the leaf tag name
   -L LOGLEVEL, --loglevel LOGLEVEL
-                        Set logging on console and (if providing a , and a second level) to file to one of DEBUG, INFO, WARNING, ERROR, CRITICAL, OFF - default is ERROR,DEBUG - can be set by environment variable
-                        QUERY_LOGLEVEL
+                        Set logging on console and (if providing a , and a second level) to file to one of DEBUG, INFO, WARNING, ERROR, CRITICAL, OFF - default is
+                        ERROR,DEBUG - can be set by environment variable QUERY_LOGLEVEL
   -M MAXRESULTS, --maxresults MAXRESULTS
                         Limit on number of results - may be exceeded by up to one page of results
   -P PASSWORD, --password PASSWORD
                         User password - can be set using env variable OUERY_PASSWORD - set to PROMPT to be prompted at runtime
+  -R FORCEPARAMETER, --forceparameter FORCEPARAMETER
+                        Force adding query name and value to the query URL - you must provide the name=value, the value will be correctly encoded for you. NOTE these
+                        override parameters from the application. If you want to force deleting a parameter give it the value DELETE. There is no way of forcing a
+                        parameter to have the value DELETE
   -S, --sortidentifier  If identifier is in results, sort into ascending numeric order of identifier
   -T, --certs           Verify SSL certificates
   -U USERNAME, --username USERNAME
                         User id - can be set using environment variable QUERY_USER
   -V, --verbose         Show verbose info during query
-  -W, --cachecontrol    Used once -W erases cache then continues with caching enabled. Used twice -WW wipes cache and disables caching. Otherwise caching is continued from previous run(s).
+  -W, --cachecontrol    Used once -W erases cache then continues with caching enabled. Used twice -WW wipes cache and disables caching. Otherwise caching is continued
+                        from previous run(s).
   -X XMLOUTPUTFILE, --xmloutputfile XMLOUTPUTFILE
                         Name of file to save the XML results to
   -Z PROXYPORT, --proxyport PROXYPORT
@@ -103,8 +115,8 @@ usage: represt rm [-h] [-p PROJECT] [-c COMPONENT] [-g GLOBALCONFIGURATION] [-l 
 
 positional arguments:
   {collections,comments,comparison,linktypes,modules,processes,resources,reviews,revisions,screenflows,storyboards,terms,text,uisketches,usecasediagrams}
-                        RM artifact format - possible values are collections, comments, comparison, linktypes, modules, processes, resources, reviews, revisions, screenflows, storyboards, terms, text, uisketches,
-                        usecasediagrams
+                        RM artifact format - possible values are collections, comments, comparison, linktypes, modules, processes, resources, reviews, revisions,
+                        screenflows, storyboards, terms, text, uisketches, usecasediagrams
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -115,8 +127,9 @@ optional arguments:
   -g GLOBALCONFIGURATION, --globalconfiguration GLOBALCONFIGURATION
                         Scope: Name or ID of global config (make sure you define gc in --appstring!) - to use this you need to provide the project
   -l LOCALCONFIGURATION, --localconfiguration LOCALCONFIGURATION
-                        Scope: Name of local config - you need to provide the project - defaults to the "Initial Stream" or "Initial Development" +same name as the project - if name is ambiguous specify a stream using
-                        "S:Project Initial Stream", a baseline using "B:my baseline", or changeset using "C:changesetname"
+                        Scope: Name of local config - you need to provide the project - defaults to the "Initial Stream" or "Initial Development" +same name as the
+                        project - if name is ambiguous specify a stream using "S:Project Initial Stream", a baseline using "B:my baseline", or changeset using
+                        "C:changesetname"
   -e TARGETCONFIGURATION, --targetconfiguration TARGETCONFIGURATION
                         Scope: Name of target configuration when using artifact_format comparison - see description of --localconfiguration for how to disambiguate names
   -n COLLECTION, --collection COLLECTION

@@ -320,7 +320,7 @@ class HttpRequest():
     #  1. if the response indicates login is required then login and try the request again
     #  2. if request is rejected for various reasons retry with the CSRF header applied
     # supports Jazz Form authorization and Jazz Authorization Server login
-    def _execute_one_request_with_login( self, *, no_error_log=False, close=False, donotlogbody=False, retry_get_after_login=True ):
+    def _execute_one_request_with_login( self, *, no_error_log=False, close=False, donotlogbody=False, retry_get_after_login=True, remove_headers=[] ):
         retry_after_login_needed = False
         logger.debug( f"{retry_get_after_login=}" )
         request = self._req
@@ -336,6 +336,17 @@ class HttpRequest():
         else:
             request.headers['Connection'] = 'keep-alive'
 
+        # this is for generic API debugging to be able to remove any header before it's actually sent!
+        for h in remove_headers:
+            print( f"{request.headers=}" )
+            if h in request.headers:
+                print( f"Removing header {h}" )
+                del request.headers[h]
+                request.headers[h]=None
+            else:
+                print( f"No header to remove {h}" )
+            print( f"{request.headers=}" )
+                
         # actually (try to) do the request
         try:
             prepped = self._session.prepare_request( request )

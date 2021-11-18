@@ -65,12 +65,14 @@ def represt_main():
     parser.add_argument('-E', '--cacheexpiry', type=int, default=7, help="Days to keep cached results from the server (NOTE query results are never cached) - set to 0 to erase current cache and suppress new caching - set to e.g. -7 to erase current cache and then cache for 7 days, set to 7 to maintain the current cache and keep new entries for 7 days")
 #    parser.add_argument("-F", "--forcequery", default=None, help="Force use of this exact query - all scope/filter settings are ignored! - this string is added to the reportable rest publish base for your app - e.g. use '/text/*' to do query /publish/text/* - NOTE you need to put the & and ? for any query parameters and include URL escapes in the parameters!")
     parser.add_argument( '-G', '--pagesize', default=0, type=int, help="Page size for results paging (default is whatever the server does, e.g. 100)")    
+    parser.add_argument('-H', '--forceheader', action='append', default=[], help="Force adding header with value to the query - you must provide the header name=value. NOTE these override headers from the application. If you want to force deleting a header give it the value DELETE. There is no way of forcing a header to have the value DELETE")
     parser.add_argument("-J", "--jazzurl", default=JAZZURL, help="jazz server url (without the /jts!) default {JAZZURL} Default can be set using environment variable QUERY_JAZZURL")
     parser.add_argument('-K', '--collapsetags', action="store_true", help="In CSV output rather than naming column for the tag hierarchy, just use the leaf tag name")
     parser.add_argument('-L','--loglevel', default=LOGLEVEL,help=f'Set logging on console and (if providing a , and a second level) to file to one of DEBUG, INFO, WARNING, ERROR, CRITICAL, OFF - default is {LOGLEVEL} - can be set by environment variable QUERY_LOGLEVEL')
     parser.add_argument('-M', '--maxresults', default=0, type=int, help="Limit on number of results - may be exceeded by up to one page of results")
 #    parser.add_argument('-N', '--noprogressbar', action="store_false", help="Don't show progress bar during query")
     parser.add_argument("-P", "--password", default=PASSWORD, help="User password - can be set using env variable OUERY_PASSWORD - set to PROMPT to be prompted at runtime")
+    parser.add_argument('-R', '--forceparameter', action='append', default=[], help="Force adding query name and value to the query URL - you must provide the name=value, the value will be correctly encoded for you. NOTE these override parameters from the application. If you want to force deleting a parameter give it the value DELETE. There is no way of forcing a parameter to have the value DELETE")
     parser.add_argument('-S', '--sortidentifier', action="store_true", help="If identifier is in results, sort into ascending numeric order of identifier")
     parser.add_argument('-T', '--certs', action="store_true", help="Verify SSL certificates")
     parser.add_argument("-U", "--username", default=USER, help="User id - can be set using environment variable QUERY_USER")
@@ -204,14 +206,32 @@ def represt_main():
     if args.pagesize:
         queryparams['size'] = args.pagesize
 
+    if args.forceparameter:
+        for p in args.forceparameter:
+            pname, pvalue = p.split("=",1)
+            if pvalue=="DELETE":
+                if pname in queryparams:
+                    del queryparams[pname]
+            else:
+                queryparams[pname] = pvalue
+
     resultsxmls=[]
     nresults = 0
     
     headers = {
-            'OSLC-Core-Version': None # this one seems to be required - it prevents the app from asserting OSLC-Core-Version when making Reportable REST API calls
+            'OSLC-Core-Version': None # this one seems to be required - it prevents the app from asserting OSLC-Core-Version when making Reportable REST API calls - this seems to affect paged results when the first query required a login :-o
         }
     headers.update(queryheaders) 
-
+    
+    if args.forceheader:
+        for h in args.forceheader:
+            hname, hvalue = h.split("=",1)
+            if hvalue=="DELETE":
+                if hname in headers:
+                    headers[hname] = None
+            else:
+                headers[hname] = hvalue
+    
     # create the full URL with parameters
     # NOTE doing this now allows the next page link to be used unmodified (headers are provided every time)
     parts = list(urllib.parse.urlparse(queryurl))

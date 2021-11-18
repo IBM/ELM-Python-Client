@@ -7,6 +7,7 @@
 import codecs
 import http
 import inspect
+import json
 import logging
 import lxml.etree as ET
 import re

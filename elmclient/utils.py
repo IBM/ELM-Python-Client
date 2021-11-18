@@ -172,7 +172,7 @@ def getacontentrow( node, thisrowdict, allcolumns, level, path, remove_ns=True, 
         if len(children)>0 and node.tag==f'{{{rdfxml.RDF_DEFAULT_PREFIX["rm_text"]}}}richTextBody':
             # this is a special case - this tag with children contains literal XHTML which we want
             # to use as-is so copy the string version of the text content and don't recurse into it
-            thisrowdict[path] = et.tostring(node)
+            thisrowdict[path] = ET.tostring(node)
         else:
             # this is just all the the content
             thisrowdict[path]=text+tail

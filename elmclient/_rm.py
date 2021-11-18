@@ -314,9 +314,7 @@ class _RMProject(_project._Project):
                                 thisconfu = confmember.get("{%s}resource" % rdfxml.RDF_DEFAULT_PREFIX["rdf"])
                                 confs_to_load.append(thisconfu)
                         # maybe it's got configuration(s)
-                        confmemberx = rdfxml.xml_find_elements(configs_xml, './/oslc_config:Configuration')
-                            or rdfxml.xml_find_elements(configs_xml, './/oslc_config:Stream')
-                            or rdfxml.xml_find_elements(configs_xml, './/oslc_config:Baseline')
+                        confmemberx = rdfxml.xml_find_elements(configs_xml, './/oslc_config:Configuration') or rdfxml.xml_find_elements(configs_xml, './/oslc_config:Stream') or rdfxml.xml_find_elements(configs_xml, './/oslc_config:Baseline')
                         for confmember in confmemberx:  
                             thisconfu = rdfxml.xmlrdf_get_resource_uri( confmember )
                             logger.debug( f"{thisconfu=}" )
@@ -363,6 +361,7 @@ class _RMProject(_project._Project):
         return (ncomps, nconfs)
 
     def get_local_config(self, name_or_uri):
+        self.load_components_and_configurations()
         result = None
         filter = None
         if name_or_uri.startswith("S:"):
@@ -890,6 +889,9 @@ class _RMApp(_app._App, _typesystem.No_Type_System_Mixin):
                     queryparams['targetConfigUri'] = targetconfig
                     queryparams['sourceConfigUri'] = config
             else:
+                if not args.localconfiguration:
+                    args.localconfiguration = f"{args.project} Initial Stream"
+                config = p.get_local_config(args.localconfiguration)
                 queryon=p
             queryon.set_local_config(config,gcconfiguri)
             queryparams['oslc_config.context'] = config or gcconfiguri
@@ -916,10 +918,9 @@ class _RMApp(_app._App, _typesystem.No_Type_System_Mixin):
             queryparams['moduleUri'] = list(modules.keys())[0]
         
         if args.collection:
+            raise Exception( "Not implemented yet" )
             # find the collection IDs or names
-                # TBC ...
-            burp
-            #queryparams['collection']=
+            #queryparams['collection'] = coll_u
             
         if args.coverPage:
             queryparams['coverpage']='true'
@@ -958,7 +959,7 @@ class _RMApp(_app._App, _typesystem.No_Type_System_Mixin):
             # get the query capability base URL
             qcbase = queryon.get_query_capability_uri("http://jazz.net/ns/rm/dng/view#View")
             # query for a configuration with title
-            logger.debug( f"querying for gc config {args.globalconfiguration}" )
+            logger.debug( f"querying for view {args.view}" )
 #                views = queryon.execute_oslc_query( qcbase, whereterms=[['dcterms:title','=',f'"{args.view}"']], select=['*'], prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms'})
             # view queries don't support any oslc.where - will have to find the view by name from the results
             views = queryon.execute_oslc_query( qcbase, select=['*'])

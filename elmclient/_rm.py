@@ -731,6 +731,7 @@ class _RMApp(_app._App, _typesystem.No_Type_System_Mixin):
         parser_rm.add_argument('-p', '--project', default=None, help='Scope: Name of project - required when using module/collection/view/resource/typename ID/typename as a filter')
         parser_rm.add_argument('-c', '--component', default=None, help='Scope: Name of component - required when using module/collection/view/resource/typename ID/typename as a filter')
         parser_rm.add_argument('-g', '--globalconfiguration', default=None, help='Scope: Name or ID of global config (make sure you define gc in --appstring!) - to use this you need to provide the project')
+        parser_rm.add_argument('-o', '--globalproject', default=None, help='Scope: Name of GC project (make sure you define gc in --appstring!)')
         parser_rm.add_argument('-l', '--localconfiguration', default=None, help='Scope: Name of local config - you need to provide the project - defaults to the "Initial Stream" or "Initial Development" +same name as the project - if name is ambiguous specify a stream using "S:Project Initial Stream", a baseline using "B:my baseline", or changeset using "C:changesetname"')
         parser_rm.add_argument('-e', '--targetconfiguration', default=None, help='Scope: Name of target configuration when using artifact_format comparison - see description of --localconfiguration for how to disambiguate names')
 

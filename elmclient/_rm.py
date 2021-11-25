@@ -56,6 +56,7 @@ class _RMProject(_project._Project):
         self.is_singlemode = False # this is only true if config enabled is true and single mode is true
         self.gcconfiguri = None
         self.default_query_resource = "oslc_rm:Requirement"
+        self._iscomponent=False
 
     #
     # load folders until name_or_uri is found (cuts loading short, remembers folders still to load) or until all loaded
@@ -174,6 +175,7 @@ class _RMProject(_project._Project):
     def load_components_and_configurations(self,force=False):
         if self._components is not None and self._configurations is not None and not force:
             return
+        logger.info( f"load_components_and_configurations {self=} {self.is_optin=}" ) 
         self._components = {}
         self._configurations = {}
         ncomps = 0
@@ -254,8 +256,8 @@ class _RMProject(_project._Project):
             components_xml = self.execute_get_rdf_xml(components_uri)
             projcx = rdfxml.xml_find_element(components_xml, './/oslc:CreationFactory', 'dcterms:title', self.name)
             if projcx is None:
-                # this is <= 6.0.3 with config mgmt enabled which effectively uses opt out
-                # get the default configuration
+                logger.info( f"old optin {self.name=} {self=} {self._iscomponent=}" )
+                
                 projx = self.execute_get_xml(self.reluri('rm-projects/' + self.iid))
                 compsu = rdfxml.xmlrdf_get_resource_text( projx, './/jp06:components' )
                 compsx = self.execute_get_xml(compsu)
@@ -279,7 +281,7 @@ class _RMProject(_project._Project):
                     self._components[defaultcompu]['configurations'][confu] = {'name': conftitle, 'conftype': conftype, 'confXml': confx, 'created': created}
                     self._configurations[defaultcompu] = self._components[defaultcompu]['configurations'][confu]
                     nconfs += 1
-                    burp
+                    raise Exception( "Something odd in an old 6.0.3-style project" )
             else:
                 # full optin
                 cru = rdfxml.xmlrdf_get_resource_uri(projcx, 'oslc:creation')
@@ -361,7 +363,7 @@ class _RMProject(_project._Project):
         return (ncomps, nconfs)
 
     def get_local_config(self, name_or_uri):
-        self.load_components_and_configurations()
+#        self.load_components_and_configurations()
         result = None
         filter = None
         if name_or_uri.startswith("S:"):
@@ -561,7 +563,15 @@ class _RMProject(_project._Project):
     # for OSLC query, given a resource URI, return the requirement dcterms:identifier
     def resource_id_from_uri(self, uri):
         if self.is_resource_uri(uri):
-            resource_xml = self.execute_get_rdf_xml(reluri=uri)
+            try:
+                resource_xml = self.execute_get_rdf_xml(reluri=uri)
+            except requests.HTTPError as e:
+                if e.response.status_code==410:
+                    logger.info( f"Type {uri} doesn't exist!" )
+                    print( f"Error retrieving URI, probably a reference outside the component, i.e. it's in a different (unknown) configuration - ignored {uri}" )
+                    return None
+                else:
+                    raise
             id = rdfxml.xmlrdf_get_resource_text(resource_xml, ".//dcterms:identifier")
             return id
         raise Exception(f"Bad resource uri {uri}")
@@ -665,7 +675,8 @@ class _RMComponent(_RMProject):
             raise Exception( "You mist provide a project instance when creating a component" )
         super().__init__(name, project_uri, app, is_optin,singlemode,defaultinit=defaultinit)
         self.component_project = project
-        self.services_uri = project.services_uri    # need for reqif which wants to put the services.xml URI into created XML for new definitions
+        self.services_uri = project.services_uri    # needed for reqif which wants to put the services.xml URI into created XML for new definitions
+        self._iscomponent=True
 
 
 #################################################################################################
@@ -695,6 +706,7 @@ class _RMApp(_app._App, _typesystem.No_Type_System_Mixin):
             ,'text'
             ,'uisketches'
             ,'usecasediagrams'
+            ,'views'
         ]
     identifier_name = 'Identifier'
     identifier_uri = 'dcterms:identifier'
@@ -719,11 +731,11 @@ class _RMApp(_app._App, _typesystem.No_Type_System_Mixin):
         return result
 
     @classmethod
-    def add_represt_arguments( cls, subparsers ):
+    def add_represt_arguments( cls, subparsers, common_args ):
         '''
         NOTE this is called on the class (i.e. is a class method) because at this point don't know which app with be queried
         '''
-        parser_rm = subparsers.add_parser('rm', help='RM Reportable REST actions')
+        parser_rm = subparsers.add_parser('rm', help='RM Reportable REST actions', parents=[common_args] )
         
         parser_rm.add_argument('artifact_format', choices=cls.artifact_formats, default=None, help=f'RM artifact format - possible values are {", ".join(cls.artifact_formats)}')
 
@@ -788,7 +800,7 @@ class _RMApp(_app._App, _typesystem.No_Type_System_Mixin):
         gcconfiguri = None
         gcapp = allapps.get('gc',None)
         if not gcapp and args.globalconfiguration:
-            raise Exception( "gc app must be specified in APPSTRINGS/-A to use a global configuration" )
+            raise Exception( "gc app must be specified in APPSTRINGS/-A (after the rm app) to use a global configuration - for exmaple use -A rm,gc" )
 
         # most queries need a project and configuration - projects queried without a config will return data from the default configuraiotn (the default component's initial stream)
         if args.all or args.collection or args.module or args.view or args.typename or args.resourceID or args.moduleResourceID or args.coreResourceID or args.schema or args.attributes or args.titles or args.linksOnly or args.history or args.artifact_format=='views':
@@ -800,7 +812,7 @@ class _RMApp(_app._App, _typesystem.No_Type_System_Mixin):
             p = self.find_project(args.project)
             if p is None:
                 raise Exception( f"Project '{args.project}' not found")
-
+                
             queryparams['projectURI']=p.iid
 
             if p.singlemode and args.globalconfiguration:
@@ -830,6 +842,7 @@ class _RMApp(_app._App, _typesystem.No_Type_System_Mixin):
                             if gc_query_on is None:
                                 raise Exception( f"Project '{args.globalproject}' not found")
                         else:
+                            print( f"No global project specified so searching for GC {args.globalconfiguration} across the GC app" )
                             gc_query_on = gcapp
 
                         # get the query capability base URL
@@ -840,7 +853,7 @@ class _RMApp(_app._App, _typesystem.No_Type_System_Mixin):
                         if len( conf.keys() ) == 0:
                             raise Exception( f"No GC configuration matches {args.globalconfiguration}" )
                         elif len( conf.keys() ) > 1:
-                            raise Exception( f"Multiple matches for GC configuration {args.globalconfiguration}" )
+                            raise Exception( f"Multiple matches for GC configuration {args.globalconfiguration} - you will have to specify the GC project using -g" )
                         gcconfiguri = list(conf.keys())[0]
                         logger.info( f"{gcconfiguri=}" )
                         logger.debug( f"{gcconfiguri=}" )

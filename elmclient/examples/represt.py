@@ -53,50 +53,59 @@ def represt_main():
         if appcls.artifact_formats:
             allformats.append(f"{appcls.domain}: "+",".join( appcls.artifact_formats )+ "." )
     allformats = " ".join(allformats)
-
+    
+    # for arguments common to all sub-parsers
+    common_args = argparse.ArgumentParser(description="Perform Reportable REST query on an application, with results output to CSV and/or XML - use -h to get some basic help. NOTE only rm queries are allowed at the moment.", add_help=False)
+    
+    # the main arguments parser
     parser = argparse.ArgumentParser(description="Perform Reportable REST query on an application, with results output to CSV and/or XML - use -h to get some basic help. NOTE only rm queries are allowed at the moment.")
 
+    # the holder for sub-parsers
     subparsers = parser.add_subparsers(help='sub-commands',dest='subparser_name')
 
     # general settings which are common acrosss all reportable rest apps
-    parser.add_argument('-A', '--appstrings', default=APPSTRINGS,help=f'Must be comma-separated list of used domains or domain:contextroot, the FIRST one is where the reportable rest query goes, default {APPSTRINGS} If using nonstandard context roots for just rm and gc like /rrc and /thegc then specify "rm:rrc,gc:thegc" NOTE if jts is not on /jts but is on /myjts then add jts: and its context route without leading / e.g. "rm,jts:myjts" to the end of this string. Default can be set using environment variable QUERY_APPSTRINGS')
-    parser.add_argument('-C', '--csvoutputfile', default=None, help='Name of file to save the CSV results to')
-    parser.add_argument('-D', '--delaybetweenpages', type=float,default=0.0, help="Delay in seconds between each page of results - use this to reduce overall server load particularly for large result sets or when retrieving many attributes")
-    parser.add_argument('-E', '--cacheexpiry', type=int, default=7, help="Days to keep cached results from the server (NOTE query results are never cached) - set to 0 to erase current cache and suppress new caching - set to e.g. -7 to erase current cache and then cache for 7 days, set to 7 to maintain the current cache and keep new entries for 7 days")
+    common_args.add_argument('-A', '--appstrings', default=APPSTRINGS,help=f'Must be comma-separated list of used domains or domain:contextroot, the FIRST one is where the reportable rest query goes, default {APPSTRINGS} If using nonstandard context roots for just rm and gc like /rrc and /thegc then specify "rm:rrc,gc:thegc" NOTE if jts is not on /jts but is on /myjts then add jts: and its context route without leading / e.g. "rm,jts:myjts" to the end of this string. Default can be set using environment variable QUERY_APPSTRINGS')
+    common_args.add_argument('-C', '--csvoutputfile', default=None, help='Name of file to save the CSV results to')
+    common_args.add_argument('-D', '--delaybetweenpages', type=float,default=0.0, help="Delay in seconds between each page of results - use this to reduce overall server load particularly for large result sets or when retrieving many attributes")
+    common_args.add_argument('-E', '--cacheexpiry', type=int, default=7, help="Days to keep cached results from the server (NOTE query results are never cached) - set to 0 to erase current cache and suppress new caching - set to e.g. -7 to erase current cache and then cache for 7 days, set to 7 to maintain the current cache and keep new entries for 7 days")
 #    parser.add_argument("-F", "--forcequery", default=None, help="Force use of this exact query - all scope/filter settings are ignored! - this string is added to the reportable rest publish base for your app - e.g. use '/text/*' to do query /publish/text/* - NOTE you need to put the & and ? for any query parameters and include URL escapes in the parameters!")
-    parser.add_argument( '-G', '--pagesize', default=0, type=int, help="Page size for results paging (default is whatever the server does, e.g. 100)")    
-    parser.add_argument('-H', '--forceheader', action='append', default=[], help="Force adding header with value to the query - you must provide the header name=value. NOTE these override headers from the application. If you want to force deleting a header give it the value DELETE. There is no way of forcing a header to have the value DELETE")
-    parser.add_argument("-J", "--jazzurl", default=JAZZURL, help="jazz server url (without the /jts!) default {JAZZURL} Default can be set using environment variable QUERY_JAZZURL")
-    parser.add_argument('-K', '--collapsetags', action="store_true", help="In CSV output rather than naming column for the tag hierarchy, just use the leaf tag name")
-    parser.add_argument('-L','--loglevel', default=LOGLEVEL,help=f'Set logging on console and (if providing a , and a second level) to file to one of DEBUG, INFO, WARNING, ERROR, CRITICAL, OFF - default is {LOGLEVEL} - can be set by environment variable QUERY_LOGLEVEL')
-    parser.add_argument('-M', '--maxresults', default=0, type=int, help="Limit on number of results - may be exceeded by up to one page of results")
+    common_args.add_argument( '-G', '--pagesize', default=0, type=int, help="Page size for results paging (default is whatever the server does, e.g. 100)")    
+    common_args.add_argument('-H', '--forceheader', action='append', default=[], help="Force adding header with value to the query - you must provide the header name=value. NOTE these override headers from the application. If you want to force deleting a header give it the value DELETE. There is no way of forcing a header to have the value DELETE")
+    common_args.add_argument("-J", "--jazzurl", default=JAZZURL, help="jazz server url (without the /jts!) default {JAZZURL} Default can be set using environment variable QUERY_JAZZURL")
+    common_args.add_argument('-K', '--collapsetags', action="store_true", help="In CSV output rather than naming column for the tag hierarchy, just use the leaf tag name")
+    common_args.add_argument('-L','--loglevel', default=LOGLEVEL,help=f'Set logging on console and (if providing a , and a second level) to file to one of DEBUG, INFO, WARNING, ERROR, CRITICAL, OFF - default is {LOGLEVEL} - can be set by environment variable QUERY_LOGLEVEL')
+    common_args.add_argument('-M', '--maxresults', default=0, type=int, help="Limit on number of results - may be exceeded by up to one page of results")
 #    parser.add_argument('-N', '--noprogressbar', action="store_false", help="Don't show progress bar during query")
-    parser.add_argument("-P", "--password", default=PASSWORD, help="User password - can be set using env variable OUERY_PASSWORD - set to PROMPT to be prompted at runtime")
-    parser.add_argument('-R', '--forceparameter', action='append', default=[], help="Force adding query name and value to the query URL - you must provide the name=value, the value will be correctly encoded for you. NOTE these override parameters from the application. If you want to force deleting a parameter give it the value DELETE. There is no way of forcing a parameter to have the value DELETE")
-    parser.add_argument('-S', '--sortidentifier', action="store_true", help="If identifier is in results, sort into ascending numeric order of identifier")
-    parser.add_argument('-T', '--certs', action="store_true", help="Verify SSL certificates")
-    parser.add_argument("-U", "--username", default=USER, help="User id - can be set using environment variable QUERY_USER")
-    parser.add_argument('-V', '--verbose', action="store_true", help="Show verbose info during query")
-    parser.add_argument('-W', '--cachecontrol', action='count', default=0, help="Used once -W erases cache then continues with caching enabled. Used twice -WW wipes cache and disables caching. Otherwise caching is continued from previous run(s).")
-    parser.add_argument('-X', '--xmloutputfile', default=None, help='Name of file to save the XML results to')
-    parser.add_argument('-Z', '--proxyport', default=8888, type=int, help='Port for proxy default is 8888 - used if found to be active - set to 0 to disable')
+    common_args.add_argument("-P", "--password", default=PASSWORD, help="User password - can be set using env variable OUERY_PASSWORD - set to PROMPT to be prompted at runtime")
+    common_args.add_argument('-R', '--forceparameter', action='append', default=[], help="Force adding query name and value to the query URL - you must provide the name=value, the value will be correctly encoded for you. NOTE these override parameters from the application. If you want to force deleting a parameter give it the value DELETE. There is no way of forcing a parameter to have the value DELETE")
+    common_args.add_argument('-S', '--sortidentifier', action="store_true", help="If identifier is in results, sort into ascending numeric order of identifier")
+    common_args.add_argument('-T', '--certs', action="store_true", help="Verify SSL certificates")
+    common_args.add_argument("-U", "--username", default=USER, help="User id - can be set using environment variable QUERY_USER")
+    common_args.add_argument('-V', '--verbose', action="store_true", help="Show verbose info during query, including the query URL")
+    common_args.add_argument('-W', '--cachecontrol', action='count', default=0, help="Used once -W erases cache then continues with caching enabled. Used twice -WW wipes cache and disables caching. Otherwise caching is continued from previous run(s).")
+    common_args.add_argument('-X', '--xmloutputfile', default=None, help='Name of file to save the XML results to')
+    common_args.add_argument('-Z', '--proxyport', default=8888, type=int, help='Port for proxy default is 8888 - used if found to be active - set to 0 to disable')
 
     # various options
-#    parser_rm.add_argument('--nresults', default=-1, type=int, help="TESTING UNFINISHED: Number of results expected (used for regression testing against stored data, doesn't need the target server - use -1 to disable checking")
+#    common_args.add_argument('--nresults', default=-1, type=int, help="TESTING UNFINISHED: Number of results expected (used for regression testing against stored data, doesn't need the target server - use -1 to disable checking")
 
     # saved credentials
-    parser.add_argument('-0', '--savecreds', default=None, help="Save obfuscated credentials file for use with readcreds, then exit - this stores jazzurl, jts, appstring, username and password")
-    parser.add_argument('-1', '--readcreds', default=None, help="Read obfuscated credentials from file - completely overrides commandline/environment values for jazzurl, jts, appstring, username and password" )
-    parser.add_argument('-2', '--erasecreds', default=None, help="Wipe and delete obfuscated credentials file" )
-    parser.add_argument('-3', '--secret', default="N0tSecret", help="SECRET used to encrypt and decrypt the obfuscated credentials (make this longer for greater security)" )
-    parser.add_argument('-4', '--credspassword', action="store_true", help="Prompt user for a password to save/read obfuscated credentials (make this longer for greater security)" )
+    common_args.add_argument('-0', '--savecreds', default=None, help="Save obfuscated credentials file for use with readcreds, then exit - this stores jazzurl, jts, appstring, username and password")
+    common_args.add_argument('-1', '--readcreds', default=None, help="Read obfuscated credentials from file - completely overrides commandline/environment values for jazzurl, jts, appstring, username and password" )
+    common_args.add_argument('-2', '--erasecreds', default=None, help="Wipe and delete obfuscated credentials file" )
+    common_args.add_argument('-3', '--secret', default="N0tSecret", help="SECRET used to encrypt and decrypt the obfuscated credentials (make this longer for greater security)" )
+    common_args.add_argument('-4', '--credspassword', action="store_true", help="Prompt user for a password to save/read obfuscated credentials (make this longer for greater security)" )
 
     # add subcommand for each app that supports reportable rest
     for appcls in _app._App.__subclasses__():
         if appcls.supports_reportable_rest:
-            appcls.add_represt_arguments( subparsers )
+            appcls.add_represt_arguments( subparsers, common_args )
 
     args = parser.parse_args()
+    
+    if not args.appstrings.split(",")[0].startswith(args.subparser_name):
+        args.appstrings=f"{args.subparser_name}:{args.subparser_name},{args.appstrings}"
+        print( f"{args.subparser_name} added to front of appstrings - using {args.appstrings} if you need a different context root from /{args.subparser_name} use -A to specify it" )
     
     # setup logging
     levels = [utils.loglevels.get(l,-1) for l in args.loglevel.split(",",1)]
@@ -253,6 +262,7 @@ def represt_main():
                 break
                 
         print()
+        
         nextlink = result.getroot().get("href",None)
         nresults += int(result.getroot().get(f"{{{rdfxml.RDF_DEFAULT_PREFIX['rrm']}}}totalCount",0))
         if args.maxresults>0 and nresults>=args.maxresults:

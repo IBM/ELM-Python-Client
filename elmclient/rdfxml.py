@@ -46,7 +46,7 @@ RDF_DEFAULT_PREFIX = {
     'rdm_types':    'http://www.ibm.com/xmlns/rdm/types/',
     'rm':           'http://www.ibm.com/xmlns/rdm/rdf/',
     'rm_ds':        'http://jazz.net/xmlns/alm/rm/datasource/v0.1', # For RR
-    'rm_modules':   'http://jazz.net/ns/rm/dng/module#',
+    'rm_module':   'http://jazz.net/ns/rm/dng/module#',
     'rm_config':    'http://jazz.net/ns/rm/dng/config#',
     'rm_nav':       'http://jazz.net/ns/rm/navigation#',
     'rm_text':      'http://jazz.net/xmlns/alm/rm/text/v0.1', # for RR
@@ -55,7 +55,8 @@ RDF_DEFAULT_PREFIX = {
     'rtc_cm':       "http://jazz.net/xmlns/prod/jazz/rtc/cm/1.0/",
     'xhtml':        'http://www.w3.org/1999/xhtml',
     'xml':          'http://www.w3.org/XML/1998/namespace',
-    'xsd':          'http://www.w3.org/2001/XMLSchema#'
+    'xsd':          'http://www.w3.org/2001/XMLSchema#',
+    'xs':          'http://www.w3.org/2001/XMLSchema'
 }
 
 # Register prefixes to XML system

@@ -309,9 +309,9 @@ class HttpRequest():
             if e.response.status_code in [
                                                 http.client.REQUEST_TIMEOUT,
                                                 http.client.LOCKED, 
-                                                http.client.INTERNAL_SERVER_ERROR,
+#                                                http.client.INTERNAL_SERVER_ERROR,
                                                 http.client.SERVICE_UNAVAILABLE,
-                                                http.client.BAD_REQUEST
+ #                                               http.client.BAD_REQUEST
                                         ]:
                 return True
         return False
@@ -320,33 +320,39 @@ class HttpRequest():
     #  1. if the response indicates login is required then login and try the request again
     #  2. if request is rejected for various reasons retry with the CSRF header applied
     # supports Jazz Form authorization and Jazz Authorization Server login
-    def _execute_one_request_with_login( self, *, no_error_log=False, close=False, donotlogbody=False, retry_get_after_login=True, remove_headers=[] ):
+    def _execute_one_request_with_login( self, *, no_error_log=False, close=False, donotlogbody=False, retry_get_after_login=True, remove_headers=None, remove_parameters=None ):
         retry_after_login_needed = False
         logger.debug( f"{retry_get_after_login=}" )
         request = self._req
-
         # copy header Configuration-Context to oslc_config.context parameter so URL when cached is config-specific
         # see https://oslc-op.github.io/oslc-specs/specs/config/config-resources.html#configcontext
-        if 'Configuration-Context' in request.headers:
+        if request.headers.get('Configuration-Context'):
+            # if Configuration-Context is not None:
+#            print( f"Copied header Configuration-Context to parameter oslc_config.context" )
             request.params['oslc_config.context'] = request.headers['Configuration-Context']
-
+        
         # ensure keep-alive/close
         if close:
             request.headers['Connection'] = 'close'
         else:
             request.headers['Connection'] = 'keep-alive'
 
+        # this is for generic API debugging to be able to remove any parameter before it's actually sent!
+        if remove_parameters:
+            for p in remove_parameters:
+                if p in request.params:
+                    del request.params[p]
+                    logger.info( f"Removed param {p}" )
+
         # this is for generic API debugging to be able to remove any header before it's actually sent!
-        for h in remove_headers:
-            print( f"{request.headers=}" )
-            if h in request.headers:
-                print( f"Removing header {h}" )
-                del request.headers[h]
-                request.headers[h]=None
-            else:
-                print( f"No header to remove {h}" )
-            print( f"{request.headers=}" )
-                
+        if remove_headers:
+            for h in remove_headers:
+#                print( f"{request.headers=}" )
+                if h in request.headers:
+                    del request.headers[h]
+                    logger.info( f"Removing header {h}" )
+                    request.headers[h]=None
+
         # actually (try to) do the request
         try:
             prepped = self._session.prepare_request( request )

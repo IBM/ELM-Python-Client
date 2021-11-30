@@ -353,9 +353,9 @@ class _QMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
     project_class = _QMProject
     supports_configs = True
     supports_components = True
-    supports_reportable_rest = False
+    supports_reportable_rest = True
     reportable_rest_status = "Application supports Reportable REST but not implemented here yet"
-    reportablerestbase='publish'
+    reportablerestbase='service/com.ibm.rqm.integration.service.IIntegrationService'
     artifactformats = [ # For RR
             '*'
             ,'collections'
@@ -469,3 +469,114 @@ class _QMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
             result = self.get_uri_name(uri)
         logger.info( f"Result {result=}" )
         return result
+
+    @classmethod
+    def add_represt_arguments( cls, subparsers, common_args ):
+        '''
+        NOTE this is called on the class (i.e. is a class method) because at this point don't know which app with be queried
+        '''
+        parser_qm = subparsers.add_parser('qm', help='ETM Reportable REST actions', parents=[common_args])
+        
+        parser_qm.add_argument('artifact_format', choices=cls.artifact_formats, default=None, help=f'CCM artifact format - possible values are {", ".join(cls.artifact_formats)}')
+
+        # SCOPE settings
+        parser_qm.add_argument('-p', '--project', default=None, help='Scope: Name of project - required when using module/collection/view/resource/typename ID/typename as a filter')
+
+        parser_qm.add_argument('-r', '--report', action='store_true', help='Report the fields available')
+
+#        # Source Filters - only use one of these at once - all require a project and configuration!
+#        rmex1 = parser_qm.add_mutually_exclusive_group()
+#        rmex1.add_argument('-c', '--collection', default=None, help='Sub-scope: RM: Name or ID of collection - you need to provide the project and local/global config')
+#        rmex1.add_argument('-m', '--module', default=None, help='Sub-scope: RM: Name or ID of module - you need to provide the project and local/global config')
+#        rmex1.add_argument('-v', '--view', default=None, help='Sub-scope: RM: Name of view - you need to provide the project and local/global config')
+#        rmex1.add_argument('-r', '--resourceIDs', default=None, help='Sub-scope: RM: Comma-separated IDs of resources - you need to provide the project and local/global config')
+#        rmex1.add_argument('-t', '--typename', default=None, help='Sub-scope: RM: Name of type - you need to provide the project and local/global config')
+        
+#        # Output FILTER settings - only use one of these at once
+#        parser_qm.add_argument('-a', '--all', action="store_true", help="Filter: Report all resources")
+#        parser_qm.add_argument('-d', '--modifiedsince', default=None, help='Filter: only return items modified since this date in format 2021-01-31T12:34:26Z')
+        parser_qm.add_argument('-f', '--fields', default=None, help="Filter using xpath")
+#        parser_qm.add_argument('-x', '--expandEmbeddedArtifacts', action="store_true", help="Filter: Expand embedded artifacts")
+        
+#        # various options
+#    #    parser_qm.add_argument('--forever', action='store_true', help="TESTING UNFINISHED: save web data forever (used for regression testing against stored data, may not need the target server if no requests fail)" )
+#        parser_qm.add_argument('--nresults', default=-1, type=int, help="TESTING UNFINISHED: Number of results expected (used for regression testing against stored data, doesn't need the target server - use -1 to disable checking")
+#        parser_qm.add_argument('--pagesize', default=100, type=int, help="Page size for results paging (default 100)")    
+        
+#        # Output controls - only use one of these at once!
+        rmex2 = parser_qm.add_mutually_exclusive_group()
+#        rmex2.add_argument('--attributes', default=None, help="Output: Comma separated list of attribute names to report (requires specifying project and configuration)")
+        rmex2.add_argument('--schema', action="store_true", help="Output: Report the schema")
+#        rmex2.add_argument('--titles', action="store_true", help="Output: Report titles")
+#        rmex2.add_argument('--linksOnly', action="store_true", help="Output: Report links only")
+#        rmex2.add_argument('--history', action="store_true", help="Output: Report history")
+#        rmex2.add_argument('--coverPage', action="store_true", help="Output: Report cover page variables")
+#        rmex2.add_argument('--signaturePage', action="store_true", help="Output: Report signature page variables")
+#    #    rmex2.add_argument('--size', action="store_true", help="Output: Set size (required for ???)")
+
+    def process_represt_arguments( self, args, allapps ):
+        '''
+        Process above arguments, returning a dictionayt of parameters to add to the represt base URL
+        NOTE this does have some dependency on thje overall 
+        
+        NOTE this is called on an instance (i.e. not a class method) because by now we know which app is being queried
+        '''
+        queryparams = {}
+        queryurl = ""
+        queryheaders={}
+        
+        if args.schema:
+            queryparams['metadata'] = 'schema'
+            
+        queryurl = self.reluri(self.reportablerestbase) + "/"+ args.artifact_format
+            
+        if args.report:
+            typestodo = []
+            # get the schema, walk it building the tree of fields
+            schema_x = self.execute_get_xml(queryurl+"?metadata=schema").getroot()
+#            print( f"{schema_x.tag=}" )
+#            print( f"{schema_x=}" )
+            el_x = rdfxml.xml_find_element( schema_x, "./xs:element" )
+            typestodo=[el_x.get('type')]
+            knowntypes={el_x.get('type'):[el_x.get('type')]} # contains path to [parent
+            fieldlist = []
+            while typestodo:
+#                print( f"{knowntypes=}" )
+                typetofind = typestodo.pop(0)
+                type_x = rdfxml.xml_find_element( schema_x, f'.//xs:complexType[@name="{typetofind}"]' )
+#                print( f"Finding {typetofind=} {type_x=}" )
+                if type_x is not None:
+                    seq_x = rdfxml.xml_find_element( type_x, './xs:sequence' )
+                    type_name = type_x.get('name')
+                    name_name = type_x.get('type')
+    #                print( f"{type_name=}" )
+                    if seq_x is not None:
+#                        print( f"{typetofind=} {type_name=} {name_name=}" )
+                        for subel_x in rdfxml.xml_find_elements(seq_x,'./xs:element'):
+                            subeltype = subel_x.get('type')
+                            subelname = subel_x.get('name')
+    #                        print( f"{subeltype=}" )
+    #                        print( f"{subelname=}" )
+                            typestr = ""
+                            if subeltype.startswith( "xs:"):
+#                                print( f"Type {typetofind} Found endpoint {subelname} {subeltype}" )
+                                typestr = " "+subeltype                            
+                                fieldpath = "/".join(knowntypes[type_name]+[subelname]) + typestr
+                                if fieldpath not in fieldlist:
+#                                    print( f"Adding {fieldpath}" )
+                                    fieldlist.append(fieldpath)
+                                
+                            elif subeltype not in knowntypes:
+                                typestodo.append(subeltype) 
+#                                print( f"Type {typetofind} Queued {subelname=} {subeltype=}" )
+                                knowntypes[subeltype] = knowntypes[type_name]+[subelname]
+    #                        print( f'{"/".join(knowntypes[subeltype]+[subelname])}' )
+                                
+                    else:
+                        raise Exception( f"xs:sequence not found in schema for type {typetofind}" )
+            print( "\n".join(sorted(fieldlist) ) )
+
+        if args.fields:
+            queryparams['fields'] = args.fields
+
+        return (queryurl,queryparams,queryheaders)

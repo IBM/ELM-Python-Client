@@ -177,9 +177,11 @@ class _Project(oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixin
         return self.project_uri[self.project_uri.rfind('/') + 1:]
 
     def _get_oslc_headers(self, headers=None):
-        result = {'Accept': 'application/rdf+xml',
-                  'Referer': self.reluri('web'),
-                  'OSLC-Core-Version': '2.0'}
+        result = {
+                    'Accept': 'application/rdf+xml',
+                    'Referer': self.reluri('web'),
+                    'OSLC-Core-Version': '2.0'
+                  }
         if headers:
             result.update(headers)
         return result

@@ -723,11 +723,13 @@ class _RMApp(_app._App, _typesystem.No_Type_System_Mixin):
         logger.info( f"Versions {self.majorversion} {self.version}" )
 
     def _get_headers(self, headers=None):
+        logger.info( f"rm gh {headers=}" )
         result = super()._get_headers()
         result['net.jazz.jfs.owning-context'] = self.baseurl
         if headers:
             result.update(headers)
         logger.info( f"rmapp_gh {result}" )
+        loigger.info( f"rm gh {result=}" )
         return result
 
     @classmethod

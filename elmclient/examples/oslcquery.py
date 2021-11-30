@@ -177,7 +177,8 @@ def do_oslc_query(inputargs=None):
     if args.loglevel is not None:
         levels = [utils.loglevels.get(l,-1) for l in args.loglevel.split(",",1)]
         if len(levels)<2:
-            levels.append(logging.DEBUG)
+            # if only one log level specified, set both the same
+            levels.append(levels[0])
         if -1 in levels:
             raise Exception( f'Logging level {args.loglevel} not valid - should be comma-separated one or two values from DEBUG, INFO, WARNING, ERROR, CRITICAL, OFF' )
         utils.setup_logging(consolelevel=levels[0],filelevel=levels[1])

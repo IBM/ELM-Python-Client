@@ -93,7 +93,7 @@ def represt_main():
     common_args.add_argument('-0', '--savecreds', default=None, help="Save obfuscated credentials file for use with readcreds, then exit - this stores jazzurl, jts, appstring, username and password")
     common_args.add_argument('-1', '--readcreds', default=None, help="Read obfuscated credentials from file - completely overrides commandline/environment values for jazzurl, jts, appstring, username and password" )
     common_args.add_argument('-2', '--erasecreds', default=None, help="Wipe and delete obfuscated credentials file" )
-    common_args.add_argument('-3', '--secret', default="N0tSecret", help="SECRET used to encrypt and decrypt the obfuscated credentials (make this longer for greater security)" )
+    common_args.add_argument('-3', '--secret', default="N0tSecret-", help="SECRET used to encrypt and decrypt the obfuscated credentials (make this longer for greater security)" )
     common_args.add_argument('-4', '--credspassword', action="store_true", help="Prompt user for a password to save/read obfuscated credentials (make this longer for greater security)" )
 
     # add subcommand for each app that supports reportable rest
@@ -110,8 +110,8 @@ def represt_main():
     # setup logging
     levels = [utils.loglevels.get(l,-1) for l in args.loglevel.split(",",1)]
     if len(levels)<2:
-        # assert file logging level if not provided
-        levels.append(logging.DEBUG)
+        # if only one log level specified, set both the same
+        levels.append(levels[0])
     if -1 in levels:
         raise Exception( f'Logging level {args.loglevel} not valid - should be comma-separated one or two values from DEBUG, INFO, WARNING, ERROR, CRITICAL, OFF' )
     utils.setup_logging(consolelevel=levels[0],filelevel=levels[1])

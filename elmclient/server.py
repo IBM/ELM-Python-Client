@@ -6,7 +6,6 @@
 
 import collections
 import datetime
-import html.parser
 import logging
 import os.path
 import pickle
@@ -79,29 +78,6 @@ def caching_save_data(cachingcontrol):
 def caching_wipe_cache(cachingcontrol):
     return ( cachingcontrol > 0 )
 
-
-##############################################################################################
-
-class _FormParser(html.parser.HTMLParser):
-    '''This is a utility class to parse a login form to identify the login location'''
-    def __init__(self):
-        super().__init__()
-        self.is_in_form = False
-        self.method = None
-        self.action = None
-        self.name = 'j_username'
-        self.passwrod = 'j_password'
-
-    def handle_starttag(self, tagname, attrs):
-        if tagname.lower() == 'form':
-            self.is_in_form = True
-            for a in attrs:
-                if a[0].lower() == 'action':
-                    self.action = a[1]
-                elif a[0].lower() == 'method':
-                    self.method = a[1]
-        elif self.is_in_form:
-            pass
 
 ##############################################################################################
 

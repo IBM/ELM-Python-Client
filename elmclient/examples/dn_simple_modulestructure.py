@@ -52,8 +52,8 @@ caching = 0
 # converts heading level into a string that looks like "section" when you add that column into a module
 # not exhaustively tested but seems to work :-)
 def getsectionnumber( headinglevel):
-#    h =  '.'.join([f"{d1}-{d2}" if d2>0 else f"{d1}" for d1,d2 in headinglevel])
-    hs = []
+
+hs = []
     for hn,tn in headinglevel:
         if tn:
             hs.append( f"{hn}-{tn}" )

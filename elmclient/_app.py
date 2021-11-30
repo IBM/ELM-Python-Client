@@ -303,7 +303,7 @@ class _App( httpops.HttpOperations_Mixin ):
         # find project for name
         self._load_projects()
         result = self._projects.get(name)
-        print( f"resolve_project_nametouri {name} {result}" )
+        logger.debug( f"resolve_project_nametouri {name} {result}" )
         return result
 
 #################################################################################################

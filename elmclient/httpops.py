@@ -5,6 +5,7 @@
 
 
 import codecs
+import html.parser
 import http
 import inspect
 import json
@@ -90,6 +91,29 @@ def to_binary(text, encoding=None, errors='strict'):
     else:
         result = codecs.encode(text, encoding=encoding, errors=errors)
     return result
+
+##############################################################################################
+
+class _FormParser(html.parser.HTMLParser):
+    '''This is a utility class to parse a login form to identify the login location'''
+    def __init__(self):
+        super().__init__()
+        self.is_in_form = False
+        self.method = None
+        self.action = None
+        self.name = 'j_username'
+        self.passwrod = 'j_password'
+
+    def handle_starttag(self, tagname, attrs):
+        if tagname.lower() == 'form':
+            self.is_in_form = True
+            for a in attrs:
+                if a[0].lower() == 'action':
+                    self.action = a[1]
+                elif a[0].lower() == 'method':
+                    self.method = a[1]
+        elif self.is_in_form:
+            pass
 
 
 class HttpOperations_Mixin():
@@ -502,6 +526,7 @@ class HttpRequest():
             auth_url_response = self._session.get(str(auth_url))  # Load up them cookies!
             if auth_url_response.status_code == 200:
                 login_url = auth_url_response.url  # Take the redirected URL and login action URL
+                logger.debug( f"1 {login_url=}" )
                 if auth_url != login_url:
                     content_text = to_text(auth_url_response)
                     #                 print content
@@ -509,6 +534,7 @@ class HttpRequest():
                     auth_form_parser.feed(content_text)
                     if auth_form_parser.action:
                         login_url = urllib.parse.urljoin(login_url, auth_form_parser.action)
+                        logger.debug( f"2 {login_url=}" )
                 self._authorize(login_url)
         else:
             logger.error('''Something about JSA OIDC login has changed since this script was written. I can no longer determine where to authorize myself.''')
@@ -528,7 +554,8 @@ class HttpRequest():
         data = {'j_username': username, 'j_password': password}
         headers = {'Content-Type': 'application/x-www-form-urlencoded', 'Connection': 'keep-alive', 'Referer': auth_url}
         try:
-            request = requests.Request("GET",str(auth_url), headers=headers, data=data)
+            # JAS authentication uses a post
+            request = requests.Request("POST",str(auth_url), headers=headers, data=data)
             prepped = self._session.prepare_request(request)
 
             logger.trace( f"\nWIRE: __authorize request +++++= {request.method} {request.url}\n\n{self._log_request(prepped,donotlogbody=True)}" )

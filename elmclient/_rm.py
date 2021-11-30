@@ -729,7 +729,7 @@ class _RMApp(_app._App, _typesystem.No_Type_System_Mixin):
         if headers:
             result.update(headers)
         logger.info( f"rmapp_gh {result}" )
-        loigger.info( f"rm gh {result=}" )
+        logger.info( f"rm gh {result=}" )
         return result
 
     @classmethod

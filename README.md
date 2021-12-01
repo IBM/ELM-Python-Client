@@ -116,15 +116,43 @@ Example code provided
 
 These examples drove the evolution of `elmclient`:
 
-* OSLC Query - read more [here](elmclient/examples/OSLCQUERY.md) - this is the largest example by quite a margin. It enables commandline export to CSV from the supported applications using an abstract syntax for OSLC Query.
-* ReqIF import/export - read more [here](elmclient/examples/REQIF_IO.md) - this allows limited CRUD of reqif definitions in DOORS Next, performing multiple reqif export using a definition, and multiple reqif import
-* Basic DOORS Next Reportable REST - read more [here](elmclient/examples/DN_REPREST.md) - this is a very simple example of using `elmclient` to access the DOORS Next Reportable REST API
-* General Reportable REST export to XML/CSV - read more [here](elmclient/examples/REPREST.md) - currently only implemented for DOORS Next but with potential to expand to EWM and ETM.
+* OSLC Query - read more [here](elmclient/examples/OSLCQUERY.md) - this is the largest example by quite a margin. It enables commandline export to CSV from the supported applications using an abstract syntax for OSLC Query - commandline options
+* ReqIF import/export - read more [here](elmclient/examples/REQIF_IO.md) - this allows limited CRUD of reqif definitions in DOORS Next, performing multiple reqif export using a definition, and multiple reqif import - commandline options
+* General Reportable REST export to XML/CSV - read more [here](elmclient/examples/REPREST.md) - currently only implemented for DOORS Next but with potential to expand to EWM and ETM - commandline options
+* Simple Simple DOORS Next Module Structure API - read more [here](elmclient/examples/DN_SIMPLE_MODULESTRUCTURE.md) - Access a module structure and print out the indentend artifiact titles with section number - hardcoded
+* Simple DOORS Next Reportable REST - read more [here](elmclient/examples/DN_REPREST.md) - this is a very simple example of using `elmclient` to access the DOORS Next Reportable REST API - hardcoded
+
+
+ELM APIs
+========
+
+This code provides examples of using various ELM APIs:
+
+* DN
+** Process - `elmclient`
+** OSLC including OSLC Query - `oslcquery.py`
+** Module Structure - `dn_simple_modulestructure.py`
+** ReqIF - `reqif_io.py`
+** Reportable REST - `represt.py`
+
+* ETM
+** Process
+** OSLC including OSLC Query
+** Reportable REST (incomplete)
+
+* EWM
+** Process
+** OSLC including OSLC Query
+** Reportable REST (incomplete)
+
+* GCM
+** Process
+** OSLC including OSLC Query
+
 
 Reporting issues, and contributing
 ==================================
 
-If you find a problem with elmclient you can report it on the github issues; note this is just for elmclient code. All other issues will likely be closed immediately.
+If you find a problem with elmclient you can report it on the github issues https://github.com/IBM/ELM-Python-Client/issues - note this is just for issues with elmclient code. All other issues will likely be closed immediately.
 
-You can do a pull request to propose updates - there's no guarantee of if/when/how these will be merged.
-
+You can do a pull request to propose updates - there's no guarantee of if/when/how these will be merged but we certainly hope to benefit from contributions!

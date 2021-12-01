@@ -46,7 +46,13 @@ The content on github is at https://github.com/IBM/ELM-Python-Client
 
 NOTE: the python package installed is call `elmclient`
 
-FIRST option is to install from the github.com zip:
+If you need to install Python, on Windows you can download the Python installer exe from python.org and then use this command to silently install so python is on your path (modifying to reflect the installer exe you have downloaded):
+
+* python-3.9.7-amd64.exe /quiet InstallAllUsers=1 TargetDir=c:\Python39 PrependPath=1 Include_test=0
+
+Then exit and start a new command shell and python will be on your path.
+
+FIRST option for `elmclient` is to install from the github.com zip:
 
 Download the github zip:
 
@@ -130,25 +136,24 @@ This code provides examples of using various ELM APIs:
 
 * DN
 ** Process - `elmclient`
-** OSLC including OSLC Query - `oslcquery.py`
-** Module Structure - `dn_simple_modulestructure.py`
-** ReqIF - `reqif_io.py`
-** Reportable REST - `represt.py`
+** OSLC including OSLC Query - `oslcquery.py` for user use, internally `oslcqueryapi.py` implements OSLC Query parsing and querying
+** Module Structure - `dn_simple_modulestructure.py` - currently external to `elmclient`
+** ReqIF - `reqif_io.py` - currently reqif API is external to `elmclient`
+** Reportable REST (incomplete for qm and ccm) - `represt.py` for user use, internally for each application in `_rm.py`, `_ccm.py`, `_qm.py` 
 
 * ETM
-** Process
-** OSLC including OSLC Query
-** Reportable REST (incomplete)
+** Process - `elmclient`
+** OSLC including OSLC Query - `oslcquery.py` for user use, internally `oslcqueryapi.py` implements OSLC Query parsing and querying
+** Reportable REST (incomplete for qm and ccm) - `represt.py` for user use, internally for each application in `_rm.py`, `_ccm.py`, `_qm.py` 
 
 * EWM
-** Process
-** OSLC including OSLC Query
-** Reportable REST (incomplete)
+** Process - `elmclient`
+** OSLC including OSLC Query - `oslcquery.py` for user use, internally `oslcqueryapi.py` implements OSLC Query parsing and querying
+** Reportable REST (incomplete for qm and ccm) - `represt.py` for user use, internally for each application in `_rm.py`, `_ccm.py`, `_qm.py` 
 
 * GCM
-** Process
-** OSLC including OSLC Query
-
+** Process - `elmclient`
+** OSLC including OSLC Query - `oslcquery.py` for user use, internally `oslcqueryapi.py` implements OSLC Query parsing and querying
 
 Reporting issues, and contributing
 ==================================

@@ -1,7 +1,6 @@
 ﻿$uri,Identifier,http://jazz.net/ns/rm/navigation#parent
 https://jazz.ibm.com:9443/rm/materializedviews/VW_8fN-MkB1Eeuh3Iiax2L3Ow,,
 https://jazz.ibm.com:9443/rm/materializedviews/VW_8fN-OkB1Eeuh3Iiax2L3Ow,,
-https://jazz.ibm.com:9443/rm/materializedviews/VW_8fN-OEB1Eeuh3Iiax2L3Ow,,
 https://jazz.ibm.com:9443/rm/materializedviews/VW_8fN-NkB1Eeuh3Iiax2L3Ow,,
 https://jazz.ibm.com:9443/rm/materializedviews/VW_8fN-N0B1Eeuh3Iiax2L3Ow,,
 https://jazz.ibm.com:9443/rm/resources/MD_8gaRNUB1Eeuh3Iiax2L3Ow,362,/Lifecycle Scenarios
@@ -219,8 +218,8 @@ https://jazz.ibm.com:9443/rm/resources/BI_8gaRL0B1Eeuh3Iiax2L3Ow,479,
 https://jazz.ibm.com:9443/rm/resources/TX_8hdZ5UB1Eeuh3Iiax2L3Ow,480,/Component - Web/User Story Elaboration/Elaborated Stories
 https://jazz.ibm.com:9443/rm/resources/BI_8gaRGEB1Eeuh3Iiax2L3Ow,480,
 https://jazz.ibm.com:9443/rm/resources/TX_8hmj0kB1Eeuh3Iiax2L3Ow,481,/Project Meetings
-https://jazz.ibm.com:9443/rm/resources/BI_8gHWF0B1Eeuh3Iiax2L3Ow,482,
 https://jazz.ibm.com:9443/rm/resources/TX_8hmj0UB1Eeuh3Iiax2L3Ow,482,/Base Artifacts/Component - Web/User Story Elaboration/Storyboards/Dividend Contribution artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_8gHWF0B1Eeuh3Iiax2L3Ow,482,
 https://jazz.ibm.com:9443/rm/resources/BI_8gRHF0B1Eeuh3Iiax2L3Ow,482,
 https://jazz.ibm.com:9443/rm/resources/BI_8f9lbkB1Eeuh3Iiax2L3Ow,483,
 https://jazz.ibm.com:9443/rm/resources/TX_8hmj10B1Eeuh3Iiax2L3Ow,483,/Base Artifacts/Component - Mobile/User Story Elaboration/Storyboards/Dividend Contribution - Mobile artifacts
@@ -277,10 +276,10 @@ https://jazz.ibm.com:9443/rm/resources/BI_8gHWIEB1Eeuh3Iiax2L3Ow,507,
 https://jazz.ibm.com:9443/rm/resources/TX_8h5exkB1Eeuh3Iiax2L3Ow,508,/Base Artifacts/Component - Web/User Story Elaboration/Storyboards/Dividend Contribution artifacts
 https://jazz.ibm.com:9443/rm/resources/BI_8gHWOUB1Eeuh3Iiax2L3Ow,508,
 https://jazz.ibm.com:9443/rm/resources/BI_8gRHM0B1Eeuh3Iiax2L3Ow,508,
-https://jazz.ibm.com:9443/rm/resources/BI_8gRHPEB1Eeuh3Iiax2L3Ow,509,
 https://jazz.ibm.com:9443/rm/resources/DM_8h5ewEB1Eeuh3Iiax2L3Ow,509,/Component - Web/Processes
-https://jazz.ibm.com:9443/rm/resources/BI_8gaRAUB1Eeuh3Iiax2L3Ow,510,
+https://jazz.ibm.com:9443/rm/resources/BI_8gRHPEB1Eeuh3Iiax2L3Ow,509,
 https://jazz.ibm.com:9443/rm/resources/DM_8h5eyEB1Eeuh3Iiax2L3Ow,510,/Component - Web/Processes
+https://jazz.ibm.com:9443/rm/resources/BI_8gaRAUB1Eeuh3Iiax2L3Ow,510,
 https://jazz.ibm.com:9443/rm/resources/TX_8h5ey0B1Eeuh3Iiax2L3Ow,511,/Base Artifacts/Lifecycle Scenarios/Release 1 Lifecycle Scenarios artifacts
 https://jazz.ibm.com:9443/rm/resources/BI_8gaRAEB1Eeuh3Iiax2L3Ow,511,
 https://jazz.ibm.com:9443/rm/resources/TX_8h5ezUB1Eeuh3Iiax2L3Ow,512,/Business Goals

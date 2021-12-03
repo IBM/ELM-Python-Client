@@ -1,7 +1,6 @@
 ﻿$uri,Description,Title,http://jazz.net/ns/acp#accessControl,http://jazz.net/ns/rm/dng/view#applicability,http://jazz.net/ns/rm/dng/view#scopedArtifact,http://jazz.net/ns/rm/dng/view#shared,http://open-services.net/ns/core#serviceProvider
-https://jazz.ibm.com:9443/rm/views/VW_8uhm4EhgEeyQu59NyCJCmQ,,myview1,rp1:_-_28tkB6Eeuh3Iiax2L3Ow,http://jazz.net/ns/rm/dng/view/scope#module,3892,true,rp4:services.xml
-https://jazz.ibm.com:9443/rm/views/VW__wvABEB6Eeuh3Iiax2L3Ow,,Trace to Stakeholder Requirements,rp1:_-_28tkB6Eeuh3Iiax2L3Ow,http://jazz.net/ns/rm/dng/view/scope#module,3889,true,rp4:services.xml
-https://jazz.ibm.com:9443/rm/views/VW__wvAA0B6Eeuh3Iiax2L3Ow,,Gold Plating,rp1:_-_28tkB6Eeuh3Iiax2L3Ow,http://jazz.net/ns/rm/dng/view/scope#module,3889,true,rp4:services.xml
-https://jazz.ibm.com:9443/rm/views/VW__wvAAkB6Eeuh3Iiax2L3Ow,,Trace to System Requirements,rp1:_-_28tkB6Eeuh3Iiax2L3Ow,http://jazz.net/ns/rm/dng/view/scope#module,3892,true,rp4:services.xml
-https://jazz.ibm.com:9443/rm/views/VW__wvAAUB6Eeuh3Iiax2L3Ow,,Gap Analysis,rp1:_-_28tkB6Eeuh3Iiax2L3Ow,http://jazz.net/ns/rm/dng/view/scope#module,3892,true,rp4:services.xml
-https://jazz.ibm.com:9443/rm/views/VW__wvAAEB6Eeuh3Iiax2L3Ow,,Upstream and Downstream Traceability (Satisfaction),rp1:_-_28tkB6Eeuh3Iiax2L3Ow,http://jazz.net/ns/rm/dng/view/scope#module,,true,rp4:services.xml
+https://jazz.ibm.com:9443/rm/views/VW__wvABEB6Eeuh3Iiax2L3Ow,,Trace to Stakeholder Requirements,rp1:_-_28tkB6Eeuh3Iiax2L3Ow,http://jazz.net/ns/rm/dng/view/scope#module,3889,true,rp3:services.xml
+https://jazz.ibm.com:9443/rm/views/VW__wvAA0B6Eeuh3Iiax2L3Ow,,Gold Plating,rp1:_-_28tkB6Eeuh3Iiax2L3Ow,http://jazz.net/ns/rm/dng/view/scope#module,3889,true,rp3:services.xml
+https://jazz.ibm.com:9443/rm/views/VW__wvAAkB6Eeuh3Iiax2L3Ow,,Trace to System Requirements,rp1:_-_28tkB6Eeuh3Iiax2L3Ow,http://jazz.net/ns/rm/dng/view/scope#module,3892,true,rp3:services.xml
+https://jazz.ibm.com:9443/rm/views/VW__wvAAUB6Eeuh3Iiax2L3Ow,,Gap Analysis,rp1:_-_28tkB6Eeuh3Iiax2L3Ow,http://jazz.net/ns/rm/dng/view/scope#module,3892,true,rp3:services.xml
+https://jazz.ibm.com:9443/rm/views/VW__wvAAEB6Eeuh3Iiax2L3Ow,,Upstream and Downstream Traceability (Satisfaction),rp1:_-_28tkB6Eeuh3Iiax2L3Ow,http://jazz.net/ns/rm/dng/view/scope#module,,true,rp3:services.xml

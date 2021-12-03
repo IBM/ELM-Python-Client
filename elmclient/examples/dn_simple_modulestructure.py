@@ -42,6 +42,12 @@ comp = proj
 conf =  f"{comp} Initial Stream"
 mod = "AMR Stakeholder Requirements Specification"
 
+# choose a format to retrieve the structure
+format  ="RDFXML"
+format = "JSON"
+
+print( f"Retreiving structure in {format}" )
+
 # caching control
 # 0=fully cached (but code below specifies queries aren't cached) - if you need to clear the cache, delet efolder .web_cache
 # 1=clear cache initially then continue with cache enabled
@@ -52,8 +58,7 @@ caching = 0
 # converts heading level into a string that looks like "section" when you add that column into a module
 # not exhaustively tested but seems to work :-)
 def getsectionnumber( headinglevel):
-
-hs = []
+    hs = []
     for hn,tn in headinglevel:
         if tn:
             hs.append( f"{hn}-{tn}" )
@@ -180,42 +185,124 @@ if __name__=="__main__":
     structure_u = rdfxml.xmlrdf_get_resource_uri( mod_x, ".//rm_module:structure" )
     print( f"{structure_u=}" )
 
-    # retrieve the structure element
-    modstructure_x = c.execute_get_rdf_xml(structure_u, cacheable=False, headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None} ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
+    if format == "RDF":
+        # retrieve the structure element in RDF-XML
+        modstructure_x = c.execute_get_rdf_xml(structure_u, cacheable=False, headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None} ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
 
-    # find the root binding
-    modroot_x = rdfxml.xml_find_element( modstructure_x, './rm_module:Binding' )
+        # retrieve the structure element in RDF-XML
+        modstructure_x = c.execute_get_json(structure_u, cacheable=False, headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None} ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
 
+        burp
         
-    # Now explore the structure for childBinding (which corresponds to nesting) and Binding (which is a binding of an artifact into the module)
-    it = iterwalk1(modroot_x, events=["start","end"], tags=[rdfxml.uri_to_tag('rm_module:childBindings'),rdfxml.uri_to_tag("rm_module:Binding")] )
-    print( f"{it=}" )
-    level = 0
+        # find the root binding
+        modroot_x = rdfxml.xml_find_element( modstructure_x, './rm_module:Binding' )
 
-    headinglevel = [] # heading level is a list of two-element lists - first is the heading number, second is the non-heading number
+            
+        # Now explore the structure for childBinding (which corresponds to nesting) and Binding (which is a binding of an artifact into the module)
+        it = iterwalk1(modroot_x, events=["start","end"], tags=[rdfxml.uri_to_tag('rm_module:childBindings'),rdfxml.uri_to_tag("rm_module:Binding")] )
+        print( f"{it=}" )
+        level = 0
 
-    for event,el in it():
-        logger.info( f"{event=} {el.tag=} {headinglevel=}" )
-        
-        # childBinding is an increase in nesting of headings
-        if el.tag==rdfxml.uri_to_tag("rm_module:childBindings"):
-            if event == "start":
+        headinglevel = [] # heading level is a list of two-element lists - first is the heading number, second is the non-heading number
+
+        for event,el in it():
+            logger.info( f"{event=} {el.tag=} {headinglevel=}" )
+            
+            # childBinding is an increase in nesting of headings
+            if el.tag==rdfxml.uri_to_tag("rm_module:childBindings"):
+                if event == "start":
+                    level += 1
+                    headinglevel.append([0,0])
+                if event == "end":
+                    level -= 1
+                    headinglevel.pop()
+                    
+            # Binding is an artifact
+            if el.tag==rdfxml.uri_to_tag("rm_module:Binding"):
+                # if it's a heading this increments section differently from non-heading
+                isheading = ( rdfxml.xmlrdf_get_resource_text( el, './rm_module:isHeading' ) == "true" )
+                logger.info( f"{isheading=}" )
+                
+                if event=="start":
+                    # retrieve the title of the artifact, only needed in the "start"
+                    ba_u = rdfxml.xmlrdf_get_resource_uri( el, './rm_module:boundArtifact' )
+                    if ba_u and ba_u.startswith( c.app.baseurl ):
+                        req_x = c.execute_get_rdf_xml( ba_u )
+                        summary = rdfxml.xmlrdf_get_resource_text( req_x,'.//dcterms:title')
+                    else:
+                        summary = "TOP LEVEL"
+                        raise Exception( f"Unexpected: No or invalid artifact URI {ba_u}" )
+                    if isheading:
+                        # increment the heading number and reset the sub-number
+                        headinglevel[-1][0] += 1
+                        headinglevel[-1][1] = 0
+                    else:
+                        # increment the sub-number
+                        headinglevel[-1][1] += 1
+                    # report the current item
+                    print( f"{'    '*level}", end="" )
+                    if True or isheading:
+                        h = getsectionnumber(headinglevel)
+                        print( f"{h}", end="" )
+                    print( f"  {summary}" )
+
+    elif format == "JSON":
+        # retrieve the structure element in RDF-XML
+        modstructure_j = c.execute_get_json(structure_u, cacheable=False, headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None} ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
+
+        # scan all the entries into a dictionary keyed by the URL
+        entries = {}
+        for s in modstructure_j:
+            entries[s["uri"]] = s
+
+        # find the root binding
+        modroot = entries[structure_u]
+
+        # generator recursively walking the structure
+        def json_structure_walk(rooturi,entries):
+            """
+            Module structure recursive iterator
+            """
+            def recursiveiterator(uri,suppressyield=False):
+#                print( f"starting {uri}" )
+                if not suppressyield:
+                    yield ("start",entries[uri])
+                yield ("startChildren",entries[uri])
+                for child in list(entries[uri]["childBindings"]):
+                    yield from recursiveiterator(child)
+                yield ("endChildren",entries[uri])
+                if not suppressyield:
+                    yield ("end",entries[uri])
+#                print( f"ending {uri}" )
+                    
+            def iterator():
+                yield from recursiveiterator( rooturi, suppressyield=True )
+                
+            return iterator        
+
+        # Now explore the structure for childBinding (which corresponds to nesting) and Binding (which is a binding of an artifact into the module)
+        it = json_structure_walk(structure_u,entries )
+        print( f"{it=}" )
+        level = 0
+
+        headinglevel = [] # heading level is a list of two-element lists - first is the heading number, second is the non-heading number
+
+        for event,el in it():
+            
+            # childBinding is an increase in nesting of headings
+            if event == "startChildren":
                 level += 1
                 headinglevel.append([0,0])
-            if event == "end":
+            if event == "endChildren":
                 level -= 1
                 headinglevel.pop()
-                
-        # Binding is an artifact
-        if el.tag==rdfxml.uri_to_tag("rm_module:Binding"):
-            # if it's a heading this increments section differently from non-heading
-            isheading = ( rdfxml.xmlrdf_get_resource_text( el, './rm_module:isHeading' ) == "true" )
-            logger.info( f"{isheading=}" )
+                    
+            isheading = el["isHeading"]
             
             if event=="start":
                 # retrieve the title of the artifact, only needed in the "start"
-                ba_u = rdfxml.xmlrdf_get_resource_uri( el, './rm_module:boundArtifact' )
-                if ba_u and ba_u.startswith( c.app.baseurl ):
+                ba_u = el["boundArtifact"]
+                if ba_u.startswith( c.app.baseurl ):
                     req_x = c.execute_get_rdf_xml( ba_u )
                     summary = rdfxml.xmlrdf_get_resource_text( req_x,'.//dcterms:title')
                 else:
@@ -225,6 +312,7 @@ if __name__=="__main__":
                     # increment the heading number and reset the sub-number
                     headinglevel[-1][0] += 1
                     headinglevel[-1][1] = 0
+                    print( f"inc major" )
                 else:
                     # increment the sub-number
                     headinglevel[-1][1] += 1
@@ -235,3 +323,7 @@ if __name__=="__main__":
                     print( f"{h}", end="" )
                 print( f"  {summary}" )
 
+    
+    else:
+        raise Exception( f"Invalid format {format}" )
+        

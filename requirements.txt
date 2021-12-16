@@ -11,4 +11,4 @@ requests == 2.24.0
 requests_toolbelt == 0.9.1
 setuptools == 49.2.1
 tqdm == 4.56.2
-urllib3 == 1.26.5
+urllib3 == 1.25.11

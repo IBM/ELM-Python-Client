@@ -48,9 +48,10 @@ theserver = elmserver.JazzTeamServer(jazzhost, username, password, verifysslcert
 # create the RM application interface
 dnapp = theserver.find_app( f"rm:{rmcontext}", ok_to_create=True )
 
-# A DN Reportable Rest query url (this also works in your browser)
+# A DN Reportable Rest query url (this also works in your browser to get the first page of results)
 rrurl = dnapp.reluri( dnapp.reportablerest_baseurl+"/resources/*" )
 print( f"{rrurl=}" )
+
 # limit to this number of pages to limit load on server
 # the Reportable REST query "resources/*" used here, with no constraining project or module URI will attempt
 # to retrieve all the artifacts in the default configuration of all projects

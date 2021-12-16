@@ -49,8 +49,8 @@ theserver = elmserver.JazzTeamServer(jazzhost, username, password, verifysslcert
 dnapp = theserver.find_app( f"rm:{rmcontext}", ok_to_create=True )
 
 # A DN Reportable Rest query url (this also works in your browser)
-rrurl = dnapp.reluri( dnapp.reportablerest_baseurl, "resources", "*" )
-
+rrurl = dnapp.reluri( dnapp.reportablerest_baseurl+"/resources/*" )
+print( f"{rrurl=}" )
 # limit to this number of pages to limit load on server
 pagelimit = 2
 
@@ -64,7 +64,7 @@ while rrurl is not None and pagelimit > 0:
     # perform the Reportable Rest query
     # because query results are often updated as users work, this request is NOT cached even if caching is enabled
     print( f"Requesting page {rrurl}" )
-    xmlresult = dnapp.server.execute_get_xml(rrurl, cacheable=False)
+    xmlresult = dnapp.execute_get_xml(rrurl, cacheable=False)
     root = xmlresult.getroot()
 
     # process the results into rows of dictionaries

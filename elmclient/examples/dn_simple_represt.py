@@ -52,7 +52,10 @@ dnapp = theserver.find_app( f"rm:{rmcontext}", ok_to_create=True )
 rrurl = dnapp.reluri( dnapp.reportablerest_baseurl+"/resources/*" )
 print( f"{rrurl=}" )
 # limit to this number of pages to limit load on server
-pagelimit = 2
+# the Reportable REST query "resources/*" used here, with no constraining project or module URI will attempt
+# to retrieve all the artifacts in the default configuration of all projects
+# that can be A LOT of data even on a very small deployment.
+pagelimit = 3
 
 # retrieve all the results - works for one or many pages
 rows = []
@@ -60,20 +63,27 @@ allcolumns = []
 
 print( f"Retrieving {pagelimit} pages from DOORS Next Reportable REST API" )
 
+headings = []
+rows=[]
+
 while rrurl is not None and pagelimit > 0:
     # perform the Reportable Rest query
     # because query results are often updated as users work, this request is NOT cached even if caching is enabled
     print( f"Requesting page {rrurl}" )
-    xmlresult = dnapp.execute_get_xml(rrurl, cacheable=False)
+    xmlresult = dnapp.execute_get_xml(rrurl, cacheable=False, remove_headers=['net.jazz.jfs.owning-context'])
     root = xmlresult.getroot()
 
-    # process the results into rows of dictionaries
-    (thispagerows,thispagecolumns) = utils.getcontentrows( root, remove_ns=True )
-    rows.extend(thispagerows)
 
-    # merge all the columns into one list
-    allcolumns = list(set(allcolumns)|set(thispagecolumns))
-
+    # go to each result (one row) below the root  -this will be a row of the results
+    for res in list(xmlresult.getroot()):
+        row = {}
+        # def getcontentrow( node, thisrowdict, allcolumns, level, path, remove_ns=True ):
+        row = utils.getcontentrow( res )
+        for k in row.keys():
+            if k not in headings:
+                headings.append(k)                
+        rows.append(row)
+        
     # find the href for the next page of results
     rrurl = root.get("href",None)
     pagelimit -= 1
@@ -81,7 +91,7 @@ while rrurl is not None and pagelimit > 0:
 print( f"Writing to CSV {outfile}" )
 
 with open( outfile, "w", newline='' ) as csvfile:
-    csvwriter = csv.DictWriter(csvfile,fieldnames=sorted(allcolumns))
+    csvwriter = csv.DictWriter(csvfile,fieldnames=sorted(headings))
     csvwriter.writeheader()
     for row in rows:
         csvwriter.writerow(row)

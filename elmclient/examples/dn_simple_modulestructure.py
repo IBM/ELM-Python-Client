@@ -3,8 +3,9 @@
 # SPDX-License-Identifier: MIT
 ##
 
-# example of accessing the module structure API
-# prints the module content with indenting corresponding to headings
+# example of accessing the module structure API https://jazz.net/wiki/bin/view/Main/DNGModuleAPI
+# prints the module content with indenting corresponding to headings and calculated section number
+# NOTE NOTE NOTE the section number calculation has not been fully verified/checked - it seems to work after superficial inspection
 # attempted recreating the section number scheme used by DOORS Next but doesn't yet work correctly :-o
 
 import csv
@@ -52,11 +53,12 @@ print( f"Retreiving structure in {format}" )
 # 0=fully cached (but code below specifies queries aren't cached) - if you need to clear the cache, delet efolder .web_cache
 # 1=clear cache initially then continue with cache enabled
 # 2=clear cache and disable caching
-caching = 0
+caching = 2
 
 ##################################################################################
 # converts heading level into a string that looks like "section" when you add that column into a module
 # not exhaustively tested but seems to work :-)
+# NOTE NOTE NOTE the section number calculation has not been fully verified/checked - it seems to work after superficial inspection
 def getsectionnumber( headinglevel):
     hs = []
     for hn,tn in headinglevel:
@@ -225,7 +227,7 @@ if __name__=="__main__":
                 
                 if event=="start":
                     # retrieve the title of the artifact, only needed in the "start"
-                    ba_u = rdfxml.xmlrdf_get_resource_uri( el, './rm_module:boundArtifact' )
+                    ba_u = rdfxml.xmlrdf_get_resource_uri( el, './rm_module:uri' )
                     if ba_u and ba_u.startswith( c.app.baseurl ):
                         req_x = c.execute_get_rdf_xml( ba_u )
                         summary = rdfxml.xmlrdf_get_resource_text( req_x,'.//dcterms:title')
@@ -242,6 +244,7 @@ if __name__=="__main__":
                     # report the current item
                     print( f"{'    '*level}", end="" )
                     if True or isheading:
+                        # NOTE NOTE NOTE the section number calculation has not been fully verified/checked - it seems to work after superficial inspection
                         h = getsectionnumber(headinglevel)
                         print( f"{h}", end="" )
                     print( f"  {summary}" )
@@ -301,7 +304,7 @@ if __name__=="__main__":
             
             if event=="start":
                 # retrieve the title of the artifact, only needed in the "start"
-                ba_u = el["boundArtifact"]
+                ba_u = el["uri"]
                 if ba_u.startswith( c.app.baseurl ):
                     req_x = c.execute_get_rdf_xml( ba_u )
                     summary = rdfxml.xmlrdf_get_resource_text( req_x,'.//dcterms:title')
@@ -319,6 +322,7 @@ if __name__=="__main__":
                 # report the current item
                 print( f"{'    '*level}", end="" )
                 if True or isheading:
+                    # NOTE NOTE NOTE the section number calculation has not been fully verified/checked - it seems to work after superficial inspection
                     h = getsectionnumber(headinglevel)
                     print( f"{h}", end="" )
                 print( f"  {summary}" )

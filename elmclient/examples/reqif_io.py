@@ -298,6 +298,9 @@ def reqif_main():
         defn_query_u = queryon.get_query_capability_uri("dng_reqif:ReqIFDefinition")
         # query for the definitions
         alldefs = queryon.execute_oslc_query( defn_query_u, select=['*'])
+        
+#        alldefs = queryon.do_complex_query( "dng_reqif:ReqIFDefinition", select='*' )
+        
         logger.debug( f"{alldefs=}" )
         if args.definitionnames:
             rawmatches = getmatchingdefs(alldefs,args.definitionnames )
@@ -309,9 +312,11 @@ def reqif_main():
             matches = alldefs
 
         for k in sorted(matches.keys(),key= lambda k: matches[k]['dcterms:title']):
-            print( f"{matches[k]['dcterms:title']} {k}",end='' )
+            print( f"{matches[k]['dcterms:title']} {k}" )
             for k1 in sorted(alldefs[k].keys()):
                 print( f"    {k1} {alldefs[k][k1]}" )
+            print()
+                
     elif args.subparser_name=='export':
         #################################################################################
         # Export a reqif definition

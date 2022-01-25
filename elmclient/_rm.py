@@ -363,7 +363,7 @@ class _RMProject(_project._Project):
         return (ncomps, nconfs)
 
     def get_local_config(self, name_or_uri):
-#        self.load_components_and_configurations()
+        self.load_components_and_configurations()
         result = None
         filter = None
         if name_or_uri.startswith("S:"):
@@ -931,7 +931,9 @@ class _RMApp(_app._App, _typesystem.No_Type_System_Mixin):
                 for k,v in modules.items():
                     print( f'{k} {v.get("dcterms:title","")}' )
                 raise Exception( "More than one module with that name in {args.project} {args.component}" )
-            queryparams['moduleUri'] = list(modules.keys())[0]
+            moduleuuid = list(modules.keys())[0].rsplit("/",1)[1]
+#            queryparams['moduleUri'] = list(modules.keys())[0]
+            queryparams['moduleUri'] = moduleuuid
         
         if args.collection:
             raise Exception( "Not implemented yet" )
@@ -1007,7 +1009,7 @@ class _RMApp(_app._App, _typesystem.No_Type_System_Mixin):
             
         if args.history:
             queryparams['history'] = True
-            
+          
         queryurl = self.reluri(self.reportablerestbase) + "/"+ args.artifact_format
         
         if args.all:

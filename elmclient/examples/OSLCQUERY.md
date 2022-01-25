@@ -182,7 +182,9 @@ BEFORE you start:
 
 * If an option includes spaces surround it with " "
 
-* On Windows at least, on the command line it is necessary to put " around values that include ", < or > and then double any " within a string. So a query like State="New" has to be entered as "State=""New""", or dcterms:identifier<23 has to be entered as "dcterms:identifier<23"
+* On Windows at least, on the command line it is necessary to put " around values that include space, ", < or > and then double any " within a string. So a query like State="New" has to be entered as "State=""New""", or dcterms:identifier<23 has to be entered as "dcterms:identifier<23"
+
+* On Windows at least, if for example a title that you're searching for includes an embedded double-quote " then you have to escape each with a backslash \. Because of the way the Windows commandline works, this means you have to replace each embedded " with \\"". For example to query for a title `A "specification"` you have to put `"dcterms:title=""A \\""specification\\"""""`
 
 * The query specified with the '-q' option supports extended OSLC query syntax, described below - in particular this adds syntactic support for referencing definition names, user names and folder names, and also allows combining results from two or more OSLC queries using set union (denoted by ||) and intersection (denoted by &&).
 
@@ -355,6 +357,8 @@ DN can provide query capability for resource types `oslc_rm:Requirement` (which 
 If your DN application is not on context root /rm then use the -A option for example for context root /rm1 and gc on /gc1, then add the option `-A rm:rm1,gc:gc1`
 
 Use the typesystem report to see all the shapes, properties and enumeration names in your project: add `-typesystemreport file.html` to the commandline. Note not all properties are queryable.
+
+If the title of a module (or anything) includes a double-quote " then you have to escape it with \\ and double the quote to "" so it becomes \\"" in the command line. For example to find a module with title `A "specification"` use `-q "dcterms:title=""A \\""specification\"""""`
 
 You can add a filter like `-v rm_nav:parent` to only show results where parent isn't empty - i.e. to get only core artifacts - unfortunately this filters can only be done is by postprocessing the query results so it doesn't speed up the query itself.
 

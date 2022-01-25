@@ -4,14 +4,19 @@
 ##
 
 # example of accessing the module structure API https://jazz.net/wiki/bin/view/Main/DNGModuleAPI
+# also see https://jazz.net/wiki/bin/view/Main/DNGModuleApiOverview
 # prints the module content with indenting corresponding to headings and calculated section number
 # NOTE NOTE NOTE the section number calculation has not been fully verified/checked - it seems to work after superficial inspection
-# attempted recreating the section number scheme used by DOORS Next but doesn't yet work correctly :-o
+
+# provide on the commandline the id of an artifact in the same component and a new binding for it will be created in the structure - location hardcoded!
 
 import csv
 import logging
+import sys
+import time
 
 import lxml.etree as ET
+import tqdm
 
 import elmclient.server as elmserver
 import elmclient.utils as utils
@@ -44,8 +49,8 @@ conf =  f"{comp} Initial Stream"
 mod = "AMR Stakeholder Requirements Specification"
 
 # choose a format to retrieve the structure
-format  ="RDFXML"
 format = "JSON"
+#format  ="RDFXML"
 
 print( f"Retreiving structure in {format}" )
 
@@ -148,6 +153,8 @@ if __name__=="__main__":
 
     # find the component
     c = p.find_local_component(comp)
+    comp_u = c.project_uri
+    print( f"{comp_u=}" )
 
     # select the configuration
     config_u = c.get_local_config(conf)
@@ -164,11 +171,11 @@ if __name__=="__main__":
         qcbase,
         whereterms=[['dcterms:title','=',f'"{mod}"'], ['rdm_types:ArtifactFormat','=','jazz_rm:Module']],
         select=['*'],
-        prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms',rdfxml.RDF_DEFAULT_PREFIX["rdm_types"]:'rdm_types',rdfxml.RDF_DEFAULT_PREFIX["jazz_rm"]:'jazz_rm'}
+        prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms',rdfxml.RDF_DEFAULT_PREFIX["rdm_types"]:'rdm_types',rdfxml.RDF_DEFAULT_PREFIX["jazz_rm"]:'jazz_rm'} # note this is referest - url to prefix
         )
         
     if len(modules)==0:
-        raise Exception( f"No module '{mod}' with that name in project {proj} component {comp} configuraition {conf}" )
+        raise Exception( f"No module '{mod}' with that name in project {proj} component {comp} configuration {conf}" )
     elif len(modules)>1:
         for k,v in modules.items():
             print( f'{k} {v.get("dcterms:title","")}' )
@@ -184,24 +191,100 @@ if __name__=="__main__":
 
     # report the structure
 
-    structure_u = rdfxml.xmlrdf_get_resource_uri( mod_x, ".//rm_module:structure" )
+    structure_u = rdfxml.xmlrdf_get_resource_uri( mod_x, ".//rm_modules:structure" )
     print( f"{structure_u=}" )
 
-    if format == "RDF":
+    if len(sys.argv)>1:
+        # second argument is an ID - it *MUST* be in the same configuration as the module!
+        # first find the artifact to insert, using OSLC Query
+        # query for a title and for format=module
+        toinserts = c.execute_oslc_query(
+            qcbase,
+            whereterms=[['dcterms:identifier','=',sys.argv[1]]],
+            select=['*'],
+            prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms'}
+            )
+            
+        if len(toinserts)==0:
+            raise Exception( f"No artifact '{sys.argv[1]}' with that name in project {proj} component {comp} configuration {conf}" )
+        elif len(toinserts)>1:
+            toinsert_u = None
+            for k,v in toinserts.items():
+                # find the first one with a rm_nav:parent
+                folder = v.get("rm_nav:parent")
+                if folder is not None:
+                    toinsert_u = k
+                    break
+            if toinsert_u is None:
+                raise Exception( f"No artifact {sys.argv[1]} found with a folder" )
+        else:
+            toinsert_u = list(toinserts.keys())[0]
+        print( f"{toinsert_u=}" )
+        
+    if format == "RDFXML":
         # retrieve the structure element in RDF-XML
         modstructure_x = c.execute_get_rdf_xml(structure_u, cacheable=False, headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None} ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
 
-        # retrieve the structure element in RDF-XML
-        modstructure_x = c.execute_get_json(structure_u, cacheable=False, headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None} ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
+        if len(sys.argv)>1:            
+            # toinsert is already prepared
+            # get the etag
+            response = c.execute_get_raw(structure_u, cacheable=False, headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None} ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
+            etag = response.headers['ETag']
+            print( f"{etag=}" )
+            # insert a reference to it in a hardcoded location
+            firsthead_x = rdfxml.xml_find_elements(modstructure_x,'rm_modules:Binding/rm_modules:childBindings/rm_modules:Binding/rm_modules:childBindings')[0]
+            print( f"{firsthead_x=}" )
+#        <rm_modules:childBindings rdf:parseType="Collection">
+#            <rm_modules:Binding rdf:about="https://clmwb.com:9444/rdm/resources/MB_2f75a3f310ec42ccadb68e4442617a74">
+#                <rm_modules:isHeading rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</j.0:isHeading>
+#                <oslc_config:component rdf:resource="https://clmwb.com:9444/rdm/cm/component/_Y5OakLruEeevMtDqCXe--Q"/>
+#                <rm_modules:boundArtifact rdf:resource="https://clmwb.com:9444/rdm/resources/CA_3a7b45d1caa540d485ffc9832b802d47"/>
+#                <rm_modules:module rdf:resource="https://clmwb.com:9444/rdm/resources/_4sscEb43EeeD0-df1VhHuw"/>
+#                <rm_modules:childBindings rdf:parseType="Collection">
 
-        burp
-        
+#            s1 = ET.SubElement( firsthead_x )
+
+            # add a new childbinding
+#                    <rm_modules:Binding rdf:about="https://clmwb.com:9444/rdm/resources/_4sscEb43EeeD0-df1VhHuw/structure#1">
+#                        <oslc_config:component rdf:resource="https://clmwb.com:9444/rdm/cm/component/_Y5OakLruEeevMtDqCXe--Q"/>
+#                        <rm_modules:boundArtifact rdf:resource="https://clmwb.com:9444/rdm/resources/CA1"/>
+#                        <rm_modules:module rdf:resource="https://clmwb.com:9444/rdm/resources/_4sscEb43EeeD0-df1VhHuw"/>
+#                        <rm_modules:childBindings rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+#                    </rm_modules:Binding>
+            newbinding = ET.fromstring(
+                f"""<rm_modules:Binding
+                            xmlns:rdf='{rdfxml.RDF_DEFAULT_PREFIX["rdf"]}'
+                            xmlns:oslc_config='{rdfxml.RDF_DEFAULT_PREFIX["oslc_config"]}'
+                            xmlns:rm_modules='{rdfxml.RDF_DEFAULT_PREFIX["rm_modules"]}'
+                            rdf:about="https://clmwb.com:9444/rdm/resources/_4sscEb43EeeD0-df1VhHuw/structure#1">
+                        <oslc_config:component rdf:resource="{comp_u}"/>
+                        <rm_modules:boundArtifact rdf:resource="{toinsert_u}"/>
+                        <rm_modules:module rdf:resource="{themodule_u}"/>
+                        <rm_modules:childBindings rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                    </rm_modules:Binding>
+                """
+                )
+            print( f"{newbinding=}" )
+            firsthead_x.append(newbinding)
+            
+            # PUT the new structure and wait for it to be saved
+            response = c.execute_post_rdf_xml( structure_u, data=modstructure_x, put=True, cacheable=False, headers={'If-Match':etag,'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None}  )
+            print( f"{response.status_code}" )
+            location = response.headers.get('Location')
+            if response.status_code == 202 and location is not None:
+                # wait for the tracker to finished
+                result = c.wait_for_tracker( location, interval=1.0, progressbar=True, msg=f"Updating Structure")
+                time.sleep( 0.5 )
+                    
+            # get the structure again
+            modstructure_x = c.execute_get_rdf_xml(structure_u, cacheable=False, headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None} ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
+            
         # find the root binding
-        modroot_x = rdfxml.xml_find_element( modstructure_x, './rm_module:Binding' )
+        modroot_x = rdfxml.xml_find_element( modstructure_x, './rm_modules:Binding' )
 
             
         # Now explore the structure for childBinding (which corresponds to nesting) and Binding (which is a binding of an artifact into the module)
-        it = iterwalk1(modroot_x, events=["start","end"], tags=[rdfxml.uri_to_tag('rm_module:childBindings'),rdfxml.uri_to_tag("rm_module:Binding")] )
+        it = iterwalk1(modroot_x, events=["start","end"], tags=[rdfxml.uri_to_tag('rm_modules:childBindings'),rdfxml.uri_to_tag("rm_modules:Binding")] )
         print( f"{it=}" )
         level = 0
 
@@ -211,7 +294,7 @@ if __name__=="__main__":
             logger.info( f"{event=} {el.tag=} {headinglevel=}" )
             
             # childBinding is an increase in nesting of headings
-            if el.tag==rdfxml.uri_to_tag("rm_module:childBindings"):
+            if el.tag==rdfxml.uri_to_tag("rm_modules:childBindings"):
                 if event == "start":
                     level += 1
                     headinglevel.append([0,0])
@@ -220,19 +303,21 @@ if __name__=="__main__":
                     headinglevel.pop()
                     
             # Binding is an artifact
-            if el.tag==rdfxml.uri_to_tag("rm_module:Binding"):
+            if el.tag==rdfxml.uri_to_tag("rm_modules:Binding"):
                 # if it's a heading this increments section differently from non-heading
-                isheading = ( rdfxml.xmlrdf_get_resource_text( el, './rm_module:isHeading' ) == "true" )
+                isheading = ( rdfxml.xmlrdf_get_resource_text( el, './rm_modules:isHeading' ) == "true" )
                 logger.info( f"{isheading=}" )
                 
                 if event=="start":
                     # retrieve the title of the artifact, only needed in the "start"
-                    ba_u = rdfxml.xmlrdf_get_resource_uri( el, './rm_module:uri' )
+                    ba_u = rdfxml.xmlrdf_get_resource_uri( el, './rm_modules:boundArtifact' )
                     if ba_u and ba_u.startswith( c.app.baseurl ):
                         req_x = c.execute_get_rdf_xml( ba_u )
                         summary = rdfxml.xmlrdf_get_resource_text( req_x,'.//dcterms:title')
+                        id = rdfxml.xmlrdf_get_resource_text( req_x,'.//dcterms:identifier')
                     else:
                         summary = "TOP LEVEL"
+                        id = "-"
                         raise Exception( f"Unexpected: No or invalid artifact URI {ba_u}" )
                     if isheading:
                         # increment the heading number and reset the sub-number
@@ -242,7 +327,7 @@ if __name__=="__main__":
                         # increment the sub-number
                         headinglevel[-1][1] += 1
                     # report the current item
-                    print( f"{'    '*level}", end="" )
+                    print( f"{id}{'    '*level}", end="" )
                     if True or isheading:
                         # NOTE NOTE NOTE the section number calculation has not been fully verified/checked - it seems to work after superficial inspection
                         h = getsectionnumber(headinglevel)
@@ -252,6 +337,50 @@ if __name__=="__main__":
     elif format == "JSON":
         # retrieve the structure element in RDF-XML
         modstructure_j = c.execute_get_json(structure_u, cacheable=False, headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None} ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
+
+        if len(sys.argv)>1:     
+            # Following code harcodes location where new binding is inserted, so need the root to be the first element in the structure list
+            if not modstructure_j[0]["isStructureRoot"]:
+                raise Exception( "Root not at start of structure!" )
+            # toinsert is already prepared
+            # get the etag
+            response = c.execute_get_raw(structure_u, cacheable=False, headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None} ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
+            etag = response.headers['ETag']
+            print( f"{etag=}" )
+            # insert a reference to it in a hardcoded location
+            # this is a very blunt method - a tidier method would be to find the section and insert at that location
+#{
+#  "uri" : "https://jazz.ibm.com:9443/rm/resources/BI__yq5s0B6Eeuh3Iiax2L3Ow",
+#  "type" : "dng_module:Binding",
+#  "component" : "https://jazz.ibm.com:9443/rm/cm/component/__J_JEEB6Eeuh3Iiax2L3Ow",
+#  "isHeading" : false,
+#  "module" : "https://jazz.ibm.com:9443/rm/resources/MD__y90_0B6Eeuh3Iiax2L3Ow",
+#  "boundArtifact" : "https://jazz.ibm.com:9443/rm/resources/TX__2GBIkB6Eeuh3Iiax2L3Ow",
+#  "childBindings" : [ ]
+#}          
+            tempbinding_u = "https://clmwb.com:9444/rdm/resources/_4sscEb43EeeD0-df1VhHuw/structure#1"
+            newbinding = {
+                    "uri": tempbinding_u,
+                    "component": comp_u,
+                    "type": "dng_module:Binding",
+                    "module": themodule_u,
+                    "boundArtifact": toinsert_u,
+                    "childBindings": []
+                }
+            # this assumes the root is the first entry!
+            modstructure_j[0]["childBindings"].append(tempbinding_u)
+            modstructure_j.append(newbinding)
+            # PUT the new structure and wait for it to be saved
+            response = c.execute_post_json( structure_u, data=modstructure_j, put=True, cacheable=False, headers={'If-Match':etag,'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None}  )
+            print( f"{response.status_code}" )
+            location = response.headers.get('Location')
+            if response.status_code == 202 and location is not None:
+                # wait for the tracker to finished
+                result = c.wait_for_tracker( location, interval=1.0, progressbar=True, msg=f"Updating Structure")
+                time.sleep( 0.5 )
+                    
+            # get the structure again afer the update
+            modstructure_j = c.execute_get_json(structure_u, cacheable=False, headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None} ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
 
         # scan all the entries into a dictionary keyed by the URL
         entries = {}
@@ -285,7 +414,7 @@ if __name__=="__main__":
 
         # Now explore the structure for childBinding (which corresponds to nesting) and Binding (which is a binding of an artifact into the module)
         it = json_structure_walk(structure_u,entries )
-        print( f"{it=}" )
+#        print( f"{it=}" )
         level = 0
 
         headinglevel = [] # heading level is a list of two-element lists - first is the heading number, second is the non-heading number
@@ -308,26 +437,26 @@ if __name__=="__main__":
                 if ba_u.startswith( c.app.baseurl ):
                     req_x = c.execute_get_rdf_xml( ba_u )
                     summary = rdfxml.xmlrdf_get_resource_text( req_x,'.//dcterms:title')
+                    id = rdfxml.xmlrdf_get_resource_text( req_x,'.//dcterms:identifier')
                 else:
                     summary = "TOP LEVEL"
+                    id = "-"
                     raise Exception( f"Unexpected: No or invalid artifact URI {ba_u}" )
                 if isheading:
                     # increment the heading number and reset the sub-number
                     headinglevel[-1][0] += 1
                     headinglevel[-1][1] = 0
-                    print( f"inc major" )
                 else:
                     # increment the sub-number
                     headinglevel[-1][1] += 1
                 # report the current item
-                print( f"{'    '*level}", end="" )
+                print( f"{id}{'    '*level}", end="" )
                 if True or isheading:
                     # NOTE NOTE NOTE the section number calculation has not been fully verified/checked - it seems to work after superficial inspection
                     h = getsectionnumber(headinglevel)
                     print( f"{h}", end="" )
                 print( f"  {summary}" )
 
-    
     else:
         raise Exception( f"Invalid format {format}" )
         

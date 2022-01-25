@@ -19,6 +19,7 @@ import getpass
 import json
 import logging
 import socket
+import statistics
 import time
 import traceback
 import urllib
@@ -75,6 +76,7 @@ def represt_main():
     common_args.add_argument('-K', '--collapsetags', action="store_true", help="In CSV output rather than naming column for the tag hierarchy, just use the leaf tag name")
     common_args.add_argument('-L','--loglevel', default=LOGLEVEL,help=f'Set logging on console and (if providing a , and a second level) to file to one of DEBUG, INFO, WARNING, ERROR, CRITICAL, OFF - default is {LOGLEVEL} - can be set by environment variable QUERY_LOGLEVEL')
     common_args.add_argument('-M', '--maxresults', default=0, type=int, help="Limit on number of results - may be exceeded by up to one page of results")
+    common_args.add_argument('-N', '--again', type=int, default=1, help="Number of times to repeat the REST API call sequence, must be >1 to get statistics fotr REST call duration")
 #    parser.add_argument('-N', '--noprogressbar', action="store_false", help="Don't show progress bar during query")
     common_args.add_argument("-P", "--password", default=PASSWORD, help="User password - can be set using env variable OUERY_PASSWORD - set to PROMPT to be prompted at runtime")
     common_args.add_argument('-R', '--forceparameter', action='append', default=[], help="Force adding query name and value to the query URL - you must provide the name=value, the value will be correctly encoded for you. NOTE these override parameters from the application. If you want to force deleting a parameter give it the value DELETE. There is no way of forcing a parameter to have the value DELETE")
@@ -85,6 +87,7 @@ def represt_main():
     common_args.add_argument('-W', '--cachecontrol', action='count', default=0, help="Used once -W erases cache then continues with caching enabled. Used twice -WW wipes cache and disables caching. Otherwise caching is continued from previous run(s).")
     common_args.add_argument('-X', '--xmloutputfile', default=None, help='Name of file to save the XML results to')
     common_args.add_argument('-Z', '--proxyport', default=8888, type=int, help='Port for proxy default is 8888 - used if found to be active - set to 0 to disable')
+
 
     # various options
 #    common_args.add_argument('--nresults', default=-1, type=int, help="TESTING UNFINISHED: Number of results expected (used for regression testing against stored data, doesn't need the target server - use -1 to disable checking")
@@ -250,36 +253,57 @@ def represt_main():
     if args.verbose:
         print( f"Retrieving {queryurl}" )
 
-    while True:
-        # retrieve results from this URL
-        result = mainapp.execute_get_xml(reluri=queryurl, headers=headers, cacheable=False )
-        
-        for art in list(result.getroot()):
-            print( ".",end='' )
-            resultsxmls.append(art)
-            if args.maxresults>0 and len(resultsxmls)>=args.maxresults:
-                logger.info( "Results truncated to {args.maxresults}" )
+    # collect times for each call
+    call_durations = []
+    
+    # save the url for 'again' repeated calls
+    theurl = queryurl
+    if args.again<1:
+        raise Exception( "--again must be >=1")
+    for againcounter in range(args.again):
+        queryurl = theurl
+        npages = 0
+        nresults = 0
+        while True:
+            # retrieve results from this URL
+            timer_start = time.perf_counter()
+            
+            # call the REST API
+            result = mainapp.execute_get_xml(reluri=queryurl, headers=headers, cacheable=False )
+            
+            # calculate and record the duration
+            duration = time.perf_counter()-timer_start
+            call_durations.append(duration)
+            npages += 1
+            
+            # process the data
+            for art in list(result.getroot()):
+                print( ".",end='' )
+                if againcounter == 0:
+                    resultsxmls.append(art)
+                    if args.maxresults>0 and len(resultsxmls)>=args.maxresults:
+                        logger.info( "Results truncated to {args.maxresults}" )
+                        break
+                    
+            print()
+            
+            nextlink = result.getroot().get("href",None)
+            nresults += int(result.getroot().get(f"{{{rdfxml.RDF_DEFAULT_PREFIX['rrm']}}}totalCount",0))
+            if args.maxresults>0 and nresults>=args.maxresults:
+                print( f"Hit results limit {args.maxresults=} with {nresults} results" )
                 break
                 
-        print()
-        
-        nextlink = result.getroot().get("href",None)
-        nresults += int(result.getroot().get(f"{{{rdfxml.RDF_DEFAULT_PREFIX['rrm']}}}totalCount",0))
-        if args.maxresults>0 and nresults>=args.maxresults:
-            print( f"Hit results limit {args.maxresults=} with {nresults} results" )
-            break
+            if result.getroot().get("rel",'') != "next" or nextlink is None:
+                print( "Finished!")
+                break
+                
+            # go round the loop for the next page
+            queryurl = nextlink
             
-        if result.getroot().get("rel",'') != "next" or nextlink is None:
-            print( "Finished!")
-            break
-            
-        # go round the loop for the next page
-        queryurl = nextlink
-        
-        # if specified by the user, do a delay between pages
-        if args.delaybetweenpages > 0.0:
-            print( f"Pausing for {args.delaybetweenpages}s" )
-            time.sleep(args.delaybetweenpages)
+            # if specified by the user, do a delay between pages
+            if args.delaybetweenpages > 0.0:
+                print( f"Pausing for {args.delaybetweenpages}s" )
+                time.sleep(args.delaybetweenpages)
     
     # assemble the complete results into a single XMl file
     results = []
@@ -337,7 +361,24 @@ def represt_main():
                 writer.writerow(row)
     else:
         print("results=", results)
-        
+
+    if args.again > 1:
+        # print some stats
+        if int( len( call_durations ) / npages ) != len( call_durations ) / npages:
+            raise( "Odd number of call durations so at least one set of queries was shorter than the others - can't calculate stats!" )
+        if npages > 1:
+            # multiple pages - combine the times
+            print( f"{npages=} {len(call_durations)=} {call_durations=}" )
+            samples = [sum(call_durations[i:i+npages]) for i in range(0,len(call_durations),npages)]
+            print( f"{samples=}" )
+        else:
+            print( f"{len(call_durations)=} {call_durations=}" )
+            samples = call_durations
+        ncalls = len(call_durations)
+        call_mean = statistics.mean(samples)/npages
+        call_median = statistics.median(samples)/npages
+        call_variance = statistics.pvariance(samples)/npages
+        print( f"{call_mean=} {call_median=} {call_variance=}" )
 
 def main():
     runstarttime = time.perf_counter()

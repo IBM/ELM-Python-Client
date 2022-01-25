@@ -16,7 +16,6 @@ from . import httpops
 
 logger = logging.getLogger(__name__)
 
-
 #################################################################################################
 # a generic jazz application
 
@@ -122,10 +121,12 @@ class _App( httpops.HttpOperations_Mixin ):
         if include_archived:
             params['includeArchived'] = 'true'
         self.project_areas_xml = self.execute_get_xml(uri, params=params)
-
+        logger.debug( f"{self.project_areas_xml=}" )
         for projectel in rdfxml.xml_find_elements(self.project_areas_xml,".//jp06:project-area" ):
+            logger.debug( f"{projectel=}" )
             projectu = rdfxml.xmlrdf_get_resource_text(projectel,".//jp06:url")
             projectname = rdfxml.xmlrdf_get_resource_uri(projectel,attrib='jp06:name')
+            logger.debug( f"{projectname=}" )
             is_optin = False
             singlemode = False
             if self.supports_configs:
@@ -152,6 +153,7 @@ class _App( httpops.HttpOperations_Mixin ):
         else:
             # must be a name
             projectu = self._projects.get(projectname_or_uri)
+            print( f"{projectu=}" )
             if projectu is None:
                 res = None
             else:

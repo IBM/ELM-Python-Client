@@ -152,6 +152,18 @@ class HttpOperations_Mixin():
         response = request.execute( **kwargs )
         return response
 
+    def execute_post_json(self, reluri, *, data=None, params=None, headers=None, put=False, **kwargs):
+        reqheaders = {'Accept': 'application/json', 'Content-Type': 'application/json'}
+        if headers is not None:
+            reqheaders.update(headers)
+        if type(data)==dict or type(data)==list:
+            data = json.dumps(data)
+        elif type(data) != str:
+            raise Exception( "Wrong type!" )
+        request = self._get_post_request(reluri=reluri, data=data, params=params, headers=reqheaders, put=put)
+        response = request.execute( **kwargs )
+        return response
+
     def execute_delete(self, reluri, *, params=None, headers=None, **kwargs):
         reqheaders = {'Accept': 'application/xml', 'Content-Type': 'application/rdf+xml'}
         if headers is not None:
@@ -214,9 +226,13 @@ class HttpOperations_Mixin():
             response_x = self.execute_get_rdf_xml( location, cacheable=False )
             percent = rdfxml.xmlrdf_get_resource_text( response_x, './/dng_task:percentage' )
             if progressbar:
-                pbar.update(int(percent)-donelasttime)
-                donelasttime = int(percent)
-            if percent=="100":
+                if percent is not None:
+                    pbar.update(int(percent)-donelasttime)
+                    donelasttime = int(percent)
+                else:
+                    pbar.update(100-donelasttime)
+                
+            if percent is None or percent=="100":
                 break
             time.sleep( interval )
         if progressbar:

@@ -15,6 +15,7 @@ from ._ccm import *
 from ._rm import *
 from ._gcm import *
 from ._qm import *
+from ._relm import *
 from .__meta__ import *
 
 __app__ = __meta__.app

@@ -88,7 +88,7 @@ class _OSLCOperations_Mixin:
     #
     # sortby is a list of attribute URIs (e.g. dcterms:identifier
     # sortorder default is + for ascending alphabetic sort, use'-' to get descending alphabetic sorting - use '>' to get increasing numeric sorting of the first item in sortby, or < to get decreasing numeric sort (if any value doesn't convert to integer it is assumed to be 0 so will sort first/last)
-    def do_complex_query(self,queryresource, querystring='', searchterms=None, select='', orderby='', properties=None, isnulls=None
+    def do_complex_query(self,queryresource, *, querystring='', searchterms=None, select='', orderby='', properties=None, isnulls=None
                         ,isnotnulls=None, enhanced=True, show_progress=True
                         ,show_info=False, verbose=False, maxresults=None, delaybetweenpages=0.0
                         , pagesize=200
@@ -254,7 +254,7 @@ class _OSLCOperations_Mixin:
 
     # for a query which has been parsed to steps, execute the steps, recursing if there is more than one compount_term
     # a query with two logicalor terms looks like: [[['dcterms:identifier', 'in', [3949]]], [['dcterms:identifier', 'in', [3950]]], 'logicalor']
-    def _evaluate_steps(self, querycapabilityuri,querysteps,resultstack=None, select=None, prefixes=None, orderbys=None, searchterms=None, show_progress=False, verbose=False, maxresults=None, delaybetweenpages=0.0, pagesize=200):
+    def _evaluate_steps(self, querycapabilityuri,querysteps,*,resultstack=None, select=None, prefixes=None, orderbys=None, searchterms=None, show_progress=False, verbose=False, maxresults=None, delaybetweenpages=0.0, pagesize=200):
         logger.info( f"_evaluate_steps {querysteps}" )
         resultstack = resultstack if resultstack is not None else []
         orderbys = orderbys or []
@@ -276,7 +276,7 @@ class _OSLCOperations_Mixin:
 #                    raise Exception( f"Very strange parse result! {step}" )
                 else:
                     # do an actual query
-                    results = self.execute_oslc_query(querycapabilityuri,whereterms=[step], select=select, prefixes=prefixes, orderbys=orderbys, searchterms=searchterms, show_progress=show_progress, maxresults=maxresults, delaybetweenpages=delaybetweenpages, pagesize=pagesize)
+                    results = self.execute_oslc_query(querycapabilityuri,whereterms=[step], select=select, prefixes=prefixes, orderbys=orderbys, searchterms=searchterms, show_progress=show_progress, maxresults=maxresults, delaybetweenpages=delaybetweenpages, pagesize=pagesize, verbose=verbose)
                     if isinstance(results, list):
                         resultlist = {}
                         for result in results:
@@ -326,7 +326,7 @@ class _OSLCOperations_Mixin:
     # the whereterms can be created using create_query_operator_string
     # NOTE that prefixes is keyed by URL and the value is the prefix!
     # NOTE that whereterms should be a list of lists (the oslc terms) - each of these nested lists is ['attribute',operator',value'] - if more than one and'd term, the first entry must be 'and'!
-    def execute_oslc_query(self, querycapabilityuri, whereterms=None, select=None, prefixes=None, orderbys=None, searchterms=None, show_progress=False, verbose=False, maxresults=None, delaybetweenpages=0.0, pagesize=200):
+    def execute_oslc_query(self, querycapabilityuri, *, whereterms=None, select=None, prefixes=None, orderbys=None, searchterms=None, show_progress=False, verbose=False, maxresults=None, delaybetweenpages=0.0, pagesize=200):
         if select is None:
             select = []
         prefixes = prefixes or {}
@@ -406,7 +406,7 @@ class _OSLCOperations_Mixin:
             where_clauses = self._get_query_clauses(whereterms, uri_to_prefix_map)
         else:
             where_clauses = []
-
+        print( f"{where_clauses=}" )
         # work out the prefixes to be sent in the oslc query
         theprefixes = []
         allprefixes=[]
@@ -485,9 +485,10 @@ class _OSLCOperations_Mixin:
         params.update(query)
         logger.info( f"The parameters for this query are {params}" )
 
-        fullurl = f"{query_url}?{urllib.parse.urlencode(params)}"
+        fullurl = f"{query_url}?{urllib.parse.urlencode( params, quote_via=urllib.parse.quote, safe='')}"
         if verbose:
             print( f"Full query URL is {fullurl}" )
+#        print( f"Full query URL is {fullurl}" )
 
         # retrieve all pages of results - they will be processed later
         total = 1
@@ -698,6 +699,8 @@ class _OSLCOperations_Mixin:
                                     place = rdfxml.remove_tag(ent.tag)+"/"+rdfxml.remove_tag(subent.tag)
 #                                    place = f"{rdfxml.tag_to_prefix(ent.tag)}/{rdfxml.tag_to_prefix(subent.tag)}"
                                     value = subent.text
+                                    if value is None:
+                                        value = rdfxml.xmlrdf_get_resource_uri(subent)
                                     if place in result[about]:
                                         result[about][place].append(value)
                                         logger.debug( f"Saving{about} {place} {value}" )

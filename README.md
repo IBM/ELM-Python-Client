@@ -135,25 +135,42 @@ ELM APIs
 This code provides examples of using various ELM APIs:
 
 * DN
+
 ** Process - `elmclient`
+
 ** OSLC including OSLC Query - `oslcquery.py` for user use, internally `oslcqueryapi.py` implements OSLC Query parsing and querying
+
 ** Module Structure - `dn_simple_modulestructure.py` - currently external to `elmclient`
+
 ** ReqIF - `reqif_io.py` - currently reqif API is external to `elmclient`
+
 ** Reportable REST (incomplete for qm and ccm) - `represt.py` for user use, internally for each application in `_rm.py`, `_ccm.py`, `_qm.py` 
+
 
 * ETM
+
 ** Process - `elmclient`
+
 ** OSLC including OSLC Query - `oslcquery.py` for user use, internally `oslcqueryapi.py` implements OSLC Query parsing and querying
+
 ** Reportable REST (incomplete for qm and ccm) - `represt.py` for user use, internally for each application in `_rm.py`, `_ccm.py`, `_qm.py` 
+
 
 * EWM
+
 ** Process - `elmclient`
+
 ** OSLC including OSLC Query - `oslcquery.py` for user use, internally `oslcqueryapi.py` implements OSLC Query parsing and querying
+
 ** Reportable REST (incomplete for qm and ccm) - `represt.py` for user use, internally for each application in `_rm.py`, `_ccm.py`, `_qm.py` 
 
+
 * GCM
+
 ** Process - `elmclient`
+
 ** OSLC including OSLC Query - `oslcquery.py` for user use, internally `oslcqueryapi.py` implements OSLC Query parsing and querying
+
 
 Reporting issues, and contributing
 ==================================

@@ -324,13 +324,13 @@ class JazzTeamServer( httpops.HttpOperations_Mixin ):
         return result
 
 #    # get a request with local headers
-#    def _get_request(self, verb, reluri='', *, params=None, headers=None, data=None):
-#        fullheaders = self._get_headers()
-#        if headers is not None:
-#            fullheaders.update(headers)
-#        sortedparams = None if params is None else {k:params[k] for k in sorted(params.keys())}
-#        request = httpops.HttpRequest( self.app.server._session, verb, self.reluri(reluri), params=sortedparams, headers=fullheaders, data=data)
-#        return request
+    def _get_request(self, verb, reluri='', *, params=None, headers=None, data=None):
+        fullheaders = self._get_headers()
+        if headers is not None:
+            fullheaders.update(headers)
+        sortedparams = None if params is None else {k:params[k] for k in sorted(params.keys())}
+        request = httpops.HttpRequest( self.app.server._session, verb, self.reluri(reluri), params=sortedparams, headers=fullheaders, data=data)
+        return request
 
 
 

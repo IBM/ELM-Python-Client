@@ -46,9 +46,9 @@ The content on github is at https://github.com/IBM/ELM-Python-Client
 
 NOTE: the python package installed is call `elmclient`
 
-If you need to install Python, on Windows you can download the Python installer exe from python.org and then use this command to silently install so python is on your path (modifying to reflect the installer exe you have downloaded):
+If you need to install Python, on Windows you can download the Python 3.9.* installer exe from python.org and then use this command to silently install so python is on your path (modifying to reflect the installer exe you have downloaded):
 
-* python-3.9.7-amd64.exe /quiet InstallAllUsers=1 TargetDir=c:\Python39 PrependPath=1 Include_test=0
+* python-3.9.6-amd64.exe /quiet InstallAllUsers=1 TargetDir=c:\Python39 PrependPath=1 Include_test=0
 
 Then exit and start a new command shell and python will be on your path.
 

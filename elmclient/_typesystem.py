@@ -190,12 +190,13 @@ class Type_System_Mixin():
                     altnames = [self.properties[k]['altname'] for k in properties]
                     raise Exception( f"Property {property_name} is ambiguous - maybe use the altname - {altnames}" )
                 else:
-                    # try for a property ignoring the shape - as long as all the ones with the name have the same URI
+                    # try for a property ignoring the shape - as long as all the ones with the name have the same URI after normalising to a uri if tag/prefix present
                     properties = [k for k,v in self.properties.items() if v['name']==property_name]
-                    if len(properties)==1 or (len(properties)>1 and all([k==properties[0] for k in properties]) ):
+                    if len(properties)==1 or (len(properties)>1 and all([rdfxml.tag_to_uri(k)==rdfxml.tag_to_uri(properties[0]) for k in properties[1:]]) ):
                         result = properties[0]
                     else:
                         result = None
+        logger.info( f"get_property_uri {property_name=} {shape_uri=} returning {result=}" )
         return result
 
     def get_property_name( self, property_uri, shapeuri=None ):

@@ -71,9 +71,8 @@ while rrurl is not None and pagelimit > 0:
     # perform the Reportable Rest query
     # because query results are often updated as users work, this request is NOT cached even if caching is enabled
     print( f"Requesting page {rrurl}" )
-    xmlresult = dnapp.execute_get_xml(rrurl, cacheable=False, remove_headers=['net.jazz.jfs.owning-context'])
+    xmlresult = dnapp.execute_get_xml(rrurl, cacheable=False, remove_headers=['net.jazz.jfs.owning-context'], intent="Retrieve a page of Reportable REST results" )
     root = xmlresult.getroot()
-
 
     # go to each result (one row) below the root  -this will be a row of the results
     for res in list(xmlresult.getroot()):

@@ -187,7 +187,7 @@ class _CCMProject(_project._Project):
         id = None
         if uri.startswith( self.app.baseurl ):
             try:
-                resource_xml = self.execute_get_rdf_xml(reluri=uri)
+                resource_xml = self.execute_get_rdf_xml(reluri=uri, intent="Retrieve type definition to get its title" )
                 id = rdfxml.xmlrdf_get_resource_text(resource_xml, ".//dcterms:title")
             except ET.XMLSyntaxError as e:
                 logger.debug( f"Type {uri} doesn't exist (not XML)!" )
@@ -209,7 +209,7 @@ class _CCMProject(_project._Project):
     def type_name_from_uri(self, uri):
         if self.is_type_uri(uri):
             try:
-                resource_xml = self.execute_get_rdf_xml(reluri=uri)
+                resource_xml = self.execute_get_rdf_xml( reluri=uri, intent="Retrieve type definition to get its identifier" )
                 id = rdfxml.xmlrdf_get_resource_text(resource_xml, ".//dcterms:identifier")
             except requests.HTTPError as e:
                 if e.response.status_code==404 or e.response.status_code==406:
@@ -274,7 +274,7 @@ class _CCMApp(_app._App, _typesystem.No_Type_System_Mixin):
 
     def __init__(self, server, contextroot, jts=None):
         super().__init__(server, contextroot, jts=jts)
-        self.rootservices_xml = self.execute_get_xml(self.reluri('rootservices'))
+        self.rootservices_xml = self.execute_get_xml(self.reluri('rootservices'), intent="Retrieve CCM rootservices" )
         self.serviceproviders = 'oslc_cm:cmServiceProviders'
 
     def _get_headers(self, headers=None):
@@ -348,7 +348,7 @@ class _CCMApp(_app._App, _typesystem.No_Type_System_Mixin):
         if args.report:
             typestodo = []
             # get the schema, walk it building the tree of fields
-            schema_x = self.execute_get_xml(queryurl+"?metadata=schema").getroot()
+            schema_x = self.execute_get_xml(queryurl+"?metadata=schema", intent="Retrieve CCM Reportable REST schema" ).getroot()
 #            print( f"{schema_x.tag=}" )
 #            print( f"{schema_x=}" )
             el_x = rdfxml.xml_find_element( schema_x, "./xs:element" )

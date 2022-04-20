@@ -51,6 +51,7 @@ RDF_DEFAULT_PREFIX = {
     'rm_nav':       'http://jazz.net/ns/rm/navigation#',
     'rm_text':      'http://jazz.net/xmlns/alm/rm/text/v0.1', # for RR
     'rm_view':      'http://jazz.net/ns/rm/dng/view#',
+    'rqm':          'http://jazz.net/xmlns/prod/jazz/rqm/qm/1.0/',
     'rrm':          'http://www.ibm.com/xmlns/rrm/1.0/', # For RR
     'rtc_cm':       "http://jazz.net/xmlns/prod/jazz/rtc/cm/1.0/",
     'xhtml':        'http://www.w3.org/1999/xhtml',

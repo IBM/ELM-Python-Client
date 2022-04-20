@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href=""https://bramp.github.io/js-sequence-diagrams/css/sequence-diagram-min.css" media="screen" />
+</head>
+<body onload='showseq();'>
+<p>Sequence diagram from emlclient log</p>
+
+<div id="diagram"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/underscore@1.13.2/underscore-umd-min.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/webfont/1.3.0/webfont.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg-min.js" ></script>
+som1
+<script src="https://bramp.github.io/js-sequence-diagrams/js/sequence-diagram-min.js" ></script>
+
+<script type="text/javascript"> 
+function showseq(){
+//  console.log("Hello2");
+  var seqdiv =  document.getElementById("sequence");
+  seqtext = seqdiv.textContent
+  var d = Diagram.parse(seqtext);
+  var options = {theme: 'simple'};
+  d.drawSVG('diagram', options);
+}
+</script>
+<p>Created using <a href='https://github.com/bramp/js-sequence-diagrams'>js-sequence-diagrams</a> see examples <a href='https://bramp.github.io/js-sequence-diagrams/'>here</a><p>
+
+<div id="sequence" style="display: none;">A->B: Message</div>
+
+</body>
+</html>

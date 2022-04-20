@@ -321,10 +321,39 @@ class _OSLCOperations_Mixin:
         logger.info( f"{resultstack=}" )
         return resultstack
 
+    # returns the single core artifact from the query results
+    # assumes query results include rm_nav:parent
+    def find_core_artifact(self,queryresults):
+        cas = self.find_core_artifacts(queryresults)
+        if len(list(cas.keys()))>1:
+            raise Exception( "More than one core artifact found when only one expected!" )
+        if len(list(cas.eys()))==0:
+            raise Exception( "No core artifact found!" )
+        return cas
+
+    # returns just the core artifacts (which have rm_nav:parent) from the query results
+    # assumes query results include rm_nav:parent
+    def find_core_artifact(self,queryresults):
+        results = {}
+        for k,v in queryresults.items():
+            if 'rm_nav:parent' in v:
+                results[k]=v
+        return results
+        
+    # returns just the module artifacts (which don't have rm_nav:parent) from the query results
+    # assumes query results would include rm_nav:parent if it had a value
+    def find_module_artifacts(self,queryresults):
+        results = {}
+        for k,v in queryresults.items():
+            if 'rm_nav:parent' not in v:
+                results[k]=v
+        return results
+        
+
     # lower-level OSLC query with prepared arguments
     # by default returns a list of uris as result, but if you provide a select list of attributes, returns a dictionary with as key the artifact uri, each result containing a dictionary with the selected values
     # the whereterms can be created using create_query_operator_string
-    # NOTE that prefixes is keyed by URL and the value is the prefix!
+    # NOTE that prefixes is reversed from what you might expect, i.e. keyed by URL and the value is the prefix!
     # NOTE that whereterms should be a list of lists (the oslc terms) - each of these nested lists is ['attribute',operator',value'] - if more than one and'd term, the first entry must be 'and'!
     def execute_oslc_query(self, querycapabilityuri, *, whereterms=None, select=None, prefixes=None, orderbys=None, searchterms=None, show_progress=False, verbose=False, maxresults=None, delaybetweenpages=0.0, pagesize=200):
         if select is None:
@@ -406,7 +435,7 @@ class _OSLCOperations_Mixin:
             where_clauses = self._get_query_clauses(whereterms, uri_to_prefix_map)
         else:
             where_clauses = []
-        print( f"{where_clauses=}" )
+#        print( f"{where_clauses=}" )
         # work out the prefixes to be sent in the oslc query
         theprefixes = []
         allprefixes=[]
@@ -492,6 +521,7 @@ class _OSLCOperations_Mixin:
 
         # retrieve all pages of results - they will be processed later
         total = 1
+        page = 0
         if show_progress:
             pbar = None
 #            pbar = tqdm.tqdm(initial=0, total=total,smoothing=1,unit=" results",desc="Querying          ")
@@ -503,8 +533,9 @@ class _OSLCOperations_Mixin:
         terminate=False
         while True:
             logger.debug('OSLC Query URI: ' + query_url)
+            page += 1
             # request this page
-            this_result_xml = self.execute_get_rdf_xml(query_url, params=params, headers=headers, cacheable=False)
+            this_result_xml = self.execute_get_rdf_xml(query_url, params=params, headers=headers, cacheable=False, intent=f"Retrieve {utils.nth(page)} page of OSLC query results")
             queryurls.append(query_url)
             # accumulate the results
             result_xmls.append(this_result_xml)
@@ -580,7 +611,7 @@ class _OSLCOperations_Mixin:
                 break
             if delaybetweenpages>0.0:
                 time.sleep(delaybetweenpages)
-
+                
         # finished doing the actual query - now process what's been received!
 
         # if showing progress and pbar has been created (after the first set of results if paged)

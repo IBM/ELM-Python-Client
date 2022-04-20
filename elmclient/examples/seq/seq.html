@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="css/sequence-diagram-min.css" media="screen" />
+</head>
+<body>
+<p>Sequence diagram from emlclient log</p>
+
+<div id="diagram"></div>
+
+<div id="sequence" style="display: none;">A->B: Message</div>
+
+<script src="js/underscore-umd-min.js" ></script>
+<script src="js/webfont.js"></script>
+<script src="js/snap.svg-min.js" ></script>
+<script src="js/sequence-diagram-snap-min.js" ></script>
+<script type="text/javascript"> 
+//  console.log("Hello2");
+  var seqdiv =  document.getElementById("sequence");
+  seqtext = seqdiv.textContent
+  var d = Diagram.parse(seqtext);
+  var options = {theme: 'simple'};
+  d.drawSVG('diagram', options);
+</script>
+<p>Created using <a href='https://github.com/bramp/js-sequence-diagrams'>js-sequence-diagrams</a> see examples <a href='https://bramp.github.io/js-sequence-diagrams/'>here</a><p>
+</body>
+</html>

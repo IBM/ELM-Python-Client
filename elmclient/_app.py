@@ -27,8 +27,10 @@ class _App( httpops.HttpOperations_Mixin ):
     reportablerest_baseurl = "publish"
     supports_reportable_rest = False
     reportable_rest_status = "Not supported by application"
+    majorVersion = None
+    version = None
 
-    def __init__(self, server, contextroot, jts=None):
+    def __init__(self, server, contextroot, *, jts=None):
         super().__init__()
         logger.info( f'Creating app {contextroot} {server=}' )
         self.contextroot = contextroot
@@ -46,14 +48,14 @@ class _App( httpops.HttpOperations_Mixin ):
     def retrieve_cm_service_provider_xml(self):
         cm_service_provider_uri = rdfxml.xmlrdf_get_resource_uri(self.rootservices_xml,
                                                                      self.cmServiceProviders)
-        rdf = self.execute_get_rdf_xml(cm_service_provider_uri)
+        rdf = self.execute_get_rdf_xml(cm_service_provider_uri, intent="Retrieve application CM Service Provider" )
         return rdf
 
     def retrieve_oslc_catalog_xml(self):
         oslccataloguri = rdfxml.xmlrdf_get_resource_uri(self.rootservices_xml, self.serviceproviders)
         if oslccataloguri is None:
             return None
-        return self.execute_get_rdf_xml(oslccataloguri)
+        return self.execute_get_rdf_xml(oslccataloguri, intent="Retrieve application OSLC Catalog (list of projects)")
 
     # get local headers
     def _get_headers(self, headers=None):
@@ -120,7 +122,7 @@ class _App( httpops.HttpOperations_Mixin ):
         params = {}
         if include_archived:
             params['includeArchived'] = 'true'
-        self.project_areas_xml = self.execute_get_xml(uri, params=params)
+        self.project_areas_xml = self.execute_get_xml(uri, params=params, intent="Retrieve all project area definitions" )
         logger.debug( f"{self.project_areas_xml=}" )
         for projectel in rdfxml.xml_find_elements(self.project_areas_xml,".//jp06:project-area" ):
             logger.debug( f"{projectel=}" )
@@ -290,7 +292,7 @@ class _App( httpops.HttpOperations_Mixin ):
             user_uri = self.jts.baseurl+f"users/{name}"
             # check it using whoami
             try:
-                res = self.execute_get(user_uri)
+                res = self.execute_get(user_uri, intent="Try to retrieve User" )
             except requests.exceptions.HTTPError as e:
                 res = None
             if res:

@@ -131,7 +131,8 @@ class HttpOperations_Mixin():
         result = ET.ElementTree(ET.fromstring(response.content))
         return result
 
-    def execute_get_rdf_xml(self, reluri, *, params=None, headers=None, **kwargs):
+    # this can also return a tuple including the etag if you will need it to update the artifact
+    def execute_get_rdf_xml(self, reluri, *, params=None, headers=None, return_etag = False, **kwargs):
         if params is None:
             params = {}
         reqheaders = {'Accept': 'application/rdf+xml', 'OSLC-Core-Version': '2.0'}
@@ -140,7 +141,20 @@ class HttpOperations_Mixin():
         request = self._get_get_request(reluri=reluri, params=params, headers=reqheaders)
         response = request.execute( **kwargs )
         result = ET.ElementTree(ET.fromstring(response.content))
+        if return_etag:
+            return (result,response.headers['ETag'])
         return result
+
+    # assumes you included the If-Match: ETag header!
+    def execute_put_rdf_xml(self, reluri, *, data=None, params=None, headers=None, **kwargs):
+        reqheaders = {'Accept': 'application/xml', 'Content-Type': 'application/rdf+xml'}
+        if headers is not None:
+            reqheaders.update(headers)
+        if type(data)!=str:
+            data = ET.tostring(data)
+        request = self._get_post_request(reluri=reluri, data=data, params=params, headers=reqheaders, put=True)
+        response = request.execute( **kwargs )
+        return response
 
     def execute_post_rdf_xml(self, reluri, *, data=None, params=None, headers=None, put=False, **kwargs):
         reqheaders = {'Accept': 'application/xml', 'Content-Type': 'application/rdf+xml'}
@@ -168,7 +182,7 @@ class HttpOperations_Mixin():
         reqheaders = {'Accept': 'application/xml', 'Content-Type': 'application/rdf+xml'}
         if headers is not None:
             reqheaders.update(headers)
-        request = self.get_delete_request(reluri=reluri, params=params, headers=reqheaders)
+        request = self._get_delete_request(reluri=reluri, params=params, headers=reqheaders)
         response = request.execute( **kwargs )
         return response
 
@@ -223,7 +237,7 @@ class HttpOperations_Mixin():
             pbar = tqdm.tqdm(initial=0, total=100,smoothing=1,unit=" results",desc=msg)
             donelasttime=0
         while True:
-            response_x = self.execute_get_rdf_xml( location, cacheable=False )
+            response_x = self.execute_get_rdf_xml( location, cacheable=False, intent="Poll tracker until result shows completiom" )
             percent = rdfxml.xmlrdf_get_resource_text( response_x, './/dng_task:percentage' )
             if progressbar:
                 if percent is not None:
@@ -282,16 +296,49 @@ class HttpRequest():
                 logger.warning( f'RETRY: Retry after {wait_dur} seconds... URL: {self._req.url}' )
                 time.sleep(wait_dur)
         raise Exception('programming error this point should never be reached')
+        
+    # log a request/response, which may be the result of one or more redirections, so first log each of their request/response
+    def log_redirection_history( self, response, intent, donotlogbody=False ):
+        thisintent = intent
+        after = ""
+        for i,r in enumerate(response.history):
+            after= " (after redirects)"
+            logger.trace( f"\nWIRE: redir {i} request +++++ {r.request.method} {r.request.url}\n\n{self._log_request(r.request,intent=thisintent,donotlogbody=donotlogbody)}")
+            logger.trace(f"\nWIRE: redir response ----- {r.status_code}\n\n{self._log_response(r)}")
+            thisintent = 'Redirection of '+intent
+        logger.trace( f"\nWIRE: request +++++ {response.request.method} {response.request.url}\n\n{self._log_request(response.request,intent=intent+after,donotlogbody=donotlogbody)}")
+        logger.trace(f"\nWIRE: response ----- {response.status_code}\n\n{self._log_response(response)}")
 
     # generate a string for logging of a http request with a stacktrace of the collers and showing URL, headers and any data
-    def _log_request( self, request,donotlogbody=False ):
-        logtext = self._callers() + "\n\n"
+    def _log_request( self, request,donotlogbody=False,intent=None ):
+        logtext = self._callers()
+        # this allows splitting out each request+response when parsing the log
+        logtext += "\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>!\n"
+        if intent is not None:
+            logtext += f"\n\nINTENT: {intent}\n\n"
+            
+        if donotlogbody:
+            # redact username/password parameter values
+            # unparse the url
+            url_parts = list(urllib.parse.urlparse(request.url))
+            query = dict(urllib.parse.parse_qsl(url_parts[4]))
+            if 'j_username' in query:
+                query['j_username'] = "REDACTED"
+            if 'j_password' in query:
+                query['j_password'] = "REDACTED"
+            url_parts[4] = urllib.parse.urlencode(query)
+            # reconstruct the possibly-redacted URL
+            query_url = urllib.parse.urlunparse(url_parts)        
+            logtext += f"{request.method} {query_url}\n"
+        else:
+            logtext += f"{request.method} {request.url}\n"
+            
         for k in sorted(request.headers.keys()):
-            logtext += " " + k + ": " + to_text(request.headers[k]) + "\n"
+            logtext += "  " + k + ": " + to_text(request.headers[k]) + "\n"
         if hasattr(request, 'cookies'):
             cjd = requests.utils.dict_from_cookiejar(request.cookies)
             for k in sorted(cjd.keys()):
-                logtext += " Cookie " + k + ": " + cjd[k] + "\n"
+                logtext += "  Cookie " + k + ": " + cjd[k] + "\n"
         # add the body
         if request.body is not None:
             if donotlogbody:
@@ -304,7 +351,10 @@ class HttpRequest():
                     if rawtext[0] == '<' or rawtext[0] == '{':
                         rawtext = re.sub(r"\\n", "\n", rawtext)
                         rawtext = re.sub(r"\\t", "    ", rawtext)
+            # the surroundings allow splitting out the request body when parsing the log
+            logtext += "\n::::::::::=\n"
             logtext += "\n" + rawtext + "\n\n"
+            logtext += "\n----------=\n"
         return logtext
 
     # generate a compact stacktrace of function-line-file because it's often
@@ -322,25 +372,30 @@ class HttpRequest():
 
     # generate a string for logging of a http response showing response code, headers and any data
     def _log_response( self, response ):
-        logtext = ""
-        for k in sorted(response.headers.keys()):
-            logtext += " " + k + ": " + response.headers[k] + "\n"
-        if hasattr(response, 'cookies'):
-            cjd = requests.utils.dict_from_cookiejar(response.cookies)
-            for k in sorted(cjd.keys()):
-                logtext += " Cookie " + k + ": " + cjd[k] + "\n"
+        logtext = f"Response: {response.status_code}\n"
+        # use the urllib3 cookiejar so Set-Cookie-s don't get folded into one single unparseable value by Requests
+        # see https://github.com/psf/requests/issues/3957
+        cs = response.raw.headers.items()
+        for c,v in sorted(cs):
+            logtext += "  " + c + ": " + v + "\n"
+            
         # add the body
         if response.content is not None:
             if len(response.content) > 1000000:
                 rawtext = "LONG LONG CONTENT..."
             else:
-                rawtext = repr(response.content)[2:-2]
+                rawtext = repr(response.content)[2:-1]
                 if len(rawtext) > 0:
                     if rawtext[0] == '<' or rawtext[0] == '{':
+                        rawtext = re.sub(r"\\r", "", rawtext)
                         rawtext = re.sub(r"\\n", "\n", rawtext)
                         rawtext = re.sub(r"\\t", "    ", rawtext)
-            logtext += "\n" + rawtext + "\n"
-
+            # the surroundings allow splitting out the response body when parsing the log
+            logtext += "\n::::::::::@\n"
+            logtext += rawtext 
+            logtext += "\n----------@\n\n"
+        # this allows splitting out each request+response when parsing the log
+        logtext += "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<!\n"
         return logtext
 
     # categorize a Requests .send() exception e as to whether is retriable
@@ -360,7 +415,10 @@ class HttpRequest():
     #  1. if the response indicates login is required then login and try the request again
     #  2. if request is rejected for various reasons retry with the CSRF header applied
     # supports Jazz Form authorization and Jazz Authorization Server login
-    def _execute_one_request_with_login( self, *, no_error_log=False, close=False, donotlogbody=False, retry_get_after_login=True, remove_headers=None, remove_parameters=None ):
+    def _execute_one_request_with_login( self, *, no_error_log=False, close=False, donotlogbody=False, retry_get_after_login=True, remove_headers=None, remove_parameters=None, intent=None ):
+        if intent is None:
+            raise Exception( "No intent provided!" )
+        intent = intent or ""
         retry_after_login_needed = False
         logger.debug( f"{retry_get_after_login=}" )
         request = self._req
@@ -396,9 +454,8 @@ class HttpRequest():
         # actually (try to) do the request
         try:
             prepped = self._session.prepare_request( request )
-            logger.trace( f"\nWIRE: do_execute request +++++ {request.method} {request.url}\n\n{self._log_request(prepped)}")
             response = self._session.send( prepped )
-            logger.trace(f"\nWIRE: do_execute response ----- {response.status_code}\n\n{self._log_response(response)}")
+            self.log_redirection_history( response, intent=intent )
 
             response.raise_for_status()
 
@@ -487,9 +544,8 @@ class HttpRequest():
                 # make sure this request isn't satisfied from cache!
                 request.headers.update({'Cache-Control': 'no-cache'})
                 prepped = self._session.prepare_request(request)
-                logger.trace( f"\nWIRE: do_execute request  RETRY +++++ {request.method} {request.url}\n\n{self._log_request(prepped)}" )
                 response = self._session.send(prepped)
-                logger.trace( f"\nWIRE: do_execute response RETRY ----- {response.status_code}\n\n{self._log_response(response)}" )
+                self.log_redirection_history( response, intent="RETRY AFTER AUTHENTICATION "+intent )
                 response.raise_for_status()
             except requests.HTTPError as e:
                 logger.error( f"Exception on retrying request. URL: {request.url}, {e.response.status_code}, {e.response.text}")
@@ -506,7 +562,9 @@ class HttpRequest():
         the proper auth headers. After that, we can POST to the login service.'''
         if auth_url:
             # Access Auth URL
+            
             auth_url_response = self._session.get(auth_url)  # Load up them cookies!
+            self.log_redirection_history( auth_url_response, intent="Login",donotlogbody=True )
 
             if auth_url_response.headers.get('X-com-ibm-team-repository-web-auth-msg') != 'authrequired':
                 logger.trace("headers show auth not required")
@@ -530,16 +588,18 @@ class HttpRequest():
         # (tested against a localUserRegistry JAS and a simple LDAP JAS)
         if auth_url:
             # Access Auth URL
-            # step 1 - get on auth_url with &prompt=none added
+            # step 1 - GET on auth_url with &prompt=none added
             auth_url_response = self._session.get(str(auth_url) + "&prompt=none")  # Load up them cookies!
+            self.log_redirection_history( auth_url_response, intent="JAS Authorize step 1",donotlogbody=True )
             # step 2 - check for response indicating
             if auth_url_response.status_code != 200 or 'X-JSA-LOGIN-REQUIRED' not in auth_url_response.headers:
                 return auth_url_response  # no more auth required
             if auth_url_response.headers['X-JSA-LOGIN-REQUIRED'] != 'true':
                 raise Exception(
                     "login required is not true it is '%s'" % (auth_url_response.headers['X-JSA-LOGIN-REQUIRED']))
-            # step 3 get from auth_url (with nothing added)
+            # step 3 GET from auth_url (with nothing added)
             auth_url_response = self._session.get(str(auth_url))  # Load up them cookies!
+            self.log_redirection_history( auth_url_response, intent="JAS Authorize step 3",donotlogbody=True )
             if auth_url_response.status_code == 200:
                 login_url = auth_url_response.url  # Take the redirected URL and login action URL
                 logger.debug( f"1 {login_url=}" )
@@ -574,9 +634,8 @@ class HttpRequest():
             request = requests.Request("POST",str(auth_url), headers=headers, data=data)
             prepped = self._session.prepare_request(request)
 
-            logger.trace( f"\nWIRE: __authorize request +++++= {request.method} {request.url}\n\n{self._log_request(prepped,donotlogbody=True)}" )
             response = self._session.send(prepped)
-            logger.trace( f"\nWIRE: __authorize response ----- {response.status_code}\n\n{self._log_response(response)}")
+            self.log_redirection_history( response, intent="Authorize",donotlogbody=True )
 
             response.raise_for_status()
             if 'X-com-ibm-team-repository-web-auth-msg' in response.headers:
@@ -599,11 +658,10 @@ class HttpRequest():
                                             urllib.parse.urlencode({'j_username': username, 'j_password': password}),
                                             ""])
         try:
-            logger.trace("\nWIRE: __jazz_form_authorize request +++++ GET " + request_url)
 
             response = self._session.get(auth_url)
+            self.log_redirection_history( response, intent="Authenticate Form",donotlogbody=True )
 
-            logger.trace( f"\nWIRE: __jazz_form_authorize response ----- {response.status_code}\n\n{self._log_response(response)}" )
         except requests.HTTPError as e:
             logger.info( f"Failed to jazz_authorize with auth URL {auth_url} with exception {e}" )  # was logger.error despite subsequent authentication success
             raise Exception("Jazz FORM authorize not possible!")

@@ -376,7 +376,7 @@ To find all artifacts in project, where the project e.g. rm_gc_p1 has one or mor
 
 To find high-priority artifacts (of all artifact types): `-q Priority=High`
 
-To find high-priority Stakeholder Requirements: `-q "oslc:instanceShape='Stakeholder Requirement and Priority=High"`
+To find high-priority Stakeholder Requirements: `-q "oslc:instanceShape='Stakeholder Requirement' and Priority=High"`
 
 To find artifacts in a specific folder: `-q "rm_nav:folder=$""01 Requirements"""`
 

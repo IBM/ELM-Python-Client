@@ -12,6 +12,7 @@
 
 import csv
 import logging
+import os.path
 import sys
 import time
 
@@ -24,16 +25,18 @@ import elmclient.rdfxml as rdfxml
 
 # setup logging - see levels in utils.py
 #loglevel = "INFO,INFO"
-loglevel = "OFF,OFF"
+loglevel = "TRACE,OFF"
 levels = [utils.loglevels.get(l,-1) for l in loglevel.split(",",1)]
 if len(levels)<2:
-    # assert file logging level if not provided
-    levels.append(logging.DEBUG)
+    # assert console logging level OFF if not provided
+    levels.append(None)
 if -1 in levels:
     raise Exception( f'Logging level {loglevel} not valid - should be comma-separated one or two values from DEBUG, INFO, WARNING, ERROR, CRITICAL, OFF' )
-utils.setup_logging(consolelevel=levels[0],filelevel=levels[1])
+utils.setup_logging( filelevel=levels[0], consolelevel=levels[1] )
 
 logger = logging.getLogger(__name__)
+
+utils.log_commandline( os.path.basename(sys.argv[0]) )
 
 jazzhost = 'https://jazz.ibm.com:9443'
     
@@ -185,7 +188,7 @@ if __name__=="__main__":
     themodule_u = list(modules.keys())[0]
     print( f"{themodule_u=}" )
 
-    mod_x = c.execute_get_rdf_xml(themodule_u, cacheable=False,  headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None} ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
+    mod_x = c.execute_get_rdf_xml(themodule_u, cacheable=False,  headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None}, intent="Retrieve the module RDF-XML to get the structure URI" ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
 
     print( f"{mod_x=}" )
 
@@ -223,13 +226,12 @@ if __name__=="__main__":
         
     if format == "RDFXML":
         # retrieve the structure element in RDF-XML
-        modstructure_x = c.execute_get_rdf_xml(structure_u, cacheable=False, headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None} ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
+        modstructure_x = c.execute_get_rdf_xml(structure_u, cacheable=False, headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None}, intent="Retrieve module structure (XML)" ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
 
         if len(sys.argv)>1:            
             # toinsert is already prepared
             # get the etag
-            response = c.execute_get_raw(structure_u, cacheable=False, headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None} ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
-            etag = response.headers['ETag']
+            response, etag = c.execute_get_rdf_XML(structure_u, cacheable=False, headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None}, return_etag=True, intent="Retrieve module structure (XML)"  ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
             print( f"{etag=}" )
             # insert a reference to it in a hardcoded location
             firsthead_x = rdfxml.xml_find_elements(modstructure_x,'rm_modules:Binding/rm_modules:childBindings/rm_modules:Binding/rm_modules:childBindings')[0]
@@ -268,7 +270,7 @@ if __name__=="__main__":
             firsthead_x.append(newbinding)
             
             # PUT the new structure and wait for it to be saved
-            response = c.execute_post_rdf_xml( structure_u, data=modstructure_x, put=True, cacheable=False, headers={'If-Match':etag,'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None}  )
+            response = c.execute_post_rdf_xml( structure_u, data=modstructure_x, put=True, cacheable=False, headers={'If-Match':etag,'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None}, intent="Update module structure (XML)"  )
             print( f"{response.status_code}" )
             location = response.headers.get('Location')
             if response.status_code == 202 and location is not None:
@@ -277,7 +279,7 @@ if __name__=="__main__":
                 time.sleep( 0.5 )
                     
             # get the structure again
-            modstructure_x = c.execute_get_rdf_xml(structure_u, cacheable=False, headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None} ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
+            modstructure_x = c.execute_get_rdf_xml(structure_u, cacheable=False, headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None}, intent="Retrieve module structure (XML) after update"  ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
             
         # find the root binding
         modroot_x = rdfxml.xml_find_element( modstructure_x, './rm_modules:Binding' )
@@ -312,7 +314,7 @@ if __name__=="__main__":
                     # retrieve the title of the artifact, only needed in the "start"
                     ba_u = rdfxml.xmlrdf_get_resource_uri( el, './rm_modules:boundArtifact' )
                     if ba_u and ba_u.startswith( c.app.baseurl ):
-                        req_x = c.execute_get_rdf_xml( ba_u )
+                        req_x = c.execute_get_rdf_xml( ba_u, intent="Retrieve artifact detail to get title and identifier"  )
                         summary = rdfxml.xmlrdf_get_resource_text( req_x,'.//dcterms:title')
                         id = rdfxml.xmlrdf_get_resource_text( req_x,'.//dcterms:identifier')
                     else:
@@ -336,7 +338,7 @@ if __name__=="__main__":
 
     elif format == "JSON":
         # retrieve the structure element in RDF-XML
-        modstructure_j = c.execute_get_json(structure_u, cacheable=False, headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None} ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
+        modstructure_j = c.execute_get_json(structure_u, cacheable=False, headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None}, intent="Retrieve module structure (JSON)"  ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
 
         if len(sys.argv)>1:     
             # Following code harcodes location where new binding is inserted, so need the root to be the first element in the structure list
@@ -344,8 +346,19 @@ if __name__=="__main__":
                 raise Exception( "Root not at start of structure!" )
             # toinsert is already prepared
             # get the etag
-            response = c.execute_get_raw(structure_u, cacheable=False, headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None} ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
-            etag = response.headers['ETag']
+            response,etag = c.execute_get_rdf_xml(
+                structure_u,
+                cacheable=False,
+                headers={
+                    'vvc.configuration': config_u,
+                    'DoorsRP-Request-Type':'public 2.0',
+                    'OSLC-Core-Version': None,
+                    'Configuration-Context': None
+                },
+                return_etag=True,
+                intent="Retrieve module structure (JSON)"
+            )
+            # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
             print( f"{etag=}" )
             # insert a reference to it in a hardcoded location
             # this is a very blunt method - a tidier method would be to find the section and insert at that location
@@ -371,17 +384,17 @@ if __name__=="__main__":
             modstructure_j[0]["childBindings"].append(tempbinding_u)
             modstructure_j.append(newbinding)
             # PUT the new structure and wait for it to be saved
-            response = c.execute_post_json( structure_u, data=modstructure_j, put=True, cacheable=False, headers={'If-Match':etag,'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None}  )
+            response = c.execute_post_json( structure_u, data=modstructure_j, put=True, cacheable=False, headers={'If-Match':etag,'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None}, intent="Update the module structure (JSON)"  )
             print( f"{response.status_code}" )
             location = response.headers.get('Location')
             if response.status_code == 202 and location is not None:
                 # wait for the tracker to finished
                 result = c.wait_for_tracker( location, interval=1.0, progressbar=True, msg=f"Updating Structure")
                 time.sleep( 0.5 )
-                    
+            
             # get the structure again afer the update
-            modstructure_j = c.execute_get_json(structure_u, cacheable=False, headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None} ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
-
+            modstructure_j = c.execute_get_json(structure_u, cacheable=False, headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None}, intent="Retrieve module structure (JSON) after update"  ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
+            sys.exit(0)
         # scan all the entries into a dictionary keyed by the URL
         entries = {}
         for s in modstructure_j:
@@ -435,7 +448,7 @@ if __name__=="__main__":
                 # retrieve the title of the artifact, only needed in the "start"
                 ba_u = el["uri"]
                 if ba_u.startswith( c.app.baseurl ):
-                    req_x = c.execute_get_rdf_xml( ba_u )
+                    req_x = c.execute_get_rdf_xml( ba_u, intent="Retrieve artifact details to get the title and identifier"  )
                     summary = rdfxml.xmlrdf_get_resource_text( req_x,'.//dcterms:title')
                     id = rdfxml.xmlrdf_get_resource_text( req_x,'.//dcterms:identifier')
                 else:

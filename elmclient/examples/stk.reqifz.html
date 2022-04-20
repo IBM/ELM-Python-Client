@@ -1,0 +1,634 @@
+<!-- Include in 7.0.2 plus iFix -->
+<html>
+  <head>
+    <script type="text/javascript" src="https://jazz.ibm.com:9443/rm/web/jazz.util/iframe.js"></script>
+    <script type="text/javascript">       
+        function dynamicResize() {
+            var newPreviewHeight = jazz.util.iframe.getDocumentHeight();
+            if (newPreviewHeight > 0) {
+                if (window.postMessage && window.parent) {
+                    window.parent.postMessage("oslc-preview-height:" + newPreviewHeight, "*");
+                    window.parent.postMessage("jazz-compact-rendering-preview-height:" + newPreviewHeight, "*");                    
+                }
+            }
+        }
+    </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+    <style type="text/css">
+      body {
+        margin: 2px;
+        background: #FFFFFF;
+        color: #000000;
+        font-family: Arial,sans-serif;
+        font-size: 9pt;
+      }
+     
+      table {
+        color: #000000;
+        font-family: Arial,sans-serif;
+        font-size: 9pt;
+      }
+      
+      a {
+        color: #0f62fe;
+        font-family: Arial,sans-serif;
+        font-size: 9pt;
+        text-decoration: none;
+      }
+      
+      a:hover {
+          text-decoration: underline;
+          color: #054ada;
+      }
+ 
+      .more {
+        color: #008000
+      }
+      
+      .description {
+      }
+      
+      div.firstGroupSection {
+      }
+      
+      div.groupSection {
+        padding-top: 10px;
+      }
+      
+      .groupSectionTitle {
+        color: #333333;
+        font-family: Arial,sans-serif;
+        font-weight: bold;
+        font-size: 9pt;
+      }
+
+      .groupSectionDividerWrapper {
+        margin:4px 2px;
+        overflow:hidden;
+      }
+            
+      .groupSectionDivider {
+      }
+      
+      .label {
+        color: #666666;
+        font-family: Arial,sans-serif;
+        font-size: 9pt;
+        vertical-align: top;
+        text-align: left;
+      }
+      
+      .labeledValueSectionDivider {
+        padding: 2px 0px 2px 0px;
+      }
+      
+      .firstLabelIcon {
+        vertical-align: middle;
+      }
+      
+      .subsequentLabelIcon {
+        padding-left: 10px;
+        vertical-align: middle;
+      }
+      
+      .labelValue {
+        padding-left: 3px;
+        vertical-align: top;
+        text-align: left;
+      }
+      
+      .firstPublicTagValue {
+        color:#3087B3;
+      }
+      
+      .subsequentPublicTagValue {
+        padding-left: 3px;
+        color:#3087B3;
+      }
+      
+      .firstPrivateTagValue {
+        color:#007F00;
+      }
+      
+      .subsequentPrivateTagValue {
+        padding-left: 3px;
+        color:#007F00;
+      }
+      
+      .summaryLink {
+        color: #999999;
+      }
+      
+      a.jazz-ui-ResourceLink img.arrow {
+        display: none;
+      }
+      
+    </style>
+  </head>
+  <body onLoad="javascript:dynamicResize()">
+<h2>Report for import of ReqIF Package: https://jazz.ibm.com:9443/rm/reqif/RP_Rpt0EKOKEey1AsZJCf6bOg</h2>
+<i>Generated on March 14, 2022 4:31:41 AM PDT</i>
+<br/><br/>
+<table width="100%">
+<tr><td colspan="2"><div class="groupSectionTitle summarystart"><h2>Summary</h2></div></td></tr>
+<tr><td colspan="2"><div class="groupSectionDivider"></div></td></tr>
+<tr><td class="label" nowrap>
+<tr><td class="label"><img src="/rm/images/verify_obj.gif"/></td><td class="labelValue">Updated 3 Artifacts</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td colspan="2"><div class="groupSectionTitle data typesstart"><h2>Data Types</h2></div></td></tr>
+<tr><td colspan="2"><div class="groupSectionDivider"></div></td></tr>
+<tr><td class="label" nowrap>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Data Type matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">DateTime</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://www.w3.org/2001/XMLSchema#dateTime</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_467df5df-4c9b-4077-9654-7d4457c213a3</td></tr>
+<tr><td class="label">sameAs</td><td class="labelValue">http://www.w3.org/2001/XMLSchema#dateTime</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Data Type matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Integer</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://www.w3.org/2001/XMLSchema#int</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_f5b15dc6-c9b5-4cc8-b39a-c9ea665c6997</td></tr>
+<tr><td class="label">sameAs</td><td class="labelValue">http://www.w3.org/2001/XMLSchema#int</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Type unchanged; ignoring.</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Need</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/types/AT_cNqTwkB7Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_7478d106-3f93-48b7-b545-87675e5cf8b1</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Type unchanged; ignoring.</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Schedule Urgency</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/types/AT_cNqT_0B7Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_c27380d8-f527-4e78-b94c-a12b029fc948</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Type unchanged; ignoring.</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Status</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/types/AT_cNqTr0B7Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_66dfccc4-cde2-4d64-8785-3f61ddc95306</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Data Type matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Boolean</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://www.w3.org/2001/XMLSchema#boolean</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_0846d525-72e0-4ae5-856f-21bb067796e1</td></tr>
+<tr><td class="label">sameAs</td><td class="labelValue">http://www.w3.org/2001/XMLSchema#boolean</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Type unchanged; ignoring.</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">HighMediumLow</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/types/AT_cNqT5UB7Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_cf0b71d5-0eed-4184-873a-16f18c76d436</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Data Type matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">String</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://www.w3.org/2001/XMLSchema#string</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_b2459ef9-781e-4475-b368-3da36fc04645</td></tr>
+<tr><td class="label">sameAs</td><td class="labelValue">http://www.w3.org/2001/XMLSchema#string</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Data Type matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">ArtifactFormats</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://www.ibm.com/xmlns/rdm/types/ArtifactFormats</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_27e4a098-2dd3-40a5-a494-2a1bff02b432</td></tr>
+<tr><td class="label">sameAs</td><td class="labelValue">http://www.ibm.com/xmlns/rdm/types/ArtifactFormats</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Data Type matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">XHTMLString</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://www.w3.org/2001/XMLSchema#string</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_3d4efe77-eb2b-404d-b867-edc782707403</td></tr>
+<tr><td class="label">sameAs</td><td class="labelValue">http://www.w3.org/2001/XMLSchema#string</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Data Type matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">User</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://www.ibm.com/xmlns/rdm/types/UserAttributeType</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_e511aceb-4b0d-4fc5-a301-71adf6dc0169</td></tr>
+<tr><td class="label">sameAs</td><td class="labelValue">http://www.ibm.com/xmlns/rdm/types/UserAttributeType</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Type unchanged; ignoring.</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Verification Type</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/types/AT_cNqT7UB7Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_17bdbd71-be54-45fb-862f-68538e226d18</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td colspan="2"><div class="groupSectionTitle attribute definitionsstart"><h2>Attribute Definitions</h2></div></td></tr>
+<tr><td colspan="2"><div class="groupSectionDivider"></div></td></tr>
+<tr><td class="label" nowrap>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Verification Method</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/types/AD_cIvXcUB7Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_dbcf201c-b468-4d13-88ee-e0a18ac3b4ac</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Stability</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/types/AD_cIvXa0B7Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_316b8b8f-1339-45c3-a77f-f0b4976ff14a</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Verifiability</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/types/AD_cIvXakB7Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_01c154aa-a30a-4f33-a8e7-46995033abe1</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">ReqIF.Text</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://www.ibm.com/xmlns/rdm/types/PrimaryText</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_0fd74195-8eaf-4ad2-8724-465248416552</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Status</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/types/AD_cIvXeUB7Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_8a790ac2-e5a3-42de-aa50-fe3f2f73a0b2</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Artifact Format</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://www.ibm.com/xmlns/rdm/types/ArtifactFormat</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_52d8c65b-5430-446f-bfc9-abbcdf05604a</td></tr>
+<tr><td class="label">sameAs</td><td class="labelValue">http://www.ibm.com/xmlns/rdm/types/ArtifactFormat</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Questions</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/types/AD_cIvXd0B7Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_47442603-96df-414a-a578-e3bf4647f2ba</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Priority</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/types/AD_cIvXc0B7Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_da6cf3f6-24dd-4a54-90ff-a138e7be3a69</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Schedule</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/types/AD_cIvXbUB7Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_07ffc690-6e9d-4a48-a7fc-3cc28a34dbda</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">ReqIF.Description</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://purl.org/dc/terms/description</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_b1aaa806-da68-4f3a-898d-bc4830d61371</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Need</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/types/AD_cIvXgkB7Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_9f4a8a85-b4cf-4445-89c8-c62afd65fc86</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">ReqIF.Name</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://purl.org/dc/terms/title</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_bf443e90-ca5f-42e1-b4d9-676df7cf6631</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Accepted</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/types/AD_cIvXdkB7Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_6b0a28b1-d3b0-49c9-9fed-59fd80c09f8d</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Source</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/types/AD_cIvXgEB7Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_3068840e-a22d-4205-9d71-67045516caf5</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Clarity</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/types/AD_cIvXfEB7Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_642fe6f1-a276-4bcc-a77e-d1483995b9f7</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">ReqIF.Description</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://purl.org/dc/terms/description</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_985edfc2-0ed0-4831-a178-26c631e992b1</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Artifact Format</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://www.ibm.com/xmlns/rdm/types/ArtifactFormat</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_7214d782-5f2c-4186-bae8-be802e38d2a3</td></tr>
+<tr><td class="label">sameAs</td><td class="labelValue">http://www.ibm.com/xmlns/rdm/types/ArtifactFormat</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Approver Position</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/types/AD_cIvXYkB7Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_ad4684fb-617d-4d02-b63e-11f24d5aa579</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Approved By</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/types/AD_cIvXf0B7Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_e7ef021c-b94b-4844-a26f-01cfc6325d80</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">ReqIF.Name</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://purl.org/dc/terms/title</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_aff4620e-e47f-4f0e-8cc4-e8be8a34ae5b</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">ReqIF.Name</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://purl.org/dc/terms/title</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_ccd20080-94c9-42fa-ba9e-8dd74427b291</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">ReqIF.Text</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://www.ibm.com/xmlns/rdm/types/PrimaryText</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_736fd73d-6513-40d3-b39b-6d9f7b4eef8f</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">ReqIF.ChapterName</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://www.ibm.com/rm/reqif#heading</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_a9500a1c-c1af-48bb-9af0-71d5de8d93ca</td></tr>
+<tr><td class="label">sameAs</td><td class="labelValue">http://www.ibm.com/rm/reqif#heading</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Artifact Format</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://www.ibm.com/xmlns/rdm/types/ArtifactFormat</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_88360f5d-91db-41ac-a027-bbb740cd9633</td></tr>
+<tr><td class="label">sameAs</td><td class="labelValue">http://www.ibm.com/xmlns/rdm/types/ArtifactFormat</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">ReqIF.Description</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://purl.org/dc/terms/description</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_b5205935-7c23-4e06-9983-4d4d920b2653</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Artifact Format</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://www.ibm.com/xmlns/rdm/types/ArtifactFormat</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_f1911bee-d5c8-4a71-9d1c-4a5a2fe7bb97</td></tr>
+<tr><td class="label">sameAs</td><td class="labelValue">http://www.ibm.com/xmlns/rdm/types/ArtifactFormat</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">ReqIF.Name</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://purl.org/dc/terms/title</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_f97574f4-b4ca-4372-9513-1a582b1a0640</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">ReqIF.Description</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://purl.org/dc/terms/description</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_c3319f9b-c863-419e-a738-282d280eb50e</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">ReqIF.Text</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://www.ibm.com/xmlns/rdm/types/PrimaryText</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_213237a7-46e8-47c4-8ea4-6d43bb37da65</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Artifact Format</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://www.ibm.com/xmlns/rdm/types/ArtifactFormat</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_4e374068-8d6b-4ca7-8745-3e8bcee2b080</td></tr>
+<tr><td class="label">sameAs</td><td class="labelValue">http://www.ibm.com/xmlns/rdm/types/ArtifactFormat</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">ReqIF.Text</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://www.ibm.com/xmlns/rdm/types/PrimaryText</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_c7b0aa7d-d48b-466f-8be0-fd90266017dc</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">ReqIF.Name</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://purl.org/dc/terms/title</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_a2d1c158-48b8-47fe-ae50-3f4c96cd9bc4</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">ReqIF.Description</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://purl.org/dc/terms/description</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_e862c7a0-1c0c-4f56-92a3-f475a217ad15</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td colspan="2"><div class="groupSectionTitle artifact typesstart"><h2>Artifact Types</h2></div></td></tr>
+<tr><td colspan="2"><div class="groupSectionDivider"></div></td></tr>
+<tr><td class="label" nowrap>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Type unchanged; ignoring.</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Stakeholder Requirement</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/types/OT_cIvXo0B7Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_3857e9c0-b253-4159-b003-065d1339a0d1</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Type unchanged; ignoring.</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Stakeholder Specification</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/types/OT_cIvXq0B7Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_92a8fe5b-8b87-44d2-84f2-cedc940a2ead</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Type unchanged; ignoring.</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Heading</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/types/OT_cIvXtkB7Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_b86929c2-b06e-427a-a08c-04f0839cac92</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Type unchanged; ignoring.</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Information</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/types/OT_cIvXrkB7Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_b64a58cb-e9f4-448d-9408-44f25e6538b9</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Type unchanged; ignoring.</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Diagrams and sketches</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/types/OT_cIvXr0B7Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_4b7eaba0-b2e7-4230-8250-3ad06dd71803</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link Type matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Embeds</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://www.ibm.com/xmlns/rdm/types/Embedding</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_76a0834d-5504-490f-90f9-d56274e54b7d</td></tr>
+<tr><td class="label">sameAs</td><td class="labelValue">http://www.ibm.com/xmlns/rdm/types/Embedding</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link Type matches existing link type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Satisfaction</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_5327bdb7-d659-4b63-aed3-384335264f03</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link Type matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Artifact Term Reference</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://www.ibm.com/xmlns/rdm/types/ArtifactTermReferenceLink</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_2bf7e167-cfcd-4d23-844a-3df578cfaeac</td></tr>
+<tr><td class="label">sameAs</td><td class="labelValue">http://www.ibm.com/xmlns/rdm/types/ArtifactTermReferenceLink</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link Type matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Link</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">http://www.ibm.com/xmlns/rdm/types/Link</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_18ea42cd-45de-4391-b6ee-87af885d1d86</td></tr>
+<tr><td class="label">sameAs</td><td class="labelValue">http://www.ibm.com/xmlns/rdm/types/Link</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td colspan="2"><div class="groupSectionTitle modulestart"><h2>Updated Module : AMR Stakeholder Requirements Specification</h2></div></td></tr>
+<tr><td colspan="2"><div class="groupSectionDivider"></div></td></tr>
+<tr><td class="label" nowrap>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Specification unchanged; ignoring.</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">AMR Stakeholder Requirements Specification</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_b02af077-66b2-43e9-8105-c96053dfde82</td></tr>
+<tr><td class="label">URI</td><td class="labelValue"><a href="https://jazz.ibm.com:9443/rm/resources/MD_cJ7qlUB7Eeuh3Iiax2L3Ow">https://jazz.ibm.com:9443/rm/resources/MD_cJ7qlUB7Eeuh3Iiax2L3Ow</a> </td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr><tr><td colspan="2"><div class="groupSectionTitle artifactsstart"><h3>Artifacts (3)</h3></div></td></tr>
+<tr><td colspan="2"><div class="groupSectionDivider"></div></td></tr>
+<tr><td class="label" nowrap>
+<tr><td class="label"><img src="/rm/images/verify_obj.gif"/></td><td class="labelValue">Successfully updated Artifact in module</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_4f3cbdc5-aa78-4c22-ab72-ff5c71fcdad2</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr><tr><td class="label"><img src="/rm/images/verify_obj.gif"/></td><td class="labelValue">Successfully updated Artifact in module</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_7ed334ec-bf4d-4e72-b192-82416f0b94b3</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr><tr><td class="label"><img src="/rm/images/verify_obj.gif"/></td><td class="labelValue">Successfully updated Artifact in module</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_a82533bc-4f12-4296-aa56-b129ef25e668</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr><tr><td colspan="2"><div class="groupSectionTitle attribute definitionsstart"><h3>Attribute Definitions</h3></div></td></tr>
+<tr><td colspan="2"><div class="groupSectionDivider"></div></td></tr>
+<tr><td class="label" nowrap>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">ReqIF.Name</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_bf443e90-ca5f-42e1-b4d9-676df7cf6631</td></tr>
+<tr><td class="label">URI</td><td class="labelValue"> http://purl.org/dc/terms/title </td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr><tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">ReqIF.Description</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_b1aaa806-da68-4f3a-898d-bc4830d61371</td></tr>
+<tr><td class="label">URI</td><td class="labelValue"> http://purl.org/dc/terms/description </td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr><tr><td class="label"><img src="/rm/images/verify_obj.gif"/></td><td class="labelValue">Successfully updated Attribute Definition</td></tr>
+<tr><td class="label">URI</td><td class="labelValue"> http://purl.org/dc/terms/created </td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr><tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Attribute Definition matches existing system type</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Artifact Format</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_52d8c65b-5430-446f-bfc9-abbcdf05604a</td></tr>
+<tr><td class="label">URI</td><td class="labelValue"> http://www.ibm.com/xmlns/rdm/types/ArtifactFormat </td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr><tr><td class="label"><img src="/rm/images/verify_obj.gif"/></td><td class="labelValue">Successfully updated Attribute Definition</td></tr>
+<tr><td class="label">URI</td><td class="labelValue"> http://purl.org/dc/terms/modified </td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr><tr><td class="label"><img src="/rm/images/verify_obj.gif"/></td><td class="labelValue">Successfully updated Attribute Definition</td></tr>
+<tr><td class="label">URI</td><td class="labelValue"> http://purl.org/dc/terms/identifier </td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr><tr><td class="label"><img src="/rm/images/verify_obj.gif"/></td><td class="labelValue">Successfully updated Attribute Definition</td></tr>
+<tr><td class="label">URI</td><td class="labelValue"> http://purl.org/dc/terms/creator </td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr><tr><td class="label"><img src="/rm/images/verify_obj.gif"/></td><td class="labelValue">Successfully updated Attribute Definition</td></tr>
+<tr><td class="label">URI</td><td class="labelValue"> http://purl.org/dc/terms/contributor </td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr><tr><td colspan="2"><div class="groupSectionTitle artifact typesstart"><h3>Artifact Types</h3></div></td></tr>
+<tr><td colspan="2"><div class="groupSectionDivider"></div></td></tr>
+<tr><td class="label" nowrap>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Type unchanged; ignoring.</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Stakeholder Specification</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_92a8fe5b-8b87-44d2-84f2-cedc940a2ead</td></tr>
+<tr><td class="label">URI</td><td class="labelValue"> https://jazz.ibm.com:9443/rm/types/OT_cIvXq0B7Eeuh3Iiax2L3Ow </td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr><tr><td colspan="2"><div class="groupSectionTitle artifacts not in modulestart"><h2>Artifacts Not In Module </h2></div></td></tr>
+<tr><td colspan="2"><div class="groupSectionDivider"></div></td></tr>
+<tr><td class="label" nowrap>
+<tr><td colspan="2">None</td></tr>
+<tr><td colspan="2"><div class="groupSectionTitle linksstart"><h2>Links</h2></div></td></tr>
+<tr><td colspan="2"><div class="groupSectionDivider"></div></td></tr>
+<tr><td class="label" nowrap>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link unchanged; ignoring.</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/links/LI_BE9yrUB8Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_ca5fd7a3-c795-4ac4-ac6b-1cc0fc0c7736</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link unchanged; ignoring.</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/links/LI_BE9ylEB8Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_858269e9-a822-445a-a93d-5a3da76c23db</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link unchanged; ignoring.</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/links/LI_BE0owUB8Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_e9456589-3693-496f-91eb-6b48e96f24d9</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link unchanged; ignoring.</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/links/LI_BFHjrkB8Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_691341d8-967e-45d2-bc7b-f64bc2d53f92</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link unchanged; ignoring.</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/links/LI_BFHjmUB8Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_fe3d631b-a2fe-4357-acf4-8a757b1b1dc8</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link unchanged; ignoring.</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/links/LI_BFHjrEB8Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_7d893a91-9ff0-4d69-8fca-63a14361daf7</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link unchanged; ignoring.</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/links/LI_BE9ypkB8Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_c110918b-e1d2-40bf-8bca-a2007ee69f14</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link unchanged; ignoring.</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/links/LI_BE0ooUB8Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_8c200847-82e8-45e2-81fd-8183dcd5cda4</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link unchanged; ignoring.</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/links/LI_BE0oukB8Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_2d56cc94-d089-4760-8c71-b276fcda3a87</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link unchanged; ignoring.</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/links/LI_BFHjnUB8Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_dbaf43ef-cb30-4bed-a028-d4e6fe3773b9</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link unchanged; ignoring.</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/links/LI_BE9yu0B8Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_a67ef985-53d3-463b-9959-4fa06dfd95ab</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link unchanged; ignoring.</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/links/LI_BE9yskB8Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_920e4cf3-68a8-42e6-843d-ba49f014772e</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link unchanged; ignoring.</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/links/LI_BE0ooEB8Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_ab9e4fda-e60d-494d-bfde-1520c6c6ddeb</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link unchanged; ignoring.</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/links/LI_BE9ysEB8Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_6dfc0e7c-36fe-4efb-8142-63e952b8e946</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link unchanged; ignoring.</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/links/LI_BE0otUB8Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_16205f42-3df4-4406-b1fa-610e93e02bad</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link unchanged; ignoring.</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/links/LI_BFHjm0B8Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_2f3a6a57-5bf6-4a69-9df4-8bde7ba24b70</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link unchanged; ignoring.</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/links/LI_BE0ovkB8Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_98726b75-c40f-4e29-96e5-31348d338f37</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link unchanged; ignoring.</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/links/LI_BE0or0B8Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_4a8acb65-db01-44eb-a12a-36e686d80b4d</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link unchanged; ignoring.</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/links/LI_BFHjlkB8Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_2d815e2d-79b4-43d1-bbc3-78008542ed7f</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link unchanged; ignoring.</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/links/LI_BE9yrEB8Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_f1c4e8a2-3972-436f-a316-f0ebb0fb664a</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link unchanged; ignoring.</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/links/LI_BE0oqEB8Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_c8a3174f-d76b-4b17-8a1c-bf1194dbada7</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link unchanged; ignoring.</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/links/LI_BE9ywEB8Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_6c9462bf-1cae-4a27-9659-26b40157fb94</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link unchanged; ignoring.</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/links/LI_BFHjqEB8Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_38700579-4373-4815-8391-ac92e80f09b9</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link unchanged; ignoring.</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/links/LI_BFHjkEB8Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_fb34147a-ef7c-4069-82cd-1a9575738d74</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link unchanged; ignoring.</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/links/LI_BFHjkkB8Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_0fd40719-fabc-4096-b7a0-5a18a3b21a2c</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link unchanged; ignoring.</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/links/LI_BFHjn0B8Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_a6ffb649-993a-497d-bbfb-acbfda1c32b2</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link unchanged; ignoring.</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/links/LI_BE0osEB8Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_8e8e43d6-6a38-4047-a371-fc08cc1dbe8a</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link unchanged; ignoring.</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/links/LI_BE0oxEB8Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_7c06d241-2ae3-48f1-827b-1f44a5b076f6</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Link unchanged; ignoring.</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/links/LI_BE9yuEB8Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_6d21b630-7f37-4672-a895-7f627c4289b9</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td colspan="2"><div class="groupSectionTitle foldersstart"><h2>Folders</h2></div></td></tr>
+<tr><td colspan="2"><div class="groupSectionDivider"></div></td></tr>
+<tr><td class="label" nowrap>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Folder already exists.  Ignoring.</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">01 Requirements</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/folders/FR_cIvXh0B7Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_e1b35064-a214-430b-99ed-dac47e4a16e7</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Folder already exists.  Ignoring.</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Base Artifacts</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/folders/FR_cIvXg0B7Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_e4d8e85d-33d4-4ae7-9d1b-4d77525cca40</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Folder already exists.  Ignoring.</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">01 Requirements</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/folders/FR_cIvXmUB7Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_800cf5a5-29a7-4ef3-a26a-3c7e121b56ce</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Folder already exists.  Ignoring.</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">Requirements for Reuse artifacts</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/folders/FR_cIvXnUB7Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_67f7aa99-01f7-4f59-838f-ec7a5d5157f9</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td class="label"><img src="/rm/images/info_obj.gif"/></td><td class="labelValue">Folder already exists.  Ignoring.</td></tr>
+<tr><td class="label">Name</td><td class="labelValue">AMR Stakeholder Requirements Specification artifacts</td></tr>
+<tr><td class="label">URI</td><td class="labelValue">https://jazz.ibm.com:9443/rm/folders/FR_cIvXlUB7Eeuh3Iiax2L3Ow</td></tr>
+<tr><td class="label">ReqIF&nbsp;ID</td><td class="labelValue">_f76805cd-bfba-46fc-9cde-944a8cb6b899</td></tr>
+<tr><td class="label">&nbsp;</td><td class="labelValue"> </td></tr>
+<tr><td colspan="2" class="groupSectionTitle"></td></tr></table>
+    <!-- Include in 7.0.2 plus iFix -->
+  </body>
+</html>

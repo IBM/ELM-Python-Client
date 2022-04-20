@@ -52,16 +52,16 @@ class _QMProject(_project._Project):
         if not self.is_optin:
             logger.debug( f"{self.is_optin=}" )
             # get the default configuration
-            projx = self.execute_get_xml(self.reluri('rm-projects/' + self.iid))
+            projx = self.execute_get_xml( self.reluri( 'rm-projects/' + self.iid ), intent="Retrieve the project definition (opt-out)" )
             compsu = rdfxml.xmlrdf_get_resource_text( projx, './/jp06:components' )
-            compsx = self.execute_get_xml(compsu)
+            compsx = self.execute_get_xml(compsu, intent="Retrieve the component definition (opt-out)" )
             defaultcompu = rdfxml.xmlrdf_get_resource_uri( compsx, './/oslc_config:component' )
-
+            
             # register the only component
             ncomps += 1
             self._components[defaultcompu] = {'name': self.name, 'configurations': {}}
             thisconfu = defaultcompu+"/configurations"
-            configs = self.execute_get_json(thisconfu)
+            configs = self.execute_get_json( thisconfu, intent="Retrieve all configurations (opt-out)" )
             configdetails = configs[defaultcompu+"/configurations"]
             if type(configs[thisconfu]["http://www.w3.org/2000/01/rdf-schema#member"])==dict:
                 confs = [configs[thisconfu]["http://www.w3.org/2000/01/rdf-schema#member"]]
@@ -69,7 +69,7 @@ class _QMProject(_project._Project):
                 confs = configs[thisconfu]["http://www.w3.org/2000/01/rdf-schema#member"]
             for aconf in confs:
                 confu = aconf['value']
-                confx = self.execute_get_xml(confu)
+                confx = self.execute_get_xml( confu, intent="Retrieve configuration definition (opt-out)" )
                 conftitle = rdfxml.xmlrdf_get_resource_text(confx,'.//dcterms:title')
                 conftype = 'Stream' if 'stream' in confu else 'Baseline'
                 self._components[defaultcompu]['configurations'][confu] = {'name': conftitle, 'conftype': conftype, 'confXml': confx}
@@ -85,7 +85,7 @@ class _QMProject(_project._Project):
             #    <dcterms:title rdf:datatype="http://www.w3.org/2001/XMLSchema#string">View Definition Query Capability</dcterms:title>
             # </oslc:QueryCapability>
 
-            px = self.execute_get_xml(self.project_uri)
+            px = self.execute_get_xml( self.project_uri, intent="Retrieve project definition" )
 
             sx = self.get_services_xml()
             assert sx is not None, "sx is None"
@@ -94,10 +94,10 @@ class _QMProject(_project._Project):
 
             ncomps += 1
             self._components[compuri] = {'name': self.name, 'configurations': {}}
-            configs = self.execute_get_xml(compuri+"/configurations")
+            configs = self.execute_get_xml( compuri+"/configurations", intent="Retrieve all project/component configurations (singlemode)" )
             for conf in rdfxml.xml_find_elements(configs,'.//rdfs:member'):
                 confu = rdfxml.xmlrdf_get_resource_uri(conf)
-                thisconfx = self.execute_get_xml(confu)
+                thisconfx = self.execute_get_xml( confu, intent="Retrieve a configuration definition (singlemode)" )
                 conftitle= rdfxml.xmlrdf_get_resource_text(thisconfx,'.//dcterms:title')
                 # e.g. http://open-services.net/ns/config#Stream
                 isstr = rdfxml.xml_find_element( thisconfx,'.//oslc_config:Stream' )
@@ -124,7 +124,7 @@ class _QMProject(_project._Project):
             components_uri = rdfxml.xmlrdf_get_resource_uri(cmsp_xml, './/rdf:Description/rdf:type[@rdf:resource="http://open-services.net/ns/core#QueryCapability"]/../oslc:resourceType[@rdf:resource="http://open-services.net/ns/config#Component"]/../oslc:queryBase')
             logger.info( f"{components_uri=}" )
             # get all components
-            crx = self.execute_get_xml(components_uri)
+            crx = self.execute_get_xml( components_uri, intent="Retrieve component definition" )
 
 #      <oslc_config:Component rdf:about="https://jazz.ibm.com:9443/qm/oslc_config/resources/com.ibm.team.vvc.Component/_iw4s4EB3Eeus6Zk4qsm_Cw">
 #        <dcterms:title rdf:parseType="Literal">SGC Agile</dcterms:title>
@@ -146,13 +146,13 @@ class _QMProject(_project._Project):
                 self._components[compu] = {'name': comptitle, 'configurations': {}}
                 ncomps += 1
                 confu = rdfxml.xmlrdf_get_resource_uri(component_el, './/oslc_config:configurations')
-                configs_xml = self.execute_get_rdf_xml( confu )
+                configs_xml = self.execute_get_rdf_xml( confu, intent="Retrieve all project/component configuration definitions" )
                 # Each config:     <ldp:contains rdf:resource="https://jazz.ibm.com:9443/qm/oslc_config/resources/com.ibm.team.vvc.Configuration/_qT1EcEB4Eeus6Zk4qsm_Cw"/>
 
                 for confmemberx in rdfxml.xml_find_elements(configs_xml, './/ldp:contains'):
                     thisconfu = rdfxml.xmlrdf_get_resource_uri( confmemberx )
                     try:
-                        thisconfx = self.execute_get_rdf_xml(thisconfu)
+                        thisconfx = self.execute_get_rdf_xml( thisconfu, intent="Retrieve a configuration definition" )
                         conftitle = rdfxml.xmlrdf_get_resource_text(thisconfx, './/dcterms:title')
                         conftype = rdfxml.xmlrdf_get_resource_uri(thisconfx, './/rdf:type')
                         logger.info( f"Found config {conftitle} {conftype} {thisconfu}" )
@@ -267,7 +267,7 @@ class _QMProject(_project._Project):
                     id = match.group(1)
                 else:
                     # retrieve the definition
-                    resource_xml = self.execute_get_rdf_xml(reluri=uri)
+                    resource_xml = self.execute_get_rdf_xml( reluri=uri, intent="Retrieve type definition to get its name")
                     # check for a rdf label (used for links, maybe other things)
                     id = rdfxml.xmlrdf_get_resource_text(resource_xml,".//rdf:Property/rdfs:label") or rdfxml.xmlrdf_get_resource_text(resource_xml,".//oslc:ResourceShape/dcterms:title") or rdfxml.xmlrdf_get_resource_text(resource_xml,f'.//rdf:Description[@rdf:about="{uri}"]/rdfs:label')
                     if id is None:
@@ -290,7 +290,7 @@ class _QMProject(_project._Project):
     # for OSLC query, given a resource URI, return the requirement dcterms:identifier
     def resource_id_from_uri(self, uri):
         if self.is_resource_uri(uri):
-            resource_xml = self.execute_get_rdf_xml(reluri=uri)
+            resource_xml = self.execute_get_rdf_xml(reluri=uri, intent="Retrieve resource dcterms:identifier")
             id = rdfxml.xmlrdf_get_resource_text(resource_xml, ".//dcterms:identifier")
             return id
         raise Exception(f"Bad resource uri {uri}")
@@ -381,12 +381,12 @@ class _QMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
 
     def __init__(self, server, contextroot, jts=None):
         super().__init__(server, contextroot, jts=jts)
-        self.rootservices_xml = self.execute_get_xml(self.reluri('rootservices'))
+        self.rootservices_xml = self.execute_get_xml(self.reluri('rootservices'), intent="Retrieve QM application rootservices")
         self.serviceproviders = 'oslc_qm_10:qmServiceProviders'
         self.default_query_resource = "oslc_config:Configuration"
 
-        self.version = rdfxml.xmlrdf_get_resource_text(self.rootservices_xml,'.//oslc_rm_10:version')
-        self.majorversion = rdfxml.xmlrdf_get_resource_text(self.rootservices_xml,'.//oslc_rm_10:majorVersion')
+        self.version = rdfxml.xmlrdf_get_resource_text(self.rootservices_xml,'.//rqm:version')
+        self.majorversion = rdfxml.xmlrdf_get_resource_text(self.rootservices_xml,'.//rqm:majorVersion')
         logger.info( f"Versions {self.majorversion} {self.version}" )
 
     def _get_headers(self, headers=None):
@@ -533,7 +533,7 @@ class _QMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
         if args.report:
             typestodo = []
             # get the schema, walk it building the tree of fields
-            schema_x = self.execute_get_xml(queryurl+"?metadata=schema").getroot()
+            schema_x = self.execute_get_xml(queryurl+"?metadata=schema", intent="Retrieve Reportable REST schema").getroot()
 #            print( f"{schema_x.tag=}" )
 #            print( f"{schema_x=}" )
             el_x = rdfxml.xml_find_element( schema_x, "./xs:element" )

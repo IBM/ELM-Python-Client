@@ -68,7 +68,7 @@ class _Project(oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixin
             logger.info( f"Retrieving {uri}" )
             logger.info( utils.callers() )
             try:
-                self._gettypecache[realuri] = self.execute_get_rdf_xml(uri) if uri.startswith( "https://") else None
+                self._gettypecache[realuri] = self.execute_get_rdf_xml(uri, intent="Retrieve type definition") if uri.startswith( "https://") else None
                 logger.info( f"Retrieved:" )
             except ET.XMLSyntaxError:
                  self._gettypecache[realuri] = None
@@ -113,7 +113,7 @@ class _Project(oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixin
         logger.info( f"get_services_xml {self.name=} {self.project_uri=} {self=} {self.services_uri=}" )
         if force or self.services_xml is None:
             if self.services_uri:
-                self.services_xml = self.execute_get_rdf_xml(self.services_uri, headers=headers)
+                self.services_xml = self.execute_get_rdf_xml(self.services_uri, headers=headers, intent="Retrieve project's services XML")
                 logger.info( f"{self.services_uri=}" )
             elif self.component_project:
                 logger.debug( f"component sx not retrieved - need a config" )
@@ -207,7 +207,7 @@ class _Project(oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixin
         # for a component, setting the config is when we can load the services xml!
         if self.component_project:
             # retrieve the services.xml in the current config!
-            self.services_xml = self.execute_get_rdf_xml(self.component_project.services_uri)
+            self.services_xml = self.execute_get_rdf_xml(self.component_project.services_uri, intent="Retrieve project's services.xml")
 
     def _load_types(self,force=False):
         logger.info( f"{self=}" )

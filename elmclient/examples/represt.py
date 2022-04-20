@@ -114,10 +114,10 @@ def represt_main():
     levels = [utils.loglevels.get(l,-1) for l in args.loglevel.split(",",1)]
     if len(levels)<2:
         # if only one log level specified, set both the same
-        levels.append(levels[0])
+        levels.append(None)
     if -1 in levels:
         raise Exception( f'Logging level {args.loglevel} not valid - should be comma-separated one or two values from DEBUG, INFO, WARNING, ERROR, CRITICAL, OFF' )
-    utils.setup_logging(consolelevel=levels[0],filelevel=levels[1])
+    utils.setup_logging( filelevel=levels[0], consolelevel=levels[1] )
     
     logger = logging.getLogger(__name__)
 
@@ -269,7 +269,7 @@ def represt_main():
             timer_start = time.perf_counter()
             
             # call the REST API
-            result = mainapp.execute_get_xml(reluri=queryurl, headers=headers, cacheable=False )
+            result = mainapp.execute_get_xml(reluri=queryurl, headers=headers, cacheable=False, intent="Retrieve Reportable REST content"  )
             
             # calculate and record the duration
             duration = time.perf_counter()-timer_start

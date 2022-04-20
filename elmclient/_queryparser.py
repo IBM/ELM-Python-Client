@@ -461,6 +461,8 @@ class _ParseTreeToOSLCQuery(lark.visitors.Transformer):
 
     def string_esc(self, s):
         logger.info( f"string_esc {s} returning {s[0].value}" )
+#        print( f"{s=}" )
+#        burp
         return s[0].value  # string literals include double quotes in the value
 
     def typedliteralstring(self, s):
@@ -532,7 +534,8 @@ NAME            : /[a-zA-Z0-9_]\w*/
 _orderby_grammar = """
 sort_terms          : sort_term ("," sort_term)*
 sort_term           : scoped_sort_terms | signedterm
-signedterm          : SIGN identifier
+signedterm          : SIGN ( dottedname | identifier )
+dottedname      : NAME "." NAME
 scoped_sort_terms   : identifier "{" sort_terms "}"
 identifier          : ( ( URI_REF_ESC | NAME ) ":" )? NAME
 URI_REF_ESC         : /<https?:.*>/
@@ -614,4 +617,21 @@ class _ParseTreeToOSLCOrderBySelect(lark.visitors.Transformer):
         else:
             # a prefixed name is assumed to be usable directly (the prefix has been added to prefixes)
             result = resultname
+        return result
+
+    def dottedname(self,s):
+        logger.info( f"dottedname {s=} {s[0]=}" )
+        if len(s) != 2:
+            raise Exception( "Bad dottedname" )
+
+        # s[0][0] is the shape name
+        # s[0][1] is the proprty name
+        shapename = s[0].value
+        propname = s[1].value
+        shapeuri = self.resolverobject.resolve_shape_name_to_uri(shapename)
+        result1 = self.resolverobject.resolve_property_name_to_uri(propname,shapeuri )
+        result = rdfxml.uri_to_prefixed_tag(result1, uri_to_prefix_map=self.prefixes)
+        self.mapping_identifer_to_uri[f"{shapename}.{propname}"] = result
+        self.mapping_uri_to_identifer[result] = f"{shapename}.{propname}"
+        logger.info( f"dottedname {s=} {s[0]=} returns {result}" )
         return result

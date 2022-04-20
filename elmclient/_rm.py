@@ -109,7 +109,7 @@ class _RMProject(_project._Project):
             parent = self._folders.get(queryuri) # parent is None for the first query for the root folder
 
             logger.info( f"Retrieving {queryuri=} parent {self._folders.get(queryuri)}" )
-            folderxml = self.execute_get_xml(queryuri).getroot()
+            folderxml = self.execute_get_xml(queryuri, intent="Retrieve folder definition").getroot()
 
             # find the contained folders
             folderels = rdfxml.xml_find_elements(folderxml,'.//rm_nav:folder')
@@ -183,16 +183,16 @@ class _RMProject(_project._Project):
         # retrieve components and configurations for this project
         if not self.is_optin:
             # get the default configuration
-            projx = self.execute_get_xml(self.reluri('rm-projects/' + self.iid))
+            projx = self.execute_get_xml(self.reluri('rm-projects/' + self.iid), intent="Retrieve project definition")
             compsu = rdfxml.xmlrdf_get_resource_text( projx, './/jp06:components' )
-            compsx = self.execute_get_xml(compsu)
+            compsx = self.execute_get_xml(compsu, intent="Retrieve component definition")
             defaultcompu = rdfxml.xmlrdf_get_resource_uri( compsx, './/oslc_config:component' )
 
             # register the only component
             ncomps += 1
             self._components[defaultcompu] = {'name': self.name, 'configurations': {}}
             thisconfu = defaultcompu+"/configurations"
-            configs = self.execute_get_json(thisconfu)
+            configs = self.execute_get_json(thisconfu, intent="Retrieve configurations (JSON)")
 #            configdetails = configs[defaultcompu+"/configurations"]
             if thisconfu in configs:
                 if type(configs[thisconfu]["http://www.w3.org/2000/01/rdf-schema#member"])==dict:
@@ -209,7 +209,7 @@ class _RMProject(_project._Project):
                 logger.debug( "{confs=}" )
             for confu in confs:
 #                confu = aconf['value']
-                confx = self.execute_get_xml(confu)
+                confx = self.execute_get_xml(confu, intent="Retrieve a configuration definition")
                 conftitle = rdfxml.xmlrdf_get_resource_text(confx,'.//dcterms:title')
                 conftype = 'Stream' if 'stream' in confu else 'Baseline'
                 created = rdfxml.xmlrdf_get_resource_uri(confx, './/dcterms:created')
@@ -225,7 +225,7 @@ class _RMProject(_project._Project):
             #    <dcterms:title rdf:datatype="http://www.w3.org/2001/XMLSchema#string">View Definition Query Capability</dcterms:title>
             # </oslc:QueryCapability>
 
-            px = self.execute_get_xml(self.project_uri)
+            px = self.execute_get_xml(self.project_uri, intent="Retrieve the project definition")
 
             sx = self.get_services_xml()
             assert sx is not None, "sx is None"
@@ -234,10 +234,10 @@ class _RMProject(_project._Project):
 
             ncomps += 1
             self._components[compuri] = {'name': self.name, 'configurations': {}}
-            configs = self.execute_get_xml(compuri+"/configurations")
+            configs = self.execute_get_xml(compuri+"/configurations", intent="Retrieve project/component's list of all configurations")
             for conf in rdfxml.xml_find_elements(configs,'.//rdfs:member'):
                 confu = rdfxml.xmlrdf_get_resource_uri(conf)
-                thisconfx = self.execute_get_xml(confu)
+                thisconfx = self.execute_get_xml(confu, intent="Retrieve a configuration definition")
                 conftitle= rdfxml.xmlrdf_get_resource_text(thisconfx,'.//dcterms:title')
                 created = rdfxml.xmlrdf_get_resource_uri(thisconfx, './/dcterms:created')
                 # e.g. http://open-services.net/ns/config#Stream
@@ -250,31 +250,32 @@ class _RMProject(_project._Project):
                 self._configurations[confu] = self._components[compuri]['configurations'][confu]
                 nconfs += 1
             self._configurations = self._components[compuri]['configurations']
-        else: # full optin
+        else: # optin but could be single component
             cmsp_xml = self.app.retrieve_cm_service_provider_xml()
             components_uri = rdfxml.xmlrdf_get_resource_uri(cmsp_xml, './/oslc:ServiceProvider')
-            components_xml = self.execute_get_rdf_xml(components_uri)
+            components_xml = self.execute_get_rdf_xml(components_uri, intent="Retrieve project's components service provider definition")
             projcx = rdfxml.xml_find_element(components_xml, './/oslc:CreationFactory', 'dcterms:title', self.name)
             if projcx is None:
+                # Old opt-in: single component
                 logger.info( f"old optin {self.name=} {self=} {self._iscomponent=}" )
                 
-                projx = self.execute_get_xml(self.reluri('rm-projects/' + self.iid))
+                projx = self.execute_get_xml(self.reluri('rm-projects/' + self.iid), intent="Retrieve the project definition")
                 compsu = rdfxml.xmlrdf_get_resource_text( projx, './/jp06:components' )
-                compsx = self.execute_get_xml(compsu)
+                compsx = self.execute_get_xml(compsu, intent="Retrieve the component definition")
                 defaultcompu = rdfxml.xmlrdf_get_resource_uri( compsx, './/oslc_config:component' )
 
                 # register the only component
                 ncomps += 1
                 self._components[defaultcompu] = {'name': self.name, 'configurations': {}}
 
-                configs = self.execute_get_json(defaultcompu+"/configurations")
+                configs = self.execute_get_json(defaultcompu+"/configurations", intent="Retrieve configurations (JSON)")
                 if type(configs["http://www.w3.org/2000/01/rdf-schema#member"])==dict:
                     confs = [configs["http://www.w3.org/2000/01/rdf-schema#member"]]
                 else:
                     confs = configs["http://www.w3.org/2000/01/rdf-schema#member"]
                 for aconf in confs:
                     confu = aconf['@id']
-                    confx = self.execute_get_xml(confu)
+                    confx = self.execute_get_xml(confu, intent="Retrieve configuration definition RDF")
                     conftitle = rdfxml.xmlrdf_get_resource_text(confx,'.//dcterms:title')
                     conftype = 'Stream' if 'stream' in confu else 'Baseline'
                     created = rdfxml.xmlrdf_get_resource_uri(confx, './/dcterms:created')
@@ -285,11 +286,11 @@ class _RMProject(_project._Project):
             else:
                 # full optin
                 cru = rdfxml.xmlrdf_get_resource_uri(projcx, 'oslc:creation')
-                crx = self.execute_get_rdf_xml(cru)
+                crx = self.execute_get_rdf_xml(cru, intent="Retrieve project's oslc:creation RDF")
 
                 for component_el in rdfxml.xml_find_elements(crx, './/ldp:contains'):
                     compu = component_el.get("{%s}resource" % rdfxml.RDF_DEFAULT_PREFIX["rdf"])
-                    compx = self.execute_get_rdf_xml(compu)
+                    compx = self.execute_get_rdf_xml(compu, intent="Retrieve component definition to find configurations")
                     comptitle = rdfxml.xmlrdf_get_resource_text(compx, './/dcterms:title')
 
                     self._components[compu] = {'name': comptitle, 'configurations': {}}
@@ -305,7 +306,7 @@ class _RMProject(_project._Project):
                             continue
                         logger.debug( f"Retrieving config {confu}" )
                         try:
-                            configs_xml = self.execute_get_rdf_xml(confu)
+                            configs_xml = self.execute_get_rdf_xml(confu, intent="Retrieve a configuration definition")
                         except:
                             logger.info( f"Config ERROR {thisconfu} !!!!!!!" )
                             continue
@@ -431,6 +432,8 @@ class _RMProject(_project._Project):
                 if nameel is None:
                     nameel = rdfxml.xml_find_element(shapedef, './oslc:ResourceShape/rdfs:label')
                 name = nameel.text
+                rdfuri = rdfxml.xmlrdf_get_resource_uri( shapedef, ".//owl:sameAs" )
+                print( f"Registering shape {name=} {uri=} {rdfuri=}" )
                 self.register_shape( name, uri )
                 logger.info( f"Opening shape {name} {uri}" )
             else:
@@ -463,6 +466,7 @@ class _RMProject(_project._Project):
                 continue
 
             logger.info( f"Defining property {name}.{property_title} {propuri=} +++++++++++++++++++++++++++++++++++++++" )
+            print( f"Defining property {name}.{property_title} {propuri=} {uri=} +++++++++++++++++++++++++++++++++++++++" )
 #            self.register_property(property_title,propuri, shape_uri=uri)
             self.register_property(property_title,propuri)
 
@@ -540,7 +544,7 @@ class _RMProject(_project._Project):
                     id = match.group(1)
                 else:
                     # retrieve the definition
-                    resource_xml = self.execute_get_rdf_xml(reluri=uri)
+                    resource_xml = self.execute_get_rdf_xml(reluri=uri, intent="Retrieve type RDF to get its name")
                     # check for a rdf label (used for links, maybe other things)
                     id = rdfxml.xmlrdf_get_resource_text(resource_xml,".//rdf:Property/rdfs:label") or rdfxml.xmlrdf_get_resource_text(resource_xml,".//oslc:ResourceShape/dcterms:title") or rdfxml.xmlrdf_get_resource_text(resource_xml,f'.//rdf:Description[@rdf:about="{uri}"]/rdfs:label')
                     if id is None:
@@ -564,7 +568,7 @@ class _RMProject(_project._Project):
     def resource_id_from_uri(self, uri):
         if self.is_resource_uri(uri):
             try:
-                resource_xml = self.execute_get_rdf_xml(reluri=uri)
+                resource_xml = self.execute_get_rdf_xml(reluri=uri, intent="Retrieve type RDF to get its id (dcterms:identifier)")
             except requests.HTTPError as e:
                 if e.response.status_code==410:
                     logger.info( f"Type {uri} doesn't exist!" )
@@ -713,7 +717,7 @@ class _RMApp(_app._App, _typesystem.No_Type_System_Mixin):
 
     def __init__(self, server, contextroot, jts=None):
         super().__init__(server, contextroot, jts=jts)
-        self.rootservices_xml = self.execute_get_xml(self.reluri('rootservices') )
+        self.rootservices_xml = self.execute_get_xml(self.reluri('rootservices'), intent="Retrieve RM application rootservices" )
         self.serviceproviders = 'oslc_rm_10:rmServiceProviders'
         self.version = rdfxml.xmlrdf_get_resource_text(self.rootservices_xml,'.//oslc_rm_10:version')
         self.majorversion = rdfxml.xmlrdf_get_resource_text(self.rootservices_xml,'.//oslc_rm_10:majorVersion')

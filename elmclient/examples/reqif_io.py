@@ -120,10 +120,10 @@ def reqif_main():
     levels = [utils.loglevels.get(l,-1) for l in args.loglevel.split(",",1)]
     if len(levels)<2:
         # if only one log level specified, set both the same
-        levels.append(levels[0])
+        levels.append(None)
     if -1 in levels:
         raise Exception( f'Logging level {args.loglevel} not valid - should be comma-separated one or two values from DEBUG, INFO, WARNING, ERROR, CRITICAL, OFF' )
-    utils.setup_logging(consolelevel=levels[0],filelevel=levels[1])
+    utils.setup_logging( filelevel=levels[0], consolelevel=levels[1] )
 
     logger = logging.getLogger(__name__)
 
@@ -358,7 +358,7 @@ def reqif_main():
 </rdf:RDF>
 """
                 logger.debug( f"{content=}" )
-                response = queryon.execute_post_rdf_xml( export_factory_u, data=content, cacheable=False )
+                response = queryon.execute_post_rdf_xml( export_factory_u, data=content, cacheable=False, intent="Initiate reqif export" )
                 logger.debug( f" {response.status_code=} {response=}" )
                 location = response.headers.get('Location')
                 if response.status_code == 202 and location is not None:
@@ -368,11 +368,11 @@ def reqif_main():
                     if result is not None:
                         pkg = rdfxml.xmlrdf_get_resource_uri( result, ".//dcterms:references" )
                         logger.debug( f"{pkg=}" )
-                        pkg_x = queryon.execute_get_rdf_xml( pkg )
+                        pkg_x = queryon.execute_get_rdf_xml( pkg, intent="Retrieve reqif export completed tracker result details" )
                         logger.debug( f"{pkg_x=}" )
                         # get the content and its filename
                         content_u =  rdfxml.xmlrdf_get_resource_uri( pkg_x, ".//dng_reqif:content" )
-                        response = queryon.execute_get_binary( content_u )
+                        response = queryon.execute_get_binary( content_u, intent="Retrieve reqif export completed tracker content" )
                         fname = response.headers.get('Content-Disposition').split( '"', 2 )[1]
                         if fname is None:
                             raise Exception( "No content-disposition!" )
@@ -384,7 +384,7 @@ def reqif_main():
                         open( fname, "wb" ).write( response.content )
 
                         report_u = rdfxml.xmlrdf_get_resource_uri( pkg_x, ".//dng_reqif:report" )
-                        response =  queryon.execute_get_binary( report_u )
+                        response =  queryon.execute_get_binary( report_u, intent="Retrieve reqif export report" )
                         htmlfile = fname+".html"
                         print( f"Report saved to {htmlfile}" )
                         open( htmlfile, "wb" ).write( response.content )
@@ -429,8 +429,7 @@ def reqif_main():
 
             # execute post content
             logger.info('Uploading package {ifile}...')
-#            response = queryon.execute_post_content(pkg_factory_u, data=body, headers={'Content-Type': content_type, 'userMimeType': 'application/zip', 'DNT': '1', 'filename':os.path.basename(ifile),'Accept': '*/*','X-Requested-With': None,'Origin': 'https://jazz.ibm.com:9443'})
-            response = queryon.execute_post_content(pkg_factory_u, data=body, headers={'Content-Type': content_type, 'userMimeType': 'application/zip', 'filename':os.path.basename(ifile),'Accept': '*/*','X-Requested-With': None,'Origin': 'https://jazz.ibm.com:9443', 'OSLC-Core-Version': None})
+            response = queryon.execute_post_content(pkg_factory_u, data=body, headers={'Content-Type': content_type, 'userMimeType': 'application/zip', 'filename':os.path.basename(ifile),'Accept': '*/*','X-Requested-With': None,'Origin': 'https://jazz.ibm.com:9443', 'OSLC-Core-Version': None}, intent="Initiate reqif export " )
 
             print( f"Triggering import for {os.path.basename(ifile)}" )
 
@@ -455,7 +454,7 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
 </rdf:RDF>"""
 
             logger.debug( f"{content=}" )
-            response = queryon.execute_post_rdf_xml( import_factory_u, data=content, cacheable=False, headers={'net.jazz.jfs.owning-context': queryon.project_uri, 'OSLC-Core-Version': None} )
+            response = queryon.execute_post_rdf_xml( import_factory_u, data=content, cacheable=False, headers={'net.jazz.jfs.owning-context': queryon.project_uri, 'OSLC-Core-Version': None}, intent="Initiate reqif import" )
             logger.debug( f" {response.status_code=} {response=}" )
             location = response.headers.get('Location')
             if response.status_code == 202 and location is not None:
@@ -466,7 +465,7 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
                     # get the result
                     report_u = rdfxml.xmlrdf_get_resource_uri( result, ".//dcterms:references" )
                     logger.debug( f"{report_u=}" )
-                    response =  queryon.execute_get_binary( report_u )
+                    response =  queryon.execute_get_binary( report_u, intent="Retrieve reqif import result after tracker completed" )
                     htmlfile = ifile+".html"
                     print( f"Report saved to {htmlfile}" )
                     open( htmlfile, "wb" ).write( response.content )
@@ -512,7 +511,7 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
                 # get the existing definition XML
                 existing_u = list(existingdef.keys())[0]
 #                logger.debug( f"{existing_u=}" )
-                response = queryon.execute_get_raw( existing_u, headers={'Accept': 'application/rdf+xml', 'OSLC-Core-Version': None, 'OSLC-Core-Version': None} )
+                response,etag = queryon.execute_rdf_xml( existing_u, headers={'Accept': 'application/rdf+xml', 'OSLC-Core-Version': None, 'OSLC-Core-Version': None}, return_etag=True, intent="Retrieve project/component existing reqif definition"  )
                 defn_x = ET.ElementTree(ET.fromstring(response.content)).getroot()
                 etag = response.headers.get('ETag')
                 inctags = rdfxml.xmlrdf_get_resource_text( defn_x, './/dng_reqif:includeTags' )
@@ -624,6 +623,7 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
                         id = allmodules[k].get('dcterms:identifier')
                         if id:
                             ids[id]=k
+                    reffound = False
                     for ref in allrefs:
                         logger.debug( f"{ref=}" )
                         if utils.isint(ref):
@@ -631,6 +631,7 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
                             if ref in ids:
                                 if ids[ref] not in artincs:
                                     artincs.append(ids[ref])
+                                    continue
                         else:
                             # search for regex match
                             if re.match(r'^[a-zA-Z0-9 _]+$', ref ):
@@ -641,6 +642,7 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
                                     if v.get( 'dcterms:title' ) == ref:
                                         if k not in artincs:
                                             artincs.append(k)
+                                            continue
                             else:
                                 logger.debug( f"re" )
                                 # try regex match
@@ -648,7 +650,8 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
                                     if re.search( ref, v.get( 'dcterms:title' ), re.IGNORECASE ):
                                         if k not in artincs:
                                             artincs.append(k)
-
+                                            continue
+                        raise Exception( f"No modules found for {ref}!" )
                     # filter for module id/name
                     logger.debug( f"{artincs=}" )
 
@@ -722,9 +725,9 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
             headers = {'OSLC-Core-Version': None}
             if args.update:
                 headers.update({ 'if-match': etag } )
-                response = queryon.execute_post_rdf_xml( existing_u, data=defn_x, cacheable=False, put=True, headers=headers )
+                response = queryon.execute_post_rdf_xml( existing_u, data=defn_x, cacheable=False, put=True, headers=headers, intent="Update a project/component reqif definition"  )
             else:
-                response = queryon.execute_post_rdf_xml( defn_factory_u, data=defn_x, cacheable=False, headers=headers )
+                response = queryon.execute_post_rdf_xml( defn_factory_u, data=defn_x, cacheable=False, headers=headers, intent="Create a project/component reqif definition" )
                 logger.debug( f" {response.status_code=} {response=}" )
 
             location = response.headers.get('Location')
@@ -739,7 +742,7 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
         # get the reqif definition query URL
         defn_query_u = queryon.get_query_capability_uri("dng_reqif:ReqIFDefinition")
         # query for the definitions
-        alldefs = queryon.execute_oslc_query( defn_query_u, select=['*'])
+        alldefs = queryon.execute_oslc_query( defn_query_u, select=['*'], intent="Retrieve all project/component reqif definitions" )
         logger.debug( f"{alldefs=}" )
 
         if args.definitionnames:
@@ -756,7 +759,7 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
             if not args.noconfirm:
                 # get user to confirm by entering Y or press Q to quit
                 oktodelete=False
-                resp=input("Press y/Y to confirm delete, or q/Q to quit").tolower()
+                resp=input("Press y/Y to confirm delete, or q/Q to quit").lower()
                 if resp.startswith('y'):
                     oktodelete=True
                 elif resp.startswith('q'):
@@ -766,7 +769,7 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
 
             if oktodelete:
                 # create DELETE request and send to the definition
-                result =  queryon.execute_delete(k)
+                result =  queryon.execute_delete(k, intent="Delete project/component reqif definition" )
                 print( f"Deleted {matches[k]['dcterms:title']} {k}" )
             else:
                 print( "Not deleted!" )

@@ -74,7 +74,7 @@ class _GCMProject(_project._Project):
         if not self.services_uri:
             raise Exception( "Service provide not found!" )
         if self.services_uri:
-            self.services_xml = self.app.execute_get_rdf_xml(self.services_uri)
+            self.services_xml = self.app.execute_get_rdf_xml( self.services_uri, intent="Retrieve project services xml" )
         else:
             self.services_xml = None
 
@@ -306,7 +306,7 @@ class _GCMProject(_project._Project):
         # strip off the fragment as it does nothing
         realuri = uri.rsplit( '#',1 )[0]
         if realuri not in self._gettypecache.keys():
-            self._gettypecache[realuri] = self.execute_get_rdf_xml(uri)
+            self._gettypecache[realuri] = self.execute_get_rdf_xml( uri, intent="Retrieve project/component type definition to cache it" )
         return self._gettypecache[realuri]
 
     # for OSLC query, given a type URI, return its name
@@ -386,7 +386,7 @@ class GCMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
     def __init__(self, server, contextroot, jts=None):
         super().__init__(server, contextroot, jts=jts)
 
-        self.rootservices_xml = self.execute_get_xml(self.reluri('rootservices'))
+        self.rootservices_xml = self.execute_get_xml(self.reluri('rootservices'), intent="Retrieve GCM application rootservices" )
         self.serviceproviders = 'gc:globalConfigServiceProviders'
         self.default_query_resource = 'oslc_config:Configuration'
         # load all projects and components?
@@ -432,7 +432,7 @@ class GCMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
                     break
             if not found:
                 raise Exception( "No empty service provider found!" )
-            sx = self.execute_get_rdf_xml(spurl)
+            sx = self.execute_get_rdf_xml( spurl, intent="Retrieve project/component service provider definition to find query capability" )
             for qcx in rdfxml.xml_find_elements(sx,'.//oslc:queryBase/..'):
                 for qcrtx in rdfxml.xml_find_elements( qcx, 'oslc:resourceType'):
                     qcs[rdfxml.xmlrdf_get_resource_uri(qcrtx)] = rdfxml.xmlrdf_get_resource_uri(qcx, "oslc:queryBase")
@@ -443,7 +443,7 @@ class GCMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
 
     def check_valid_config_uri( self, uri, raise_exception=True ):
         try:
-            x = self.rootservices_xml = self.execute_get_xml(uri)
+            x = self.rootservices_xml = self.execute_get_xml( uri, intent="Check if configuration URL is valid (gets a response)" )
         except requests.HTTPError:
             if raiseException:
                 raise
@@ -475,7 +475,7 @@ class GCMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
                 break
         if not found:
             raise Exception( "No empty service provider found!" )
-        sx = self.execute_get_rdf_xml(spurl)
+        sx = self.execute_get_rdf_xml( spurl, intent="Retrieve project/component service provider XML" )
 
         if sx:
             shapes_to_load = rdfxml.xml_find_elements(sx, './/oslc:resourceShape' )
@@ -655,7 +655,7 @@ class GCMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
         # strip off the fragment as it does nothing
         realuri = uri.rsplit( '#',1 )[0]
         if realuri not in self._gettypecache.keys():
-            self._gettypecache[realuri] = self.execute_get_rdf_xml(uri)
+            self._gettypecache[realuri] = self.execute_get_rdf_xml(uri,intent="Retrieve type definition" )
         return self._gettypecache[realuri]
 
     # given a type URI, return its name

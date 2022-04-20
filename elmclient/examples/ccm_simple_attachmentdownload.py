@@ -43,7 +43,7 @@ wiurl = ccmapp.reluri(f'resource/itemName/com.ibm.team.workitem.WorkItem/{workit
 
 print( f"Retrieving wi details" )
 
-xmlresult = ccmapp.server.execute_get_xml(wiurl, cacheable=False, headers={'OSLC-Core-Version': '2.0'})
+xmlresult = ccmapp.server.execute_get_xml(wiurl, cacheable=False, headers={'OSLC-Core-Version': '2.0'}, intent="Retrieve work item content (including attachment details)" )
 
 print( f"{xmlresult=}" )
 
@@ -54,7 +54,7 @@ for attachment in rdfxml.xml_find_elements( xmlresult, './/rtc_cm:com.ibm.team.w
     print( f"{attachment_u=}" )
 
     # get the attachment metadata
-    attachment_info = ccmapp.server.execute_get_xml(attachment_u, cacheable=False, headers={'OSLC-Core-Version': '2.0'})
+    attachment_info = ccmapp.server.execute_get_xml(attachment_u, cacheable=False, headers={'OSLC-Core-Version': '2.0'}, intent="Retrieve attachment details (points to attachment content)" )
 
     # find the download link
     # <rtc_cm:content rdf:resource="https://jazz.ibm.com:9443/ccm/resource/content/_IZCsIRuREeyjc_YwJfTLJA"/>
@@ -63,7 +63,7 @@ for attachment in rdfxml.xml_find_elements( xmlresult, './/rtc_cm:com.ibm.team.w
     filename = rdfxml.xmlrdf_get_resource_text( attachment_info, './/dcterms:title' )
     print( f"{filename=}" )
     # download it, using Referer set to the URI (addresses a security measure built-in to ccm)
-    attachment_binary = ccmapp.server.execute_get_binary(download_u, cacheable=False, headers={'OSLC-Core-Version': '2.0', 'Referer':download_u})
+    attachment_binary = ccmapp.server.execute_get_binary(download_u, cacheable=False, headers={'OSLC-Core-Version': '2.0', 'Referer':download_u}, intent="Retrieve attachement content (binary)" )
     print( f"{len(attachment_binary.content)}" )
     # open( filename,"wb" ).write( attachment_binary )
 

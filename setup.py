@@ -31,13 +31,14 @@ setup(
     ],
     packages=["elmclient", "elmclient.examples", "elmclient.examples.basic","elmclient.tests"],
     include_package_data=True,
-    install_requires=['CacheControl==0.12.6','anytree==2.8.0',"colorama==0.5.0","cryptography==3.4.4",'lark_parser==0.12.0','lockfile==0.12.2','lxml==4.7.1',"openpyxl == 3.0.9","python-dateutil==2.8.2", "pytz==2021.3", "requests==2.24.0","requests_toolbelt==0.9.1",'tqdm==4.56.2','urllib3==1.25.11'],
+    install_requires=['CacheControl==0.12.6','anytree==2.8.0',"colorama==0.4.4","cryptography==3.4.4",'lark_parser==0.12.0','lockfile==0.12.2','lxml==4.7.1',"openpyxl == 3.0.9","python-dateutil==2.8.2", "pytz==2021.3", "requests==2.24.0","requests_toolbelt==0.9.1",'tqdm==4.56.2','urllib3==1.25.11'],
     entry_points={
         "console_scripts": [
             "oslcquery=elmclient.examples.oslcquery:main",
             "batchquery=elmclient.examples.batchquery:main",
             "represt=elmclient.examples.represt:main",
             "reqif_io=elmclient.examples.reqif_io:main",
+            "log2seq=elmclient.examples.log2seq:main",
         ]
     },
 )

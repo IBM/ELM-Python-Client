@@ -10,6 +10,7 @@ import getpass
 import json
 import logging
 import os
+import os.path
 import pprint as pp
 import re
 import socket
@@ -48,13 +49,11 @@ def ensure_select(select,requireds):
             selects.append(required)
     return ",".join(selects)
 
-
-
 ############################################################################
 
 def do_oslc_query(inputargs=None):
     inputargs = inputargs or sys.argv[1:]
-
+    
     # get some defaults from the environment (which can be overridden on the commandline or the saved obfuscated credentials)
     JAZZURL     = os.environ.get("QUERY_JAZZURL"    ,"https://jazz.ibm.com:9443" )
     USER        = os.environ.get("QUERY_USER"       ,"ibm" )
@@ -83,7 +82,7 @@ def do_oslc_query(inputargs=None):
     parser.add_argument('-G', '--globalconfiguration', default=None, help='The global configuration (you must not specify local config as well!) - you can specify the id, the full URI, or the config name (not implemented yet)')
     parser.add_argument('-H', '--saveconfigs', default=None, help='Name of CSV file to save details of the local project components and configurations')
     parser.add_argument("-J", "--jazzurl", default=JAZZURL, help=f"jazz server url (without the /jts!) default {JAZZURL} - Default can be set using environemnt variable QUERY_JAZZURL - defaults to https://jazz.ibm.com:9443 which DOESN'T EXIST")
-    parser.add_argument('-L', '--loglevel', default=None,help=f'Set logging on console and (if providing a , and a second level) to file to one of DEBUG, INFO, WARNING, ERROR, CRITICAL, OFF - default is {LOGLEVEL} - can be set by environment variable QUERY_LOGLEVEL')
+    parser.add_argument('-L', '--loglevel', default=None,help=f'Set logging to file and (by adding a "," and a second level) to console to one of DEBUG, TRACE, INFO, WARNING, ERROR, CRITICAL, OFF - default is {LOGLEVEL} - can be set by environment variable QUERY_LOGLEVEL')
     parser.add_argument('-M', '--maxresults', default=None, type=int, help='Max number of results to retrieve a pagesize at a time, then the query is terminated. default is no limit')
     parser.add_argument('-N', '--noprogressbar', action="store_false", help="Don't show progress bar during query")
     parser.add_argument('-O', '--outputfile', default=None, help='Name of file to save the CSV to')
@@ -177,13 +176,15 @@ def do_oslc_query(inputargs=None):
     if args.loglevel is not None:
         levels = [utils.loglevels.get(l,-1) for l in args.loglevel.split(",",1)]
         if len(levels)<2:
-            # if only one log level specified, set both the same
-            levels.append(levels[0])
+            # if only one log level specified this is for file loggin - set console to None
+            levels.append(None)
         if -1 in levels:
             raise Exception( f'Logging level {args.loglevel} not valid - should be comma-separated one or two values from DEBUG, INFO, WARNING, ERROR, CRITICAL, OFF' )
-        utils.setup_logging(consolelevel=levels[0],filelevel=levels[1])
+        utils.setup_logging( filelevel=levels[0], consolelevel=levels[1] )
 
     logger = logging.getLogger(__name__)
+
+    utils.log_commandline( os.path.basename(sys.argv[0]),inputargs )
 
     if args.password is None:
         args.password = getpass.getpass(prompt=f'Password for user {args.username}: ')
@@ -606,10 +607,10 @@ def do_oslc_query(inputargs=None):
             # get the resource from uri k
             params = {}
             try:
-                xml1 = queryon.execute_get_rdf_xml(k, params=params)
+                xml1 = queryon.execute_get_rdf_xml( k, params=params, intent="Retrieve resource RDF-XML" )
             except AttributeError:
                 try:
-                    xml1 = queryon.execute_get_rdf_xml(k, params=params)
+                    xml1 = queryon.execute_get_rdf_xml( k, params=params, intent="Retrieve resource RDF-XML" )
                 except:
                     raise
             # save to filename based on identifier
@@ -633,10 +634,10 @@ def do_oslc_query(inputargs=None):
                 isuri = isuri.get("{%s}resource" % rdfxml.RDF_DEFAULT_PREFIX['rdf'])
                 # now download it
                 try:
-                    xml2 = queryon.execute_get_rdf_xml(isuri, params=params)
+                    xml2 = queryon.execute_get_rdf_xml(isuri, params=params, intent="Retrieve RDF-XML for a resource (1)" )
                 except AttributeError:
                     try:
-                        xml2 = queryon.execute_get_rdf_xml(isuri, params=params)
+                        xml2 = queryon.execute_get_rdf_xml(isuri, params=params, intent="Retrieve RDF-XML for a resource (2)" )
                     except:
                         raise
                 open(fname + "_shape.xml", "wb").write(ET.tostring(xml2.getroot()))

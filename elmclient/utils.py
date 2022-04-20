@@ -48,7 +48,7 @@ loglevels = {
         ,'OFF':         None
         }
 
-def setup_logging(consolelevel=None, filelevel=logging.INFO):
+def setup_logging( *, filelevel=logging.INFO, consolelevel=None ):
     # make sure logs folder exists for logging output
     os.makedirs(LOGFOLDER, exist_ok=True)
 
@@ -64,7 +64,7 @@ def setup_logging(consolelevel=None, filelevel=logging.INFO):
 
         if filelevel is not None:
             # file handler gets *all* log messages
-            handler = logging.FileHandler(os.path.join(LOGFOLDER,f"ibjcl-{datetimestamp}.log"), mode='w')  # create a 'log1.log' handler
+            handler = logging.FileHandler(os.path.join(LOGFOLDER,f"elmclient-{datetimestamp}.log"), mode='w')  # create a 'log1.log' handler
             handler.setLevel(filelevel)  # make sure all levels go to it
             handler.setFormatter(filelogformatter)  # use the above formatter
             log.addHandler(handler)  # add the file handler to the root logger
@@ -79,7 +79,36 @@ def setup_logging(consolelevel=None, filelevel=logging.INFO):
             console.setFormatter(formatter)
             # add the handler to the root logger
             log.addHandler(console)
+            
+############################################################################
 
+def log_commandline( prog,args=None ):
+    args = args or []
+    def optquote(s):
+        if " " in s:
+            return '"s"'
+        return s
+    arg = " ".join([optquote(a) for a in args])
+    logger.trace( f"COMMANDLINE: {prog} {arg}" )
+
+############################################################################
+
+def log_state( statename ):
+    logger.trace( f"STATE: {statename}" )
+
+############################################################################
+# return string for the n
+def nth( n ):
+    if n < 1:
+        raise Exception( f"nth can't figure out what to return for {n} - should be greater than 0!" )
+    if n==1:
+        return "1st"
+    elif n==2:
+        return "2nd"
+    elif n==3:
+        return "3rd"
+    return f"{str(n)}th"
+    
 ############################################################################
 # code to support obfuscated credentials files
 
@@ -109,7 +138,7 @@ def fernet_decrypt( token, password, ttl=TTL ):
 # For Reportable REST
 #
 # visit an xml tag hierarchy, extracting values into rows, one per first-level tag
-# this is aimed at Reportable REST XMl output
+# this is aimed at Reportable REST XML output
 #
 # to avoid duplicate names and map clearly to the XML:
 #   the path to a tag is turned into /-separated tag path

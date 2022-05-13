@@ -95,7 +95,7 @@ def setupproxy(url,proxyport=PROXY_PORT):
                 proxyurl = urlparts.scheme + "://" + urlparts.netloc
             # insert the proxy dictionary
             proxydict = {
-                            'https':'https://127.0.0.1:'+str(proxyport)
+                            'https':'http://127.0.0.1:'+str(proxyport) # NOTE the proxy URL is "http:" - Fiddler doesn't provide a https proxy by default so don't change this!
                             ,'http':'http://127.0.0.1:'+str(proxyport)
                         }
             logger.info( f'Setting proxy to {proxydict}' )

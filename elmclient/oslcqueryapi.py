@@ -642,24 +642,34 @@ class _OSLCOperations_Mixin:
 
         # check the first set of results to decide what mode we are in
         rdfs_member_es = rdfxml.xml_find_elements( result_xmls[0],'.//rdfs:member/*')
+        # only RM returns rdfs:member with sub-tags
         logger.debug(f"rdfs_member_es={rdfs_member_es}")
         if len(rdfs_member_es) == 0:
+            # non-RM 
             rdfs_member_es = rdfxml.xml_find_elements( result_xmls[0], './/rdfs:member')
             logger.debug(f"rdfs_member_es1={rdfs_member_es}")
             if len(rdfs_member_es) == 0:
-                rdfs_member_es = rdfxml.xml_find_elements( result_xmls[0], './/rdf:Description[@rdf:about]')
-                if len(rdfs_member_es) == 0:
+                # QM and GCM don't return rdfs:member like CM
+                rdfs_member_es = rdfxml.xml_find_elements( result_xmls[0], './/rdf:Description/ldp:contains')
+#                print( f"0 {rdfs_member_es=}" )
+                if len(rdfs_member_es) != 0:
+                    # for GCM, one element holds all the ldp:contains pointing at each result
                     gcmode = True
-                    rdfs_member_es = rdfxml.xml_find_elements( result_xmls[0], './/ldp:contains')
                     logger.info(f"rdfs_member_es2={rdfs_member_es}")
+#                    print(f"rdfs_member_es2={rdfs_member_es}")
                 else:
+                    # for QM, each result has a Description and there is no overall container like GCM
+                    rdfs_member_es = rdfxml.xml_find_elements( result_xmls[0], './/rdf:Description[@rdf:about]')
                     qmmode = True
                     logger.debug(f"rdfs_member_es3={rdfs_member_es}")
             else:
+                # only CM has rdfs:member with no sub-tags
                 cmmode = True
         else:
+            # only RM returns rdfs:member with sub-tags
             rmmode = True
         logger.info(f"cmmode={cmmode} rmmode={rmmode} gcmode={gcmode} {qmmode=}")
+#        print(f"cmmode={cmmode} rmmode={rmmode} gcmode={gcmode} {qmmode=}")
         logger.debug( f"{prefixes=}" )
         revprefixes = { v:k for k,v in prefixes.items()}
         # with select - build a dictionary
@@ -682,8 +692,10 @@ class _OSLCOperations_Mixin:
                 rdfs_member_es = rdfxml.xml_find_elements( result_xml, './/ldp:contains')
             elif qmmode:
                 rdfs_member_es = rdfxml.xml_find_elements( result_xml, './/rdf:Description[@rdf:about]/qm_rqm:orderIndex/..')
+#                print( f"1 {rdfs_member_es=}" )
                 if len(rdfs_member_es)==0:
                     rdfs_member_es = rdfxml.xml_find_elements( result_xml, './/rdf:Description[@rdf:about]/dcterms:title/..')
+#                    print( f"2 {rdfs_member_es=}" )
 
 
             # process them

@@ -38,10 +38,10 @@ def _hook_beforequery(querydetails):
     if 'orderBy' in querydetails:
         del querydetails['orderBy']
     # make sure dcterms and oslc not in prefix
-    if 'dcterms=' in querydetails.get('oslc.prefix',"") or 'oslc' in querydetails.get('oslc.prefix',""):
+    if 'dcterms=' in querydetails.get('oslc.prefix',"") or 'oslc' in querydetails.get('oslc.prefix',"") or 'rdf' in querydetails.get('oslc.prefix',""):
         oldprefix = querydetails['oslc.prefix']
         prefixes = oldprefix.split(",")
-        newprefixes = [p for p in prefixes if not p.startswith("dcterms=") and not p.startswith("oslc=")]
+        newprefixes = [p for p in prefixes if not p.startswith("dcterms=") and not p.startswith("oslc=") and not p.startswith("rdf=")]
         querydetails['oslc.prefix'] = ",".join(newprefixes)
         newprefix = querydetails['oslc.prefix']
     return querydetails

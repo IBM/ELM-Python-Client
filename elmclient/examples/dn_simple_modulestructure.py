@@ -188,7 +188,7 @@ if __name__=="__main__":
     themodule_u = list(modules.keys())[0]
     print( f"{themodule_u=}" )
 
-    mod_x = c.execute_get_rdf_xml(themodule_u, cacheable=False,  headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None}, intent="Retrieve the module RDF-XML to get the structure URI" ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
+    mod_x = c.execute_get_rdf_xml(themodule_u, cacheable=False,  headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'Referer': None, 'OSLC-Core-Version': None, 'Configuration-Context': None}, intent="Retrieve the module RDF-XML to get the structure URI" ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
 
     print( f"{mod_x=}" )
 
@@ -231,7 +231,7 @@ if __name__=="__main__":
         if len(sys.argv)>1:            
             # toinsert is already prepared
             # get the etag
-            response, etag = c.execute_get_rdf_XML(structure_u, cacheable=False, headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None}, return_etag=True, intent="Retrieve module structure (XML)"  ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
+            response, etag = c.execute_get_rdf_xml(structure_u, cacheable=False, headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None}, return_etag=True, intent="Retrieve module structure (XML)"  ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
             print( f"{etag=}" )
             # insert a reference to it in a hardcoded location
             firsthead_x = rdfxml.xml_find_elements(modstructure_x,'rm_modules:Binding/rm_modules:childBindings/rm_modules:Binding/rm_modules:childBindings')[0]

@@ -433,7 +433,7 @@ class _RMProject(_project._Project):
                     nameel = rdfxml.xml_find_element(shapedef, './oslc:ResourceShape/rdfs:label')
                 name = nameel.text
                 rdfuri = rdfxml.xmlrdf_get_resource_uri( shapedef, ".//owl:sameAs" )
-                print( f"Registering shape {name=} {uri=} {rdfuri=}" )
+#                print( f"Registering shape {name=} {uri=} {rdfuri=}" )
                 self.register_shape( name, uri )
                 logger.info( f"Opening shape {name} {uri}" )
             else:
@@ -466,7 +466,7 @@ class _RMProject(_project._Project):
                 continue
 
             logger.info( f"Defining property {name}.{property_title} {propuri=} +++++++++++++++++++++++++++++++++++++++" )
-            print( f"Defining property {name}.{property_title} {propuri=} {uri=} +++++++++++++++++++++++++++++++++++++++" )
+#            print( f"Defining property {name}.{property_title} {propuri=} {uri=} +++++++++++++++++++++++++++++++++++++++" )
 #            self.register_property(property_title,propuri, shape_uri=uri)
             self.register_property(property_title,propuri)
 

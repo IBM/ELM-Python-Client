@@ -131,7 +131,7 @@ class _GCMProject(_project._Project):
         if sx:
             shapes_to_load = rdfxml.xml_find_elements(sx, './/oslc:resourceShape')
 
-            pbar = tqdm.tqdm(initial=0, total=len(shapes_to_load),smoothing=1,unit=" results",desc="Loading ETM shapes")
+            pbar = tqdm.tqdm(initial=0, total=len(shapes_to_load),smoothing=1,unit=" results",desc="Loading GCM project shapes")
 
             for el in shapes_to_load:
                 self._load_type_from_resource_shape(el)
@@ -142,6 +142,7 @@ class _GCMProject(_project._Project):
             raise Exception( "services xml not found!" )
 
         self.typesystem_loaded = True
+        burp
         return None
 
 # pick all the attributes from a resource shape definition
@@ -476,11 +477,9 @@ class GCMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
         if not found:
             raise Exception( "No empty service provider found!" )
         sx = self.execute_get_rdf_xml( spurl, intent="Retrieve project/component service provider XML" )
-
         if sx:
             shapes_to_load = rdfxml.xml_find_elements(sx, './/oslc:resourceShape' )
-
-            pbar = tqdm.tqdm(initial=0, total=len(shapes_to_load),smoothing=1,unit=" results",desc="Loading GCM shapes")
+            pbar = tqdm.tqdm(initial=0, total=len(shapes_to_load),smoothing=1,unit=" results",desc="Loading GCM app shapes")
 
             for el in shapes_to_load:
                 self._load_type_from_resource_shape(el)
@@ -490,7 +489,6 @@ class GCMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
 
         else:
             raise Exception( "services xml not found!" )
-
         return None
 
     # pick all the attributes from a resource shape definition
@@ -613,7 +611,6 @@ class GCMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
                 if self.is_known_property_uri( pd_u,shape_uri=uri,raiseifnotfound=False ):
                     logger.debug( f"ALREADY KNOWN2" )
                     continue
-
                 logger.info( f"Defining property {title}.{property_title} {altname=} {pd_u=} +++++++++++++++++++++++++++++++++++++++" )
                 self.register_property(property_title,pd_u, shape_uri=uri, altname=altname)
                 # check for any allowed value
@@ -698,4 +695,12 @@ class GCMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
         else:
             result = self.get_uri_name(uri)
         logger.info( f"Result {result=}" )
+        return result
+        
+    # for OSLC query, given an attribute (property) name return its type URI
+    # the context is the shape definition - can be None, needed to be specified ultimately by the user when property names aren't unique
+    def resolve_property_name_to_uri(self, name, shapeuri=None, exception_if_not_found=True):
+        logger.info( f"resolve_property_name_to_uri {name=} {shapeuri=}" )
+        result = self.get_property_uri(name,shape_uri=shapeuri)
+        logger.info( f"resolve_property_name_to_uri {name=} {shapeuri=} {result=}" )
         return result

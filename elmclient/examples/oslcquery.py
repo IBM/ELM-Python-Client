@@ -410,9 +410,9 @@ def do_oslc_query(inputargs=None):
         # ensure output folder exists
         args.typesystemreport = os.path.abspath(args.typesystemreport)
         outputpath = os.path.split(args.typesystemreport)[0]
-        print( f"{outputpath=}" )
+#        print( f"{outputpath=}" )
         if not os.path.isdir( outputpath ):
-            print( f"creating {outputpath=}" )
+#            print( f"creating {outputpath=}" )
             os.makedirs( outputpath, exist_ok=True)
         
         open( args.typesystemreport, "wt").write( queryon.report_type_system() )
@@ -425,9 +425,9 @@ def do_oslc_query(inputargs=None):
         # ensure the output folder exists
         args.outputfile = os.path.abspath(args.outputfile)
         outputpath = os.path.split(args.outputfile)[0]
-        print( f"{outputpath=}" )
+#        print( f"{outputpath=}" )
         if not os.path.isdir( outputpath ):
-            print( f"creating {outputpath=}" )
+#            print( f"creating {outputpath=}" )
             os.makedirs( outputpath, exist_ok=True)
             
     # erase the output file (also checks that it isn't open in Excel) before doing a possibly lengthy query :-)
@@ -590,9 +590,9 @@ def do_oslc_query(inputargs=None):
         # ensure output folder exists
         args.xmloutputfile = os.path.abspath(args.xmloutputfile)
         outputpath = os.path.split(args.xmloutputfile)[0]
-        print( f"{outputpath=}" )
+#        print( f"{outputpath=}" )
         if not os.path.isdir( outputpath ):
-            print( f"creating {outputpath=}" )
+#            print( f"creating {outputpath=}" )
             os.makedirs( outputpath, exist_ok=True)
     
         # basically for RM: retrieve all the result resources (as RDF-XML) and store to one file per resource

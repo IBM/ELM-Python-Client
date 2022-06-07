@@ -155,7 +155,6 @@ class _App( httpops.HttpOperations_Mixin ):
         else:
             # must be a name
             projectu = self._projects.get(projectname_or_uri)
-            print( f"{projectu=}" )
             if projectu is None:
                 res = None
             else:
@@ -178,6 +177,7 @@ class _App( httpops.HttpOperations_Mixin ):
             rows.append( [shortname,k,qcdetails[k]])
         # print in a nice table with equal length columns
         report += utils.print_in_html(rows,['Short Name', 'URI', 'Query Capability URI'])
+        report += self.textreport()
 
         rows = []
         for prefix in sorted(rdfxml.RDF_DEFAULT_PREFIX.keys()):

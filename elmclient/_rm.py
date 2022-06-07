@@ -364,7 +364,6 @@ class _RMProject(_project._Project):
         return (ncomps, nconfs)
 
     def get_local_config(self, name_or_uri):
-        self.load_components_and_configurations()
         result = None
         filter = None
         if name_or_uri.startswith("S:"):

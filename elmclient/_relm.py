@@ -60,7 +60,7 @@ class RELMApp(_app._App):
     def __init__(self, server, contextroot, jts=None):
         super().__init__(server, contextroot, jts=jts)
 
-        self.rootservices_xml = self.execute_get_xml( self.reluri('rootservices'), intent="Retrieve RELM/ENI toot services" )
+        self.rootservices_xml = self.execute_get_xml( self.reluri('rootservices'), intent="Retrieve RELM/ENI root services" )
 #        self.serviceproviders = 'gc:globalConfigServiceProviders'
 #        self.default_query_resource = 'oslc_config:Configuration'
         # register some app-specific namespaces

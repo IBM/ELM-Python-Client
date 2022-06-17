@@ -317,7 +317,8 @@ class _RMProject(_project._Project):
                                 thisconfu = confmember.get("{%s}resource" % rdfxml.RDF_DEFAULT_PREFIX["rdf"])
                                 confs_to_load.append(thisconfu)
                         # maybe it's got configuration(s)
-                        confmemberx = rdfxml.xml_find_elements(configs_xml, './/oslc_config:Configuration') or rdfxml.xml_find_elements(configs_xml, './/oslc_config:Stream') or rdfxml.xml_find_elements(configs_xml, './/oslc_config:Baseline')
+                        confmemberx = rdfxml.xml_find_elements(configs_xml, './/oslc_config:Configuration') + rdfxml.xml_find_elements(configs_xml, './/oslc_config:Stream') + rdfxml.xml_find_elements(configs_xml, './/oslc_config:Baseline') + rdfxml.xml_find_elements(configs_xml, './/oslc_config:ChangeSet')
+                        
                         for confmember in confmemberx:  
                             thisconfu = rdfxml.xmlrdf_get_resource_uri( confmember )
                             logger.debug( f"{thisconfu=}" )
@@ -349,7 +350,6 @@ class _RMProject(_project._Project):
                             confs_to_load.append( rdfxml.xmlrdf_get_resource_uri(confmember, './oslc_config:streams') )
                             confs_to_load.append( rdfxml.xmlrdf_get_resource_uri(confmember, './oslc_config:baselines') )
                             confs_to_load.append( rdfxml.xmlrdf_get_resource_uri(confmember, './rm_config:changesets') )
-                                
                             nconfs += 1
 
         # now create the "components"
@@ -364,6 +364,7 @@ class _RMProject(_project._Project):
         return (ncomps, nconfs)
 
     def get_local_config(self, name_or_uri):
+        print( f"GLC {self=} {name_or_uri=}" )
         result = None
         filter = None
         if name_or_uri.startswith("S:"):

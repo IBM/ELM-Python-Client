@@ -233,6 +233,7 @@ class HttpOperations_Mixin():
         return response
 
     def wait_for_tracker( self, location, *, interval=1.0, progressbar=False, msg='Waiting for tracker' ):
+        verdict = None
         if progressbar:
             pbar = tqdm.tqdm(initial=0, total=100,smoothing=1,unit=" results",desc=msg)
             donelasttime=0
@@ -246,14 +247,23 @@ class HttpOperations_Mixin():
                 else:
                     pbar.update(100-donelasttime)
                 
-            if percent is None or percent=="100":
+            if percent is None:
+                # check for complete status
+                if rdfxml.xmlrdf_get_resource_uri( response_x, ".//oslc_auto:state[@rdf:resource='http://open-services.net/ns/auto#complete']" ) is not None:
+                    if rdfxml.xmlrdf_get_resource_uri( response_x, ".//oslc_auto:verdict[@rdf:resource='http://open-services.net/ns/auto#error']" ) is not None:
+                        status = rdfxml.xmlrdf_get_resource_text( response_x, ".//oslc:statusCode" ) or "NO STATUS CODE"
+                        message = rdfxml.xmlrdf_get_resource_text( response_x, ".//oslc:message" ) or "NO MESSAGE"
+                        verdict = f"{status} {message}"
+                    break
+            elif percent=="100":
                 break
             time.sleep( interval )
         if progressbar:
             pbar.close()
         if percent=="100":
             return response_x
-        return None
+        print( f"Returning {verdict=}" )
+        return verdict
 
     ###########################################################################
     # below here is internal implementation

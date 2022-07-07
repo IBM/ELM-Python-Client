@@ -1,0 +1,1562 @@
+<HTML><BODY>
+<H1>Type system report</H1>
+<H2>Application Queryable Resource Types, short name and URI</H2>
+<TABLE><THEADING>
+<TH>Short Name</TH><TH>URI</TH><TH>Query Capability URI</TH></THEADING>
+  <TR>    <TD>ArtifactAttribute</TD>
+    <TD>http://jazz.net/ns/config_ext#ArtifactAttribute</TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/type/attributes</TD>
+  </TR>
+  <TR>    <TD>ArtifactType</TD>
+    <TD>http://jazz.net/ns/config_ext#ArtifactType</TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/type/artifacts</TD>
+  </TR>
+  <TR>    <TD>BoundedDataType</TD>
+    <TD>http://jazz.net/ns/config_ext#BoundedDataType</TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/type/datatypes/bounded</TD>
+  </TR>
+  <TR>    <TD>EnumeratedDataType</TD>
+    <TD>http://jazz.net/ns/config_ext#EnumeratedDataType</TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/type/datatypes/enumerated</TD>
+  </TR>
+  <TR>    <TD>LinkType</TD>
+    <TD>http://jazz.net/ns/config_ext#LinkType</TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/type/links</TD>
+  </TR>
+  <TR>    <TD>SimpleDataType</TD>
+    <TD>http://jazz.net/ns/config_ext#SimpleDataType</TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/type/datatypes/simple</TD>
+  </TR>
+  <TR>    <TD>UserQuery</TD>
+    <TD>http://jazz.net/ns/config_ext#UserQuery</TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/userQueries</TD>
+  </TR>
+  <TR>    <TD>Component</TD>
+    <TD>http://open-services.net/ns/config#Component</TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/components</TD>
+  </TR>
+  <TR>    <TD>Configuration (default)</TD>
+    <TD>http://open-services.net/ns/config#Configuration</TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/configurations</TD>
+  </TR>
+</TABLE>
+<H2>Project Queryable Resource Types, short name and URI</H2>
+<TABLE><THEADING>
+<TH>Short Name</TH><TH>URI</TH><TH>Query Capability URI</TH></THEADING>
+  <TR>    <TD>ArtifactAttribute</TD>
+    <TD>http://jazz.net/ns/config_ext#ArtifactAttribute</TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/type/attributes/_zWMkMEB1EeuruP931CHJDw</TD>
+  </TR>
+  <TR>    <TD>ArtifactType</TD>
+    <TD>http://jazz.net/ns/config_ext#ArtifactType</TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/type/artifacts/_zWMkMEB1EeuruP931CHJDw</TD>
+  </TR>
+  <TR>    <TD>BoundedDataType</TD>
+    <TD>http://jazz.net/ns/config_ext#BoundedDataType</TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/type/datatypes/bounded/_zWMkMEB1EeuruP931CHJDw</TD>
+  </TR>
+  <TR>    <TD>EnumeratedDataType</TD>
+    <TD>http://jazz.net/ns/config_ext#EnumeratedDataType</TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/type/datatypes/enumerated/_zWMkMEB1EeuruP931CHJDw</TD>
+  </TR>
+  <TR>    <TD>LinkType</TD>
+    <TD>http://jazz.net/ns/config_ext#LinkType</TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/type/links/_zWMkMEB1EeuruP931CHJDw</TD>
+  </TR>
+  <TR>    <TD>SimpleDataType</TD>
+    <TD>http://jazz.net/ns/config_ext#SimpleDataType</TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/type/datatypes/simple/_zWMkMEB1EeuruP931CHJDw</TD>
+  </TR>
+  <TR>    <TD>UserQuery</TD>
+    <TD>http://jazz.net/ns/config_ext#UserQuery</TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/userQueries/_zWMkMEB1EeuruP931CHJDw</TD>
+  </TR>
+  <TR>    <TD>Component</TD>
+    <TD>http://open-services.net/ns/config#Component</TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/components/_zWMkMEB1EeuruP931CHJDw</TD>
+  </TR>
+  <TR>    <TD>Configuration (default)</TD>
+    <TD>http://open-services.net/ns/config#Configuration</TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/configurations/_zWMkMEB1EeuruP931CHJDw</TD>
+  </TR>
+</TABLE>
+<h2>Shapes<h2>
+
+<TABLE><THEADING>
+<TH>Shape</TH><TH>Property Name</TH><TH>Property label</TH><TH>URI</TH><TH></TH></THEADING>
+  <TR>    <TD>'Artifact attribute'     </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Attribute data type'</TD>
+    <TD>range</TD>
+    <TD>rdfs:range</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Description</TD>
+    <TD>comment</TD>
+    <TD>rdfs:comment</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Identifier</TD>
+    <TD>identifier</TD>
+    <TD>dcterms:identifier</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Initial value'</TD>
+    <TD>initialValue</TD>
+    <TD>config_ext:initialValue</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Modifiable on immutable'</TD>
+    <TD>modifiableOnImmutable</TD>
+    <TD>config_ext:modifiableOnImmutable</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Name</TD>
+    <TD>label</TD>
+    <TD>rdfs:label</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Occurs</TD>
+    <TD>occurs</TD>
+    <TD>oslc:occurs</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Project area'</TD>
+    <TD>projectArea</TD>
+    <TD>process:projectArea</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'RDF predicate URI'</TD>
+    <TD>sameAs</TD>
+    <TD>owl:sameAs</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'System Defined'</TD>
+    <TD>systemDefined</TD>
+    <TD>config_ext:systemDefined</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Artifact attribute'     </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Attribute data type'</TD>
+    <TD>range</TD>
+    <TD>rdfs:range</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Description</TD>
+    <TD>comment</TD>
+    <TD>rdfs:comment</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Identifier</TD>
+    <TD>identifier</TD>
+    <TD>dcterms:identifier</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Initial value'</TD>
+    <TD>initialValue</TD>
+    <TD>config_ext:initialValue</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Modifiable on immutable'</TD>
+    <TD>modifiableOnImmutable</TD>
+    <TD>config_ext:modifiableOnImmutable</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Name</TD>
+    <TD>label</TD>
+    <TD>rdfs:label</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Occurs</TD>
+    <TD>occurs</TD>
+    <TD>oslc:occurs</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Project area'</TD>
+    <TD>projectArea</TD>
+    <TD>process:projectArea</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'RDF predicate URI'</TD>
+    <TD>sameAs</TD>
+    <TD>owl:sameAs</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'System Defined'</TD>
+    <TD>systemDefined</TD>
+    <TD>config_ext:systemDefined</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Artifact type'          </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Artifact attribute member'</TD>
+    <TD>artifactAttributeMember</TD>
+    <TD>config_ext:artifactAttributeMember</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Description</TD>
+    <TD>comment</TD>
+    <TD>rdfs:comment</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Identifier</TD>
+    <TD>identifier</TD>
+    <TD>dcterms:identifier</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Link type member'</TD>
+    <TD>linkTypeMember</TD>
+    <TD>config_ext:linkTypeMember</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Name</TD>
+    <TD>label</TD>
+    <TD>rdfs:label</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Project area'</TD>
+    <TD>projectArea</TD>
+    <TD>process:projectArea</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Resource type'</TD>
+    <TD>resourceType</TD>
+    <TD>oslc:resourceType</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'System Defined'</TD>
+    <TD>systemDefined</TD>
+    <TD>config_ext:systemDefined</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Bounded data type'      </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Description</TD>
+    <TD>comment</TD>
+    <TD>rdfs:comment</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Identifier</TD>
+    <TD>identifier</TD>
+    <TD>dcterms:identifier</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Maximum inclusive'</TD>
+    <TD>maxInclusive</TD>
+    <TD>xsd:maxInclusive</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Minimum inclusive'</TD>
+    <TD>minInclusive</TD>
+    <TD>xsd:minInclusive</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Name</TD>
+    <TD>label</TD>
+    <TD>rdfs:label</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Project area'</TD>
+    <TD>projectArea</TD>
+    <TD>process:projectArea</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'RDF predicate URI'</TD>
+    <TD>sameAs</TD>
+    <TD>owl:sameAs</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Subclass</TD>
+    <TD>subClassOf</TD>
+    <TD>rdfs:subClassOf</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'System Defined'</TD>
+    <TD>systemDefined</TD>
+    <TD>config_ext:systemDefined</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Bounded data type'      </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Description</TD>
+    <TD>comment</TD>
+    <TD>rdfs:comment</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Identifier</TD>
+    <TD>identifier</TD>
+    <TD>dcterms:identifier</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Maximum inclusive'</TD>
+    <TD>maxInclusive</TD>
+    <TD>xsd:maxInclusive</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Minimum inclusive'</TD>
+    <TD>minInclusive</TD>
+    <TD>xsd:minInclusive</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Name</TD>
+    <TD>label</TD>
+    <TD>rdfs:label</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Project area'</TD>
+    <TD>projectArea</TD>
+    <TD>process:projectArea</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'RDF predicate URI'</TD>
+    <TD>sameAs</TD>
+    <TD>owl:sameAs</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Subclass</TD>
+    <TD>subClassOf</TD>
+    <TD>rdfs:subClassOf</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'System Defined'</TD>
+    <TD>systemDefined</TD>
+    <TD>config_ext:systemDefined</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>Contributions            </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Configuration</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/contributions#A0</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Order</TD>
+    <TD>contributionOrder</TD>
+    <TD>oslc_config:contributionOrder</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Enumerated data type'   </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Description</TD>
+    <TD>comment</TD>
+    <TD>rdfs:comment</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Identifier</TD>
+    <TD>identifier</TD>
+    <TD>dcterms:identifier</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Member</TD>
+    <TD>allowedValue</TD>
+    <TD>oslc:allowedValue</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Name</TD>
+    <TD>label</TD>
+    <TD>rdfs:label</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Project area'</TD>
+    <TD>projectArea</TD>
+    <TD>process:projectArea</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'RDF predicate URI'</TD>
+    <TD>sameAs</TD>
+    <TD>owl:sameAs</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Subclass</TD>
+    <TD>subClassOf</TD>
+    <TD>rdfs:subClassOf</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'System Defined'</TD>
+    <TD>systemDefined</TD>
+    <TD>config_ext:systemDefined</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Enumerated data type'   </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Description</TD>
+    <TD>comment</TD>
+    <TD>rdfs:comment</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Identifier</TD>
+    <TD>identifier</TD>
+    <TD>dcterms:identifier</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Member</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/type/shape/datatype/enumerated#A6</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Name</TD>
+    <TD>label</TD>
+    <TD>rdfs:label</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Project area'</TD>
+    <TD>projectArea</TD>
+    <TD>process:projectArea</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'RDF predicate URI'</TD>
+    <TD>sameAs</TD>
+    <TD>owl:sameAs</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Subclass</TD>
+    <TD>subClassOf</TD>
+    <TD>rdfs:subClassOf</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'System Defined'</TD>
+    <TD>systemDefined</TD>
+    <TD>config_ext:systemDefined</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Enumeration member'     </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Identifier</TD>
+    <TD>identifier</TD>
+    <TD>dcterms:identifier</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Name</TD>
+    <TD>label</TD>
+    <TD>rdfs:label</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'RDF predicate URI'</TD>
+    <TD>sameAs</TD>
+    <TD>owl:sameAs</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Value</TD>
+    <TD>value</TD>
+    <TD>rdf:value</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Global Component'       </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>archived</TD>
+    <TD>archived</TD>
+    <TD>oslc:archived</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Contributor</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/components/_zWMkMEB1EeuruP931CHJDw#A0</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Creator</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/components/_zWMkMEB1EeuruP931CHJDw#A8</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Date Created'</TD>
+    <TD>created</TD>
+    <TD>dcterms:created</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Description</TD>
+    <TD>description</TD>
+    <TD>dcterms:description</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Identifier</TD>
+    <TD>identifier</TD>
+    <TD>dcterms:identifier</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Modified</TD>
+    <TD>modified</TD>
+    <TD>dcterms:modified</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Project area'</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/components/_zWMkMEB1EeuruP931CHJDw#A10</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>shortId</TD>
+    <TD>shortId</TD>
+    <TD>oslc:shortId</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Subject</TD>
+    <TD>subject</TD>
+    <TD>dcterms:subject</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Team area'</TD>
+    <TD>teamArea</TD>
+    <TD>process:teamArea</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Title</TD>
+    <TD>title</TD>
+    <TD>dcterms:title</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Global Component'       </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>archived</TD>
+    <TD>archived</TD>
+    <TD>oslc:archived</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Contributor</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/components#A8</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Creator</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/components#A5</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Date Created'</TD>
+    <TD>created</TD>
+    <TD>dcterms:created</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Description</TD>
+    <TD>description</TD>
+    <TD>dcterms:description</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Identifier</TD>
+    <TD>identifier</TD>
+    <TD>dcterms:identifier</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Modified</TD>
+    <TD>modified</TD>
+    <TD>dcterms:modified</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Project area'</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/components#A11</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>shortId</TD>
+    <TD>shortId</TD>
+    <TD>oslc:shortId</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Subject</TD>
+    <TD>subject</TD>
+    <TD>dcterms:subject</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Team area'</TD>
+    <TD>teamArea</TD>
+    <TD>process:teamArea</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Title</TD>
+    <TD>title</TD>
+    <TD>dcterms:title</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Global Component'       </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>archived</TD>
+    <TD>archived</TD>
+    <TD>oslc:archived</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Contributor</TD>
+    <TD>contributor</TD>
+    <TD>dcterms:contributor</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Creator</TD>
+    <TD>creator</TD>
+    <TD>dcterms:creator</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Date Created'</TD>
+    <TD>created</TD>
+    <TD>dcterms:created</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Description</TD>
+    <TD>description</TD>
+    <TD>dcterms:description</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Identifier</TD>
+    <TD>identifier</TD>
+    <TD>dcterms:identifier</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Modified</TD>
+    <TD>modified</TD>
+    <TD>dcterms:modified</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Project area'</TD>
+    <TD>projectArea</TD>
+    <TD>process:projectArea</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>shortId</TD>
+    <TD>shortId</TD>
+    <TD>oslc:shortId</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Subject</TD>
+    <TD>subject</TD>
+    <TD>dcterms:subject</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Team area'</TD>
+    <TD>teamArea</TD>
+    <TD>process:teamArea</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Title</TD>
+    <TD>title</TD>
+    <TD>dcterms:title</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Global Configuration'   </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Accepted by'</TD>
+    <TD>acceptedBy</TD>
+    <TD>oslc_config:acceptedBy</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Accepts</TD>
+    <TD>accepts</TD>
+    <TD>oslc_config:accepts</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>archived</TD>
+    <TD>archived</TD>
+    <TD>oslc:archived</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Baseline of stream'</TD>
+    <TD>baselineOfStream</TD>
+    <TD>oslc_config:baselineOfStream</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Committed</TD>
+    <TD>committed</TD>
+    <TD>oslc_config:committed</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Committer</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/configurations/_zWMkMEB1EeuruP931CHJDw#A20</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Component</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/configurations/_zWMkMEB1EeuruP931CHJDw#A0</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Contribution</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/configurations/_zWMkMEB1EeuruP931CHJDw#A12</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Contributor</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/configurations/_zWMkMEB1EeuruP931CHJDw#A8</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Creator</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/configurations/_zWMkMEB1EeuruP931CHJDw#A4</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Date Created'</TD>
+    <TD>created</TD>
+    <TD>dcterms:created</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Derived from'</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/configurations/_zWMkMEB1EeuruP931CHJDw#A14</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Description</TD>
+    <TD>description</TD>
+    <TD>dcterms:description</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Identifier</TD>
+    <TD>identifier</TD>
+    <TD>dcterms:identifier</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Modified</TD>
+    <TD>modified</TD>
+    <TD>dcterms:modified</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Previous baseline'</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/configurations/_zWMkMEB1EeuruP931CHJDw#A10</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Project area'</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/configurations/_zWMkMEB1EeuruP931CHJDw#A1</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Release</TD>
+    <TD>deliverable</TD>
+    <TD>rtc_cm:deliverable</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>shortId</TD>
+    <TD>shortId</TD>
+    <TD>oslc:shortId</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Subject</TD>
+    <TD>subject</TD>
+    <TD>dcterms:subject</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Team area'</TD>
+    <TD>teamArea</TD>
+    <TD>process:teamArea</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Title</TD>
+    <TD>title</TD>
+    <TD>dcterms:title</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Global Configuration'   </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Accepted by'</TD>
+    <TD>acceptedBy</TD>
+    <TD>oslc_config:acceptedBy</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Accepts</TD>
+    <TD>accepts</TD>
+    <TD>oslc_config:accepts</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>archived</TD>
+    <TD>archived</TD>
+    <TD>oslc:archived</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Baseline of stream'</TD>
+    <TD>baselineOfStream</TD>
+    <TD>oslc_config:baselineOfStream</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Committed</TD>
+    <TD>committed</TD>
+    <TD>oslc_config:committed</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Committer</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/configurations#A20</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Component</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/configurations#A13</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Contribution</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/configurations#A10</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Contributor</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/configurations#A2</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Creator</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/configurations#A12</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Date Created'</TD>
+    <TD>created</TD>
+    <TD>dcterms:created</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Derived from'</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/configurations#A22</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Description</TD>
+    <TD>description</TD>
+    <TD>dcterms:description</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Identifier</TD>
+    <TD>identifier</TD>
+    <TD>dcterms:identifier</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Modified</TD>
+    <TD>modified</TD>
+    <TD>dcterms:modified</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Previous baseline'</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/configurations#A6</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Project area'</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/configurations#A18</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Release</TD>
+    <TD>deliverable</TD>
+    <TD>rtc_cm:deliverable</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Release</TD>
+    <TD>deliverable</TD>
+    <TD>rtc_cm:deliverable</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>shortId</TD>
+    <TD>shortId</TD>
+    <TD>oslc:shortId</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Subject</TD>
+    <TD>subject</TD>
+    <TD>dcterms:subject</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Team area'</TD>
+    <TD>teamArea</TD>
+    <TD>process:teamArea</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Title</TD>
+    <TD>title</TD>
+    <TD>dcterms:title</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Jazz users'             </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>archived</TD>
+    <TD>archived</TD>
+    <TD>oslc:archived</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Mbox</TD>
+    <TD>mbox</TD>
+    <TD>foaf:mbox</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Name</TD>
+    <TD>name</TD>
+    <TD>foaf:name</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Nick</TD>
+    <TD>nick</TD>
+    <TD>foaf:nick</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Link type'              </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Description</TD>
+    <TD>comment</TD>
+    <TD>rdfs:comment</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Identifier</TD>
+    <TD>identifier</TD>
+    <TD>dcterms:identifier</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Modifiable on immutable'</TD>
+    <TD>modifiableOnImmutable</TD>
+    <TD>config_ext:modifiableOnImmutable</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Name</TD>
+    <TD>label</TD>
+    <TD>rdfs:label</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Occurs</TD>
+    <TD>occurs</TD>
+    <TD>oslc:occurs</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Project area'</TD>
+    <TD>projectArea</TD>
+    <TD>process:projectArea</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'RDF predicate URI'</TD>
+    <TD>sameAs</TD>
+    <TD>owl:sameAs</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'System Defined'</TD>
+    <TD>systemDefined</TD>
+    <TD>config_ext:systemDefined</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Link type'              </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Description</TD>
+    <TD>comment</TD>
+    <TD>rdfs:comment</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Identifier</TD>
+    <TD>identifier</TD>
+    <TD>dcterms:identifier</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Modifiable on immutable'</TD>
+    <TD>modifiableOnImmutable</TD>
+    <TD>config_ext:modifiableOnImmutable</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Name</TD>
+    <TD>label</TD>
+    <TD>rdfs:label</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Occurs</TD>
+    <TD>occurs</TD>
+    <TD>oslc:occurs</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Project area'</TD>
+    <TD>projectArea</TD>
+    <TD>process:projectArea</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'RDF predicate URI'</TD>
+    <TD>sameAs</TD>
+    <TD>owl:sameAs</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'System Defined'</TD>
+    <TD>systemDefined</TD>
+    <TD>config_ext:systemDefined</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Project areas'          </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>archived</TD>
+    <TD>archived</TD>
+    <TD>oslc:archived</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Title</TD>
+    <TD>title</TD>
+    <TD>dcterms:title</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Query result container for artifact attributes'</TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Contains</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/container/type/attributes#A0</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Query result container for artifact types'</TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Contains</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/container/type/artifacts#A0</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Query result container for bounded attribute data types'</TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Contains</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/container/type/datatypes/bounded#A0</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Query result container for enumerated attribute data types'</TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Contains</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/container/type/datatypes/enumerated#A0</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Query result container for global components'</TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Contains</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/container/components/_zWMkMEB1EeuruP931CHJDw#A0</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Query result container for global configurations'</TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Contains</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/container/configurations/_zWMkMEB1EeuruP931CHJDw#A0</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Query result container for link types'</TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Contains</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/container/type/links#A0</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Query result container for simple attribute data types'</TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Contains</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-query/shape/container/type/datatypes/simple#A0</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Simple data type'       </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Description</TD>
+    <TD>comment</TD>
+    <TD>rdfs:comment</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Identifier</TD>
+    <TD>identifier</TD>
+    <TD>dcterms:identifier</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Name</TD>
+    <TD>label</TD>
+    <TD>rdfs:label</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Project area'</TD>
+    <TD>projectArea</TD>
+    <TD>process:projectArea</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Subclass</TD>
+    <TD>subClassOf</TD>
+    <TD>rdfs:subClassOf</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'System Defined'</TD>
+    <TD>systemDefined</TD>
+    <TD>config_ext:systemDefined</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'User Query'             </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Creator</TD>
+    <TD>creator</TD>
+    <TD>dcterms:creator</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Date Created'</TD>
+    <TD>created</TD>
+    <TD>dcterms:created</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Description</TD>
+    <TD>description</TD>
+    <TD>dcterms:description</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Identifier</TD>
+    <TD>identifier</TD>
+    <TD>dcterms:identifier</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>isShared</TD>
+    <TD>isShared</TD>
+    <TD>config_ext:isShared</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Title</TD>
+    <TD>title</TD>
+    <TD>dcterms:title</TD>
+    <TD></TD>
+  </TR>
+</TABLE>
+<H2>Prefixes</H2>
+<TABLE><THEADING>
+<TH>Prefix</TH><TH>URI</TH></THEADING>
+  <TR>    <TD>acc</TD>
+    <TD>http://open-services.net/ns/core/acc#</TD>
+  </TR>
+  <TR>    <TD>acclist</TD>
+    <TD>https://jazz.ibm.com:9443/gc/acclist#</TD>
+  </TR>
+  <TR>    <TD>acp</TD>
+    <TD>http://jazz.net/ns/acp#</TD>
+  </TR>
+  <TR>    <TD>component</TD>
+    <TD>https://jazz.ibm.com:9443/gc/component/</TD>
+  </TR>
+  <TR>    <TD>config_ext</TD>
+    <TD>http://jazz.net/ns/config_ext#</TD>
+  </TR>
+  <TR>    <TD>configuration</TD>
+    <TD>https://jazz.ibm.com:9443/gc/configuration/</TD>
+  </TR>
+  <TR>    <TD>dc</TD>
+    <TD>http://purl.org/dc/elements/1.1/</TD>
+  </TR>
+  <TR>    <TD>dcterms</TD>
+    <TD>http://purl.org/dc/terms/</TD>
+  </TR>
+  <TR>    <TD>dng_reqif</TD>
+    <TD>http://jazz.net/ns/rm/dng/reqif#</TD>
+  </TR>
+  <TR>    <TD>dng_task</TD>
+    <TD>http://jazz.net/ns/rm/dng/task#</TD>
+  </TR>
+  <TR>    <TD>foaf</TD>
+    <TD>http://xmlns.com/foaf/0.1/</TD>
+  </TR>
+  <TR>    <TD>gc</TD>
+    <TD>http://jazz.net/ns/globalconfig#</TD>
+  </TR>
+  <TR>    <TD>jazz_rm</TD>
+    <TD>http://jazz.net/ns/rm#</TD>
+  </TR>
+  <TR>    <TD>jfs</TD>
+    <TD>http://jazz.net/xmlns/prod/jazz/jfs/1.0/</TD>
+  </TR>
+  <TR>    <TD>jp</TD>
+    <TD>http://jazz.net/xmlns/prod/jazz/process/1.0/</TD>
+  </TR>
+  <TR>    <TD>jp06</TD>
+    <TD>http://jazz.net/xmlns/prod/jazz/process/0.6/</TD>
+  </TR>
+  <TR>    <TD>ldp</TD>
+    <TD>http://www.w3.org/ns/ldp#</TD>
+  </TR>
+  <TR>    <TD>ns</TD>
+    <TD>http://com.ibm.rdm/navigation#</TD>
+  </TR>
+  <TR>    <TD>oslc</TD>
+    <TD>http://open-services.net/ns/core#</TD>
+  </TR>
+  <TR>    <TD>oslc_auto</TD>
+    <TD>http://open-services.net/ns/auto#</TD>
+  </TR>
+  <TR>    <TD>oslc_cm</TD>
+    <TD>http://open-services.net/xmlns/cm/1.0/</TD>
+  </TR>
+  <TR>    <TD>oslc_cm1</TD>
+    <TD>http://open-services.net/ns/cm#</TD>
+  </TR>
+  <TR>    <TD>oslc_cm_10</TD>
+    <TD>http://open-services.net/xmlns/cm/1.0/cm#</TD>
+  </TR>
+  <TR>    <TD>oslc_config</TD>
+    <TD>http://open-services.net/ns/config#</TD>
+  </TR>
+  <TR>    <TD>oslc_qm</TD>
+    <TD>http://open-services.net/ns/qm#</TD>
+  </TR>
+  <TR>    <TD>oslc_qm_10</TD>
+    <TD>http://open-services.net/xmlns/qm/1.0/</TD>
+  </TR>
+  <TR>    <TD>oslc_rm</TD>
+    <TD>http://open-services.net/ns/rm#</TD>
+  </TR>
+  <TR>    <TD>oslc_rm_10</TD>
+    <TD>http://open-services.net/xmlns/rm/1.0/</TD>
+  </TR>
+  <TR>    <TD>owl</TD>
+    <TD>http://www.w3.org/2002/07/owl#</TD>
+  </TR>
+  <TR>    <TD>part</TD>
+    <TD>https://jazz.ibm.com:9443/gc/part/</TD>
+  </TR>
+  <TR>    <TD>process</TD>
+    <TD>http://jazz.net/ns/process#</TD>
+  </TR>
+  <TR>    <TD>prov</TD>
+    <TD>http://www.w3.org/ns/prov#</TD>
+  </TR>
+  <TR>    <TD>public_rm_10</TD>
+    <TD>http://www.ibm.com/xmlns/rm/public/1.0/</TD>
+  </TR>
+  <TR>    <TD>qm_rqm</TD>
+    <TD>http://jazz.net/ns/qm/rqm#</TD>
+  </TR>
+  <TR>    <TD>rdf</TD>
+    <TD>http://www.w3.org/1999/02/22-rdf-syntax-ns#</TD>
+  </TR>
+  <TR>    <TD>rdfs</TD>
+    <TD>http://www.w3.org/2000/01/rdf-schema#</TD>
+  </TR>
+  <TR>    <TD>rdm_types</TD>
+    <TD>http://www.ibm.com/xmlns/rdm/types/</TD>
+  </TR>
+  <TR>    <TD>rm</TD>
+    <TD>http://www.ibm.com/xmlns/rdm/rdf/</TD>
+  </TR>
+  <TR>    <TD>rm_config</TD>
+    <TD>http://jazz.net/ns/rm/dng/config#</TD>
+  </TR>
+  <TR>    <TD>rm_ds</TD>
+    <TD>http://jazz.net/xmlns/alm/rm/datasource/v0.1</TD>
+  </TR>
+  <TR>    <TD>rm_modules</TD>
+    <TD>http://jazz.net/ns/rm/dng/module#</TD>
+  </TR>
+  <TR>    <TD>rm_nav</TD>
+    <TD>http://jazz.net/ns/rm/navigation#</TD>
+  </TR>
+  <TR>    <TD>rm_text</TD>
+    <TD>http://jazz.net/xmlns/alm/rm/text/v0.1</TD>
+  </TR>
+  <TR>    <TD>rm_view</TD>
+    <TD>http://jazz.net/ns/rm/dng/view#</TD>
+  </TR>
+  <TR>    <TD>rqm</TD>
+    <TD>http://jazz.net/xmlns/prod/jazz/rqm/qm/1.0/</TD>
+  </TR>
+  <TR>    <TD>rrm</TD>
+    <TD>http://www.ibm.com/xmlns/rrm/1.0/</TD>
+  </TR>
+  <TR>    <TD>rtc_cm</TD>
+    <TD>http://jazz.net/xmlns/prod/jazz/rtc/cm/1.0/</TD>
+  </TR>
+  <TR>    <TD>serviceProvider</TD>
+    <TD>https://jazz.ibm.com:9443/gc/oslc-config/serviceProvider/</TD>
+  </TR>
+  <TR>    <TD>xhtml</TD>
+    <TD>http://www.w3.org/1999/xhtml</TD>
+  </TR>
+  <TR>    <TD>xml</TD>
+    <TD>http://www.w3.org/XML/1998/namespace</TD>
+  </TR>
+  <TR>    <TD>xs</TD>
+    <TD>http://www.w3.org/2001/XMLSchema</TD>
+  </TR>
+  <TR>    <TD>xsd</TD>
+    <TD>http://www.w3.org/2001/XMLSchema#</TD>
+  </TR>
+</TABLE>
+</BODY></HTML>

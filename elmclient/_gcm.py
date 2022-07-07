@@ -142,7 +142,6 @@ class _GCMProject(_project._Project):
             raise Exception( "services xml not found!" )
 
         self.typesystem_loaded = True
-        burp
         return None
 
 # pick all the attributes from a resource shape definition

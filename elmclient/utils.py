@@ -270,8 +270,12 @@ def print_in_html( rows,headings=None ):
     return result
 
 #####################################################################################
-# decorator for users of mixin classes - ensures their __init__ gets called
+# decorator for users of mixin classes - ensures all their __init__ gets called
 # based on https://stackoverflow.com/a/6100595/2318649
+#
+# USE WITH CARE:
+#  If the class's __init__ calls super() then super's init will get called twice!
+#
 def mixinomatic(cls):
     """ Mixed-in class decorator. """
     classinit = cls.__dict__.get('__init__')  # Possibly None.
@@ -285,7 +289,7 @@ def mixinomatic(cls):
             else:
                 logger.debug( f"{base=} {args=} {kwargs=}" )
                 base.__init__(self, *args, **kwargs)
-        # Also call any __init__ function that was in the class.
+        # Also (and finally) call any __init__ function that is in the decorated class.
         if classinit:
             classinit(self, *args, **kwargs)
 

@@ -6,10 +6,8 @@
 # example of using the type system import API
 # also see https://jazz.net/wiki/bin/view/Main/DNGTypeImport
 
-# the names for projects/configs involved are hard-coded for simplicity
+# the names for project/component/configs involved are hard-coded for simplicity
 
-# IMPORTANT NOTE this hardcodes the url for creating a type import session.
-# This should really be done by discovery looking in the component's config-specific services.xml for a CreationFactory for resourceType http://www.ibm.com/xmlns/rdm/types/TypeImportSession
 
 import csv
 import logging
@@ -101,6 +99,9 @@ if __name__=="__main__":
 
     if tgt_config_u is None or src_config_u is None:
         raise Exception( "Source or target config not found!" )
+        
+    # find the CreationFactory URI for type-delivery session
+    typeimport_u = tgt_c.get_factory_uri( resource_type="http://www.ibm.com/xmlns/rdm/types/TypeImportSession" )
 
     # create the RDF body with the source and target configurations
     content = f"""<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:types="http://www.ibm.com/xmlns/rdm/types/">
@@ -111,7 +112,7 @@ if __name__=="__main__":
 </rdf:RDF>"""
 
     # initiate the delivery session - if successful will return 202 with a task tracker location
-    response = tgt_c.execute_post_rdf_xml( reluri="type-import-sessions", data=content, cacheable=False, intent="Initiate typesystem import" )
+    response = tgt_c.execute_post_rdf_xml( reluri=typeimport_u, data=content, cacheable=False, intent="Initiate typesystem import",action='start following task tracker' )
     logger.debug( f" {response.status_code=} {response=}" )
     
     # get the location

@@ -277,7 +277,7 @@ To erase obfuscated credentials use option -2 then the credentials filename:
 reqif_io -2 .mycreds
 ```
 
-TO BE CLEAR: **NOTE the credentials file is only obfuscated unless you use the runtime prompt option -4, i.e. it's pretty easy to decode once you have the python source code**
+TO BE CLEAR: **NOTE the credentials file is only obfuscated: unless you use the runtime prompt option -4 to encrypt it, it's pretty easy to decode once you have the python source code**
 
 
 Future work

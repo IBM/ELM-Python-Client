@@ -17,6 +17,7 @@ import tqdm
 import pytz
 
 from . import _app
+from . import _config
 from . import _project
 from . import _typesystem
 from . import oslcqueryapi
@@ -39,6 +40,20 @@ class _Folder(anytree.NodeMixin):
 
 #################################################################################################
 
+if False:
+    @utils.mixinomatic
+    class _RM_PA_stream( _config._Stream,_RMProject ):
+        pass
+
+    @utils.mixinomatic
+    class _RM_PA_baseline( _config._Baseline,_RMProject ):
+        pass
+        
+    @utils.mixinomatic
+    class _RM_PA_changeset( _config._Changeset,_RMProject):
+        pass
+
+@utils.mixinomatic
 class _RMProject(_project._Project):
     # A project
     # NOTE there is a derived class RMComponent used for RM components - it doesn't offer any
@@ -47,7 +62,7 @@ class _RMProject(_project._Project):
     # For full optin there are as many components as real components; for <=6.0.3 Cfgm-enabled and for >=7.0
     #   CfgM-disabled (called single mode), there's only ever a single component
     def __init__(self, name, project_uri, app, is_optin=False, singlemode=False,defaultinit=True):
-        super().__init__(name, project_uri, app, is_optin,singlemode,defaultinit=defaultinit)
+#        super().__init__(name, project_uri, app, is_optin,singlemode,defaultinit=defaultinit)
 #        self.oslcquery = oslcqueryapi._OSLCOperations(self.app.server,self)
         self._components = None  # keyed on component uri
         self._configurations = None # keyed on the config name
@@ -290,7 +305,7 @@ class _RMProject(_project._Project):
 
                 for component_el in rdfxml.xml_find_elements(crx, './/ldp:contains'):
                     compu = component_el.get("{%s}resource" % rdfxml.RDF_DEFAULT_PREFIX["rdf"])
-                    compx = self.execute_get_rdf_xml(compu, intent="Retrieve component definition to find configurations")
+                    compx = self.execute_get_rdf_xml(compu, intent="Retrieve component definition to find all configurations", action="Retrieve each configuration")
                     comptitle = rdfxml.xmlrdf_get_resource_text(compx, './/dcterms:title')
 
                     self._components[compu] = {'name': comptitle, 'configurations': {}}
@@ -676,7 +691,7 @@ class _RMProject(_project._Project):
 class _RMComponent(_RMProject):
     def __init__(self, name, project_uri, app, is_optin=False, singlemode=False,defaultinit=True, project=None):
         if not project:
-            raise Exception( "You mist provide a project instance when creating a component" )
+            raise Exception( "You must provide a project instance when creating a component" )
         super().__init__(name, project_uri, app, is_optin,singlemode,defaultinit=defaultinit)
         self.component_project = project
         self.services_uri = project.services_uri    # needed for reqif which wants to put the services.xml URI into created XML for new definitions
@@ -693,7 +708,7 @@ class _RMApp(_app._App, _typesystem.No_Type_System_Mixin):
     supports_components = True
     supports_reportable_rest = True
     reportablerestbase='publish'
-    reportable_rest_status = "Supported by applicaiton and implemented here"
+    reportable_rest_status = "Supported by application and implemented here"
     artifact_formats = [ # For RR
             'collections'
             ,'comments'
@@ -717,7 +732,7 @@ class _RMApp(_app._App, _typesystem.No_Type_System_Mixin):
 
     def __init__(self, server, contextroot, jts=None):
         super().__init__(server, contextroot, jts=jts)
-        self.rootservices_xml = self.execute_get_xml(self.reluri('rootservices'), intent="Retrieve RM application rootservices" )
+        self.rootservices_xml = self.execute_get_xml(self.reluri('rootservices'), intent="Retrieve RM application rootservices", action="Locate project areas URL using tag jp06:projectAreas" )
         self.serviceproviders = 'oslc_rm_10:rmServiceProviders'
         self.version = rdfxml.xmlrdf_get_resource_text(self.rootservices_xml,'.//oslc_rm_10:version')
         self.majorversion = rdfxml.xmlrdf_get_resource_text(self.rootservices_xml,'.//oslc_rm_10:majorVersion')

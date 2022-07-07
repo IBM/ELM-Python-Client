@@ -317,6 +317,7 @@ class _ParseTreeToOSLCQuery(lark.visitors.Transformer):
 
     def identifier(self, s):
         logger.info( f"Identifier {s=}" )
+        print( f"Identifier {s=}" )
         if len(s) == 1:
             if type(s[0])==str:
                 result = s[0]

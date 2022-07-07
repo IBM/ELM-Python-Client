@@ -22,11 +22,44 @@ import xml.etree.ElementTree as ET
 
 import jinja2
 
+#
+# Example of syntax (from https://bramp.github.io/js-sequence-diagrams/):
+# 
+# Title: Here is a title
+# A->B: Normal line
+# B-->C: Dashed line
+# C->>D: Open arrow
+# D-->>A: Dashed open arrow
+# # Example of a comment.
+# Note left of A: Note to the\n left of A
+# Note right of A: Note to the\n right of A
+# Note over A: Note over A
+# Note over A,B: Note over both A and B
+#
+
 JINJA_TEMPLATE = """
 <!doctype html>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href=""https://bramp.github.io/js-sequence-diagrams/css/sequence-diagram-min.css" media="screen" />
+<style>
+    .signal text {
+    fill: #000000;
+}
+.signal text:hover {
+    fill: #aaaaaa
+}
+.note rect, .note path {
+    fill: #ffff80;
+}
+.title rect, .title path{
+    fill: #ff80ff;
+}
+.actor rect, .actor path {
+    fill: #80ffff
+}
+
+</style>
 </head>
 <body onload='showseq();'>
 <p>Sequence diagram from emlclient log {{ logfilename }} - wait a few seconds for the diagram to appear...</p>
@@ -145,27 +178,34 @@ def addheaders(events,msgheaders,headerstoshow,direction):
         events.append( f"Note {direction}: {text}" )
     return
     
-# parse a message from the logfile into a reqat/response tuple
+# parse a message from the logfile into a request/response tuple
 def decodemessage(msg):
     request = {'intent':None,'method': None, 'url': None, 'headers':[], 'body':None}
-    response = {'status': None,'headers':[], 'body':None}
-    parts = re.search( r"^(?:INTENT: (.*?)\n\n)?(GET|PUT|POST|HEAD|DELETE|POST) +(\S+)\n( .*?)\n\n(?::+?=\n(.*?)\n-+?=\n)?.*?\n\nResponse: (\d+)\n( .*?)\n\n(?::+?@\n(.*?)\n-+?@\n)?",msg, flags=re.DOTALL+re.MULTILINE )
+    response = {'status': None,'headers':[], 'body':None, 'action':None }
+    parts = re.search( r"\n*(?:INTENT: ([^\n]*?)\n+)?(?:(?:(GET|PUT|POST|HEAD|DELETE|POST) +(\S+)\n((?: +.*?\n)+)\n*)(?::+?=\n(.*?)\n-+?=\n)?.*?\n+Response: (\d+?)\n( .*?)\n\n(?::+?@\n(.*?)\n-+?@\n+)?)?(?:ACTION: (.*?)\n)?",msg, flags=re.DOTALL )
+    if parts.group(0) == '':
+        burp
+#    for l,g in enumerate(parts.groups()):
+#        print( f"{l=} {g=}" )
     request['intent'] = parts.group(1)
     request['method'] = parts.group(2)
     request['url'] = parts.group(3)
-    for hdrline in parts.group(4).split( "\n" ):
-        hsplit = hdrline.strip().split(": ",1)
-        hsplit.append("")
-        hdr, value = hsplit[0],hsplit[1]
-        request['headers'].append( (hdr,value) )
+    if parts.group(4) is not None:
+        for hdrline in parts.group(4).split( "\n" ):
+            hsplit = hdrline.strip().split(": ",1)
+            hsplit.append("")
+            hdr, value = hsplit[0],hsplit[1]
+            request['headers'].append( (hdr,value) )
     request['body'] = parts.group(5).strip() if parts.group(5) else None
     response['status'] = parts.group(6)
-    for hdrline in parts.group(7).split( "\n" ):
-        hsplit = hdrline.strip().split(": ",1)
-        hsplit.append("")
-        hdr, value = hsplit[0],hsplit[1]
-        response['headers'].append( (hdr,value) )
+    if parts.group(7) is not None:
+        for hdrline in parts.group(7).split( "\n" ):
+            hsplit = hdrline.strip().split(": ",1)
+            hsplit.append("")
+            hdr, value = hsplit[0],hsplit[1]
+            response['headers'].append( (hdr,value) )
     response['body'] = parts.group(8).strip() if parts.group(8) else None
+    response['action'] = parts.group(9)
     return (request,response)
     
 def findheader(hdrname,requestorresponse,notfoundreturn=None):
@@ -257,44 +297,51 @@ def main():
         
         for i,msg in enumerate(msgs):
             request,response = decodemessage(msg)
-            #  if INTENT: then add a note for it
-
+#            print( f"{request=}" )
+#            print( f"{response=}" )
             line = i
-
-            reqparts = urllib.parse.urlparse(request['url'])
             
-            path = reqparts.path
-            if reqparts.query:
-                path += "?"+reqparts.query
+            if request['method']:
 
-            if request['intent']:
-                events.append( f"Note left of me: INTENT: {request['intent']}" )
+                reqparts = urllib.parse.urlparse(request['url'])
                 
-            events.append( f"me->{host}: {request['method']} {sanitise(path,wrap=True)}" )
-            
-            addheaders(events,request['headers'],reqshowheaders,"left of me" )
-            
-            if request['body']:
-                if contentshouldbeshown(request):
-                    reqbody = sanitise(request['body'], wrap=True)
-                else:
-                    reqbody = sanitise(request['body'], wrap=False, maxlines=5)
+                path = reqparts.path
+                if reqparts.query:
+                    path += "?"+reqparts.query
+
+                #  if INTENT: then add a note for it
+                if request['intent']:
+                    events.append( f"Note left of me: INTENT: {request['intent']}" )
                     
-                if reqbody:
-                    events.append( f"Note left of me: {reqbody}" )
-                    
-            events.append( f"{host}-->me: {response['status']}" )
-            
-            addheaders(events,response['headers'],respshowheaders,f"right of {host}" )
-            
-            if response['body']:
-                if contentshouldbeshown(response):
-                    respbody = sanitise(response['body'], wrap=False)
-                else:
-                    respbody = sanitise(response['body'], wrap=False, maxlines=5)
-#                    respbody = "Content type not shown..."
-               
-                events.append( f"Note right of {host}: {respbody}" )
+                events.append( f"me->{host}: {request['method']} {sanitise(path,wrap=True)}" )
+                
+                addheaders(events,request['headers'],reqshowheaders,"left of me" )
+                
+                if request['body']:
+                    if contentshouldbeshown(request):
+                        reqbody = sanitise(request['body'], wrap=True)
+                    else:
+                        reqbody = sanitise(request['body'], wrap=False, maxlines=5)
+                        
+                    if reqbody:
+                        events.append( f"Note left of me: {reqbody}" )
+                        
+                events.append( f"{host}-->me: {response['status']}" )
+                
+                addheaders(events,response['headers'],respshowheaders,f"right of {host}" )
+                
+                if response['body']:
+                    if contentshouldbeshown(response):
+                        respbody = sanitise(response['body'], wrap=False)
+                    else:
+                        respbody = sanitise(response['body'], wrap=False, maxlines=5)
+    #                    respbody = "Content type not shown..."
+                   
+                    events.append( f"Note right of {host}: {respbody}" )
+                
+            #  if ACTION: then add a note for it
+            if response['action']:
+                events.append( f"Note over me: {response['action']}" )
 
         j2_template = jinja2.Template(JINJA_TEMPLATE)
         data = {

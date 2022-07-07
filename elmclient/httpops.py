@@ -245,25 +245,29 @@ class HttpOperations_Mixin():
                     pbar.update(int(percent)-donelasttime)
                     donelasttime = int(percent)
                 else:
-                    pbar.update(100-donelasttime)
+                    pbar.update(donelasttime)
                 
-            if percent is None:
-                # check for complete status
-                if rdfxml.xmlrdf_get_resource_uri( response_x, ".//oslc_auto:state[@rdf:resource='http://open-services.net/ns/auto#complete']" ) is not None:
-                    if rdfxml.xmlrdf_get_resource_uri( response_x, ".//oslc_auto:verdict[@rdf:resource='http://open-services.net/ns/auto#error']" ) is not None:
-                        status = rdfxml.xmlrdf_get_resource_text( response_x, ".//oslc:statusCode" ) or "NO STATUS CODE"
-                        message = rdfxml.xmlrdf_get_resource_text( response_x, ".//oslc:message" ) or "NO MESSAGE"
-                        verdict = f"{status} {message}"
-                    break
-            elif percent=="100":
+            # check for "complete" status
+            if rdfxml.xmlrdf_get_resource_uri( response_x, ".//oslc_auto:state[@rdf:resource='http://open-services.net/ns/auto#complete']" ) is not None:
+                if rdfxml.xmlrdf_get_resource_uri( response_x, ".//oslc_auto:verdict[@rdf:resource='http://open-services.net/ns/auto#error']" ) is not None:
+                    status = rdfxml.xmlrdf_get_resource_text( response_x, ".//oslc:statusCode" ) or "NO STATUS CODE"
+                    message = rdfxml.xmlrdf_get_resource_text( response_x, ".//oslc:message" ) or "NO MESSAGE"
+                    verdict = f"{status} {message}"
                 break
             time.sleep( interval )
         if progressbar:
             pbar.close()
-        if percent=="100":
-            return response_x
-        print( f"Returning {verdict=}" )
+        logger.info( f"Returning task tracker {verdict=}" )
         return verdict
+
+    # record an action in the log
+    def record_action( self, action ):
+        # this allows splitting out each request+response when parsing the log
+        logtext = "\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>!\n"
+        logtext += f"\nACTION: {action}\n\n"
+        # this allows splitting out each request+response when parsing the log
+        logtext += "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<!\n"
+        logger.trace(logtext)
 
     ###########################################################################
     # below here is internal implementation
@@ -278,6 +282,7 @@ class HttpOperations_Mixin():
 
     def _get_delete_request(self, reluri='', *, params=None, headers=None ):
         return self._get_request('DELETE', reluri, params=params, headers=headers)
+
 
 class HttpRequest():
     def __init__(self, session, verb, uri, *, params=None, headers=None, data=None):
@@ -308,7 +313,7 @@ class HttpRequest():
         raise Exception('programming error this point should never be reached')
         
     # log a request/response, which may be the result of one or more redirections, so first log each of their request/response
-    def log_redirection_history( self, response, intent, donotlogbody=False ):
+    def log_redirection_history( self, response, intent, action=None, donotlogbody=False ):
         thisintent = intent
         after = ""
         for i,r in enumerate(response.history):
@@ -317,10 +322,10 @@ class HttpRequest():
             logger.trace(f"\nWIRE: redir response ----- {r.status_code}\n\n{self._log_response(r)}")
             thisintent = 'Redirection of '+intent
         logger.trace( f"\nWIRE: request +++++ {response.request.method} {response.request.url}\n\n{self._log_request(response.request,intent=intent+after,donotlogbody=donotlogbody)}")
-        logger.trace(f"\nWIRE: response ----- {response.status_code}\n\n{self._log_response(response)}")
+        logger.trace(f"\nWIRE: response ----- {response.status_code}\n\n{self._log_response(response, action=action)}")
 
     # generate a string for logging of a http request with a stacktrace of the collers and showing URL, headers and any data
-    def _log_request( self, request,donotlogbody=False,intent=None ):
+    def _log_request( self, request, donotlogbody=False, intent=None, action=None ):
         logtext = self._callers()
         # this allows splitting out each request+response when parsing the log
         logtext += "\n\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>!\n"
@@ -365,6 +370,11 @@ class HttpRequest():
             logtext += "\n::::::::::=\n"
             logtext += "\n" + rawtext + "\n\n"
             logtext += "\n----------=\n"
+            
+        # add the subsequent action (e.g. use of the response?)
+        if action is not None:
+            logtext += f"\n\nACTION: {action}\n\n"
+
         return logtext
 
     # generate a compact stacktrace of function-line-file because it's often
@@ -381,7 +391,7 @@ class HttpRequest():
         return callers
 
     # generate a string for logging of a http response showing response code, headers and any data
-    def _log_response( self, response ):
+    def _log_response( self, response, action=None ):
         logtext = f"Response: {response.status_code}\n"
         # use the urllib3 cookiejar so Set-Cookie-s don't get folded into one single unparseable value by Requests
         # see https://github.com/psf/requests/issues/3957
@@ -404,6 +414,11 @@ class HttpRequest():
             logtext += "\n::::::::::@\n"
             logtext += rawtext 
             logtext += "\n----------@\n\n"
+
+        # record the action  taken by the caller using the response
+        if action:
+            logtext += f"\n\nACTION: {action}\n\n"
+        
         # this allows splitting out each request+response when parsing the log
         logtext += "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<!\n"
         return logtext
@@ -425,10 +440,11 @@ class HttpRequest():
     #  1. if the response indicates login is required then login and try the request again
     #  2. if request is rejected for various reasons retry with the CSRF header applied
     # supports Jazz Form authorization and Jazz Authorization Server login
-    def _execute_one_request_with_login( self, *, no_error_log=False, close=False, donotlogbody=False, retry_get_after_login=True, remove_headers=None, remove_parameters=None, intent=None ):
-        if intent is None:
-            raise Exception( "No intent provided!" )
+    def _execute_one_request_with_login( self, *, no_error_log=False, close=False, donotlogbody=False, retry_get_after_login=True, remove_headers=None, remove_parameters=None, intent=None, action = None ):
+#        if intent is None:
+#            raise Exception( "No intent provided!" )
         intent = intent or ""
+        action = action or ""
         retry_after_login_needed = False
         logger.debug( f"{retry_get_after_login=}" )
         request = self._req
@@ -465,7 +481,7 @@ class HttpRequest():
         try:
             prepped = self._session.prepare_request( request )
             response = self._session.send( prepped )
-            self.log_redirection_history( response, intent=intent )
+            self.log_redirection_history( response, intent=intent, action=action )
 
             response.raise_for_status()
 
@@ -555,7 +571,7 @@ class HttpRequest():
                 request.headers.update({'Cache-Control': 'no-cache'})
                 prepped = self._session.prepare_request(request)
                 response = self._session.send(prepped)
-                self.log_redirection_history( response, intent="RETRY AFTER AUTHENTICATION "+intent )
+                self.log_redirection_history( response, intent="RETRY AFTER AUTHENTICATION "+intent, action=action )
                 response.raise_for_status()
             except requests.HTTPError as e:
                 logger.error( f"Exception on retrying request. URL: {request.url}, {e.response.status_code}, {e.response.text}")

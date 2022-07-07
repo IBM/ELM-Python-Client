@@ -94,7 +94,9 @@ class _OSLCOperations_Mixin:
                         , pagesize=200
                      ):
         if searchterms and querystring:
-                raise Exception( "Can't use query and search terms together!" )
+            print( f"{searchterms=}" )
+            print( f"{querystring=}" )
+            raise Exception( "Can't use query and search terms together!" )
         if querystring is None:
             querystring=''
         logger.debug( f"{querystring=}" )
@@ -355,7 +357,7 @@ class _OSLCOperations_Mixin:
     # the whereterms can be created using create_query_operator_string
     # NOTE that prefixes is reversed from what you might expect, i.e. keyed by URL and the value is the prefix!
     # NOTE that whereterms should be a list of lists (the oslc terms) - each of these nested lists is ['attribute',operator',value'] - if more than one and'd term, the first entry must be 'and'!
-    def execute_oslc_query(self, querycapabilityuri, *, whereterms=None, select=None, prefixes=None, orderbys=None, searchterms=None, show_progress=False, verbose=False, maxresults=None, delaybetweenpages=0.0, pagesize=200):
+    def execute_oslc_query(self, querycapabilityuri, *, whereterms=None, select=None, prefixes=None, orderbys=None, searchterms=None, show_progress=False, verbose=False, maxresults=None, delaybetweenpages=0.0, pagesize=200, intent=None):
         if select is None:
             select = []
         prefixes = prefixes or {}
@@ -372,7 +374,7 @@ class _OSLCOperations_Mixin:
             query_params1 = self.hooks[0](query_params)
         else:
              query_params1 = query_params
-        results = self._execute_vanilla_oslc_query(querycapabilityuri,query_params1, select=select, prefixes=prefixes, show_progress=show_progress, verbose=verbose, maxresults=maxresults, delaybetweenpages=delaybetweenpages, pagesize=pagesize)
+        results = self._execute_vanilla_oslc_query(querycapabilityuri,query_params1, select=select, prefixes=prefixes, show_progress=show_progress, verbose=verbose, maxresults=maxresults, delaybetweenpages=delaybetweenpages, pagesize=pagesize, intent=intent)
         return results
 
     # convert whereterms (which is a list of OSLC and terms) into a corresponding oslc.where string
@@ -479,7 +481,7 @@ class _OSLCOperations_Mixin:
     # select is used to build the returned dictionary containing only the selected values
     #
 
-    def _execute_vanilla_oslc_query(self, querycapabilityuri, query_params, orderby=None, searchterms=None, select=None, prefixes=None, show_progress=False, pagesize=200, verbose=False, maxresults=None, delaybetweenpages=0.0):
+    def _execute_vanilla_oslc_query(self, querycapabilityuri, query_params, orderby=None, searchterms=None, select=None, prefixes=None, show_progress=False, pagesize=200, verbose=False, maxresults=None, delaybetweenpages=0.0, intent=None):
         select = select or []
         orderby = orderby or []
         searchterms = searchterms or []
@@ -534,8 +536,13 @@ class _OSLCOperations_Mixin:
         while True:
             logger.debug('OSLC Query URI: ' + query_url)
             page += 1
+            
+            # let the intent from entry be used for first page only, after that number the page being retrieved
+            if page>1:
+                intent = f"Retrieve {utils.nth(page)} page of OSLC query results"
+
             # request this page
-            this_result_xml = self.execute_get_rdf_xml(query_url, params=params, headers=headers, cacheable=False, intent=f"Retrieve {utils.nth(page)} page of OSLC query results")
+            this_result_xml = self.execute_get_rdf_xml(query_url, params=params, headers=headers, cacheable=False, intent=intent)
             queryurls.append(query_url)
             # accumulate the results
             result_xmls.append(this_result_xml)
@@ -611,6 +618,7 @@ class _OSLCOperations_Mixin:
                 break
             if delaybetweenpages>0.0:
                 time.sleep(delaybetweenpages)
+            
                 
         # finished doing the actual query - now process what's been received!
 

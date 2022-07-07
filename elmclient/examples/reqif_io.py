@@ -48,7 +48,7 @@ def reqif_main():
     PASSWORD    = os.environ.get("OUERY_PASSWORD"   ,"ibm" )
     JTS         = os.environ.get("QUERY_JTS"        ,"jts" )
     APPSTRINGS  = os.environ.get("QUERY_APPSTRINGS" ,"rm" )
-    LOGLEVEL    = os.environ.get("QUERY_LOGLEVEL"   ,"ERROR,DEBUG" )
+    LOGLEVEL    = os.environ.get("QUERY_LOGLEVEL"   ,"TRACE,OFF" )
 
     allformats = []
     for app in _app._App.__subclasses__():
@@ -209,7 +209,7 @@ def reqif_main():
         raise Exception( f"App {themaindomain} {themainappstring} doesn't provide a reportable rest API" )
 
     ######################################################
-    # find the project and if using components fiund the component and configuration
+    # find the project and if using components find the component and configuration
     theproj = mainapp.find_project(args.projectname)
 
     if theproj is None:
@@ -296,6 +296,7 @@ def reqif_main():
         # List the reqif definitions
         # get the reqif definition query URL
         defn_query_u = queryon.get_query_capability_uri("dng_reqif:ReqIFDefinition")
+        queryon.record_action( "Use the Reqif query capability" )
         # query for the definitions
         alldefs = queryon.execute_oslc_query( defn_query_u, select=['*'])
         
@@ -326,6 +327,7 @@ def reqif_main():
         # get the reqif definition query URL
         defn_query_u = queryon.get_query_capability_uri("dng_reqif:ReqIFDefinition")
         # query for the definitions
+        queryon.record_action( "Use the Reqif query capability" )
         alldefs = queryon.execute_oslc_query( defn_query_u, select=['*'])
         logger.debug( f"{alldefs=}" )
         # see if specs are specified
@@ -593,6 +595,7 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
                         ,whereterms=[['rdm_types:ArtifactFormat','=',f'<{rdfxml.RDF_DEFAULT_PREFIX["jazz_rm"]}Module>']]
                         ,select=['*']
                         ,prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms',rdfxml.RDF_DEFAULT_PREFIX["rdm_types"]:'rdm_types'}
+                        ,intent="OSLC Query for all modules"
                     )
 
                 logger.debug( f"{len(allmodules)=}" )
@@ -651,7 +654,8 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
                                         if k not in artincs:
                                             artincs.append(k)
                                             continue
-                        raise Exception( f"No modules found for {ref}!" )
+                        if not artincs:
+                            raise Exception( f"No modules found for {ref}!" )
                     # filter for module id/name
                     logger.debug( f"{artincs=}" )
 
@@ -662,6 +666,7 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
 #                        ,whereterms=[['rdm_types:ArtifactFormat','=',f'<{rdfxml.RDF_DEFAULT_PREFIX["jazz_rm"]}Module>']]
                         ,select=['dcterms:identifier', 'rm_nav:parent']
                         ,prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms',rdfxml.RDF_DEFAULT_PREFIX["rm_nav"]:'rm_nav'}
+                        ,intent="Retrieve all core artifacts, including artifacts for modules)"
                     )
                 # post-filter for non-empty identifier and incldue them
                 for k in list(allartifacts.keys()):
@@ -679,6 +684,7 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
                             ,whereterms=[['rdm_types:ArtifactFormat','!=',f'<{rdfxml.RDF_DEFAULT_PREFIX["jazz_rm"]}Module>']]
                             ,select=['dcterms:identifier', 'rm_nav:parent']
                             ,prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms',rdfxml.RDF_DEFAULT_PREFIX["rm_nav"]:'rm_nav'}
+                            ,intent="Retrieve all core artifacts excluding artifacts for modules"
                         )
                 else:
                     # this is specifically core artifacts, by identifier
@@ -693,6 +699,7 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
                             ,whereterms=[['dcterms:identifier' 'in', allids]]
                             ,select=['dcterms:identifier', 'rm_nav:parent']
                             ,prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms',rdfxml.RDF_DEFAULT_PREFIX["rm_nav"]:'rm_nav'}
+                            ,intent="retrieve all core artifacts with identifiers"
                         )
                 # build lookup from id to uri
                 # find artifacts with an id and a aprent - if the id is being sought add to artincs
@@ -747,6 +754,9 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
 
         if args.definitionnames:
             rawmatches = getmatchingdefs(alldefs,args.definitionnames )
+            if not rawmatches[0]:
+                raise Exception( f"Definition {args.definitionnames} not found" )
+                burp
             # merge all the matches so only get reported once
             matches = {}
             for match in rawmatches:
@@ -754,12 +764,15 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
         else:
             raise Exception( "No definition name provided!" )
 
+        if not matches:
+            raise Exception( f"Definitions {args.definitionnames} not found" )
+
         for k in sorted(matches.keys(),key= lambda k: matches[k]['dcterms:title']):
             print( f"Deleting {matches[k]['dcterms:title']}" )
             if not args.noconfirm:
                 # get user to confirm by entering Y or press Q to quit
                 oktodelete=False
-                resp=input("Press y/Y to confirm delete, or q/Q to quit").lower()
+                resp=input("Press y/Y to confirm delete, or q/Q to quit:").lower()
                 if resp.startswith('y'):
                     oktodelete=True
                 elif resp.startswith('q'):

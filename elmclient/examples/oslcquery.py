@@ -302,12 +302,13 @@ def do_oslc_query(inputargs=None):
                         args.component = args.projectname
         # not all apps support components, and even if the app does this project may not be opt-in
         if app.supports_components and not ( themaindomain == "gc" and args.resourcetype == 'Component'):
-            if not p.singlemode and args.component is None:
-                print( f"Warning - project '{args.projectname}' is opt-out, assuming the component has the same name as the project" )
-                args.component = args.projectname
             if not p.singlemode and args.component is None and args.globalconfiguration is None:
-                raise Exception( f"Project {args.projectname} supports components so you must provide a component name or use a global configuration" )
+                # neither GC nor component provided, assume component name is same as project name
+                args.component = args.projectname
+#                print( f"Warning - project '{args.projectname}' is opt-out, assuming the component has the same name as the project" )
+#                raise Exception( f"Project {args.projectname} supports components so you must provide a component name or use a global configuration" )
             if p.singlemode and args.globalconfiguration is None:
+                # opt-out, the "component" name is the same as the project name
                 args.component = args.projectname
             if args.saveconfigs:
                 comps = p.report_components_and_configurations()
@@ -344,7 +345,9 @@ def do_oslc_query(inputargs=None):
             # assert the default configuration for this component if none is specified
             if args.configuration is None and args.globalconfiguration is None:
                 args.configuration = c.initial_stream_name()
-                print( f"Warning - project '{args.projectname}' is opt-in but for component '{args.component}' you didn't specify a local configuration - using default stream '{c.initial_stream_name()}'" )
+                if not p.singlemode:
+                    # only warn that config not provided/assumed to be Initial Stream for an opt-in project
+                    print( f"Warning - project '{args.projectname}' is opt-in but for component '{args.component}' you didn't specify a local configuration - using default stream '{c.initial_stream_name()}'" )
             logger.info( f"{args.configuration=}" )
             if p.is_optin:
                 if ( args.configuration or p.singlemode ) and args.globalconfiguration is None:

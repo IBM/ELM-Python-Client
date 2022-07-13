@@ -130,6 +130,7 @@ def do_tests(inputargs=None):
     # now go down the rows executing the specified test
     npassed = 0
     nfailed = 0
+    failedtests = []
     firstquery = True
     for rep in range(args.reps):
         for n,row in enumerate(rows):
@@ -205,6 +206,7 @@ def do_tests(inputargs=None):
     #                raise
             if (result != 0 and not exceptionexpected) or (result == 0 and exceptionexpected):
                     nfailed += 1
+                    failedtests.append(str(testnumber))
 
                     print( f" TEST {testnumber} FAILED!!!!!!!!!!!!!!!!!!!!!\n" )
                     if args.stoponfail:
@@ -216,6 +218,9 @@ def do_tests(inputargs=None):
 
     if not args.dryrun:
         print( f"\nPassed {npassed} Failed {nfailed}" )
+        if failedtests:
+            faileds = '\n   '+'\n   '.join(failedtests)
+            print( f"Failed tests:{faileds}" ) 
     else:
         print( f"Dry run completed" )
 

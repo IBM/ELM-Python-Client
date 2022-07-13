@@ -302,6 +302,9 @@ def do_oslc_query(inputargs=None):
                         args.component = args.projectname
         # not all apps support components, and even if the app does this project may not be opt-in
         if app.supports_components and not ( themaindomain == "gc" and args.resourcetype == 'Component'):
+            if not p.singlemode and args.component is None:
+                print( f"Warning - project '{args.projectname}' is opt-out, assuming the component has the same name as the project" )
+                args.component = args.projectname
             if not p.singlemode and args.component is None and args.globalconfiguration is None:
                 raise Exception( f"Project {args.projectname} supports components so you must provide a component name or use a global configuration" )
             if p.singlemode and args.globalconfiguration is None:

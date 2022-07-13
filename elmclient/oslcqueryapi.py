@@ -94,8 +94,8 @@ class _OSLCOperations_Mixin:
                         , pagesize=200
                      ):
         if searchterms and querystring:
-            print( f"{searchterms=}" )
-            print( f"{querystring=}" )
+            logger.info( f"{searchterms=}" )
+            logger.info( f"{querystring=}" )
             raise Exception( "Can't use query and search terms together!" )
         if querystring is None:
             querystring=''

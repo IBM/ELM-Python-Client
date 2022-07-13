@@ -37,7 +37,7 @@ CHANGESET = 3
 class _Config():
     configtype = None
     def __init__(self, *ags, **kwargs ):
-        print( f"Config init {self=}" )
+        logger.info( f"Config init {self=}" )
         pass
     def is_stream(self):
         return self.configtype == STREAM

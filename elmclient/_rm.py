@@ -379,7 +379,7 @@ class _RMProject(_project._Project):
         return (ncomps, nconfs)
 
     def get_local_config(self, name_or_uri):
-        print( f"GLC {self=} {name_or_uri=}" )
+        logger.info( f"GLC {self=} {name_or_uri=}" )
         result = None
         filter = None
         if name_or_uri.startswith("S:"):

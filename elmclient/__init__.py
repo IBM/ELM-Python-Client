@@ -17,6 +17,7 @@ from ._gcm import *
 from ._qm import *
 from ._relm import *
 from .__meta__ import *
+from .httpops import *
 
 __app__ = __meta__.app
 __version__ = __meta__.version

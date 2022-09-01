@@ -374,6 +374,7 @@ class _OSLCOperations_Mixin:
             query_params1 = self.hooks[0](query_params)
         else:
              query_params1 = query_params
+
         results = self._execute_vanilla_oslc_query(querycapabilityuri,query_params1, select=select, prefixes=prefixes, show_progress=show_progress, verbose=verbose, maxresults=maxresults, delaybetweenpages=delaybetweenpages, pagesize=pagesize, intent=intent)
         return results
 
@@ -407,7 +408,7 @@ class _OSLCOperations_Mixin:
                 if operator == "scope":
                     # handle nested series of whereterms recursively
                     scopedterm = self._get_query_clauses(value, prefixmap)
-                    clauses.append(f'{tag} {{ {scopedterm} }}')
+                    clauses.append(f'{tag}{{{scopedterm}}}')    # note there are no space chars allowed by the OSLC Query sytax!
                 elif operator == "in":
                     inlist = []
                     for val in value:
@@ -494,6 +495,7 @@ class _OSLCOperations_Mixin:
             query_params['oslc.paging'] = 'true'
             query_params['oslc.pageSize'] = str(pagesize) if maxresults is None or ( pagesize>0 and pagesize<maxresults ) else str(maxresults)
 
+
         logger.debug(f"execute_query {query_params} {select}")
         base_uri = querycapabilityuri
         logger.info( f"The base OSLC Query URL is {base_uri}" )
@@ -507,7 +509,9 @@ class _OSLCOperations_Mixin:
         url_parts[4] = ""
         url_parts[5] = ""
         # reconstruct just the base scheme:hostname
+        # inisists on using + instead of %20!
         query_url = urllib.parse.urlunparse(url_parts)
+        
         logger.info( f"The full OSLC Query URL is {query_url}" )
 
         # in case of paged results, always prepare to collect a list of results
@@ -516,11 +520,11 @@ class _OSLCOperations_Mixin:
         params.update(query)
         logger.info( f"The parameters for this query are {params}" )
 
-        fullurl = f"{query_url}?{urllib.parse.urlencode( params, quote_via=urllib.parse.quote, safe='')}"
+        fullurl = f"{query_url}?{urllib.parse.urlencode( params, quote_via=urllib.parse.quote, safe='/')}"
         if verbose:
             print( f"Full query URL is {fullurl}" )
 #        print( f"Full query URL is {fullurl}" )
-
+#        burp
         # retrieve all pages of results - they will be processed later
         total = 1
         page = 0
@@ -554,7 +558,7 @@ class _OSLCOperations_Mixin:
                 # no more results to get
                 break
 
-            # no parameters should be sent on following pages
+            # no parameters should be sent on following pages, they are present in the href link to next page!
             params = None
 
             # work out the url for the next page

@@ -122,12 +122,12 @@ if __name__=="__main__":
     if response.status_code == 202 and location is not None:
         # wait for the tracker to finished
         result = tgt_c.wait_for_tracker( location, interval=1.0, progressbar=True, msg=f"Importing typesystem")
-                
+        # TODO: success result is now the xml of the verdict       
         # result None is a success!
-        if result is not None:
-            print( f"Result={result}" )
+        if result is not None and type(result) is not string:
+            print( f"Failed Result={result}" )
         else:
-            print( f"Result is None" )
+            print( f"Success! {result=}" )
     else:
         raise Exception( "Typesystem import failed!" )
 

@@ -3,7 +3,6 @@
 # SPDX-License-Identifier: MIT
 ##
 
-
 import codecs
 import html.parser
 import http
@@ -253,6 +252,8 @@ class HttpOperations_Mixin():
                     status = rdfxml.xmlrdf_get_resource_text( response_x, ".//oslc:statusCode" ) or "NO STATUS CODE"
                     message = rdfxml.xmlrdf_get_resource_text( response_x, ".//oslc:message" ) or "NO MESSAGE"
                     verdict = f"{status} {message}"
+                else:
+                    verdict = response_x
                 break
             time.sleep( interval )
         if progressbar:
@@ -286,7 +287,14 @@ class HttpOperations_Mixin():
 
 class HttpRequest():
     def __init__(self, session, verb, uri, *, params=None, headers=None, data=None):
-        self._req = requests.Request( verb,uri, params=params, headers=headers, data=data )
+        # Requests encoding of parameters uses + for space - we need it to use %20!
+        if params:
+            paramstring = f"?{urllib.parse.urlencode( params, quote_via=urllib.parse.quote, safe='/')}"
+        else:
+            paramstring = ""
+
+#        self._req = requests.Request( verb,uri, params=params, headers=headers, data=data )
+        self._req = requests.Request( verb,uri+paramstring, headers=headers, data=data )
         self._session = session
 
     def get_user_password(self, url=None):

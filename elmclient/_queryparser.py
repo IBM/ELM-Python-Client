@@ -515,6 +515,7 @@ class _ParseTreeToOSLCQuery(lark.visitors.Transformer):
 
     def scoped_term(self, s):
         logger.info( f"scoped_term {s=}" )
+        print( f"scoped_term {s=}" )
         return [s[0], "scope", s[1:]]
 
 # from https://tools.oasis-open.org/version-control/svn/oslc-core/trunk/specs/oslc-core.html#selectiveProperties
@@ -526,9 +527,13 @@ property        : dottedname | identifier | wildcard | nested_prop
 dottedname      : NAME "." NAME
 nested_prop     : (identifier | wildcard) "{" properties "}"
 wildcard        : "*"
-identifier      : ( ( URI_REF_ESC | NAME ) ":" )? NAME
+
+identifier     : ( ( URI_REF_ESC | NAME | "'" SPACYNAME "'" ) ":" )? NAME
+                    | "'" SPACYNAME "'"
+
 URI_REF_ESC     : /<https?:.*>/
 NAME            : /[a-zA-Z0-9_]\w*/
+SPACYNAME           : /[a-zA-Z0-9_][^']*/
 """
 
 _orderby_grammar = """

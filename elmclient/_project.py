@@ -170,7 +170,7 @@ class _Project(oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixin
         if headers is not None:
             fullheaders.update(headers)
         sortedparams = None if params is None else {k:params[k] for k in sorted(params.keys())}
-        request = httpops.HttpRequest( self.app.server._session, verb, self.reluri(reluri), params=sortedparams, headers=fullheaders, data=data)
+        request = httpops.HttpRequest( self.app.server._session, verb, self.reluri(reluri), params=sortedparams, headers=fullheaders, data=data )
         return request
 
     @property

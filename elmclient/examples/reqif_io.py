@@ -113,6 +113,8 @@ def reqif_main():
 
     parser_delete.add_argument('definitionnames',nargs='*',default=[],help='One or more names of export definitions to delete - this can be a regex where . matches any character, etc. If you want the regex to match a complete name put ^ at the start and $ at the end')
     parser_delete.add_argument('-n', '--noconfirm', action='store_true', help="Don't prompt to confirm each delete (DANGEROUS!)")
+    parser_delete.add_argument('-x', '--exception', action='store_true', help="Don't raise an exception if definition doesn't exist")
+    
 
     args = parser.parse_args()
 
@@ -398,7 +400,7 @@ def reqif_main():
                 else:
                     raise Exception( "Odd response to export command, no Location" )
 
-                if args.delaybetween>0:
+                if len(matches)>1 and args.delaybetween>0:
                     print( "Delaying between exports" )
                     time.sleep(args.delaybetween)
 
@@ -629,15 +631,19 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
                     reffound = False
                     for ref in allrefs:
                         logger.debug( f"{ref=}" )
+                        print( f"{ref=}" )
                         if utils.isint(ref):
                             # search for an id
                             if ref in ids:
                                 if ids[ref] not in artincs:
                                     artincs.append(ids[ref])
+                                    print( f"Added module {ref}" )
                                     continue
                         else:
-                            # search for regex match
+                            # search for literal name or a regex match
                             if re.match(r'^[a-zA-Z0-9 _]+$', ref ):
+                                # literal match
+                                print( f"nre {ref}" )
                                 logger.debug( f"nre" )
                                 # pure string match
                                 # try regex match
@@ -645,14 +651,17 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
                                     if v.get( 'dcterms:title' ) == ref:
                                         if k not in artincs:
                                             artincs.append(k)
+                                            print( f"Added module {ref}" )
                                             continue
                             else:
                                 logger.debug( f"re" )
+                                print( f"re {ref}" )
                                 # try regex match
                                 for k,v in allmodules.items():
                                     if re.search( ref, v.get( 'dcterms:title' ), re.IGNORECASE ):
                                         if k not in artincs:
                                             artincs.append(k)
+                                            print( f"Added module matching {v.get( 'dcterms:title' )} re {ref}" )
                                             continue
                         if not artincs:
                             raise Exception( f"No modules found for {ref}!" )
@@ -755,8 +764,10 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
         if args.definitionnames:
             rawmatches = getmatchingdefs(alldefs,args.definitionnames )
             if not rawmatches[0]:
-                raise Exception( f"Definition {args.definitionnames} not found" )
-                burp
+                if not args.exception:
+                    raise Exception( f"Definition {args.definitionnames} not found" )
+                print( f"No definitions matching {args.definitionnames} found - exception suppressed so this isn't a failure" )
+                return
             # merge all the matches so only get reported once
             matches = {}
             for match in rawmatches:
@@ -765,7 +776,10 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
             raise Exception( "No definition name provided!" )
 
         if not matches:
-            raise Exception( f"Definitions {args.definitionnames} not found" )
+            if not args.exception:
+                raise Exception( f"Definitions {args.definitionnames} not found" )
+            print( f"No definitions matching {args.definitionnames} found - exception suppressed so this isn't a failure" )
+            return
 
         for k in sorted(matches.keys(),key= lambda k: matches[k]['dcterms:title']):
             print( f"Deleting {matches[k]['dcterms:title']}" )

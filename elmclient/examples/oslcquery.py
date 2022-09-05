@@ -81,12 +81,15 @@ def do_oslc_query(inputargs=None):
     parser.add_argument('-F', '--configuration', default=None, help='The local configuration')
     parser.add_argument('-G', '--globalconfiguration', default=None, help='The global configuration (you must not specify local config as well!) - you can specify the id, the full URI, or the config name (not implemented yet)')
     parser.add_argument('-H', '--saveconfigs', default=None, help='Name of CSV file to save details of the local project components and configurations')
+    parser.add_argument('-I', '--totalize', action="store_true", help="For any column with multiple results, put in the total instead of the results")
     parser.add_argument("-J", "--jazzurl", default=JAZZURL, help=f"jazz server url (without the /jts!) default {JAZZURL} - Default can be set using environemnt variable QUERY_JAZZURL - defaults to https://jazz.ibm.com:9443 which DOESN'T EXIST")
     parser.add_argument('-L', '--loglevel', default=None,help=f'Set logging to file and (by adding a "," and a second level) to console to one of DEBUG, TRACE, INFO, WARNING, ERROR, CRITICAL, OFF - default is {LOGLEVEL} - can be set by environment variable QUERY_LOGLEVEL')
     parser.add_argument('-M', '--maxresults', default=None, type=int, help='Max number of results to retrieve a pagesize at a time, then the query is terminated. default is no limit')
     parser.add_argument('-N', '--noprogressbar', action="store_false", help="Don't show progress bar during query")
     parser.add_argument('-O', '--outputfile', default=None, help='Name of file to save the CSV to')
     parser.add_argument("-P", "--password", default=PASSWORD, help=f"user password, default {PASSWORD} - Default can be set using environment variable QUERY_PASSWORD - set to PROMPT to be asked for password at runtime")
+    parser.add_argument('-Q', '--resolvenames', action="store_false", help="toggle name resolving off (default on) - can greatly speed up postprocessing but you'll get URIs rather than names")
+    parser.add_argument('-R', '--nodefaultselects', action="store_true", help="Suppress adding default select like for rm rm_nav:folder and dcterms:identifier - can speed up postprocessing because e.g. no need to look up folder name")
     parser.add_argument('-S', '--sort', action="store_false", help="Don't sort results by increasing dcterms:identifier, as is done by default - specifying -o (orderby) disables automatic sorting by dcterms:identifier")
     parser.add_argument('-T', '--certs', action="store_true", help="Verify SSL certificates")
     parser.add_argument("-U", "--username", default=USER, help=f"user id, default {USER} - Default can be set using environment variable QUERY_USER")
@@ -290,7 +293,7 @@ def do_oslc_query(inputargs=None):
         p = app.find_project(args.projectname)
         if p is None:
             raise Exception( f"Project '{args.projectname}' not found")
-
+        
         # assert default for the component name to be the same as the project name
         # this might need to be done more intelligently, to handle e.g. when the default component has been archived
         # for GC the query might be to find a component, so don't override if a component hasn't been specified!
@@ -369,6 +372,7 @@ def do_oslc_query(inputargs=None):
             else:
                 queryon=p
             queryon.set_local_config(config,gcconfiguri)
+
             logger.debug( f"setting {config=} {gcconfiguri=}" )
             # we're querying the component
         else:
@@ -394,7 +398,8 @@ def do_oslc_query(inputargs=None):
         # ensure some important attributes are always in the output
         # ensure that identifier and parent are always in the results
         if themaindomain == 'rm':
-            args.select = ensure_select(args.select,[app.identifier_uri,'rm_nav:parent'])
+            if args.nodefaultselects:
+                args.select = ensure_select(args.select,[app.identifier_uri,'rm_nav:parent'])
         elif themaindomain == 'ccm':
             args.select = ensure_select(args.select,[app.identifier_uri])
         elif themaindomain == 'gc' or themaindomain == 'qm':
@@ -410,7 +415,8 @@ def do_oslc_query(inputargs=None):
             raise Exception( f"The {app.domain} application does not support application-level OSLC Queries - perhaps you meant to provide a project name using -p" )
 
     #ensure type system is loaded
-    queryon.load_types()
+    if args.resolvenames:
+        queryon.load_types()
 
     if args.typesystemreport:
         # ensure output folder exists
@@ -448,6 +454,8 @@ def do_oslc_query(inputargs=None):
                     ,maxresults=args.maxresults
                     ,delaybetweenpages=args.delaybetweenpages
                     ,pagesize=args.pagesize
+                    ,resolvenames = args.resolvenames
+                    ,totalize=args.totalize
                     )
 
     if args.debugprint:

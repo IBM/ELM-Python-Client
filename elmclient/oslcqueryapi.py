@@ -92,6 +92,8 @@ class _OSLCOperations_Mixin:
                         ,isnotnulls=None, enhanced=True, show_progress=True
                         ,show_info=False, verbose=False, maxresults=None, delaybetweenpages=0.0
                         , pagesize=200
+                        ,resolvenames=True
+                        ,totalize=False
                      ):
         if searchterms and querystring:
             logger.info( f"{searchterms=}" )
@@ -187,11 +189,17 @@ class _OSLCOperations_Mixin:
                 logger.info( f"{kattr=} {vattr=}" )
                 # first try to convert the value to a name
                 if isinstance(vattr, list):
-                    remappedvalue = []
-                    for lv in vattr:
-                        remappedvalue.append(self.resolve_uri_to_name(lv))
+                    if totalize:
+                        remappedvalue = len(vattr)
+                    else:
+                        remappedvalue = []
+                        for lv in vattr:
+                            if resolvenames:
+                                remappedvalue.append(self.resolve_uri_to_name(lv))
+                            else:
+                                remappedvalue.append(lv)
                 else:
-                    remappedvalue = self.resolve_uri_to_name(vattr)
+                    remappedvalue = self.resolve_uri_to_name(vattr) if resolvenames else vattr
                 # then check the attribute itself for one of the mappings we created while parsing the querystring to turn it into an oslc query
                 if kattr in uri_to_name_mapping:
                     # this name was locally mapped
@@ -199,7 +207,7 @@ class _OSLCOperations_Mixin:
                 else:
                     # try to map back to a name
                     if kattr not in remappednames:
-                        remappedname = self.resolve_uri_to_name(kattr)
+                        remappedname = self.resolve_uri_to_name(kattr) if resolvenames else kattr
                         remappednames[kattr] = remappedname
                     if remappednames[kattr] is not None:
                         v1[remappednames[kattr]] = remappedvalue

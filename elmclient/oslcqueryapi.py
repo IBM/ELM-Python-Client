@@ -180,7 +180,7 @@ class _OSLCOperations_Mixin:
         if show_progress:
             total = len(originalresults.items())
             pbar = tqdm.tqdm(initial=0, total=total,smoothing=1,unit=" results",desc="Processing       ")
-
+        totalizecolumns = []
         # convert uris to human-friendly names
         for kuri, v in originalresults.items():
             logger.info( f"post-processing result {kuri} {v}" )
@@ -189,15 +189,15 @@ class _OSLCOperations_Mixin:
                 logger.info( f"{kattr=} {vattr=}" )
                 # first try to convert the value to a name
                 if isinstance(vattr, list):
-                    if totalize:
-                        remappedvalue = len(vattr)
-                    else:
-                        remappedvalue = []
-                        for lv in vattr:
-                            if resolvenames:
-                                remappedvalue.append(self.resolve_uri_to_name(lv))
-                            else:
-                                remappedvalue.append(lv)
+                    if totalize and kattr not in totalizecolumns:
+                        totalizecolumns.append(kattr)
+                        print( f"Going to totalize {kattr}" )
+                    remappedvalue = []
+                    for lv in vattr:
+                        if resolvenames:
+                            remappedvalue.append(self.resolve_uri_to_name(lv))
+                        else:
+                            remappedvalue.append(lv)
                 else:
                     remappedvalue = self.resolve_uri_to_name(vattr) if resolvenames else vattr
                 # then check the attribute itself for one of the mappings we created while parsing the querystring to turn it into an oslc query
@@ -209,6 +209,13 @@ class _OSLCOperations_Mixin:
                     if kattr not in remappednames:
                         remappedname = self.resolve_uri_to_name(kattr) if resolvenames else kattr
                         remappednames[kattr] = remappedname
+                        
+                        if kattr in totalizecolumns:
+                            print( f"Totalizer replacing katter {kattr} with {remappedname}" )
+                            # remove the old name, add the new name
+                            totalizecolumns.remove(kattr)
+                            totalizecolumns.append(remappedname)
+                        
                     if remappednames[kattr] is not None:
                         v1[remappednames[kattr]] = remappedvalue
                     else:
@@ -218,12 +225,29 @@ class _OSLCOperations_Mixin:
 
             if show_progress:
                 pbar.update(1)
-
+                
         # if showing progress and pbar has been created (after the first set of results if paged)
         if show_progress and pbar is not None:
             # close off the progress bar
             pbar.close()
             print( "Processing completed" )
+            
+        # fixup the totalized columns to ensure all entries are lengths even if empty or one (non-list) entry
+        if totalize:
+            for k,v in mappedresult.items():
+                for tot in totalizecolumns:
+                    print( f"Totalizing {tot=}" )
+                    vattr = v.get(tot)
+                    if not vattr:
+                        newv = 0
+                        print( f"Replacing {vattr} with 0" )
+                    elif isinstance(vattr, list):
+                        newv = len(vattr)
+                        print( f"Replacing list {len(vattr)} with {newv=}" )
+                    else:
+                        newv = 1
+                        print( f"Replacing {vattr} with {newv=}" )
+                    v[tot]=newv
 
         if isnulls or isnotnulls:
             logger.debug( f"{isnulls=} {isnotnulls=}" )

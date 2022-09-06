@@ -65,103 +65,128 @@ Two commands are installed with `elmclient`: `oslcquery` and `batchquery`, put i
 Usage
 =====
 
-NOTE if you can't get a query to work check the 'When things go wrong' chapter below
+NOTE if you can't get a query to work check the 'When things go wrong' section below
 
 To get all the usage options use `-h` or `--help`:
 
 ```
-usage: oslcquery [-h] [-f SEARCHTERMS] [-n NULL] [-o ORDERBY] [-p PROJECTNAME] [-q QUERY] [-r RESOURCETYPE] [-s SELECT] [-u] [-v VALUE] [-A APPSTRINGS] [-C COMPONENT]
-                 [-D DELAYBETWEENPAGES] [-E GLOBALPROJECT] [-F CONFIGURATION] [-G GLOBALCONFIGURATION] [-H SAVECONFIGS] [-J JAZZURL] [-L LOGLEVEL] [-M MAXRESULTS] [-N]
-                 [-O OUTPUTFILE] [-P PASSWORD] [-S] [-T] [-U USERNAME] [-V] [-W] [-X XMLOUTPUTFILE] [-Y] [-Z PROXYPORT] [--nresults NRESULTS]
-                 [--compareresults COMPARERESULTS] [--pagesize PAGESIZE] [--typesystemreport TYPESYSTEMREPORT] [--cachedays CACHEDAYS] [-0 SAVECREDS] [-1 READCREDS]
-                 [-2 ERASECREDS] [-3 SECRET] [-4]
+usage: oslcquery [-h] [-f SEARCHTERMS] [-n NULL] [-o ORDERBY] [-p PROJECTNAME] [-q QUERY] [-r RESOURCETYPE]
+                 [-s SELECT] [-u] [-v VALUE] [-A APPSTRINGS] [-C COMPONENT] [-D DELAYBETWEENPAGES] [-E GLOBALPROJECT]
+                 [-F CONFIGURATION] [-G GLOBALCONFIGURATION] [-H SAVECONFIGS] [-I] [-J JAZZURL] [-L LOGLEVEL]
+                 [-M MAXRESULTS] [-N] [-O OUTPUTFILE] [-P PASSWORD] [-Q] [-R] [-S] [-T] [-U USERNAME] [-V] [-W]
+                 [-X XMLOUTPUTFILE] [-Y] [-Z PROXYPORT] [--nresults NRESULTS] [--compareresults COMPARERESULTS]
+                 [--pagesize PAGESIZE] [--typesystemreport TYPESYSTEMREPORT] [--cachedays CACHEDAYS] [-0 SAVECREDS]
+                 [-1 READCREDS] [-2 ERASECREDS] [-3 SECRET] [-4]
 
-Perform OSLC query on a Jazz application, with results output to CSV (and other) formats - use -h to get some basic help
+Perform OSLC query on a Jazz application, with results output to CSV (and other) formats - use -h to get some basic
+help
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   -f SEARCHTERMS, --searchterms SEARCHTERMS
                         **APPS MAY NOT FULLY SUPPORT THIS** A word or phrase to search, returning ranked results"
-  -n NULL, --null NULL  Post-filter: A property that must be null (empty) for the resource to be included in the results - you can specify this option more than once
+  -n NULL, --null NULL  Post-filter: A property that must be null (empty) for the resource to be included in the
+                        results - you can specify this option more than once
   -o ORDERBY, --orderby ORDERBY
-                        **APPS MAY NOT FULLY SUPPORT THIS** A comma-separated list of properties to sort by - prefix with "+" for ascending, "-" for descending- if
-                        -f/--searchterms is specified this orders items with the same oslc:score - to speciy a leading -, use = e.g. -o=-dcterms:title
+                        **APPS MAY NOT FULLY SUPPORT THIS** A comma-separated list of properties to sort by - prefix
+                        with "+" for ascending, "-" for descending- if -f/--searchterms is specified this orders items
+                        with the same oslc:score - to speciy a leading -, use = e.g. -o=-dcterms:title
   -p PROJECTNAME, --projectname PROJECTNAME
                         Name of the project - omit to run a query on the application
   -q QUERY, --query QUERY
                         Enhanced OSLC query (defaults to empty string which returns all resources)
   -r RESOURCETYPE, --resourcetype RESOURCETYPE
-                        The app-specific type being searched, e.g. Requirement for RM, Configuration for GC - this can be the full URI from the query capability resource
-                        type,, a prefixed uri, or the unqiue last part of the query URL - also used for resolving ambiguous attribute names in -q/-s/-v/-n
+                        The app-specific type being searched, e.g. Requirement for RM, Configuration for GC - this can
+                        be the full URI from the query capability resource type,, a prefixed uri, or the unqiue last
+                        part of the query URL - also used for resolving ambiguous attribute names in -q/-s/-v/-n
   -s SELECT, --select SELECT
-                        A comma-separate list of properties that should be included in the results - NOTE the app may include additional properties, and may not include
-                        the requested properties
-  -u, --unique          Post-filter: Remove results with an rm_nav:parent value which are not-unique in the results on dcterms:identifier - this keeps module artifacts
-                        (which don't have rm_nav:parent) and artifacts for modules (which don't have a module artifact)) - RELEVANT ONLY FOR DOORS Next!
+                        A comma-separate list of properties that should be included in the results - NOTE the app may
+                        include additional properties, and may not include the requested properties
+  -u, --unique          Post-filter: Remove results with an rm_nav:parent value which are not-unique in the results on
+                        dcterms:identifier - this keeps module artifacts (which don't have rm_nav:parent) and
+                        artifacts for modules (which don't have a module artifact)) - RELEVANT ONLY FOR DOORS Next!
   -v VALUE, --value VALUE
-                        Post-filter: A property name that must have a value for the resource to be included in the results - you can specify this option more than once
+                        Post-filter: A property name that must have a value for the resource to be included in the
+                        results - you can specify this option more than once
   -A APPSTRINGS, --appstrings APPSTRINGS
-                        A comma-seperated list of apps, the query goes to the first entry, default "rm". Each entry must be a domain or domain:contextroot e.g. rm
-                        or rm:rm1 - Default can be overridden using environemnt variable QUERY_APPSTRINGS
+                        A comma-seperated list of apps, the query goes to the first entry, default "rm,gc,ccm". Each
+                        entry must be a domain or domain:contextroot e.g. rm or rm:rm1 - Default can be set using
+                        environemnt variable QUERY_APPSTRINGS
   -C COMPONENT, --component COMPONENT
                         The local component (optional, you *have* to specify the local configuration using -F)
   -D DELAYBETWEENPAGES, --delaybetweenpages DELAYBETWEENPAGES
-                        Delay in seconds between each page of results - use this to reduce overall server load particularly for large result sets or when retrieving many
-                        properties
+                        Delay in seconds between each page of results - use this to reduce overall server load
+                        particularly for large result sets or when retrieving many properties
   -E GLOBALPROJECT, --globalproject GLOBALPROJECT
                         The global configuration project - needed if the globalconfiguration isn't unique
   -F CONFIGURATION, --configuration CONFIGURATION
                         The local configuration
   -G GLOBALCONFIGURATION, --globalconfiguration GLOBALCONFIGURATION
-                        The global configuration (you must not specify local config as well!) - you can specify the id, the full URI, or the config name (not implemented
-                        yet)
+                        The global configuration (you must not specify local config as well!) - you can specify the
+                        id, the full URI, or the config name (not implemented yet)
   -H SAVECONFIGS, --saveconfigs SAVECONFIGS
                         Name of CSV file to save details of the local project components and configurations
+  -I, --totalize        For all columns with multiple results, put in the total instead of the results
   -J JAZZURL, --jazzurl JAZZURL
-                        jazz server url (without the /jts!) default https://jazz.ibm.com:9443 - Default can be set using environemnt variable QUERY_JAZZURL - defaults to
-                        https://jazz.ibm.com:9443 which DOESN'T EXIST
+                        jazz server url (without the /jts!) default https://jazz.ibm.com:9443 - Default can be set
+                        using environemnt variable QUERY_JAZZURL - defaults to https://jazz.ibm.com:9443 which DOESN'T
+                        EXIST
   -L LOGLEVEL, --loglevel LOGLEVEL
-                        Set logging on console and (if providing a , and a second level) to file to one of DEBUG, INFO, WARNING, ERROR, CRITICAL, OFF - default is None -
-                        can be set by environment variable QUERY_LOGLEVEL
+                        Set logging to file and (by adding a "," and a second level) to console to one of DEBUG,
+                        TRACE, INFO, WARNING, ERROR, CRITICAL, OFF - default is None - can be set by environment
+                        variable QUERY_LOGLEVEL
   -M MAXRESULTS, --maxresults MAXRESULTS
-                        Max number of results to retrieve a pagesize at a time, then the query is terminated. default is no limit
+                        Max number of results to retrieve a pagesize at a time, then the query is terminated. default
+                        is no limit
   -N, --noprogressbar   Don't show progress bar during query
   -O OUTPUTFILE, --outputfile OUTPUTFILE
                         Name of file to save the CSV to
   -P PASSWORD, --password PASSWORD
-                        user password, default ibm - Default can be set using environment variable QUERY_PASSWORD - set to PROMPT to be asked for password at runtime
-  -S, --sort            Don't sort results by increasing dcterms:identifier, as is done by default - specifying -o (orderby) disables automatic sorting by
-                        dcterms:identifier
+                        user password, default ibm - Default can be set using environment variable QUERY_PASSWORD -
+                        set to PROMPT to be asked for password at runtime
+  -Q, --resolvenames    toggle name resolving off (default on) - can greatly speed up postprocessing but you'll get
+                        URIs rather than names
+  -R, --nodefaultselects
+                        Suppress adding default select like for rm rm_nav:folder and dcterms:identifier - can speed up
+                        postprocessing because e.g. no need to look up folder name
+  -S, --sort            Don't sort results by increasing dcterms:identifier, as is done by default - specifying -o
+                        (orderby) disables automatic sorting by dcterms:identifier
   -T, --certs           Verify SSL certificates
   -U USERNAME, --username USERNAME
                         user id, default ibm - Default can be set using environment variable QUERY_USER
   -V, --verbose         Show verbose info
-  -W, --cachecontrol    Used once -W erases cache then continues with caching enabled. Used twice -WW wipes cache and disables caching. Otherwise caching is continued
-                        from previous run(s).
+  -W, --cachecontrol    Used once -W erases cache then continues with caching enabled. Used twice -WW wipes cache and
+                        disables caching. Otherwise caching is continued from previous run(s).
   -X XMLOUTPUTFILE, --xmloutputfile XMLOUTPUTFILE
-                        For each query result, GET the artifact and save to file with this base name plus the identifier (if present) - PROBABLY RELEVANT ONLY TO RM!
+                        For each query result, GET the artifact and save to file with this base name plus the
+                        identifier (if present) - PROBABLY RELEVANT ONLY TO RM!
   -Y, --debugprint      Print the raw results
   -Z PROXYPORT, --proxyport PROXYPORT
                         Port for proxy default is 8888 - used if found to be active - set to 0 to disable
-  --nresults NRESULTS   Number of results expected - used for regression testing - use `--nresults -1` to disable checking
+  --nresults NRESULTS   Number of results expected - used for regression testing - use `--nresults -1` to disable
+                        checking
   --compareresults COMPARERESULTS
                         TESTING UNFINISHED: saved CSV file to compare results with
   --pagesize PAGESIZE   Page size for OSLC query (default 200)
   --typesystemreport TYPESYSTEMREPORT
-                        Load the specified project/configuration and then produce a simple HTML type system report of resource shapes/properties/enumerations to this
-                        file
+                        Load the specified project/configuration and then produce a simple HTML type system report of
+                        resource shapes/properties/enumerations to this file
   --cachedays CACHEDAYS
-                        The number of days for caching received data, default 1. To disable caching use -WW. To keep using a non-default cache period you must specify
-                        this value every time
+                        The number of days for caching received data, default 1. To disable caching use -WW. To keep
+                        using a non-default cache period you must specify this value every time
   -0 SAVECREDS, --savecreds SAVECREDS
-                        Save obfuscated credentials file for use with readcreds, then exit - this stores jazzurl, jts, appstring, username and password
+                        Save obfuscated credentials file for use with readcreds, then exit - this stores jazzurl, jts,
+                        appstring, username and password
   -1 READCREDS, --readcreds READCREDS
-                        Read obfuscated credentials from file - completely overrides commandline/environment values for jazzurl, jts, appstring, username and password
+                        Read obfuscated credentials from file - completely overrides commandline/environment values
+                        for jazzurl, jts, appstring, username and password
   -2 ERASECREDS, --erasecreds ERASECREDS
                         Wipe and delete obfuscated credentials file
   -3 SECRET, --secret SECRET
-                        SECRET used to encrypt and decrypt the obfuscated credentials (make this longer for greater security) - required if using -0 or -1
-  -4, --credspassword   Prompt user for a password to save/read obfuscated credentials (make this longer for greater security)
+                        SECRET used to encrypt and decrypt the obfuscated credentials (make this longer for greater
+                        security) - required if using -0 or -1
+  -4, --credspassword   Prompt user for a password to save/read obfuscated credentials (make this longer for greater
+                        security)
 ```
 
 
@@ -430,6 +455,7 @@ To find all artifacts in project/component in a specific module id 3892 modified
 
 To find all artifacts in project/component in a specific module id 3892 modified before a specific date `-q rm:module=~3892 and dcterms:modified<"2020-08-01T21:51:40.979Z"^^xsd:dateTime` - NOTE this is using the enhanced OSLC Query sytnax for finding an artifact by id using ~
 
+To totalize a column which has multiple results replacing them with a count of the number of results, which might be useful for example to get a count of artifacts in each module, use a query for modules `rdm_types:ArtifactFormat=jazz_rm:Module` and select `oslc_rm:uses` then use the -I option. Because this doesn't need name resolution which can slow the query and post-processing down when processing many modules, also use -R and -Q - for results from components across a GC `/gc/configuration/26` in GCM project `gcproj` the query looks like: `-s oslc_rm:uses,dcterms:title -q rdm_types:ArtifactFormat=jazz_rm:Module -G 26 -E gcproj` - the result is a spreadsheet containing the module URI, the module name and identifier and a column with the count of artifacts in the module.
 
 GCM basic usage
 ===============

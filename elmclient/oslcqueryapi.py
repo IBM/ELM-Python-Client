@@ -180,7 +180,7 @@ class _OSLCOperations_Mixin:
         if show_progress:
             total = len(originalresults.items())
             pbar = tqdm.tqdm(initial=0, total=total,smoothing=1,unit=" results",desc="Processing       ")
-        totalizecolumns = []
+        listcolumns = []
         # convert uris to human-friendly names
         for kuri, v in originalresults.items():
             logger.info( f"post-processing result {kuri} {v}" )
@@ -189,9 +189,10 @@ class _OSLCOperations_Mixin:
                 logger.info( f"{kattr=} {vattr=}" )
                 # first try to convert the value to a name
                 if isinstance(vattr, list):
-                    if totalize and kattr not in totalizecolumns:
-                        totalizecolumns.append(kattr)
-                        print( f"Going to totalize {kattr}" )
+                    # detect list column
+                    if kattr not in listcolumns:
+                        # remember this column needs to be a list for all rows
+                        listcolumns.append(kattr)
                     remappedvalue = []
                     for lv in vattr:
                         if resolvenames:
@@ -204,17 +205,23 @@ class _OSLCOperations_Mixin:
                 if kattr in uri_to_name_mapping:
                     # this name was locally mapped
                     v1[uri_to_name_mapping[kattr]] = remappedvalue
+                    # if a list column has been renamed, ensure the rename is recorded for later updates to listcolumns
+                    if kattr in listcolumns:
+#                            print( f"Totalizer replacing katter {kattr} with {remappedname}" )
+                        # remove the old name, add the new name
+                        listcolumns.remove(kattr)
+                        listcolumns.append(uri_to_name_mapping[kattr])
                 else:
                     # try to map back to a name
                     if kattr not in remappednames:
                         remappedname = self.resolve_uri_to_name(kattr) if resolvenames else kattr
                         remappednames[kattr] = remappedname
-                        
-                        if kattr in totalizecolumns:
-                            print( f"Totalizer replacing katter {kattr} with {remappedname}" )
+                        # if a list column has been renamed, ensure the rename is recorded for later updates to listcolumns
+                        if kattr in listcolumns:
+#                            print( f"Totalizer replacing katter {kattr} with {remappedname}" )
                             # remove the old name, add the new name
-                            totalizecolumns.remove(kattr)
-                            totalizecolumns.append(remappedname)
+                            listcolumns.remove(kattr)
+                            listcolumns.append(remappedname)
                         
                     if remappednames[kattr] is not None:
                         v1[remappednames[kattr]] = remappedvalue
@@ -232,22 +239,20 @@ class _OSLCOperations_Mixin:
             pbar.close()
             print( "Processing completed" )
             
-        # fixup the totalized columns to ensure all entries are lengths even if empty or one (non-list) entry
-        if totalize:
-            for k,v in mappedresult.items():
-                for tot in totalizecolumns:
-                    print( f"Totalizing {tot=}" )
-                    vattr = v.get(tot)
-                    if not vattr:
-                        newv = 0
-                        print( f"Replacing {vattr} with 0" )
-                    elif isinstance(vattr, list):
-                        newv = len(vattr)
-                        print( f"Replacing list {len(vattr)} with {newv=}" )
-                    else:
-                        newv = 1
-                        print( f"Replacing {vattr} with {newv=}" )
-                    v[tot]=newv
+        # fixup the list columns to ensure all rows are lists even if column is empty or a single (non-list) entry
+        # and if totalize then convert to length of the list
+        for k,v in mappedresult.items():
+            for tot in listcolumns:
+                vattr = v.get(tot)
+                if not vattr:
+                    # nothing in the column, convert to empty list
+                    newv = []
+                elif not isinstance(vattr, list):
+                    # this must be a single entry - convert to a list
+                    newv = [vattr]
+                else:
+                    newv = vattr
+                v[tot]=len(newv) if totalize else newv
 
         if isnulls or isnotnulls:
             logger.debug( f"{isnulls=} {isnotnulls=}" )

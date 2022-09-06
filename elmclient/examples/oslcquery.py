@@ -398,7 +398,7 @@ def do_oslc_query(inputargs=None):
         # ensure some important attributes are always in the output
         # ensure that identifier and parent are always in the results
         if themaindomain == 'rm':
-            if args.nodefaultselects:
+            if not args.nodefaultselects:
                 args.select = ensure_select(args.select,[app.identifier_uri,'rm_nav:parent'])
         elif themaindomain == 'ccm':
             args.select = ensure_select(args.select,[app.identifier_uri])

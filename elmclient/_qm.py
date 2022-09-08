@@ -50,31 +50,8 @@ class _QMProject(_project._Project):
         nconfs = 0
         # retrieve components and configurations for this project
         if not self.is_optin:
-            logger.debug( f"{self.is_optin=}" )
-            # get the default configuration
-            projx = self.execute_get_xml( self.reluri( 'rm-projects/' + self.iid ), intent="Retrieve the project definition (opt-out)" )
-            compsu = rdfxml.xmlrdf_get_resource_text( projx, './/jp06:components' )
-            compsx = self.execute_get_xml(compsu, intent="Retrieve the component definition (opt-out)" )
-            defaultcompu = rdfxml.xmlrdf_get_resource_uri( compsx, './/oslc_config:component' )
-            
-            # register the only component
-            ncomps += 1
-            self._components[defaultcompu] = {'name': self.name, 'configurations': {}}
-            thisconfu = defaultcompu+"/configurations"
-            configs = self.execute_get_json( thisconfu, intent="Retrieve all configurations (opt-out)" )
-            configdetails = configs[defaultcompu+"/configurations"]
-            if type(configs[thisconfu]["http://www.w3.org/2000/01/rdf-schema#member"])==dict:
-                confs = [configs[thisconfu]["http://www.w3.org/2000/01/rdf-schema#member"]]
-            else:
-                confs = configs[thisconfu]["http://www.w3.org/2000/01/rdf-schema#member"]
-            for aconf in confs:
-                confu = aconf['value']
-                confx = self.execute_get_xml( confu, intent="Retrieve configuration definition (opt-out)" )
-                conftitle = rdfxml.xmlrdf_get_resource_text(confx,'.//dcterms:title')
-                conftype = 'Stream' if 'stream' in confu else 'Baseline'
-                self._components[defaultcompu]['configurations'][confu] = {'name': conftitle, 'conftype': conftype, 'confXml': confx}
-                self._configurations[defaultcompu] = self._components[defaultcompu]['configurations'][confu]
-                nconfs += 1
+            # for QM, no configs to load!
+            return
         elif self.singlemode:
             logger.debug( f"{self.singlemode=}" )
             #get the single component from a QueryCapability
@@ -123,9 +100,11 @@ class _QMProject(_project._Project):
 
             components_uri = rdfxml.xmlrdf_get_resource_uri(cmsp_xml, './/rdf:Description/rdf:type[@rdf:resource="http://open-services.net/ns/core#QueryCapability"]/../oslc:resourceType[@rdf:resource="http://open-services.net/ns/config#Component"]/../oslc:queryBase')
             logger.info( f"{components_uri=}" )
+            print( f"{components_uri=}" )
             # get all components
             crx = self.execute_get_xml( components_uri, intent="Retrieve component definition" )
-
+            logger.info( f"{crx=}" )
+            print( f"{crx=}" )
 #      <oslc_config:Component rdf:about="https://jazz.ibm.com:9443/qm/oslc_config/resources/com.ibm.team.vvc.Component/_iw4s4EB3Eeus6Zk4qsm_Cw">
 #        <dcterms:title rdf:parseType="Literal">SGC Agile</dcterms:title>
 #        <oslc:instanceShape rdf:resource="https://jazz.ibm.com:9443/qm/oslc_config/resourceShapes/com.ibm.team.vvc.Component"/>
@@ -226,11 +205,14 @@ class _QMProject(_project._Project):
         return results
 
     def find_local_component(self, name_or_uri):
-        self.load_components_and_configurations()
-        for compuri, compdetail in self._components.items():
-            logger.info( f"Checking {name_or_uri} {compdetail}" )
-            if compuri == name_or_uri or compdetail['name'] == name_or_uri:
-                return compdetail['component']
+        if self.is_optin:
+            self.load_components_and_configurations()
+            for compuri, compdetail in self._components.items():
+                logger.info( f"Checking {name_or_uri} {compdetail}" )
+                if compuri == name_or_uri or compdetail['name'] == name_or_uri:
+                    return compdetail['component']
+        else:
+            return self
         return None
 
     def _create_component_api(self, component_prj_url, component_name):

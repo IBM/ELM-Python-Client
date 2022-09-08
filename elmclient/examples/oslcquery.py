@@ -511,25 +511,44 @@ def do_oslc_query(inputargs=None):
 
     print( f"Query result has {len(results.keys())} {resultsentries}" )
 
-    # THIS IS UNTESTED!
+    # COMPARE IS UNTESTED!
     if args.outputfile or args.compareresults:
         # write to CSV and/or compare with CSV
+        # FIRST merge columns with same name - this merges types across components based on name
+        # which is only need for queries in a GC. NOTE this doesn't attempt to use RDF URIs which it probably should :-o
+        # but having different (as in totally different) types with same name is not exactly human-friendly!
         # build a list of all properties - these will be column headings for the CSV
         headings = []
+        rawheadings = [] # this is used so headings are only resolved once - the raw headings are remembered in this list
+        actualheadings = {}
         for k, v in list(results.items()):
             # add the URI to the value so it will be exported (first char is $ so the uri will always be in first column after the column titles are sorted)
             v["$uri"] = k
             for sk in list(v.keys()):
-                sk1 = queryon.resolve_uri_to_name(sk)
-                if sk1 is not None:
-                    logger.debug(f"renaming {sk=} {sk1=}" )
-                    existing = v[sk]
-                    del v[sk]
-                    v[sk1] = existing
+                sk1 = queryon.resolve_uri_to_name(sk) if args.resolvenames else sk
+                if sk not in rawheadings:
+                    rawheadings.append(sk)
+                    if sk1 == sk: # if heading name hasn't been resolved before
+                        sk1 = queryon.resolve_uri_to_name(sk) # always resolve - only for headings
+                    if sk1 not in headings:
+                        headings.append(sk1)
+                    actualheadings[sk] = sk1
+#                    # also store the reverse actual->raw
+#                    actualheadings[sk1] = sk
+                    logger.info( f"Mapping {sk} to {sk1}" )
                 else:
-                    sk1 = sk
-                if sk1 not in headings:
-                    headings.append(sk1)
+                    sk1 = actualheadings[sk]
+                if sk!=sk1:
+                    logger.debug(f"renaming {sk=} {sk1=}" )
+                    # if ernaming need to merge column content!
+                    existing = v[sk]
+                    otherexisting = v.get(sk1)
+                    del v[sk]
+                    if existing and otherexisting:
+                        if existing != otherexisting:
+                            logger.info( f"MERGE {existing=} {otherexisting=}" )
+                            burp
+                    v[sk1] = otherexisting if otherexisting else existing
 
         fieldnames = sorted(headings)
         if args.outputfile:

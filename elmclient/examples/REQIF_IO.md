@@ -26,6 +26,24 @@ Installation
 
 The `reqif_io` command is installed in your Python scripts folder when installing `elmclient`
 
+TLDR;
+=====
+
+Here's a sequence which lists definitions, creates a new definition for a specific module, exports it to reqifz, reimports the reqifz, and then deletes the definition
+
+NOTE this is so brief because it's using the defaults for server URL and context roots, username and password - see below these sections for how to set these up for your environment.
+NOTE this works when project `rm_optout_p1` was created using the `Systems Requirement Sample`, which has a module `AMR Stakeholder Specification`.
+
+
+```
+reqif_io rm_optout_p1 list
+reqif_io rm_optout_p1 create stk -m "AMR Stakeholder Requirements Specification"
+reqif_io rm_optout_p1 list
+reqif_io rm_optout_p1 export stk
+reqif_io rm_optout_p1 import stk.reqifz
+reqif_io rm_optout_p1 delete stk
+```
+
 
 Usage
 =====

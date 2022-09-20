@@ -94,6 +94,7 @@ class _OSLCOperations_Mixin:
                         , pagesize=200
                         ,resolvenames=True
                         ,totalize=False
+                        ,saverawresults=None
                      ):
         if searchterms and querystring:
             logger.info( f"{searchterms=}" )
@@ -162,7 +163,7 @@ class _OSLCOperations_Mixin:
         resultstack = self._evaluate_steps(querycapabilityuri,querysteps, select=parsedselect, prefixes=prefixes
                                             , orderbys=parsedorderby, searchterms=searchterms, show_progress=show_progress
                                             , verbose=verbose, maxresults=maxresults,delaybetweenpages=delaybetweenpages
-                                            , pagesize=pagesize)
+                                            , pagesize=pagesize, saverawresults=saverawresults)
 
         if len(resultstack) != 1:
             raise Exception(f"Something went horribly wrong and there isn't exactly one result left on the query stack! {len(resultstack)} {resultstack}")
@@ -293,7 +294,7 @@ class _OSLCOperations_Mixin:
 
     # for a query which has been parsed to steps, execute the steps, recursing if there is more than one compount_term
     # a query with two logicalor terms looks like: [[['dcterms:identifier', 'in', [3949]]], [['dcterms:identifier', 'in', [3950]]], 'logicalor']
-    def _evaluate_steps(self, querycapabilityuri,querysteps,*,resultstack=None, select=None, prefixes=None, orderbys=None, searchterms=None, show_progress=False, verbose=False, maxresults=None, delaybetweenpages=0.0, pagesize=200):
+    def _evaluate_steps(self, querycapabilityuri,querysteps,*,resultstack=None, select=None, prefixes=None, orderbys=None, searchterms=None, show_progress=False, verbose=False, maxresults=None, delaybetweenpages=0.0, pagesize=200, saverawresults=None):
         logger.info( f"_evaluate_steps {querysteps}" )
         resultstack = resultstack if resultstack is not None else []
         orderbys = orderbys or []
@@ -315,7 +316,7 @@ class _OSLCOperations_Mixin:
 #                    raise Exception( f"Very strange parse result! {step}" )
                 else:
                     # do an actual query
-                    results = self.execute_oslc_query(querycapabilityuri,whereterms=[step], select=select, prefixes=prefixes, orderbys=orderbys, searchterms=searchterms, show_progress=show_progress, maxresults=maxresults, delaybetweenpages=delaybetweenpages, pagesize=pagesize, verbose=verbose)
+                    results = self.execute_oslc_query(querycapabilityuri,whereterms=[step], select=select, prefixes=prefixes, orderbys=orderbys, searchterms=searchterms, show_progress=show_progress, maxresults=maxresults, delaybetweenpages=delaybetweenpages, pagesize=pagesize, verbose=verbose, saverawresults=saverawresults)
                     if isinstance(results, list):
                         resultlist = {}
                         for result in results:
@@ -394,7 +395,7 @@ class _OSLCOperations_Mixin:
     # the whereterms can be created using create_query_operator_string
     # NOTE that prefixes is reversed from what you might expect, i.e. keyed by URL and the value is the prefix!
     # NOTE that whereterms should be a list of lists (the oslc terms) - each of these nested lists is ['attribute',operator',value'] - if more than one and'd term, the first entry must be 'and'!
-    def execute_oslc_query(self, querycapabilityuri, *, whereterms=None, select=None, prefixes=None, orderbys=None, searchterms=None, show_progress=False, verbose=False, maxresults=None, delaybetweenpages=0.0, pagesize=200, intent=None):
+    def execute_oslc_query(self, querycapabilityuri, *, whereterms=None, select=None, prefixes=None, orderbys=None, searchterms=None, show_progress=False, verbose=False, maxresults=None, delaybetweenpages=0.0, pagesize=200, intent=None, saverawresults=None):
         if select is None:
             select = []
         prefixes = prefixes or {}
@@ -412,7 +413,7 @@ class _OSLCOperations_Mixin:
         else:
              query_params1 = query_params
 
-        results = self._execute_vanilla_oslc_query(querycapabilityuri,query_params1, select=select, prefixes=prefixes, show_progress=show_progress, verbose=verbose, maxresults=maxresults, delaybetweenpages=delaybetweenpages, pagesize=pagesize, intent=intent)
+        results = self._execute_vanilla_oslc_query(querycapabilityuri,query_params1, select=select, prefixes=prefixes, show_progress=show_progress, verbose=verbose, maxresults=maxresults, delaybetweenpages=delaybetweenpages, pagesize=pagesize, intent=intent, saverawresults=saverawresults)
         return results
 
     # convert whereterms (which is a list of OSLC and terms) into a corresponding oslc.where string
@@ -519,7 +520,7 @@ class _OSLCOperations_Mixin:
     # select is used to build the returned dictionary containing only the selected values
     #
 
-    def _execute_vanilla_oslc_query(self, querycapabilityuri, query_params, orderby=None, searchterms=None, select=None, prefixes=None, show_progress=False, pagesize=200, verbose=False, maxresults=None, delaybetweenpages=0.0, intent=None):
+    def _execute_vanilla_oslc_query(self, querycapabilityuri, query_params, orderby=None, searchterms=None, select=None, prefixes=None, show_progress=False, pagesize=200, verbose=False, maxresults=None, delaybetweenpages=0.0, intent=None,saverawresults=None):
         select = select or []
         orderby = orderby or []
         searchterms = searchterms or []
@@ -585,6 +586,10 @@ class _OSLCOperations_Mixin:
             # request this page
             this_result_xml = self.execute_get_rdf_xml(query_url, params=params, headers=headers, cacheable=False, intent=intent)
             queryurls.append(query_url)
+            
+            if saverawresults:
+                open( f"{saverawresults}{page:04d}" ,'wb').write(ET.tostring(this_result_xml))
+
             # accumulate the results
             result_xmls.append(this_result_xml)
             # check for maxresults exceeded - rough calculation!
@@ -718,7 +723,7 @@ class _OSLCOperations_Mixin:
             # only RM returns rdfs:member with sub-tags
             rmmode = True
         logger.info(f"cmmode={cmmode} rmmode={rmmode} gcmode={gcmode} {qmmode=}")
-#        print(f"cmmode={cmmode} rmmode={rmmode} gcmode={gcmode} {qmmode=}")
+        # print(f"cmmode={cmmode} rmmode={rmmode} gcmode={gcmode} {qmmode=}")
         logger.debug( f"{prefixes=}" )
         revprefixes = { v:k for k,v in prefixes.items()}
         # with select - build a dictionary
@@ -750,6 +755,7 @@ class _OSLCOperations_Mixin:
             # process them
             if len(rdfs_member_es) > 0:
                 for rdfs_member in rdfs_member_es:
+                    # print( f"{rdfs_member.tag=}" )
                     # about is the uri of the resource
                     if cmmode or gcmode:
                         about = rdfs_member.get('{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource')
@@ -767,9 +773,10 @@ class _OSLCOperations_Mixin:
                     # is this a 'duplicate' result? AFAIK only reason this would happen is if oslc.select is e.g. oslc_rm:uses{dcterms:identifier}
                     if about not in result:
                         result[about] = {}
-                        dup = False
+#                        dup = False
                     else:
-                        dup = True
+#                        dup = True
+                        pass
                     if desc is not None:
                         # for an entry with no children, if dup and value is same then ignore it
                         #   if dup and value is different, exception
@@ -779,19 +786,71 @@ class _OSLCOperations_Mixin:
                         #
 
                         themembers = list(desc)
+                        # print( f"{len(themembers)=}" )
                         # now scan its children - these are the select results
                         for ent in themembers:
-                            # place is the column heading
-#                            place = None
+                            # first make sure this level is stored in the results, if it has a URI
+                            # print( f"no subs {len(ent)} {ent.tag=} {ent.text=}")
+                            # no children, just use the text if not empty or the resource URL
+                            if len(ent)>0 and rdfxml.xmlrdf_get_resource_uri(ent,attrib="rdf:parseType") == "Literal":
+                                # get the XML literal value by converting the whole ent to a string and then strip off the start/end tags!
+                                # (shouldn't there be a less hacky way of doing this?)
+                                literal = ET.tostring(ent).decode()
+                                value = literal[literal.index('>')+1:literal.rindex('<')]
+                                logger.info( f"0 {value=}" )
+                            elif ent.text is None or not ent.text.strip():
+                                # no text, try the resource URI
+                                value = ent.get("{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource")
+                                if value is None:
+                                    # no resource URI, use an empty string
+                                    value = ""
+                                logger.info( f"1 {value=}" )
+                                # print( f"1 {value=}" )
+                            else:
+                                value = ent.text
+                                logger.info( f"2 {value=}" )
+                                # print( f"2 {value=}" )
+                            place = rdfxml.uri_to_default_prefixed_tag(rdfxml.tag_to_uri(ent.tag))
+                            # print( f"{place=} {value=} {result.get(about)=}" )
+#                                if dup and place in result[about]:
+                            if place and place in result[about]:
+                                # possibly extend as a list
+                                if result[about][place] is None or type(result[about][place])!=list:
+                                    # only extend the list if this value is different
+                                    if result[about][place] is not None and result[about][place] != value:
+                                        # already got one entry that's different - make it a list
+                                        result[about][place] = [result[about][place]]
+                                        result[about][place].append(value)
+                                        logger.debug( f"Saving4 {about} {place} {value}" )
+                                        logger.debug( f"{result[about][place]=}" )
+                                    else:
+                                        # repeat entry, cna be ignored
+                                        logger.debug( f"Saving5 {about} {place} {value}" )
+                                else:
+                                    # list already present - extend it
+                                    result[about][place].append(value)
+                                    logger.debug( f"Saving3 {about} {place} {value}" )
+                                    logger.debug( f"{result[about][place]=}" )
+
+                            else:
+                                # first time seen
+                                result[about][place] = value
+                                logger.debug( f"Saving2 {about} {place} {value}" )
+#                                    dup = True
+
+                            # now look at itse children
                             if len(ent)>0 and rdfxml.xmlrdf_get_resource_uri(ent,attrib="rdf:parseType") != "Literal":
+                                # this has children and isn't literal text
+                                # print( "has subs")
                                 # this entity has children; it's like using oslc.selct=oslc_rm:uses{dcterms:identifier}
                                 # work out a heading for this column by concatenating the ent tag with its child's tags
                                 for subent in ent[0]:
-                                    # these are the real values - they always result in lists
+                                    # these are the child values - they always result in lists
                                     place = rdfxml.remove_tag(ent.tag)+"/"+rdfxml.remove_tag(subent.tag)
 #                                    place = f"{rdfxml.tag_to_prefix(ent.tag)}/{rdfxml.tag_to_prefix(subent.tag)}"
                                     value = subent.text
-                                    if value is None:
+                                    if not value or not value.strip():
+                                        # no text, or text is emtpy - try getting resource URI instead
                                         value = rdfxml.xmlrdf_get_resource_uri(subent)
                                     if place in result[about]:
                                         result[about][place].append(value)
@@ -799,45 +858,6 @@ class _OSLCOperations_Mixin:
                                     else:
                                         result[about][place] = [value]
                                         logger.debug( f"Saving1 {about} {place} {value}" )
-                            else:
-                                # no children, just use the text if not empty or the resource URL
-                                if len(ent)>0 and rdfxml.xmlrdf_get_resource_uri(ent,attrib="rdf:parseType") == "Literal":
-                                    # get the XML literal value by converting the whole ent to a string and then strip off the start/end tags!
-                                    # (shouldn't there be a less hacky way of doing this?)
-                                    literal = ET.tostring(ent).decode()
-                                    value = literal[literal.index('>')+1:literal.rindex('<')]
-                                    logger.info( f"0 {value=}" )
-                                elif ent.text is None or not ent.text.strip():
-                                    # no text, try the resource URI
-                                    value = ent.get("{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource")
-                                    if value is None:
-                                        # no resource URI, use an empty string
-                                        value = ""
-                                    logger.info( f"1 {value=}" )
-                                else:
-                                    value = ent.text
-                                    logger.info( f"2 {value=}" )
-                                place = rdfxml.uri_to_default_prefixed_tag(rdfxml.tag_to_uri(ent.tag))
-                                if dup and place in result[about]:
-                                    # possibly extend as a list
-                                    if result[about][place] is None or type(result[about][place])!=list:
-                                        # only extend the list if this value is different
-                                        if result[about][place] is not None and result[about][place] != value:
-                                            # make it a list
-                                            result[about][place] = [result[about][place]]
-                                            result[about][place].append(value)
-                                            logger.debug( f"Saving4 {about} {place} {value}" )
-                                            logger.debug( f"{result[about][place]=}" )
-                                        else:
-                                            logger.debug( f"Saving5 {about} {place} {value}" )
-                                    else:
-                                        result[about][place].append(value)
-                                        logger.debug( f"Saving3 {about} {place} {value}" )
-                                        logger.debug( f"{result[about][place]=}" )
-
-                                else:
-                                    result[about][place] = value
-                                    logger.debug( f"Saving2 {about} {place} {value}" )
 
         return result
 

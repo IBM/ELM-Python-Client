@@ -105,6 +105,8 @@ def do_oslc_query(inputargs=None):
     parser.add_argument('--pagesize', default=200, type=int, help="Page size for OSLC query (default 200)")
     parser.add_argument('--typesystemreport', default=None, help="Load the specified project/configuration and then produce a simple HTML type system report of resource shapes/properties/enumerations to this file" )
     parser.add_argument('--cachedays', default=1,type=int, help="The number of days for caching received data, default 1. To disable caching use -WW. To keep using a non-default cache period you must specify this value every time" )
+    parser.add_argument('--saverawresults', default=None, help="Save the raw results as XML to this path/file prefix - pages are numbered starting from 0000" )
+    parser.add_argument('--saveprocessedresults', default=None, help="Save the processed results as JSON to this path/file" )
 
     # saved credentials
     parser.add_argument('-0', '--savecreds', default=None, help="Save obfuscated credentials file for use with readcreds, then exit - this stores jazzurl, jts, appstring, username and password")
@@ -456,6 +458,7 @@ def do_oslc_query(inputargs=None):
                     ,pagesize=args.pagesize
                     ,resolvenames = args.resolvenames
                     ,totalize=args.totalize
+                    ,saverawresults=args.saverawresults
                     )
 
     if args.debugprint:
@@ -509,6 +512,9 @@ def do_oslc_query(inputargs=None):
 
     resultsentries = "entries" if len(results.keys())!=1 else "entry"
 
+    if args.saveprocessedresults:
+        open(args.saveprocessedresults+"_before.json","wt").write(json.dumps(results))
+        
     print( f"Query result has {len(results.keys())} {resultsentries}" )
 
     # COMPARE IS UNTESTED!
@@ -557,6 +563,9 @@ def do_oslc_query(inputargs=None):
                 writer.writeheader()
                 for k, v in results.items():
                     writer.writerow(v)
+                    
+        if args.saveprocessedresults:
+            open(args.saveprocessedresults+"_after.json","wt").write(json.dumps(results))
 
         if args.compareresults:
             # a simple test by comparing the received results with a saved CSV from a previous run
@@ -619,7 +628,7 @@ def do_oslc_query(inputargs=None):
             print( f"{len(results.keys())} results and {args.nresults} expected - Passed :-)" )
 
     if args.xmloutputfile is not None:
-    
+        # retrieve all resources in the results to XML
         # ensure output folder exists
         args.xmloutputfile = os.path.abspath(args.xmloutputfile)
         outputpath = os.path.split(args.xmloutputfile)[0]

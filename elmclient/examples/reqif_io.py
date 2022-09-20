@@ -108,8 +108,8 @@ def reqif_main():
     parser_create.add_argument('-s', '--description', default="-", help="Description for the definition")
     parser_create.add_argument('-t', '--tags', action="store_false", help="Don't include tags in the reqif (defaults to including) - if you need this off, specify it on the last update or on the create")
     parser_create.add_argument('-u', '--update', action="store_true", help="Update the named definition by adding things - it must already exist!")
-# NIY    parser_create.add_argument('-p', '--publicviews', nargs='*', default=[], help='* or CSL of public view names')
-# NIY    parser_create.add_argument('-v', '--moduleviews', nargs='*', default=[], help='* or CSL of module view names')
+# TODO: NIY    parser_create.add_argument('-p', '--publicviews', nargs='*', default=[], help='* or CSL of public view names')
+# TODO: NIY    parser_create.add_argument('-v', '--moduleviews', nargs='*', default=[], help='* or CSL of module view names')
 
     parser_delete.add_argument('definitionnames',nargs='*',default=[],help='One or more names of export definitions to delete - this can be a regex where . matches any character, etc. If you want the regex to match a complete name put ^ at the start and $ at the end')
     parser_delete.add_argument('-n', '--noconfirm', action='store_true', help="Don't prompt to confirm each delete (DANGEROUS!)")

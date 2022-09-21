@@ -15,7 +15,7 @@ Introduction
 The aim of this code is to provide command-line, automatable, access to the reqif API of DOORS Next,.
 
 This example is reasonably comprehensive. You can:
-* Create, Update and Delete reqif definitions stored in a project+config
+* Create, Update and Delete reqif definitions stored in a project+config - NOTE not all the possibilities for content of a reqif definition have been implemented, in particular views can't be added
 * Import one or more reqif files
 * Export one or more reqif files from existing reqif definitions
 
@@ -29,9 +29,10 @@ The `reqif_io` command is installed in your Python scripts folder when installin
 TLDR;
 =====
 
-Here's a sequence which lists definitions, creates a new definition for a specific module, exports it to reqifz, reimports the reqifz, and then deletes the definition
+Here's a sequence which lists ReqIF definitons in a project, creates a new definition for a specific module, exports it to reqifz, reimports the reqifz, and then deletes the definition
 
-NOTE this is so brief because it's using the defaults for server URL and context roots, username and password - see below these sections for how to set these up for your environment.
+NOTE this is so brief because it's using the defaults for server URL and context roots, username and password, because project `rm_optout_p1` doesn't have configuration management enabled - see below these sections for how to set these up for your environment.
+
 NOTE this works when project `rm_optout_p1` was created using the `Systems Requirement Sample`, which has a module `AMR Stakeholder Specification`.
 
 

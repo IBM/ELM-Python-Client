@@ -395,3 +395,35 @@ class _CCMApp(_app._App, _typesystem.No_Type_System_Mixin):
             queryparams['fields'] = args.fields
 
         return (queryurl,queryparams,queryheaders)
+
+#################################################################################################
+
+class _AMProject(_CCMProject):
+    def __init__(self, name, project_uri, app, is_optin,singlemode):
+        super().__init__(name, project_uri, app, is_optin,singlemode)
+        self.default_query_resource = 'oslc_am:Resource'
+
+#################################################################################################
+
+@utils.mixinomatic
+class _AMApp(_app._App, _typesystem.No_Type_System_Mixin):
+    domain = 'am'
+    project_class = _AMProject
+    supports_configs = False
+    supports_components = False
+    supports_reportable_rest = False
+    reportable_rest_status = "Application does not support Reportable REST"
+    identifier_uri = 'dcterms:identifier'
+
+    def __init__(self, server, contextroot, jts=None):
+        super().__init__(server, contextroot, jts=jts)
+        self.rootservices_xml = self.execute_get_xml(self.reluri('rootservices'), intent="Retrieve AM rootservices" )
+        self.serviceproviders = 'oslc_am:amServiceProviders'
+
+    def _get_headers(self, headers=None):
+        result = super()._get_headers()
+        result['net.jazz.jfs.owning-context'] = self.baseurl
+        result['OSLC-Core-Version'] = '2.0'
+        if headers:
+            result.update(headers)
+        return result

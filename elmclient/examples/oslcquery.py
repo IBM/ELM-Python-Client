@@ -74,7 +74,7 @@ def do_oslc_query(inputargs=None):
     parser.add_argument('-s', '--select', default='', help='A comma-separate list of properties that should be included in the results - NOTE the app may include additional properties, and may not include the requested properties')
     parser.add_argument('-u', '--unique', action="store_true", help="Post-filter: Remove results with an rm_nav:parent value which are not-unique in the results on dcterms:identifier - this keeps module artifacts (which don't have rm_nav:parent) and artifacts for modules (which don't have a module artifact)) - RELEVANT ONLY FOR DOORS Next!")
     parser.add_argument('-v', '--value', action='append', default=[], help='Post-filter: A property name that must have a value for the resource to be included in the results - you can specify this option more than once')
-    parser.add_argument('-A', '--appstrings', default=APPSTRINGS, help=f'A comma-seperated list of apps, the query goes to the first entry, default "rm,gc,ccm". Each entry must be a domain or domain:contextroot e.g. rm or rm:rm1 - Default can be set using environemnt variable QUERY_APPSTRINGS')
+    parser.add_argument('-A', '--appstrings', default=APPSTRINGS, help=f'A comma-seperated list of apps, the query goes to the first entry, default "rm". Each entry must be a domain or domain:contextroot e.g. rm or rm:rm1 - Default can be set using environemnt variable QUERY_APPSTRINGS')
     parser.add_argument('-C', '--component', help='The local component (optional, you *have* to specify the local configuration using -F)')
     parser.add_argument('-D', '--delaybetweenpages', type=float,default=0.0, help="Delay in seconds between each page of results - use this to reduce overall server load particularly for large result sets or when retrieving many properties")
     parser.add_argument('-E', '--globalproject', default=None, help="The global configuration project - needed if the globalconfiguration isn't unique")
@@ -112,7 +112,7 @@ def do_oslc_query(inputargs=None):
     parser.add_argument('-0', '--savecreds', default=None, help="Save obfuscated credentials file for use with readcreds, then exit - this stores jazzurl, jts, appstring, username and password")
     parser.add_argument('-1', '--readcreds', default=None, help="Read obfuscated credentials from file - completely overrides commandline/environment values for jazzurl, jts, appstring, username and password" )
     parser.add_argument('-2', '--erasecreds', default=None, help="Wipe and delete obfuscated credentials file" )
-    parser.add_argument('-3', '--secret', default="N0tSeCret-", help="SECRET used to encrypt and decrypt the obfuscated credentials (make this longer for greater security) - required if using -0 or -1" )
+    parser.add_argument('-3', '--secret', default="N0tSeCret-", help="SECRET used to encrypt and decrypt the obfuscated credentials (make this longer for greater security) - only affects if using -0 or -1" )
     parser.add_argument('-4', '--credspassword', action="store_true", help="Prompt user for a password to save/read obfuscated credentials (make this longer for greater security)" )
 
     args = parser.parse_args(inputargs)
@@ -242,7 +242,7 @@ def do_oslc_query(inputargs=None):
                 raise Exception( "If you specify -E you _must_ specify -G" )
         else:
             if args.globalconfiguration:
-                raise Exception( "If you don't specify -G you _must not_ specify -E" )
+                raise Exception( "If you don't specify -E you _must not_ specify -G" )
 
         # work out the global configuration
         gcproj = None
@@ -250,7 +250,7 @@ def do_oslc_query(inputargs=None):
         gcapp = allapps.get('gc',None)
         if not gcapp:
             if args.globalconfiguration:
-                raise Exception( "gc app must be specified in APPSTRINGS/-A to use a global configuration" )
+                raise Exception( "gc app must be specified (usually second) in APPSTRINGS/-A to use a global configuration" )
         else:
             if args.globalconfiguration:
                 # now find the configuration config
@@ -303,7 +303,7 @@ def do_oslc_query(inputargs=None):
             if args.component is None:
                 if p.is_optin:
                     if args.globalconfiguration is None:
-                        print( f"Warning - project '{args.projectname}' is opt-in but you didn't specify a component or a global configuration - using default component '{args.projectname}'" )
+                        print( f"Warning - project '{args.projectname}' is opt-in but you didn't specify a component or a global configuration - using default component '{args.projectname}' - if this component name doesn't exist you'll get an error message" )
                         args.component = args.projectname
         # not all apps support components, and even if the app does this project may not be opt-in
         if app.supports_components and not ( themaindomain == "gc" and args.resourcetype == 'Component'):
@@ -366,15 +366,28 @@ def do_oslc_query(inputargs=None):
                     queryon = c
 
                 elif gcconfiguri:
-                    config = None
-                    queryon=p
+                    # we're doing a GC-based query on the project - UNLESS a local config is also specified in which case the GC can be used to find the local config
+                    # using the GC contributions tree
+                    # and then the query is done on the local config and NOT using the gc config
+                    if args.configuration:
+                        if c:
+                            config = c.get_local_config(args.configuration)
+                            queryon = c
+                        else:
+                            config = p.get_local_config(args.configuration)
+                            queryon = p
+                        if config is None:
+                            raise Exception( "Local config {args.configuration} not found!" )
+                        gcconfiguri = None
+                    else:
+                        config = None
+                        queryon = p
                 else:
                     raise Exception( f"Project {args.projectname} is opt-in so you must provide a local or global configuration" )
 
             else:
-                queryon=p
+                queryon = p
             queryon.set_local_config(config,gcconfiguri)
-
             logger.debug( f"setting {config=} {gcconfiguri=}" )
             # we're querying the component
         else:

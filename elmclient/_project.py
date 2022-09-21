@@ -195,10 +195,27 @@ class _Project(oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixin
 
     def _do_find_config_by_name(self, name_or_uri, nowarning=False, allow_workspace=True, allow_snapshot=True, allow_changeset=False):
         raise Exception( 'Subclass must implement this method.' )
-
+        
+    def get_gc_contributions(self,gcuri):
+        result = self.execute_get_json(self.reluri("gcsdk-api/flatListOfContributionsForGcHierarchy"), params={'configurationUri':gcuri,'include':'*'} )
+#        print( f"{result=}" )
+        return result
+        
     def set_local_config(self, name_or_uri, global_config_uri=None):
         if name_or_uri:
-            config_uri = self._do_find_config_by_name(name_or_uri)
+            if global_config_uri is None:
+                config_uri = self._do_find_config_by_name(name_or_uri)
+            else:
+                # gc and local config both specified - try to avoid loading all the local configs by using the gc tree to locate the local config
+                gc_contribs = self.get_gc_contributions(global_config_uri)
+                # find the contribution for this component
+                config_uri = None
+                for config in gc_contribs['configurations']:
+                    print( f"Checking {config=} for {self.project_uri=}" )
+                    if config['componentUri'] == self.project_uri:
+                        config_uri = config['configurationUri']
+                if config_uri is None:
+                    burp
             if not config_uri:
                 raise Exception('Cannot find configuration [%s] in project [%s]' % (name_or_uri, self.uri))
         else:

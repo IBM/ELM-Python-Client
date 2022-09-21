@@ -64,15 +64,15 @@ class _RMProject(_project._Project):
     def __init__(self, name, project_uri, app, is_optin=False, singlemode=False,defaultinit=True):
 #        super().__init__(name, project_uri, app, is_optin,singlemode,defaultinit=defaultinit)
 #        self.oslcquery = oslcqueryapi._OSLCOperations(self.app.server,self)
-        self._components = None  # keyed on component uri
-        self._configurations = None # keyed on the config name
+        self._components = {}  # keyed on component uri
+        self._configurations = {} # keyed on the config name
         self._folders = None
         self._foldersnotyetloaded = None
         self.is_singlemode = False # this is only true if config enabled is true and single mode is true
         self.gcconfiguri = None
         self.default_query_resource = "oslc_rm:Requirement"
         self._iscomponent=False
-
+        self._confs_to_load = []
     #
     # load folders until name_or_uri is found (cuts loading short, remembers folders still to load) or until all loaded
     #  returns None or the matching Folder instance
@@ -188,7 +188,7 @@ class _RMProject(_project._Project):
         return None
 
     def load_components_and_configurations(self,force=False):
-        if self._components is not None and self._configurations is not None and not force:
+        if self._components and self._configurations and not force:
             return
         logger.info( f"load_components_and_configurations {self=} {self.is_optin=}" ) 
         self._components = {}
@@ -205,7 +205,7 @@ class _RMProject(_project._Project):
 
             # register the only component
             ncomps += 1
-            self._components[defaultcompu] = {'name': self.name, 'configurations': {}}
+            self._components[defaultcompu] = {'name': self.name, 'configurations': {}, 'confs_to_load': []}
             thisconfu = defaultcompu+"/configurations"
             configs = self.execute_get_json(thisconfu, intent="Retrieve configurations (JSON)")
 #            configdetails = configs[defaultcompu+"/configurations"]
@@ -248,7 +248,7 @@ class _RMProject(_project._Project):
             assert compuri is not None, "compuri is None"
 
             ncomps += 1
-            self._components[compuri] = {'name': self.name, 'configurations': {}}
+            self._components[compuri] = {'name': self.name, 'configurations': {}, 'confs_to_load': []}
             configs = self.execute_get_xml(compuri+"/configurations", intent="Retrieve project/component's list of all configurations")
             for conf in rdfxml.xml_find_elements(configs,'.//rdfs:member'):
                 confu = rdfxml.xmlrdf_get_resource_uri(conf)
@@ -281,7 +281,7 @@ class _RMProject(_project._Project):
 
                 # register the only component
                 ncomps += 1
-                self._components[defaultcompu] = {'name': self.name, 'configurations': {}}
+                self._components[defaultcompu] = {'name': self.name, 'configurations': {}, 'confs_to_load': []}
 
                 configs = self.execute_get_json(defaultcompu+"/configurations", intent="Retrieve configurations (JSON)")
                 if type(configs["http://www.w3.org/2000/01/rdf-schema#member"])==dict:
@@ -308,78 +308,136 @@ class _RMProject(_project._Project):
                     compx = self.execute_get_rdf_xml(compu, intent="Retrieve component definition to find all configurations", action="Retrieve each configuration")
                     comptitle = rdfxml.xmlrdf_get_resource_text(compx, './/dcterms:title')
 
-                    self._components[compu] = {'name': comptitle, 'configurations': {}}
-                    ncomps += 1
                     confu = rdfxml.xmlrdf_get_resource_uri(compx, './/oslc_config:configurations')
-                    confs_to_load = [confu]
-                    while True:
-                        if not confs_to_load:
-                            break
-                        confu = confs_to_load.pop()
-                        if not confu:
-                            # skip None in list
-                            continue
-                        logger.debug( f"Retrieving config {confu}" )
-                        try:
-                            configs_xml = self.execute_get_rdf_xml(confu, intent="Retrieve a configuration definition")
-                        except:
-                            logger.info( f"Config ERROR {thisconfu} !!!!!!!" )
-                            continue
-                        confmemberx = rdfxml.xml_find_elements(configs_xml, './/rdfs:member[@rdf:resource]')
-                        if confmemberx:
-                            #  a list of members
-                            for confmember in confmemberx:
-                                thisconfu = confmember.get("{%s}resource" % rdfxml.RDF_DEFAULT_PREFIX["rdf"])
-                                confs_to_load.append(thisconfu)
-                        # maybe it's got configuration(s)
-                        confmemberx = rdfxml.xml_find_elements(configs_xml, './/oslc_config:Configuration') + rdfxml.xml_find_elements(configs_xml, './/oslc_config:Stream') + rdfxml.xml_find_elements(configs_xml, './/oslc_config:Baseline') + rdfxml.xml_find_elements(configs_xml, './/oslc_config:ChangeSet')
-                        
-                        for confmember in confmemberx:  
-                            thisconfu = rdfxml.xmlrdf_get_resource_uri( confmember )
-                            logger.debug( f"{thisconfu=}" )
-                            conftitle = rdfxml.xmlrdf_get_resource_text(confmember, './/dcterms:title')
-                            if rdfxml.xmlrdf_get_resource_uri( confmember,'.//rdf:type[@rdf:resource="http://open-services.net/ns/config#ChangeSet"]') is not None:
-                                conftype = "ChangeSet"
-                            elif rdfxml.xmlrdf_get_resource_uri( confmember,'.//rdf:type[@rdf:resource="http://open-services.net/ns/config#Baseline"]') is not None:
-                                conftype = "Baseline"
-                            elif rdfxml.xmlrdf_get_resource_uri( confmember,'.//rdf:type[@rdf:resource="http://open-services.net/ns/config#Stream"]') is not None:
-                                conftype = "Stream"
-                            elif rdfxml.xmlrdf_get_resource_uri( confmember,'.//rdf:type[@rdf:resource="http://open-services.net/ns/config#Configuration"]') is not None:
-                                conftype = "Stream"
-                            else:
-                                print( ET.tostring(confmember) )
-                                raise Exception( f"Unrecognized configuration type" )
-                            created = rdfxml.xmlrdf_get_resource_uri(confmember, './/dcterms:created')
-                            if thisconfu not in self._components[compu]['configurations']:
-                                logger.debug( f"Adding {conftitle}" )
-                                self._components[compu]['configurations'][thisconfu] = {
-                                                                                            'name': conftitle
-                                                                                            , 'conftype': conftype
-                                                                                            ,'confXml': confmember
-                                                                                            ,'created': created
-                                                                                        }
-                                self._configurations[thisconfu] = self._components[compu]['configurations'][thisconfu]
-                            else:
-                                logger.debug( f"Skipping {thisconfu} because already defined" )
-                            # add baselines and changesets
-                            confs_to_load.append( rdfxml.xmlrdf_get_resource_uri(confmember, './oslc_config:streams') )
-                            confs_to_load.append( rdfxml.xmlrdf_get_resource_uri(confmember, './oslc_config:baselines') )
-                            confs_to_load.append( rdfxml.xmlrdf_get_resource_uri(confmember, './rm_config:changesets') )
-                            nconfs += 1
+                    self._components[compu] = {'name': comptitle, 'configurations': {}, 'confs_to_load': [confu]}
+                    ncomps += 1
+                    if False:
+                        confs_to_load = [confu]
+                        while True:
+                            if not confs_to_load:
+                                break
+                            confu = confs_to_load.pop()
+                            if not confu:
+                                # skip None in list
+                                continue
+                            logger.debug( f"Retrieving config {confu}" )
+                            try:
+                                configs_xml = self.execute_get_rdf_xml(confu, intent="Retrieve a configuration definition")
+                            except:
+                                logger.info( f"Config ERROR {thisconfu} !!!!!!!" )
+                                continue
+                            confmemberx = rdfxml.xml_find_elements(configs_xml, './/rdfs:member[@rdf:resource]')
+                            if confmemberx:
+                                #  a list of members
+                                for confmember in confmemberx:
+                                    thisconfu = confmember.get("{%s}resource" % rdfxml.RDF_DEFAULT_PREFIX["rdf"])
+                                    confs_to_load.append(thisconfu)
+                            # maybe it's got configuration(s)
+                            confmemberx = rdfxml.xml_find_elements(configs_xml, './/oslc_config:Configuration') + rdfxml.xml_find_elements(configs_xml, './/oslc_config:Stream') + rdfxml.xml_find_elements(configs_xml, './/oslc_config:Baseline') + rdfxml.xml_find_elements(configs_xml, './/oslc_config:ChangeSet')
+                            
+                            for confmember in confmemberx:  
+                                thisconfu = rdfxml.xmlrdf_get_resource_uri( confmember )
+                                logger.debug( f"{thisconfu=}" )
+                                conftitle = rdfxml.xmlrdf_get_resource_text(confmember, './/dcterms:title')
+                                if rdfxml.xmlrdf_get_resource_uri( confmember,'.//rdf:type[@rdf:resource="http://open-services.net/ns/config#ChangeSet"]') is not None:
+                                    conftype = "ChangeSet"
+                                elif rdfxml.xmlrdf_get_resource_uri( confmember,'.//rdf:type[@rdf:resource="http://open-services.net/ns/config#Baseline"]') is not None:
+                                    conftype = "Baseline"
+                                elif rdfxml.xmlrdf_get_resource_uri( confmember,'.//rdf:type[@rdf:resource="http://open-services.net/ns/config#Stream"]') is not None:
+                                    conftype = "Stream"
+                                elif rdfxml.xmlrdf_get_resource_uri( confmember,'.//rdf:type[@rdf:resource="http://open-services.net/ns/config#Configuration"]') is not None:
+                                    conftype = "Stream"
+                                else:
+                                    print( ET.tostring(confmember) )
+                                    raise Exception( f"Unrecognized configuration type" )
+                                created = rdfxml.xmlrdf_get_resource_uri(confmember, './/dcterms:created')
+                                if thisconfu not in self._components[compu]['configurations']:
+                                    logger.debug( f"Adding {conftitle}" )
+                                    self._components[compu]['configurations'][thisconfu] = {
+                                                                                                'name': conftitle
+                                                                                                , 'conftype': conftype
+                                                                                                ,'confXml': confmember
+                                                                                                ,'created': created
+                                                                                            }
+                                    self._configurations[thisconfu] = self._components[compu]['configurations'][thisconfu]
+                                else:
+                                    logger.debug( f"Skipping {thisconfu} because already defined" )
+                                # add baselines and changesets
+                                confs_to_load.append( rdfxml.xmlrdf_get_resource_uri(confmember, './oslc_config:streams') )
+                                confs_to_load.append( rdfxml.xmlrdf_get_resource_uri(confmember, './oslc_config:baselines') )
+                                confs_to_load.append( rdfxml.xmlrdf_get_resource_uri(confmember, './rm_config:changesets') )
+                                nconfs += 1
 
         # now create the "components"
         for cu, cd in self._components.items():
             cname = cd['name']
+            cconfs_to_load = cd['confs_to_load']
             if not self.is_optin:
                 c = self
             else:
-                c = self._create_component_api(cu, cname)
+                c = self._create_component_api(cu, cname, cconfs_to_load)
             c._configurations = self._components[cu]['configurations']
+            c._confs_to_load = self._components[cu]['confs_to_load']
+            self._confs_to_load.extend(self._components[cu]['confs_to_load'])
             self._components[cu]['component'] = c
         return (ncomps, nconfs)
 
+    def load_configs(self):
+        while self._confs_to_load:
+            confu = self._confs_to_load.pop()
+            if not confu:
+                # skip None in list
+                continue
+            logger.debug( f"Retrieving config {confu}" )
+            try:
+                configs_xml = self.execute_get_rdf_xml(confu, intent="Retrieve a configuration definition")
+            except:
+                logger.info( f"Config ERROR {thisconfu} !!!!!!!" )
+                continue
+            confmemberx = rdfxml.xml_find_elements(configs_xml, './/rdfs:member[@rdf:resource]')
+            if confmemberx:
+                #  a list of members
+                for confmember in confmemberx:
+                    thisconfu = confmember.get("{%s}resource" % rdfxml.RDF_DEFAULT_PREFIX["rdf"])
+                    self._confs_to_load.append(thisconfu)
+            # maybe it's got configuration(s)
+            confmemberx = rdfxml.xml_find_elements(configs_xml, './/oslc_config:Configuration') + rdfxml.xml_find_elements(configs_xml, './/oslc_config:Stream') + rdfxml.xml_find_elements(configs_xml, './/oslc_config:Baseline') + rdfxml.xml_find_elements(configs_xml, './/oslc_config:ChangeSet')
+            
+            for confmember in confmemberx:  
+                thisconfu = rdfxml.xmlrdf_get_resource_uri( confmember )
+                logger.debug( f"{thisconfu=}" )
+                conftitle = rdfxml.xmlrdf_get_resource_text(confmember, './/dcterms:title')
+                if rdfxml.xmlrdf_get_resource_uri( confmember,'.//rdf:type[@rdf:resource="http://open-services.net/ns/config#ChangeSet"]') is not None:
+                    conftype = "ChangeSet"
+                elif rdfxml.xmlrdf_get_resource_uri( confmember,'.//rdf:type[@rdf:resource="http://open-services.net/ns/config#Baseline"]') is not None:
+                    conftype = "Baseline"
+                elif rdfxml.xmlrdf_get_resource_uri( confmember,'.//rdf:type[@rdf:resource="http://open-services.net/ns/config#Stream"]') is not None:
+                    conftype = "Stream"
+                elif rdfxml.xmlrdf_get_resource_uri( confmember,'.//rdf:type[@rdf:resource="http://open-services.net/ns/config#Configuration"]') is not None:
+                    conftype = "Stream"
+                else:
+                    print( ET.tostring(confmember) )
+                    raise Exception( f"Unrecognized configuration type" )
+                created = rdfxml.xmlrdf_get_resource_uri(confmember, './/dcterms:created')
+                if thisconfu not in self._configurations:
+                    logger.debug( f"Adding {conftitle}" )
+                    self._configurations[thisconfu] = {
+                                                                                'name': conftitle
+                                                                                , 'conftype': conftype
+                                                                                ,'confXml': confmember
+                                                                                ,'created': created
+                                                                            }
+#                    self._configurations[thisconfu] = self._components[self.project_uri]['configurations'][thisconfu]
+                else:
+                    logger.debug( f"Skipping {thisconfu} because already defined" )
+                # add baselines and changesets
+                self._confs_to_load.append( rdfxml.xmlrdf_get_resource_uri(confmember, './oslc_config:streams') )
+                self._confs_to_load.append( rdfxml.xmlrdf_get_resource_uri(confmember, './oslc_config:baselines') )
+                self._confs_to_load.append( rdfxml.xmlrdf_get_resource_uri(confmember, './rm_config:changesets') )
+
     def get_local_config(self, name_or_uri):
         logger.info( f"GLC {self=} {name_or_uri=}" )
+        self.load_configs()
         result = None
         filter = None
         if name_or_uri.startswith("S:"):
@@ -526,9 +584,10 @@ class _RMProject(_project._Project):
                 return compdetail['component']
         return None
 
-    def _create_component_api(self, component_prj_url, component_name):
+    def _create_component_api(self, component_prj_url, component_name, confs_to_load):
         logger.info( f"CREATE RM COMPONENT {self=} {component_prj_url=} {component_name=} {self.app=} {self.is_optin=} {self.singlemode=}" )
         result = _RMComponent(component_name, component_prj_url, self.app, self.is_optin, self.singlemode, defaultinit=False, project=self)
+        result.confs_to_load = confs_to_load
         return result
 
     # for OSLC query, given a type URI, return its name

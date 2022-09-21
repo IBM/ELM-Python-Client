@@ -29,6 +29,7 @@ RDF_DEFAULT_PREFIX = {
     'ns':           'http://com.ibm.rdm/navigation#',
     'oslc':         'http://open-services.net/ns/core#',
     'oslc_auto':    'http://open-services.net/ns/auto#',
+    'oslc_am':      'http://open-services.net/ns/am#',
     'oslc_cm':      'http://open-services.net/xmlns/cm/1.0/',
     'oslc_cm1':     'http://open-services.net/ns/cm#',
     'oslc_cm_10':   'http://open-services.net/xmlns/cm/1.0/cm#',

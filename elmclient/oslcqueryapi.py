@@ -91,11 +91,14 @@ class _OSLCOperations_Mixin:
     def do_complex_query(self,queryresource, *, querystring='', searchterms=None, select='', orderby='', properties=None, isnulls=None
                         ,isnotnulls=None, enhanced=True, show_progress=True
                         ,show_info=False, verbose=False, maxresults=None, delaybetweenpages=0.0
-                        , pagesize=200
+                        ,pagesize=200
                         ,resolvenames=True
                         ,totalize=False
                         ,saverawresults=None
+                        ,addcolumns=None
+                        ,cacheable=False
                      ):
+        addcolumns = addcolumns or {}
         if searchterms and querystring:
             logger.info( f"{searchterms=}" )
             logger.info( f"{querystring=}" )
@@ -163,7 +166,7 @@ class _OSLCOperations_Mixin:
         resultstack = self._evaluate_steps(querycapabilityuri,querysteps, select=parsedselect, prefixes=prefixes
                                             , orderbys=parsedorderby, searchterms=searchterms, show_progress=show_progress
                                             , verbose=verbose, maxresults=maxresults,delaybetweenpages=delaybetweenpages
-                                            , pagesize=pagesize, saverawresults=saverawresults)
+                                            , pagesize=pagesize, saverawresults=saverawresults, cacheable=cacheable)
 
         if len(resultstack) != 1:
             raise Exception(f"Something went horribly wrong and there isn't exactly one result left on the query stack! {len(resultstack)} {resultstack}")
@@ -173,6 +176,15 @@ class _OSLCOperations_Mixin:
         # go through the results, mapping attribute uris back to names
         mappedresult = {}
         originalresults = resultstack[0]
+        
+        # add requested columns to each result
+        if len(addcolumns)>0:
+#            print( f"Adding columns {addcolumns}" )
+            for k in originalresults.keys():
+#                print( f"{k=}" )
+                for k1,v1 in addcolumns.items():
+#                    print( f"Adding {k1=} {v1=}" )
+                    originalresults[k][k1] = v1
         remappednames = {}
 
         if verbose:
@@ -294,7 +306,7 @@ class _OSLCOperations_Mixin:
 
     # for a query which has been parsed to steps, execute the steps, recursing if there is more than one compount_term
     # a query with two logicalor terms looks like: [[['dcterms:identifier', 'in', [3949]]], [['dcterms:identifier', 'in', [3950]]], 'logicalor']
-    def _evaluate_steps(self, querycapabilityuri,querysteps,*,resultstack=None, select=None, prefixes=None, orderbys=None, searchterms=None, show_progress=False, verbose=False, maxresults=None, delaybetweenpages=0.0, pagesize=200, saverawresults=None):
+    def _evaluate_steps(self, querycapabilityuri,querysteps,*,resultstack=None, select=None, prefixes=None, orderbys=None, searchterms=None, show_progress=False, verbose=False, maxresults=None, delaybetweenpages=0.0, pagesize=200, saverawresults=None, cacheable=False):
         logger.info( f"_evaluate_steps {querysteps}" )
         resultstack = resultstack if resultstack is not None else []
         orderbys = orderbys or []
@@ -316,7 +328,7 @@ class _OSLCOperations_Mixin:
 #                    raise Exception( f"Very strange parse result! {step}" )
                 else:
                     # do an actual query
-                    results = self.execute_oslc_query(querycapabilityuri,whereterms=[step], select=select, prefixes=prefixes, orderbys=orderbys, searchterms=searchterms, show_progress=show_progress, maxresults=maxresults, delaybetweenpages=delaybetweenpages, pagesize=pagesize, verbose=verbose, saverawresults=saverawresults)
+                    results = self.execute_oslc_query(querycapabilityuri,whereterms=[step], select=select, prefixes=prefixes, orderbys=orderbys, searchterms=searchterms, show_progress=show_progress, maxresults=maxresults, delaybetweenpages=delaybetweenpages, pagesize=pagesize, verbose=verbose, saverawresults=saverawresults, cacheable=cacheable)
                     if isinstance(results, list):
                         resultlist = {}
                         for result in results:
@@ -395,7 +407,7 @@ class _OSLCOperations_Mixin:
     # the whereterms can be created using create_query_operator_string
     # NOTE that prefixes is reversed from what you might expect, i.e. keyed by URL and the value is the prefix!
     # NOTE that whereterms should be a list of lists (the oslc terms) - each of these nested lists is ['attribute',operator',value'] - if more than one and'd term, the first entry must be 'and'!
-    def execute_oslc_query(self, querycapabilityuri, *, whereterms=None, select=None, prefixes=None, orderbys=None, searchterms=None, show_progress=False, verbose=False, maxresults=None, delaybetweenpages=0.0, pagesize=200, intent=None, saverawresults=None):
+    def execute_oslc_query(self, querycapabilityuri, *, whereterms=None, select=None, prefixes=None, orderbys=None, searchterms=None, show_progress=False, verbose=False, maxresults=None, delaybetweenpages=0.0, pagesize=200, intent=None, saverawresults=None, cacheable=False):
         if select is None:
             select = []
         prefixes = prefixes or {}
@@ -413,7 +425,7 @@ class _OSLCOperations_Mixin:
         else:
              query_params1 = query_params
 
-        results = self._execute_vanilla_oslc_query(querycapabilityuri,query_params1, select=select, prefixes=prefixes, show_progress=show_progress, verbose=verbose, maxresults=maxresults, delaybetweenpages=delaybetweenpages, pagesize=pagesize, intent=intent, saverawresults=saverawresults)
+        results = self._execute_vanilla_oslc_query(querycapabilityuri,query_params1, select=select, prefixes=prefixes, show_progress=show_progress, verbose=verbose, maxresults=maxresults, delaybetweenpages=delaybetweenpages, pagesize=pagesize, intent=intent, saverawresults=saverawresults, cacheable=cacheable)
         return results
 
     # convert whereterms (which is a list of OSLC and terms) into a corresponding oslc.where string
@@ -520,7 +532,7 @@ class _OSLCOperations_Mixin:
     # select is used to build the returned dictionary containing only the selected values
     #
 
-    def _execute_vanilla_oslc_query(self, querycapabilityuri, query_params, orderby=None, searchterms=None, select=None, prefixes=None, show_progress=False, pagesize=200, verbose=False, maxresults=None, delaybetweenpages=0.0, intent=None,saverawresults=None):
+    def _execute_vanilla_oslc_query(self, querycapabilityuri, query_params, orderby=None, searchterms=None, select=None, prefixes=None, show_progress=False, pagesize=200, verbose=False, maxresults=None, delaybetweenpages=0.0, intent=None,saverawresults=None, cacheable=False):
         select = select or []
         orderby = orderby or []
         searchterms = searchterms or []
@@ -562,7 +574,6 @@ class _OSLCOperations_Mixin:
         if verbose:
             print( f"Full query URL is {fullurl}" )
 #        print( f"Full query URL is {fullurl}" )
-#        burp
         # retrieve all pages of results - they will be processed later
         total = 1
         page = 0
@@ -584,7 +595,7 @@ class _OSLCOperations_Mixin:
                 intent = f"Retrieve {utils.nth(page)} page of OSLC query results"
 
             # request this page
-            this_result_xml = self.execute_get_rdf_xml(query_url, params=params, headers=headers, cacheable=False, intent=intent)
+            this_result_xml = self.execute_get_rdf_xml(query_url, params=params, headers=headers, cacheable=cacheable, intent=intent)
             queryurls.append(query_url)
             
             if saverawresults:

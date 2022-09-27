@@ -60,7 +60,7 @@ def reqif_main():
     parser.add_argument('projectname', help='Name of project')
 
     # general settings
-    parser.add_argument('-A', '--appstrings', default=APPSTRINGS,help=f'Defaults to "rm,jts" - Must be comma-separated list of used domains or domain:contextroot, the FIRST one must be rm. If using nonstandard context roots for just rm like /rrc then specify "rm:rrc,jts" NOTE if jts is not on /jts then e.g. for /myjts use e.g. "rm:rn1,jts:myjts". Default can be set using environment variable QUERY_APPSTRINGS')
+    parser.add_argument('-A', '--appstrings', default=None,help=f'Defaults to "rm,jts" - Must be comma-separated list of used domains or domain:contextroot, the FIRST one must be rm. If using nonstandard context roots for just rm like /rrc then specify "rm:rrc,jts" NOTE if jts is not on /jts then e.g. for /myjts use e.g. "rm:rn1,jts:myjts". Default can be set using environment variable QUERY_APPSTRINGS')
     parser.add_argument('-C', '--component', help='The local component (optional, if used you *have* to specify the local configuration using -F)')
     parser.add_argument('-D', '--delaybetween', type=float,default=0.0, help="Delay in seconds between each import/export - use this to reduce overall server load")
     parser.add_argument('-F', '--configuration', default=None, help='Scope: Name of local config - you need to provide the project - defaults to the "Initial Stream" or "Initial Development" +same name as the project')
@@ -73,7 +73,7 @@ def reqif_main():
     parser.add_argument('-Z', '--proxyport', default=8888, type=int, help='Port for proxy default is 8888 - used if found to be active - set to 0 to disable')
 
     # saved credentials
-    parser.add_argument('-0', '--savecreds', default=None, help="Save obfuscated credentials file for use with readcreds, then exit - this stores jazzurl, jts, appstring, username and password")
+    parser.add_argument('-0', '--savecreds', default=None, help="Save obfuscated credentials file for use with readcreds, then exit - this stores jazzurl, appstring, username and password")
     parser.add_argument('-1', '--readcreds', default=None, help="Read obfuscated credentials from file - completely overrides commandline/environment values for jazzurl, jts, appstring, username and password" )
     parser.add_argument('-2', '--erasecreds', default=None, help="Wipe and delete obfuscated credentials file" )
     parser.add_argument('-3', '--secret', default="N0tSecret-", help="SECRET used to encrypt and decrypt the obfuscated credentials (make this longer for greater security)" )
@@ -156,10 +156,15 @@ def reqif_main():
 #        if args.secret is None:
 #            raise Exception( "You MUST specify a secret using -3 or --secret if using -0/--readcreads" )
         try:
-            args.username,args.password,args.jazzurl,args.appstrings = json.loads( utils.fernet_decrypt(open(args.readcreds,"rb").read(),"=-=".join([socket.getfqdn(),os.path.abspath(args.readcreds),os.getcwd(),getpass.getuser(),args.secret,credspassword])) )
+            args.username,args.password,args.jazzurl,apps = json.loads( utils.fernet_decrypt(open(args.readcreds,"rb").read(),"=-=".join([socket.getfqdn(),os.path.abspath(args.readcreds),getpass.getuser(),args.secret,credspassword])) )
+            # allow overriding appstrings stored in creads with option on commandline
+            args.appstrings = args.appstrings or apps
         except (cryptography.exceptions.InvalidSignature,cryptography.fernet.InvalidToken, TypeError):
             raise Exception( f"Unable to decrypt credentials from {args.readcreds}" )
         print( f"Credentials file {args.readcreds} read" )
+        
+    # if no appstring yet specified use the default
+    args.appstrings = args.appstrings or APPSTRINGS
 
     if args.savecreds:
         if args.secret is None:

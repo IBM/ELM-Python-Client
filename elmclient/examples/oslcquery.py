@@ -74,7 +74,7 @@ def do_oslc_query(inputargs=None):
     parser.add_argument('-s', '--select', default='', help='A comma-separate list of properties that should be included in the results - NOTE the app may include additional properties, and may not include the requested properties')
     parser.add_argument('-u', '--unique', action="store_true", help="Post-filter: Remove results with an rm_nav:parent value which are not-unique in the results on dcterms:identifier - this keeps module artifacts (which don't have rm_nav:parent) and artifacts for modules (which don't have a module artifact)) - RELEVANT ONLY FOR DOORS Next!")
     parser.add_argument('-v', '--value', action='append', default=[], help='Post-filter: A property name that must have a value for the resource to be included in the results - you can specify this option more than once')
-    parser.add_argument('-A', '--appstrings', default=APPSTRINGS, help=f'A comma-seperated list of apps, the query goes to the first entry, default "rm". Each entry must be a domain or domain:contextroot e.g. rm or rm:rm1 - Default can be set using environemnt variable QUERY_APPSTRINGS')
+    parser.add_argument('-A', '--appstrings', default=None, help=f'A comma-seperated list of apps, the query goes to the first entry, default "rm". Each entry must be a domain or domain:contextroot e.g. rm or rm:rm1 - Default can be set using environemnt variable QUERY_APPSTRINGS')
     parser.add_argument('-C', '--component', help='The local component (optional, you *have* to specify the local configuration using -F)')
     parser.add_argument('-D', '--delaybetweenpages', type=float,default=0.0, help="Delay in seconds between each page of results - use this to reduce overall server load particularly for large result sets or when retrieving many properties")
     parser.add_argument('-E', '--globalproject', default=None, help="The global configuration project - needed if the globalconfiguration isn't unique")
@@ -102,14 +102,16 @@ def do_oslc_query(inputargs=None):
     # various options
     parser.add_argument('--nresults', default=-1, type=int, help="Number of results expected - used for regression testing - use `--nresults -1` to disable checking")
     parser.add_argument('--compareresults', default=None, help="TESTING UNFINISHED: saved CSV file to compare results with")
-    parser.add_argument('--pagesize', default=200, type=int, help="Page size for OSLC query (default 200)")
+    parser.add_argument('--pagesize', default=200, type=int, help="Page size for OSLC query (default 200) use 0 to suppress paging (server may still page)")
     parser.add_argument('--typesystemreport', default=None, help="Load the specified project/configuration and then produce a simple HTML type system report of resource shapes/properties/enumerations to this file" )
-    parser.add_argument('--cachedays', default=1,type=int, help="The number of days for caching received data, default 1. To disable caching use -WW. To keep using a non-default cache period you must specify this value every time" )
+    parser.add_argument('--cachedays', default=7,type=int, help="The number of days for caching received data, default 7. To disable caching use -WW. To keep using a non-default cache period you must specify this value every time" )
     parser.add_argument('--saverawresults', default=None, help="Save the raw results as XML to this path/file prefix - pages are numbered starting from 0000" )
     parser.add_argument('--saveprocessedresults', default=None, help="Save the processed results as JSON to this path/file" )
+    parser.add_argument('--percontribution', action="store_true", help="When querying a GC, query once for each app-domain contribution in the GC tree, with added component and configuration columns in the result")
+    parser.add_argument('--cacheable', action="store_true", help="Query results can be cached - use when you know the data isn't changing and you need faster re-run")
 
     # saved credentials
-    parser.add_argument('-0', '--savecreds', default=None, help="Save obfuscated credentials file for use with readcreds, then exit - this stores jazzurl, jts, appstring, username and password")
+    parser.add_argument('-0', '--savecreds', default=None, help="Save obfuscated credentials file for use with readcreds, then exit - this stores jazzurl, appstring, username and password")
     parser.add_argument('-1', '--readcreds', default=None, help="Read obfuscated credentials from file - completely overrides commandline/environment values for jazzurl, jts, appstring, username and password" )
     parser.add_argument('-2', '--erasecreds', default=None, help="Wipe and delete obfuscated credentials file" )
     parser.add_argument('-3', '--secret', default="N0tSeCret-", help="SECRET used to encrypt and decrypt the obfuscated credentials (make this longer for greater security) - only affects if using -0 or -1" )
@@ -144,11 +146,16 @@ def do_oslc_query(inputargs=None):
 #        if args.secret is None:
 #            raise Exception( "You MUST specify a secret using -3 or --secret if using -0/--readcreads" )
         try:
-            args.username,args.password,args.jazzurl,args.appstrings = json.loads( utils.fernet_decrypt(open(args.readcreds,"rb").read(),"=-=".join([socket.getfqdn(),os.path.abspath(args.readcreds),getpass.getuser(),args.secret,credspassword])) )
+            args.username,args.password,args.jazzurl,apps = json.loads( utils.fernet_decrypt(open(args.readcreds,"rb").read(),"=-=".join([socket.getfqdn(),os.path.abspath(args.readcreds),getpass.getuser(),args.secret,credspassword])) )
+            # allow overriding appstrings stored in creads with option on commandline
+            args.appstrings = args.appstrings or apps
         except (cryptography.exceptions.InvalidSignature,cryptography.fernet.InvalidToken, TypeError):
             raise Exception( f"Unable to decrypt credentials from {args.readcreds}" )
         print( f"Credentials file {args.readcreds} read" )
-
+        
+    # if no appstring yet specified use the default
+    args.appstrings = args.appstrings or APPSTRINGS
+    
     if args.savecreds:
         if args.secret is None:
             raise Exception( "You MUST specify a secret using -3 or --secret if using -1/--savecreads" )
@@ -231,7 +238,6 @@ def do_oslc_query(inputargs=None):
 
     # get the main app - it's the one we're going to query - it was first in args.appstring
     app = allapps[themaindomain]
-
     config = None
 
     # decide if this is a project query or an application query
@@ -369,9 +375,11 @@ def do_oslc_query(inputargs=None):
                     # we're doing a GC-based query on the project - UNLESS a local config is also specified in which case the GC can be used to find the local config
                     # using the GC contributions tree
                     # and then the query is done on the local config and NOT using the gc config
-                    if args.configuration:
+                    if args.component:
+                        print( f"{c=}" )
                         if c:
-                            config = c.get_local_config(args.configuration)
+                            config = c.get_local_config(args.configuration,gcconfiguri)
+                            print( f"Selected local config contributing this component {config}" )
                             queryon = c
                         else:
                             config = p.get_local_config(args.configuration)
@@ -461,18 +469,47 @@ def do_oslc_query(inputargs=None):
     if args.outputfile and os.path.isfile(args.outputfile):
         os.remove(args.outputfile)
 
-    # do the actual OSLC query
-    results = queryon.do_complex_query( args.resourcetype, querystring=args.query, searchterms=args.searchterms, select=args.select, isnulls=args.null, isnotnulls=args.value
-                    ,orderby=args.orderby
-                    ,show_progress=args.noprogressbar
-                    ,verbose=args.verbose
-                    ,maxresults=args.maxresults
-                    ,delaybetweenpages=args.delaybetweenpages
-                    ,pagesize=args.pagesize
-                    ,resolvenames = args.resolvenames
-                    ,totalize=args.totalize
-                    ,saverawresults=args.saverawresults
-                    )
+    if args.percontribution:
+        results = {}
+        # get all the contributions in this domain, and the component they're in - these will be added to the results
+        contribs = p.get_our_contributions(gcconfiguri)
+        for i,(contriburi,compuri) in enumerate(contribs):
+            print( f"{i+1}/{len(contribs)} {contriburi=} {compuri=}" )
+            # find the component in teh config
+            queryon = p.find_local_component(compuri)
+            if queryon is None:
+                print( f"Component not found from {compuri}" )
+                continue
+            queryon.set_local_config(contriburi)
+            # now do a query for each contribution
+            thisresults = queryon.do_complex_query( args.resourcetype, querystring=args.query, searchterms=args.searchterms, select=args.select, isnulls=args.null, isnotnulls=args.value
+                        ,orderby=args.orderby
+                        ,show_progress=args.noprogressbar
+                        ,verbose=args.verbose
+                        ,maxresults=args.maxresults
+                        ,delaybetweenpages=args.delaybetweenpages
+                        ,pagesize=args.pagesize
+                        ,resolvenames = args.resolvenames
+                        ,totalize=args.totalize
+                        ,saverawresults=args.saverawresults
+                        ,addcolumns={'$contriburi':contriburi,'$compuri':compuri}
+                        ,cacheable=args.cacheable
+                        )
+            results.update(thisresults)
+    else:    
+        # do the actual OSLC query
+        results = queryon.do_complex_query( args.resourcetype, querystring=args.query, searchterms=args.searchterms, select=args.select, isnulls=args.null, isnotnulls=args.value
+                        ,orderby=args.orderby
+                        ,show_progress=args.noprogressbar
+                        ,verbose=args.verbose
+                        ,maxresults=args.maxresults
+                        ,delaybetweenpages=args.delaybetweenpages
+                        ,pagesize=args.pagesize
+                        ,resolvenames = args.resolvenames
+                        ,totalize=args.totalize
+                        ,saverawresults=args.saverawresults
+                        ,cacheable=args.cacheable
+                        )
 
     if args.debugprint:
         pp.pprint(results)
@@ -544,10 +581,11 @@ def do_oslc_query(inputargs=None):
             # add the URI to the value so it will be exported (first char is $ so the uri will always be in first column after the column titles are sorted)
             v["$uri"] = k
             for sk in list(v.keys()):
+                # try to resolve heading names
                 sk1 = queryon.resolve_uri_to_name(sk) if args.resolvenames else sk
                 if sk not in rawheadings:
                     rawheadings.append(sk)
-                    if sk1 == sk: # if heading name hasn't been resolved before
+                    if args.resolvenames and sk1 == sk: # if heading name hasn't been resolved before
                         sk1 = queryon.resolve_uri_to_name(sk) # always resolve - only for headings
                     if sk1 not in headings:
                         headings.append(sk1)
@@ -566,7 +604,6 @@ def do_oslc_query(inputargs=None):
                     if existing and otherexisting:
                         if existing != otherexisting:
                             logger.info( f"MERGE {existing=} {otherexisting=}" )
-                            burp
                     v[sk1] = otherexisting if otherexisting else existing
 
         fieldnames = sorted(headings)

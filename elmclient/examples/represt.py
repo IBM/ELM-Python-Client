@@ -65,7 +65,7 @@ def represt_main():
     subparsers = parser.add_subparsers(help='sub-commands',dest='subparser_name')
 
     # general settings which are common acrosss all reportable rest apps
-    common_args.add_argument('-A', '--appstrings', default=APPSTRINGS,help=f'Must be comma-separated list of used domains or domain:contextroot, the FIRST one is where the reportable rest query goes, default {APPSTRINGS} If using nonstandard context roots for just rm and gc like /rrc and /thegc then specify "rm:rrc,gc:thegc" NOTE if jts is not on /jts but is on /myjts then add jts: and its context route without leading / e.g. "rm,jts:myjts" to the end of this string. Default can be set using environment variable QUERY_APPSTRINGS')
+    common_args.add_argument('-A', '--appstrings', default=None,help=f'Must be comma-separated list of used domains or domain:contextroot, the FIRST one is where the reportable rest query goes, default {APPSTRINGS} If using nonstandard context roots for just rm and gc like /rrc and /thegc then specify "rm:rrc,gc:thegc" NOTE if jts is not on /jts but is on /myjts then add jts: and its context route without leading / e.g. "rm,jts:myjts" to the end of this string. Default can be set using environment variable QUERY_APPSTRINGS')
     common_args.add_argument('-C', '--csvoutputfile', default=None, help='Name of file to save the CSV results to')
     common_args.add_argument('-D', '--delaybetweenpages', type=float,default=0.0, help="Delay in seconds between each page of results - use this to reduce overall server load particularly for large result sets or when retrieving many attributes")
     common_args.add_argument('-E', '--cacheexpiry', type=int, default=7, help="Days to keep cached results from the server (NOTE query results are never cached) - set to 0 to erase current cache and suppress new caching - set to e.g. -7 to erase current cache and then cache for 7 days, set to 7 to maintain the current cache and keep new entries for 7 days")
@@ -93,7 +93,7 @@ def represt_main():
 #    common_args.add_argument('--nresults', default=-1, type=int, help="TESTING UNFINISHED: Number of results expected (used for regression testing against stored data, doesn't need the target server - use -1 to disable checking")
 
     # saved credentials
-    common_args.add_argument('-0', '--savecreds', default=None, help="Save obfuscated credentials file for use with readcreds, then exit - this stores jazzurl, jts, appstring, username and password")
+    common_args.add_argument('-0', '--savecreds', default=None, help="Save obfuscated credentials file for use with readcreds, then exit - this stores jazzurl, appstring, username and password")
     common_args.add_argument('-1', '--readcreds', default=None, help="Read obfuscated credentials from file - completely overrides commandline/environment values for jazzurl, jts, appstring, username and password" )
     common_args.add_argument('-2', '--erasecreds', default=None, help="Wipe and delete obfuscated credentials file" )
     common_args.add_argument('-3', '--secret', default="N0tSecret-", help="SECRET used to encrypt and decrypt the obfuscated credentials (make this longer for greater security)" )
@@ -148,10 +148,15 @@ def represt_main():
 #        if args.secret is None:
 #            raise Exception( "You MUST specify a secret using -3 or --secret if using -0/--readcreads" )
         try:
-            args.username,args.password,args.jazzurl,args.appstrings = json.loads( utils.fernet_decrypt(open(args.readcreds,"rb").read(),"=-=".join([socket.getfqdn(),os.path.abspath(args.readcreds),os.getcwd(),getpass.getuser(),args.secret,credspassword])) )
+            args.username,args.password,args.jazzurl,apps = json.loads( utils.fernet_decrypt(open(args.readcreds,"rb").read(),"=-=".join([socket.getfqdn(),os.path.abspath(args.readcreds),getpass.getuser(),args.secret,credspassword])) )
+            # allow overriding appstrings stored in creads with option on commandline
+            args.appstrings = args.appstrings or apps
         except (cryptography.exceptions.InvalidSignature,cryptography.fernet.InvalidToken, TypeError):
             raise Exception( f"Unable to decrypt credentials from {args.readcreds}" )
         print( f"Credentials file {args.readcreds} read" )
+
+    # if no appstring yet specified use the default
+    args.appstrings = args.appstrings or APPSTRINGS
 
     if args.savecreds:
         if args.secret is None:

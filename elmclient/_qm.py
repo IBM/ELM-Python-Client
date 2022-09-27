@@ -153,11 +153,26 @@ class _QMProject(_project._Project):
             self._components[cu]['component'] = c
         return (ncomps, nconfs)
 
-    def get_local_config(self, name_or_uri):
-        for cu, cd in self._configurations.items():
-            logger.debug( f"{cu=} {cd=} {name_or_uri=}" )
-            if cu == name_or_uri or cd['name'] == name_or_uri:
-                return cu
+    def get_local_config(self, name_or_uri, global_config_uri=None):
+        if global_config_uri:
+            if not name_or_uri:
+                raise Exception( "can't find a local config in a GC if config name not provided" )
+            # gc and local config both specified - try to avoid loading all the local configs by using the gc tree to locate the local config
+            gc_contribs = self.get_gc_contributions(global_config_uri)
+            # find the contribution for this component
+            config_uri = None
+            for config in gc_contribs['configurations']:
+#                print( f"Checking {config=} for {self.project_uri=}" )
+                if config['componentUri'] == self.project_uri:
+                    config_uri = config['configurationUri']
+            if not config_uri:
+                raise Exception( 'Cannot find configuration [%s] in project [%s]' % (name_or_uri, self.uri))
+            return config_uri
+        else:
+            for cu, cd in self._configurations.items():
+                logger.debug( f"{cu=} {cd=} {name_or_uri=}" )
+                if cu == name_or_uri or cd['name'] == name_or_uri:
+                    return cu
         return None
 
     # load the typesystem using the OSLC shape resources

@@ -75,7 +75,8 @@ usage: oslcquery [-h] [-f SEARCHTERMS] [-n NULL] [-o ORDERBY] [-p PROJECTNAME] [
                  [-F CONFIGURATION] [-G GLOBALCONFIGURATION] [-H SAVECONFIGS] [-I] [-J JAZZURL] [-L LOGLEVEL]
                  [-M MAXRESULTS] [-N] [-O OUTPUTFILE] [-P PASSWORD] [-Q] [-R] [-S] [-T] [-U USERNAME] [-V] [-W]
                  [-X XMLOUTPUTFILE] [-Y] [-Z PROXYPORT] [--nresults NRESULTS] [--compareresults COMPARERESULTS]
-                 [--pagesize PAGESIZE] [--typesystemreport TYPESYSTEMREPORT] [--cachedays CACHEDAYS] [-0 SAVECREDS]
+                 [--pagesize PAGESIZE] [--typesystemreport TYPESYSTEMREPORT] [--cachedays CACHEDAYS]
+                 [--saverawresults SAVERAWRESULTS] [--saveprocessedresults SAVEPROCESSEDRESULTS] [-0 SAVECREDS]
                  [-1 READCREDS] [-2 ERASECREDS] [-3 SECRET] [-4]
 
 Perform OSLC query on a Jazz application, with results output to CSV (and other) formats - use -h to get some basic
@@ -109,8 +110,8 @@ options:
                         Post-filter: A property name that must have a value for the resource to be included in the
                         results - you can specify this option more than once
   -A APPSTRINGS, --appstrings APPSTRINGS
-                        A comma-seperated list of apps, the query goes to the first entry, default "rm,gc,ccm". Each
-                        entry must be a domain or domain:contextroot e.g. rm or rm:rm1 - Default can be set using
+                        A comma-seperated list of apps, the query goes to the first entry, default "rm". Each entry
+                        must be a domain or domain:contextroot e.g. rm or rm:rm1 - Default can be set using
                         environemnt variable QUERY_APPSTRINGS
   -C COMPONENT, --component COMPONENT
                         The local component (optional, you *have* to specify the local configuration using -F)
@@ -126,7 +127,7 @@ options:
                         id, the full URI, or the config name (not implemented yet)
   -H SAVECONFIGS, --saveconfigs SAVECONFIGS
                         Name of CSV file to save details of the local project components and configurations
-  -I, --totalize        For all columns with multiple results, put in the total instead of the results
+  -I, --totalize        For any column with multiple results, put in the total instead of the results
   -J JAZZURL, --jazzurl JAZZURL
                         jazz server url (without the /jts!) default https://jazz.ibm.com:9443 - Default can be set
                         using environemnt variable QUERY_JAZZURL - defaults to https://jazz.ibm.com:9443 which DOESN'T
@@ -172,8 +173,12 @@ options:
                         Load the specified project/configuration and then produce a simple HTML type system report of
                         resource shapes/properties/enumerations to this file
   --cachedays CACHEDAYS
-                        The number of days for caching received data, default 1. To disable caching use -WW. To keep
+                        The number of days for caching received data, default 7. To disable caching use -WW. To keep
                         using a non-default cache period you must specify this value every time
+  --saverawresults SAVERAWRESULTS
+                        Save the raw results as XML to this path/file prefix - pages are numbered starting from 0000
+  --saveprocessedresults SAVEPROCESSEDRESULTS
+                        Save the processed results as JSON to this path/file
   -0 SAVECREDS, --savecreds SAVECREDS
                         Save obfuscated credentials file for use with readcreds, then exit - this stores jazzurl, jts,
                         appstring, username and password
@@ -184,10 +189,9 @@ options:
                         Wipe and delete obfuscated credentials file
   -3 SECRET, --secret SECRET
                         SECRET used to encrypt and decrypt the obfuscated credentials (make this longer for greater
-                        security) - required if using -0 or -1
+                        security) - only affects if using -0 or -1
   -4, --credspassword   Prompt user for a password to save/read obfuscated credentials (make this longer for greater
-                        security)
-```
+                        security)```
 
 
 BEFORE you start:
@@ -455,7 +459,11 @@ To find all artifacts in project/component in a specific module id 3892 modified
 
 To find all artifacts in project/component in a specific module id 3892 modified before a specific date `-q rm:module=~3892 and dcterms:modified<"2020-08-01T21:51:40.979Z"^^xsd:dateTime` - NOTE this is using the enhanced OSLC Query sytnax for finding an artifact by id using ~
 
-To totalize a column which has multiple results replacing them with a count of the number of results, which might be useful for example to get a count of artifacts in each module, use a query for modules `rdm_types:ArtifactFormat=jazz_rm:Module` and select `oslc_rm:uses` then use the -I option. Because this doesn't need name resolution which can slow the query and post-processing down when processing many modules, also use -R and -Q - for results from components across a GC `/gc/configuration/26` in GCM project `gcproj` the query looks like: `-s oslc_rm:uses,dcterms:title -q rdm_types:ArtifactFormat=jazz_rm:Module -G 26 -E gcproj` - the result is a spreadsheet containing the module URI, the module name and identifier and a column with the count of artifacts in the module.
+To totalize a column which has multiple results replacing them with a count of the number of results, which might be useful for example to get a count of artifacts in each module, use a query for modules `rdm_types:ArtifactFormat=jazz_rm:Module` and select `oslc_rm:uses` then use the -I option. Because this doesn't need name resolution which can slow the query and post-processing down when processing many modules, also use -R and -Q - for results from components across a GC `/gc/configuration/26` in GCM project `gcproj` the query looks like: `-s oslc_rm:uses,dcterms:title -q rdm_types:ArtifactFormat=jazz_rm:Module -G 26 -E gcproj` - the result is a spreadsheet containing the module URI, the module name and identifier and a column with the count of artifacts in the module. You can improve performance (assuming you don't need friendly names, and counting artifacts/module doesn't really need friendly names) by suppressing the reading of the type system using `-Q` and `-R`, and because the results will be large you may consider carefully whether to suppress paging by using `--pagesize 0`.
+
+If you have a project with many components and/or configurations, you may observe that startup is slow - this is because by default if you don't specify a component then oslcquery reads all the components in the project and all the configurations in each component so that it can find the configuration which might be in any component. As of version 0.10.0 you can reduce this cost in a few ways: - most basic is to specify a component using -C, when you do this oslcquery only reads the configurations for that component. The next is to specify a component using `-C` and GC as well - using `-E` and `-G` -and also as a local configuration using `-F` - `oslcquery` will find the contribution to the GC for that component. If you only specify a GC configuration (usinging `-E` and `-G`) then oslcquery won't read RM components or configurations and the query will work on the project returning results from all contributing componenets in the project.
+
+If there are very many results then paging can add significant cost - you may want to suppress paging using `--pagesize 0` but BE CAREFUL not to impact on other users!
 
 GCM basic usage
 ===============

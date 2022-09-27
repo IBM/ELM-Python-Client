@@ -200,6 +200,20 @@ class _Project(oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixin
         result = self.execute_get_json(self.reluri("gcsdk-api/flatListOfContributionsForGcHierarchy"), params={'configurationUri':gcuri,'include':'*'} )
 #        print( f"{result=}" )
         return result
+    
+    # get contributions and component details for just this app
+    def get_our_contributions(self, gcuri):
+        gc_contribs = self.get_gc_contributions(gcuri)
+        results = []
+        for contrib in gc_contribs['configurations']:
+            if contrib['configurationUri'].startswith(self.reluri()):
+                results.append( [contrib['configurationUri'],contrib['componentUri'] ] )
+#                print( f"Included {contrib['configurationUri']}" )
+            else:
+#                print( f"Skipped {contrib['configurationUri']}" )
+                pass
+#        print( f"{results=}" )
+        return results
         
     def set_local_config(self, name_or_uri, global_config_uri=None):
         if name_or_uri:
@@ -211,13 +225,11 @@ class _Project(oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixin
                 # find the contribution for this component
                 config_uri = None
                 for config in gc_contribs['configurations']:
-                    print( f"Checking {config=} for {self.project_uri=}" )
+#                    print( f"Checking {config=} for {self.project_uri=}" )
                     if config['componentUri'] == self.project_uri:
                         config_uri = config['configurationUri']
-                if config_uri is None:
-                    burp
             if not config_uri:
-                raise Exception('Cannot find configuration [%s] in project [%s]' % (name_or_uri, self.uri))
+                raise Exception( 'Cannot find configuration [%s] in project [%s]' % (name_or_uri, self.uri))
         else:
             config_uri = None
 

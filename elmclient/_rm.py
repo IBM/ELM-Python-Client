@@ -188,7 +188,7 @@ class _RMProject(_project._Project):
         return None
 
     def load_components_and_configurations(self,force=False):
-        if self._components and self._configurations and not force:
+        if self._components and not force:
             return
         logger.info( f"load_components_and_configurations {self=} {self.is_optin=}" ) 
         self._components = {}
@@ -307,7 +307,6 @@ class _RMProject(_project._Project):
                     compu = component_el.get("{%s}resource" % rdfxml.RDF_DEFAULT_PREFIX["rdf"])
                     compx = self.execute_get_rdf_xml(compu, intent="Retrieve component definition to find all configurations", action="Retrieve each configuration")
                     comptitle = rdfxml.xmlrdf_get_resource_text(compx, './/dcterms:title')
-
                     confu = rdfxml.xmlrdf_get_resource_uri(compx, './/oslc_config:configurations')
                     self._components[compu] = {'name': comptitle, 'configurations': {}, 'confs_to_load': [confu]}
                     ncomps += 1
@@ -383,6 +382,7 @@ class _RMProject(_project._Project):
         return (ncomps, nconfs)
 
     def load_configs(self):
+        # load configurations
         while self._confs_to_load:
             confu = self._confs_to_load.pop()
             if not confu:
@@ -435,27 +435,40 @@ class _RMProject(_project._Project):
                 self._confs_to_load.append( rdfxml.xmlrdf_get_resource_uri(confmember, './oslc_config:baselines') )
                 self._confs_to_load.append( rdfxml.xmlrdf_get_resource_uri(confmember, './rm_config:changesets') )
 
-    def get_local_config(self, name_or_uri):
+    def get_local_config(self, name_or_uri, global_config_uri=None):
         logger.info( f"GLC {self=} {name_or_uri=}" )
-        self.load_configs()
-        result = None
-        filter = None
-        if name_or_uri.startswith("S:"):
-            filter="Stream"
-            name_or_uri = name_or_uri[2:]
-        elif name_or_uri.startswith("B:"):
-            filter="Baseline"
-            name_or_uri = name_or_uri[2:]
-        elif name_or_uri.startswith("C:"):
-            filter="ChangeSet"
-            name_or_uri = name_or_uri[2:]
-        for cu, cd in self._configurations.items():
-            if filter and cd['conftype'] != filter:
-                continue
-            if cu == name_or_uri or cd['name'] == name_or_uri:
-                if result:
-                    raise Exception( f"Config {name_or_uri} isn't unique - you could try prefixing it with S: for stream, B: for baseline, or C: for changeset")
-                result = cu
+        if global_config_uri:
+            # gc and local config both specified - try to avoid loading all the local configs by using the gc tree to locate the local config
+            gc_contribs = self.get_gc_contributions(global_config_uri)
+            # find the contribution for this component
+            config_uri = None
+            for config in gc_contribs['configurations']:
+#                print( f"Checking {config=} for {self.project_uri=}" )
+                if config['componentUri'] == self.project_uri:
+                    config_uri = config['configurationUri']
+            if not config_uri:
+                raise Exception( 'Cannot find configuration [%s] in project [%s]' % (name_or_uri, self.uri))
+            result = config_uri
+        else:
+            self.load_configs()
+            result = None
+            filter = None
+            if name_or_uri.startswith("S:"):
+                filter="Stream"
+                name_or_uri = name_or_uri[2:]
+            elif name_or_uri.startswith("B:"):
+                filter="Baseline"
+                name_or_uri = name_or_uri[2:]
+            elif name_or_uri.startswith("C:"):
+                filter="ChangeSet"
+                name_or_uri = name_or_uri[2:]
+            for cu, cd in self._configurations.items():
+                if filter and cd['conftype'] != filter:
+                    continue
+                if cu == name_or_uri or cd['name'] == name_or_uri:
+                    if result:
+                        raise Exception( f"Config {name_or_uri} isn't unique - you could try prefixing it with S: for stream, B: for baseline, or C: for changeset")
+                    result = cu
         return result
 
     # for RM, load the typesystem using the OSLC shape resources listed for the Requirements and Requirements Collection creation factories

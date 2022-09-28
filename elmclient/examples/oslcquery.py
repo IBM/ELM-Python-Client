@@ -109,6 +109,7 @@ def do_oslc_query(inputargs=None):
     parser.add_argument('--saveprocessedresults', default=None, help="Save the processed results as JSON to this path/file" )
     parser.add_argument('--percontribution', action="store_true", help="When querying a GC, query once for each app-domain contribution in the GC tree, with added component and configuration columns in the result")
     parser.add_argument('--cacheable', action="store_true", help="Query results can be cached - use when you know the data isn't changing and you need faster re-run")
+    parser.add_argument('--crossproject', action="store_true", help="For --percontriubtion GC queries follow gc contributions to other projects and query those too (requires access permission of course)")
 
     # saved credentials
     parser.add_argument('-0', '--savecreds', default=None, help="Save obfuscated credentials file for use with readcreds, then exit - this stores jazzurl, appstring, username and password")
@@ -479,7 +480,25 @@ def do_oslc_query(inputargs=None):
             queryon = p.find_local_component(compuri)
             if queryon is None:
                 print( f"Component not found from {compuri}" )
+                if args.crossproject:
+                    # this component isn't in our current project
+                    # try to create a component for it and add to current project
+                    queryon = p.add_external_component(compuri)
+                    if queryon is None:
+                        burp
+                        continue
+                    else:
+                        print( f"Added external component {queryon=}" )
+            # check the comonent is accessible (may have been achived!)
+            if not app.is_accessible( compuri ):
+                print( f"Archived component {compuri} !")
                 continue
+            # check if the config is accessible (may have been archived!)
+            if not app.is_accessible( contriburi ):
+                print( f"Archived configuration {contriburi} !")
+                continue
+            
+            # set the config ready to do the query
             queryon.set_local_config(contriburi)
             # now do a query for each contribution
             thisresults = queryon.do_complex_query( args.resourcetype, querystring=args.query, searchterms=args.searchterms, select=args.select, isnulls=args.null, isnotnulls=args.value

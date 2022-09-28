@@ -380,6 +380,22 @@ class _RMProject(_project._Project):
             self._confs_to_load.extend(self._components[cu]['confs_to_load'])
             self._components[cu]['component'] = c
         return (ncomps, nconfs)
+        
+    def add_external_component(self,compu):
+        # this is only ever used for opt-in projects!
+        compx = self.execute_get_rdf_xml(compu, intent="Retrieve component definition to find all configurations", action="Retrieve each configuration")
+        comptitle = rdfxml.xmlrdf_get_resource_text(compx, './/dcterms:title')
+        confu = rdfxml.xmlrdf_get_resource_uri(compx, './/oslc_config:configurations')
+        self._components[compu] = {'name': comptitle, 'configurations': {}, 'confs_to_load': [confu]}
+
+        cname = comptitle
+        cconfs_to_load = [confu]
+        c = self._create_component_api(compu, cname, cconfs_to_load)
+        c._configurations = self._components[compu]['configurations']
+        c._confs_to_load = self._components[compu]['confs_to_load']
+        self._confs_to_load.extend(self._components[compu]['confs_to_load'])
+        self._components[compu]['component'] = c
+        return c
 
     def load_configs(self):
         # load configurations

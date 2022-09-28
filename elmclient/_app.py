@@ -310,6 +310,14 @@ class _App( httpops.HttpOperations_Mixin ):
         logger.debug( f"resolve_project_nametouri {name} {result}" )
         return result
 
+    # return True if the uri can be accessed (used e.g. to detect archived components/configs)
+    def is_accessible( self, uri ):
+        try:
+            res = self.execute_get( uri )
+            return True
+        except requests.exceptions.HTTPError as e:
+            return False
+            
 #################################################################################################
 
 class JTSApp(_App):

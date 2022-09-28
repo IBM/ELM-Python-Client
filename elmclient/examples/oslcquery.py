@@ -25,6 +25,7 @@ import lxml.etree as ET
 import requests
 import urllib.parse
 
+from elmclient import __meta__
 from elmclient import rdfxml
 from elmclient import server
 from elmclient import utils
@@ -52,6 +53,7 @@ def ensure_select(select,requireds):
 ############################################################################
 
 def do_oslc_query(inputargs=None):
+    print( f"Version {__meta__.version}" )
     inputargs = inputargs or sys.argv[1:]
     
     # get some defaults from the environment (which can be overridden on the commandline or the saved obfuscated credentials)

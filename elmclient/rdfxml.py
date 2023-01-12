@@ -12,54 +12,55 @@ logger = logging.getLogger(__name__)
 
 # Some well-known and used RDF/XML prefixes
 RDF_DEFAULT_PREFIX = {
-    'acc':          'http://open-services.net/ns/core/acc#',  # added for GCM
-    'acp':          'http://jazz.net/ns/acp#',
-    'config_ext':   'http://jazz.net/ns/config_ext#',
-    'dc':           'http://purl.org/dc/elements/1.1/',
-    'dcterms':      'http://purl.org/dc/terms/',
-    'dng_reqif':    'http://jazz.net/ns/rm/dng/reqif#',
-    'dng_task':     'http://jazz.net/ns/rm/dng/task#',      # only for task tracker
-    'foaf':         'http://xmlns.com/foaf/0.1/',
-    'gc':           'http://jazz.net/ns/globalconfig#',
-    'jazz_rm':      'http://jazz.net/ns/rm#',
-    'jfs':          'http://jazz.net/xmlns/prod/jazz/jfs/1.0/',
-    'jp':           'http://jazz.net/xmlns/prod/jazz/process/1.0/',
-    'jp06':         'http://jazz.net/xmlns/prod/jazz/process/0.6/',
-    'ldp':          'http://www.w3.org/ns/ldp#',
-    'ns':           'http://com.ibm.rdm/navigation#',
-    'oslc':         'http://open-services.net/ns/core#',
-    'oslc_auto':    'http://open-services.net/ns/auto#',
-    'oslc_am':      'http://open-services.net/ns/am#',
-    'oslc_cm':      'http://open-services.net/xmlns/cm/1.0/',
-    'oslc_cm1':     'http://open-services.net/ns/cm#',
-    'oslc_cm_10':   'http://open-services.net/xmlns/cm/1.0/cm#',
-    'oslc_config':  'http://open-services.net/ns/config#',
-    'oslc_qm':      'http://open-services.net/ns/qm#',
-    'oslc_qm_10':   'http://open-services.net/xmlns/qm/1.0/',
-    'oslc_rm':      'http://open-services.net/ns/rm#',
-    'oslc_rm_10':   'http://open-services.net/xmlns/rm/1.0/',
-    'owl':          'http://www.w3.org/2002/07/owl#',
-    'process':      'http://jazz.net/ns/process#',
-    'public_rm_10': 'http://www.ibm.com/xmlns/rm/public/1.0/',
-    'prov':         'http://www.w3.org/ns/prov#',  # added for GCM
-    'qm_rqm':       "http://jazz.net/ns/qm/rqm#",
-    'rdf':          'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
-    'rdfs':         'http://www.w3.org/2000/01/rdf-schema#',
-    'rdm_types':    'http://www.ibm.com/xmlns/rdm/types/',
-    'rm':           'http://www.ibm.com/xmlns/rdm/rdf/',
-    'rm_ds':        'http://jazz.net/xmlns/alm/rm/datasource/v0.1', # For RR
-    'rm_modules':   'http://jazz.net/ns/rm/dng/module#',
-    'rm_config':    'http://jazz.net/ns/rm/dng/config#',
-    'rm_nav':       'http://jazz.net/ns/rm/navigation#',
-    'rm_text':      'http://jazz.net/xmlns/alm/rm/text/v0.1', # for RR
-    'rm_view':      'http://jazz.net/ns/rm/dng/view#',
-    'rqm':          'http://jazz.net/xmlns/prod/jazz/rqm/qm/1.0/',
-    'rrm':          'http://www.ibm.com/xmlns/rrm/1.0/', # For RR
-    'rtc_cm':       "http://jazz.net/xmlns/prod/jazz/rtc/cm/1.0/",
-    'xhtml':        'http://www.w3.org/1999/xhtml',
-    'xml':          'http://www.w3.org/XML/1998/namespace',
-    'xsd':          'http://www.w3.org/2001/XMLSchema#',
-    'xs':          'http://www.w3.org/2001/XMLSchema'
+    'acc':              'http://open-services.net/ns/core/acc#',  # added for GCM
+    'acp':              'http://jazz.net/ns/acp#',
+    'config_ext':       'http://jazz.net/ns/config_ext#',
+    'dc':               'http://purl.org/dc/elements/1.1/',
+    'dcterms':          'http://purl.org/dc/terms/',
+    'dng_reqif':        'http://jazz.net/ns/rm/dng/reqif#',
+    'dng_task':         'http://jazz.net/ns/rm/dng/task#',      # only for task tracker
+    'foaf':             'http://xmlns.com/foaf/0.1/',
+    'gc':               'http://jazz.net/ns/globalconfig#',
+    'jazz_rm':          'http://jazz.net/ns/rm#',
+    'jfs':              'http://jazz.net/xmlns/prod/jazz/jfs/1.0/',
+    'jp':               'http://jazz.net/xmlns/prod/jazz/process/1.0/',
+    'jp06':             'http://jazz.net/xmlns/prod/jazz/process/0.6/',
+    'ldp':              'http://www.w3.org/ns/ldp#',
+    'ns':               'http://com.ibm.rdm/navigation#',
+    'oslc':             'http://open-services.net/ns/core#',
+    'oslc_auto':        'http://open-services.net/ns/auto#',
+    'oslc_am':          'http://open-services.net/ns/am#',
+    'oslc_cm':          'http://open-services.net/xmlns/cm/1.0/',
+    'oslc_cm1':         'http://open-services.net/ns/cm#',
+    'oslc_cm_10':       'http://open-services.net/xmlns/cm/1.0/cm#',
+    'oslc_config':      'http://open-services.net/ns/config#',
+    'oslc_config_ext':  'http://jazz.net/ns/config_ext#',
+    'oslc_qm':          'http://open-services.net/ns/qm#',
+    'oslc_qm_10':       'http://open-services.net/xmlns/qm/1.0/',
+    'oslc_rm':          'http://open-services.net/ns/rm#',
+    'oslc_rm_10':       'http://open-services.net/xmlns/rm/1.0/',
+    'owl':              'http://www.w3.org/2002/07/owl#',
+    'process':          'http://jazz.net/ns/process#',
+    'public_rm_10':     'http://www.ibm.com/xmlns/rm/public/1.0/',
+    'prov':             'http://www.w3.org/ns/prov#',  # added for GCM
+    'qm_rqm':           "http://jazz.net/ns/qm/rqm#",
+    'rdf':              'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
+    'rdfs':             'http://www.w3.org/2000/01/rdf-schema#',
+    'rdm_types':        'http://www.ibm.com/xmlns/rdm/types/',
+    'rm':               'http://www.ibm.com/xmlns/rdm/rdf/',
+    'rm_ds':            'http://jazz.net/xmlns/alm/rm/datasource/v0.1', # For RR
+    'rm_modules':       'http://jazz.net/ns/rm/dng/module#',
+    'rm_config':        'http://jazz.net/ns/rm/dng/config#',
+    'rm_nav':           'http://jazz.net/ns/rm/navigation#',
+    'rm_text':          'http://jazz.net/xmlns/alm/rm/text/v0.1', # for RR
+    'rm_view':          'http://jazz.net/ns/rm/dng/view#',
+    'rqm':              'http://jazz.net/xmlns/prod/jazz/rqm/qm/1.0/',
+    'rrm':              'http://www.ibm.com/xmlns/rrm/1.0/', # For RR
+    'rtc_cm':           "http://jazz.net/xmlns/prod/jazz/rtc/cm/1.0/",
+    'xhtml':            'http://www.w3.org/1999/xhtml',
+    'xml':              'http://www.w3.org/XML/1998/namespace',
+    'xsd':              'http://www.w3.org/2001/XMLSchema#',
+    'xs':              'http://www.w3.org/2001/XMLSchema'
 }
 
 # Register prefixes to XML system

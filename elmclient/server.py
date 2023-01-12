@@ -142,6 +142,7 @@ class JazzTeamServer( httpops.HttpOperations_Mixin ):
         self.cachefolder = cachefolder
         self.apps = []
         self._session = None
+        self._csrfid = 0
 
         # setup the session
         self._session = JazzTeamServer.__get_client(user, password,cachingcontrol=cachingcontrol, cachefolder=self.cachefolder)
@@ -169,7 +170,11 @@ class JazzTeamServer( httpops.HttpOperations_Mixin ):
             if appstring:
                 raise Exception( f"You can't add app '{appstring}' because you haven't specified the jts appstring" )
 
-
+    def get_csrf(self):
+        id = self._csrfid
+        self._csrfid += 1
+        return str(id)
+        
     def get_user_password(self, url=None):
         return (self.__user, self.__password)
 
@@ -329,7 +334,8 @@ class JazzTeamServer( httpops.HttpOperations_Mixin ):
         if headers is not None:
             fullheaders.update(headers)
         sortedparams = None if params is None else {k:params[k] for k in sorted(params.keys())}
-        request = httpops.HttpRequest( self.app.server._session, verb, self.reluri(reluri), params=sortedparams, headers=fullheaders, data=data)
+#        request = httpops.HttpRequest( self.app.server._session, verb, self.reluri(reluri), params=sortedparams, headers=fullheaders, data=data)
+        request = httpops.HttpRequest( self._session, verb, self.reluri(reluri), params=sortedparams, headers=fullheaders, data=data)
         return request
 
 

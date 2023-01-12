@@ -18,6 +18,7 @@ import sys
 import time
 import urllib3
 import webbrowser
+import concurrent.futures
 
 import cryptography
 import cryptography.fernet
@@ -79,9 +80,9 @@ def do_oslc_query(inputargs=None):
     parser.add_argument('-A', '--appstrings', default=None, help=f'A comma-seperated list of apps, the query goes to the first entry, default "rm". Each entry must be a domain or domain:contextroot e.g. rm or rm:rm1 - Default can be set using environemnt variable QUERY_APPSTRINGS')
     parser.add_argument('-C', '--component', help='The local component (optional, you *have* to specify the local configuration using -F)')
     parser.add_argument('-D', '--delaybetweenpages', type=float,default=0.0, help="Delay in seconds between each page of results - use this to reduce overall server load particularly for large result sets or when retrieving many properties")
-    parser.add_argument('-E', '--globalproject', default=None, help="The global configuration project - needed if the globalconfiguration isn't unique")
-    parser.add_argument('-F', '--configuration', default=None, help='The local configuration')
-    parser.add_argument('-G', '--globalconfiguration', default=None, help='The global configuration (you must not specify local config as well!) - you can specify the id, the full URI, or the config name (not implemented yet)')
+    parser.add_argument('-E', '--globalproject', default=None, help="The global configuration project - optional if the globalconfiguration is unique in the gcm app")
+    parser.add_argument('-F', '--configuration', default=None, help='The local configuration name')
+    parser.add_argument('-G', '--globalconfiguration', default=None, help='The global configuration (you must not specify local config as well!) - you can specify the id, the full URI, or the config name')
     parser.add_argument('-H', '--saveconfigs', default=None, help='Name of CSV file to save details of the local project components and configurations')
     parser.add_argument('-I', '--totalize', action="store_true", help="For any column with multiple results, put in the total instead of the results")
     parser.add_argument("-J", "--jazzurl", default=JAZZURL, help=f"jazz server url (without the /jts!) default {JAZZURL} - Default can be set using environemnt variable QUERY_JAZZURL - defaults to https://jazz.ibm.com:9443 which DOESN'T EXIST")
@@ -111,7 +112,8 @@ def do_oslc_query(inputargs=None):
     parser.add_argument('--saveprocessedresults', default=None, help="Save the processed results as JSON to this path/file" )
     parser.add_argument('--percontribution', action="store_true", help="When querying a GC, query once for each app-domain contribution in the GC tree, with added component and configuration columns in the result")
     parser.add_argument('--cacheable', action="store_true", help="Query results can be cached - use when you know the data isn't changing and you need faster re-run")
-    parser.add_argument('--crossproject', action="store_true", help="For --percontriubtion GC queries follow gc contributions to other projects and query those too (requires access permission of course)")
+    parser.add_argument('--crossproject', action="store_true", help="For --percontribution GC queries follow gc contributions to other projects and query those too (requires access permission of course)")
+    parser.add_argument('--threading', action="store_true", help="For --percontriubtion GC queries, use threading to parallelize queries with processing results UNTESTED")
 
     # saved credentials
     parser.add_argument('-0', '--savecreds', default=None, help="Save obfuscated credentials file for use with readcreds, then exit - this stores jazzurl, appstring, username and password")
@@ -474,32 +476,66 @@ def do_oslc_query(inputargs=None):
 
     if args.percontribution:
         results = {}
-        # get all the contributions in this domain, and the component they're in - these will be added to the results
-        contribs = p.get_our_contributions(gcconfiguri)
-        for i,(contriburi,compuri) in enumerate(contribs):
-            print( f"{i+1}/{len(contribs)} {contriburi=} {compuri=}" )
-            # find the component in teh config
-            queryon = p.find_local_component(compuri)
-            if queryon is None:
-                print( f"Component not found from {compuri}" )
-                if args.crossproject:
-                    # this component isn't in our current project
-                    # try to create a component for it and add to current project
-                    queryon = p.add_external_component(compuri)
-                    if queryon is None:
-                        burp
-                        continue
+        futureresults = []
+        workers = 4 if args.threading else 1
+        def thread_fn(i,queryon,configuri):
+            print( f"Thread start {i}" )
+            queryon.set_local_config(configuri)
+            try:
+                thisresults = queryon.do_complex_query( args.resourcetype, querystring=args.query, searchterms=args.searchterms, select=args.select, isnulls=args.null, isnotnulls=args.value
+                            ,orderby=args.orderby
+                            ,show_progress=args.noprogressbar
+                            ,verbose=args.verbose
+                            ,maxresults=args.maxresults
+                            ,delaybetweenpages=args.delaybetweenpages
+                            ,pagesize=args.pagesize
+                            ,resolvenames = args.resolvenames
+                            ,totalize=args.totalize
+                            ,saverawresults=args.saverawresults
+                            ,addcolumns={'$contriburi':contriburi,'$compuri':compuri}
+                            ,cacheable=args.cacheable
+                            )
+            except KeyboardInterrupt:
+                raise Exception( "Control-c" )
+            print( f"Thread finish {i=}" )
+            return thisresults
+        with concurrent.futures.ThreadPoolExecutor(max_workers = workers) as executor:
+            # get all the contributions in this domain, and the component they're in - these will be added to the results
+            contribs = p.get_our_contributions(gcconfiguri)
+            for i,(contriburi,compuri) in enumerate(sorted(contribs,key=lambda v:v[0])):
+                print( f"{i+1}/{len(contribs)} {contriburi=} {compuri=}" )
+                # find the component in teh config
+                queryon = p.find_local_component(compuri)
+                if queryon is None:
+                    print( f"Component not found from {compuri}" )
+                    if args.crossproject:
+                        # this component isn't in our current project
+                        # try to create a component for it and add to current project
+                        queryon = p.add_external_component(compuri)
+                        if queryon is None:
+                            raise Exception( f"Can't add external component for {compuri}" )
+                        else:
+                            print( f"Added external component {queryon=} for {compuri}" )
                     else:
-                        print( f"Added external component {queryon=}" )
-            # check the comonent is accessible (may have been achived!)
-            if not app.is_accessible( compuri ):
-                print( f"Archived component {compuri} !")
-                continue
-            # check if the config is accessible (may have been archived!)
-            if not app.is_accessible( contriburi ):
-                print( f"Archived configuration {contriburi} !")
-                continue
-            
+                        raise Exception( "Component {compuri} not found in current project - maybe you need to use --crossproject?" )
+                # check the comonent is accessible (may have been achived!)
+                if not app.is_accessible( compuri ):
+                    print( f"**** Archived component {compuri} !")
+                    continue
+                # check if the config is accessible (may have been archived!)
+                if not app.is_accessible( contriburi ):
+                    print( f"**** Archived configuration {contriburi} !")
+                    continue
+                if not args.threading:
+                    # work synchronously
+                    results.update(thread_fn(i,queryon,contriburi))
+                else:
+                    # get the results later
+                    futureresults.append(executor.submit(thread_fn,i,queryon,contriburi))
+            # now if working asynchronously retrieve the results
+            for res in futureresults:
+                results.update(res.result())
+        if False:
             # set the config ready to do the query
             queryon.set_local_config(contriburi)
             # now do a query for each contribution

@@ -9,7 +9,7 @@
 
 app = 'elmoslcquery'
 description = 'Commandline OSLC query for ELM'
-version = '0.11.3'
+version = '0.13.0'
 license = 'MIT'
 author_name = 'Ian Barnard'
 author_mail = 'ian.barnard@uk.ibm.com'

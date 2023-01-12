@@ -91,6 +91,17 @@ def to_binary(text, encoding=None, errors='strict'):
         result = codecs.encode(text, encoding=encoding, errors=errors)
     return result
 
+#################################################################################################
+
+def getcookievalue( cookies, cookiename, defaultvalue=None):
+    print( f"gcv {cookies=} {cookiename=} {defaultvalue=}" )
+    for c in cookies:
+        if c.name == cookiename:
+            print( f"Found {cookiename} {c.value}" )
+            return c.value
+    print( f"Not found {cookiename}" )
+    return defaultvalue
+
 ##############################################################################################
 
 class _FormParser(html.parser.HTMLParser):
@@ -203,6 +214,7 @@ class HttpOperations_Mixin():
         return response
 
     def execute_post_content( self, uri, *, params=None, data=None, headers={}, put=False, **kwargs):
+        logger.debug("+++++++++++++++++++")
         data = data if data is not None else ""
         reqheaders = {}
         if headers is not None:
@@ -211,6 +223,7 @@ class HttpOperations_Mixin():
         if put:
             request.method = "PUT"
         response = request.execute( **kwargs )
+        logger.debug("-----------------")
         return response
 
     def execute_get(self, reluri, *, params=None, headers=None, **kwargs):
@@ -308,7 +321,7 @@ class HttpRequest():
         for wait_dur in [2, 5, 10, 0]:
             try:
                 if not cacheable:
-                    # add a header so the response isnm't cached
+                    # add a header so the response isn't cached
                     self._req.headers['Cache-Control'] = "no-store, max-age=0"
                 result = self._execute_one_request_with_login( no_error_log=no_error_log, close=close, **kwargs)
                 return result
@@ -319,6 +332,35 @@ class HttpRequest():
                 logger.warning( f'RETRY: Retry after {wait_dur} seconds... URL: {self._req.url}' )
                 time.sleep(wait_dur)
         raise Exception('programming error this point should never be reached')
+
+    def _execute_request_newbutunused( self, *, no_error_log=False, close=False, cacheable=True, **kwargs ):
+        logger.debug( f"execute_preventing_csrf {cacheable=}",)  
+        try:
+            if not cacheable:
+                # add a header so the response isn't cached
+                self._req.headers['Cache-Control'] = "no-store, max-age=0"
+            result = self._execute_one_request_with_login(no_error_log=no_error_log, close=close, **kwargs)
+            logger.debug( f"execute_request result {result}" )
+            return result
+        except requests.HTTPError as e:
+            logger.debug( f"execute_request Exception {e}" )
+            if (e.response.status_code==http.client.FORBIDDEN or e.response.status_code==http.client.CONFLICT) and e.response.text.find('X-Jazz-CSRF-Prevent'):
+                # Add special header and try again
+                print( f"{e.response=}" )
+                print( f"{e.request._cookies=}" )
+                jsessionid = getcookievalue( e.request._cookies, 'JSESSIONID',None)
+                if not jsessionid:
+                    logger.debug("Retrying request with CSRF header, but coudln't get JSESSIONID from the cookie for url [%s]." % request.url)
+                    raise
+                
+#                e.close()
+                logger.debug("  Retrying request with CSRF header...")
+                self._req.headers['X-Jazz-CSRF-Prevent'] = jsessionid
+                return self._execute_one_request_with_login( close=close, **kwargs )
+            else:
+                raise
+
+
         
     # log a request/response, which may be the result of one or more redirections, so first log each of their request/response
     def log_redirection_history( self, response, intent, action=None, donotlogbody=False ):
@@ -443,6 +485,29 @@ class HttpRequest():
                                         ]:
                 return True
         return False
+        
+    def get_auth_path(self, request_url, response):
+        request_url_parsed = urllib.parse.urlparse(request_url)
+        form_auth_path = [c.path for c in response.cookies if c.name == 'JazzFormAuth']
+        auth_app_context = form_auth_path[0] if len(form_auth_path) == 1 else request_url_parsed.path.split('/')[1]
+        return auth_app_context
+        
+        
+    def tidy_cookies(self):
+        '''
+        LQE 7.0.2SR1 and 7.0.3 has the unpleasant habit of including double-quotes in the auth cookie path so it looks like "/lqe" (which includes the quotation marks in the path) rather than /lqe, and then the path is never matched so authentication is lost
+        This code cleans up the path on all cookies on the session4
+        # return True if any cookie changed
+        '''
+        result = False
+        for cookie in self._session.cookies:
+            if cookie.path.startswith('%22'):
+                oldvalue = cookie.path
+                cookie.path = cookie.path.replace("%22","")
+                logger.debug( f"REVISED cookie {cookie.name} path {oldvalue} to {cookie.path=}" )
+                result = True
+        return result
+
 
     # execute a request once, except:
     #  1. if the response indicates login is required then login and try the request again
@@ -489,6 +554,7 @@ class HttpRequest():
         try:
             prepped = self._session.prepare_request( request )
             response = self._session.send( prepped )
+                                                 
             self.log_redirection_history( response, intent=intent, action=action )
 
             response.raise_for_status()
@@ -512,12 +578,14 @@ class HttpRequest():
                 self._session.is_authenticated = False
                 auth_url = e.response.headers['X-jazz-web-oauth-url']
                 login_response = self._login(auth_url)
+                                   
                 if login_response:
                     logger.trace("WIRE: NOT retrying")
                     response = login_response
                 else:
                     logger.trace("WIRE: retrying")
                     logger.trace( f"Auth completed (in theory) result - 1" )
+                                                                     
                     retry_after_login_needed = True
             elif e.response.status_code == 401 and 'X-JSA-AUTHORIZATION-REDIRECT' in e.response.headers:
                 logger.trace("WIRE: JAS Login required!")
@@ -605,12 +673,14 @@ class HttpRequest():
                 return None  # no more auth required
             login_url = auth_url_response.url  # Take the redirected URL and login action URL
             self._authorize(login_url)
+            
             logger.trace("authorized")
         else:
             logger.error('''Something has changed since this script was written. I can no longer determine where to authorize myself.''')
             raise Exception("Login not possible(1)!")
 
         try:
+                
             # Now we should have the proper oauth cookies, so try again
             response = self._session.get(auth_url)
         except requests.exceptions.RequestException as e:
@@ -700,4 +770,3 @@ class HttpRequest():
             logger.info( f"Failed to jazz_authorize with auth URL {auth_url} with exception {e}" )  # was logger.error despite subsequent authentication success
             raise Exception("Jazz FORM authorize not possible!")
         return response
-

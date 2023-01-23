@@ -134,10 +134,10 @@ class _Project(oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixin
         resource_type = resource_type or context.default_query_resource
         return self.app.get_query_capability_uris_from_xml(capabilitiesxml=context.get_services_xml(), context=context)
 
-    def get_factory_uri(self,resource_type=None,context=None):
+    def get_factory_uri(self,resource_type=None,context=None, return_shapes=False):
         context = context or self
         resource_type = resource_type or context.default_query_resource
-        return self.app.get_factory_uri_from_xml(factoriesxml=context.get_services_xml(), resource_type=resource_type,context=context)
+        return self.app.get_factory_uri_from_xml(factoriesxml=context.get_services_xml(), resource_type=resource_type,context=context, return_shapes=return_shapes)
 
     def load_type_from_resource_shape(self, el):
         raise Exception( "This must be provided by the inheriting class!" )

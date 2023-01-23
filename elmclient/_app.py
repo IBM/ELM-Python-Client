@@ -231,25 +231,42 @@ class _App( httpops.HttpOperations_Mixin ):
                 logger.debug( f"{rdfxml.xmlrdf_get_resource_uri(qcrtx)=}" )
         return qcs
 
-    def get_factory_uri_from_xml(self,factoriesxml,resource_type,context):
-        logger.info( f"get_factory_uri_from_xml {self=} {resource_type=} {factoriesxml=}" )
+    def get_factory_uri_from_xml(self,factoriesxml,resource_type,context, return_shapes=False ):
+        logger.info( f"get_factory_uri_from_xml {self=} {resource_type=} {factoriesxml=} {return_shapes=}" )
         if resource_type is None:
             raise Exception( "You must provide a resource type" )
         # ensure we have a URI for the resource type
         resource_type_u = rdfxml.tag_to_uri(resource_type)
         # get list of [resourcetype,uri]
         qcs = self.get_factory_uris_from_xml(factoriesxml=factoriesxml,context=context)
+        result = None
         if resource_type_u.startswith( 'http' ):
             # looking for a complete precise URI
             if resource_type_u in qcs:
-                return qcs[resource_type_u]
-            raise Exception( f"Factory for resource type {resource_type} not found" )
-        # didn't specify a URI - find the first match at the end of the resouce type
-        for k,v in qcs.items():
-            if k.endswith(resource_type):
-                return v
-        raise Exception( f"QFactory {resource_type} {resource_type_u} not found!" )
-
+                result = qcs[resource_type_u]
+            else:
+                raise Exception( f"Factory for resource type {resource_type} not found" )
+        else:
+            # didn't specify a URI - find the first match at the end of the resouce type
+            for k,v in qcs.items():
+                if k.endswith(resource_type):
+                    result = v
+        if result is None:
+            raise Exception( f"QFactory {resource_type} {resource_type_u} not found!" )
+        if return_shapes:
+            shapeuris = []
+            # get the shapes from this factory capability
+            # find the factory capability xml
+#            print( f"{result=}" )
+            fc_rs = rdfxml.xml_find_elements( factoriesxml, f".//oslc:CreationFactory/oslc:creation[@rdf:resource='{result}']/../oslc:resourceShape" )
+#            print( f"{fc_rs=}" )
+            for rs in fc_rs:
+                # collect the <oslc:resourceShape entries
+                shapeuris.append(rdfxml.xmlrdf_get_resource_uri( rs) )
+#            print( f"{shapeuris=}" )
+            return result, shapeuris
+        else:
+            return result
     # returns a dictionary of resource type to factory URI
     # this is used when the XML doesn't have references off to other URLs (like GCM does)
     def get_factory_uris_from_xml(self,factoriesxml,context):

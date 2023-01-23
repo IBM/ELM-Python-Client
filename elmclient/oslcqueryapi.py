@@ -275,7 +275,9 @@ class _OSLCOperations_Mixin:
                 for isnull in isnulls:
                     # lookup the isnul URI to a name (as used in the results)
                     lookupname = self.resolve_uri_to_name(isnull)
-                    if lookupname in mappedresult[kuri].keys():
+                    v = mappedresult[kuri].get(lookupname,None)
+                    if v:
+                        # if v is not None or v is not an empty list, it's not null so must be removed
                         todeletes.append(kuri)
                         kuri = None
                         break
@@ -283,7 +285,9 @@ class _OSLCOperations_Mixin:
                     for isnotnull in isnotnulls:
                         # lookup the isnul URI to a name (as used in the results)
                         lookupname = self.resolve_uri_to_name(isnotnull)
-                        if lookupname not in mappedresult[kuri].keys():
+                        v = mappedresult[kuri].get(lookupname,None)
+                        if not v:
+                            # if v is None or v is an empty list, it's null so must be removed
                             todeletes.append(kuri)
                             break
             for kuri in todeletes:

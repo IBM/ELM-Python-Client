@@ -60,7 +60,7 @@ identifier          : dottedname
                     | simpleidentifier
 
 
-dottedname          : ( URI_REF_ESC | NAME | "'"SPACYNAME "'" ) "." ( NAME | "'" SPACYNAME "'" )
+dottedname          : ( URI_REF_ESC | NAME | "'" SPACYNAME "'" ) "." ( NAME | "'" SPACYNAME "'" )
 
 prefixedname        : ( URI_REF_ESC | NAME ) ":" NAME
 
@@ -86,7 +86,7 @@ unsignedinteger     : /[1-9][0-9]*/
 
 URI_REF_ESC         : /<https?:.*?>/
 
-SPACYNAME           : /[a-zA-Z0-9_][^']*/
+SPACYNAME           : /[ a-zA-Z0-9_][^']*/
 
 urioffoldername     : "$" string_esc
 
@@ -247,6 +247,7 @@ class _ParseTreeToOSLCQuery(lark.visitors.Transformer):
             #
             if op == "in":
                 # the "value" is actually a list of values, each of which must be resolved if it is an identifier
+                print( f"{value=}" )
                 if not isinstance(value, list):
                     value = [value]
                 resultlist = []
@@ -256,7 +257,7 @@ class _ParseTreeToOSLCQuery(lark.visitors.Transformer):
                         if self.resolverobject.resolve_enum_name_to_uri is not None:
                             result = self.resolverobject.resolve_enum_name_to_uri(val,identifier)
                             if result is None:
-                                raise Exception(f"List ref {val} not resolved in context {identifier}")
+                                raise Exception(f"List ref '{val}' not resolved in context {identifier}")
                             resultlist.append("<" + result + ">")
                     else:
                         resultlist.append(val)

@@ -1,355 +1,355 @@
 ﻿$uri,Identifier,Title,http://www.ibm.com/xmlns/rdm/types/ArtifactFormat,oslc:instanceShape
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcFBloEe2IA6LmxevHgw,3905,"Definitions, Acronyms, and Abbreviations",http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUkhloEe2IA6LmxevHgw,3906,Operational Temperature Constraints,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SERrFhloEe2IA6LmxevHgw,3907,<Stakeholder/System>,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUtxloEe2IA6LmxevHgw,3908,Performance Requirements,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjdRloEe2IA6LmxevHgw,3909,Information captured via the handheld device shall be downloadable via either cable hookup or wireless signal.,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEpenRloEe2IA6LmxevHgw,3910,13. The Meter Reader ends the connection with the Water Meter,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SEyouBloEe2IA6LmxevHgw,3911,The meter interface unit shall be compatible with the existing meter models in use for the area covered by this project.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEpehxloEe2IA6LmxevHgw,3912,Preconditions,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyowxloEe2IA6LmxevHgw,3913,The system shall be able to transmit and receive Meter data to the central office system without human intervention.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjZBloEe2IA6LmxevHgw,3914,General Description,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjmhloEe2IA6LmxevHgw,3915,Handheld Unit,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUrRloEe2IA6LmxevHgw,3917,User Characteristics,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEpeghloEe2IA6LmxevHgw,3918,Context,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyoeRloEe2IA6LmxevHgw,3919,"Definitions Acronyms, and Abbreviations",http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjiBloEe2IA6LmxevHgw,3920,The system shall collect transmissions of meter readings from AMR capable meters and get the data to a central computer without a person in the field to collect it.,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjsBloEe2IA6LmxevHgw,3921,Interface identification and diagrams,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyohBloEe2IA6LmxevHgw,3922,Meter reading in the most cost effective manner possible,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyophloEe2IA6LmxevHgw,3923,damage equipment (such as broken seals);,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SE8ZexloEe2IA6LmxevHgw,3924,Size Limitations,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SERrGxloEe2IA6LmxevHgw,3925,Failed End Condition,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjmBloEe2IA6LmxevHgw,3926,Two dual-core processors with minimum 3.00 Ghz processor and 1333 Frontside Bus (FSB),http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyouhloEe2IA6LmxevHgw,3927,The meter interface unit shall be powered by a replaceable long lasting battery.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUpRloEe2IA6LmxevHgw,3928,Purpose,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEpemhloEe2IA6LmxevHgw,3929,10. There were leaks detected so the system displays a visual leak indication to the Meter Reader.,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcOxloEe2IA6LmxevHgw,3930,Operations,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcLhloEe2IA6LmxevHgw,3931,Hardware Interfaces,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjbhloEe2IA6LmxevHgw,3932,Handheld device,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcQhloEe2IA6LmxevHgw,3933,CRC and CCA,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcMRloEe2IA6LmxevHgw,3934,Performance Requirements,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcMBloEe2IA6LmxevHgw,3935,Communications Interfaces,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyorBloEe2IA6LmxevHgw,3936,"The handheld device shall be capable of displaying diagnostic information, including suspected water leaks.",http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyozBloEe2IA6LmxevHgw,3937,"The AMR system functions, reports, and data on the control computer shall be securely accessible by properly authorized persons from other workstations on the City’s network.",http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUohloEe2IA6LmxevHgw,3938,The primary communication between subsystem units shall be wifi in accordance with Standard IEEE 802.11g.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjphloEe2IA6LmxevHgw,3938,The primary communication between subsystem units shall be wifi in accordance with Standard IEEE 802.11g.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SE8ZhBloEe2IA6LmxevHgw,3939,Temperature Operational Limit of the device,http://jazz.net/ns/rm#Text,Hazard and Risk
-https://jazz.ibm.com:9443/rm/resources/BI_SE8ZihloEe2IA6LmxevHgw,3940,Process Hazards,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyoqhloEe2IA6LmxevHgw,3941,"The handheld device shall have a screen that displays the number of accounts that have been read and unread along with the total number of accounts, date/time, and the id of the handheld reading device.",http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjhxloEe2IA6LmxevHgw,3942,The system shall have a permanently installed network to capture meter readings,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcFxloEe2IA6LmxevHgw,3943,General Description,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEpehhloEe2IA6LmxevHgw,3944,Stakeholder,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUnRloEe2IA6LmxevHgw,3945,All portable equipment shall use standard rubber casing to Internal document 630-520-4587.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyosRloEe2IA6LmxevHgw,3945,All portable equipment shall use standard rubber casing to Internal document 630-520-4587.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyoqBloEe2IA6LmxevHgw,3946,consumption appears to be abnormal and / or record possible reasons for fluctuations.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUuxloEe2IA6LmxevHgw,3947,Attributes,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjfhloEe2IA6LmxevHgw,3948,"The meter interface unit shall employ two-way communications down to the endpoint making it possible for operators to 'push' interval data requests, firmware updates, new capabilities and updated monitoring schedules via the network.",http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUxBloEe2IA6LmxevHgw,3949,Introduction,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyowRloEe2IA6LmxevHgw,3950,<Picture>,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyooxloEe2IA6LmxevHgw,3951,"The handheld meter reading device shall allow for programming of a defined route, advancing to the next meter on the route as the meter reader moves through the route.",http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjkxloEe2IA6LmxevHgw,3952,Application server with the following minimum specifications:,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjoxloEe2IA6LmxevHgw,3953,The meter interface unit shall be able to store data into nonvolatile RAM which does not need power supply to maintain memory.,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUmxloEe2IA6LmxevHgw,3954,All external fixings for portable equipment shall be hexalobular internal driving feature T25 or T30 bolts in accordance with Standard ISO 10664 to improve serviceability.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyorxloEe2IA6LmxevHgw,3954,All external fixings for portable equipment shall be hexalobular internal driving feature T25 or T30 bolts in accordance with Standard ISO 10664 to improve serviceability.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SE8ZdhloEe2IA6LmxevHgw,3955,System Hazards,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjrxloEe2IA6LmxevHgw,3956,Requirements,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyonRloEe2IA6LmxevHgw,3957,<Picture>,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyouxloEe2IA6LmxevHgw,3958,The meter interface unit shall be able to collect meter data at regular intervals and store that data for up to one year.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjrRloEe2IA6LmxevHgw,3959,Document overview,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjcRloEe2IA6LmxevHgw,3960,"The handheld device shall allow for programming of a defined route, advancing to the next meter on the route as the meter reader moves through the route.",http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjaxloEe2IA6LmxevHgw,3963,The control computer shall be capable of operating in a normal office environment.,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjjhloEe2IA6LmxevHgw,3964,Non-Functional Requirements,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcKhloEe2IA6LmxevHgw,3965,The meter interface unit shall log a leak if the instantaneous reading is more than 10% different from the historical average for the hour of the day,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyopRloEe2IA6LmxevHgw,3966,meter irregularities;,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjchloEe2IA6LmxevHgw,3967,"The handheld device shall have the ability to search for accounts by Last Name, Service Address, Meter Number, and Unread Meters.",http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjjBloEe2IA6LmxevHgw,3968,"The city will require a two server system, application and data storage.",http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjYRloEe2IA6LmxevHgw,3969,Introduction,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcJhloEe2IA6LmxevHgw,3970,The meter interface unit shall calculate a rolling average pressure over a period of 24 hours +/- 1 hour,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyoohloEe2IA6LmxevHgw,3971,The handheld device shall allow the meter reader to access account information for a given address or meter.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEpelxloEe2IA6LmxevHgw,3972,7. System records the meter as read.,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SEyomhloEe2IA6LmxevHgw,3973,Description,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcGhloEe2IA6LmxevHgw,3975,User Characteristics,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyoyhloEe2IA6LmxevHgw,3976,The control computer shall be capable of operating in a normal office environment.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SERrIhloEe2IA6LmxevHgw,3977,"1. The countdown commences starting (ten, nine, eight, etc.).",http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SEyodhloEe2IA6LmxevHgw,3979,Intended Use,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjexloEe2IA6LmxevHgw,3980,Meter Interface Unit,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyofxloEe2IA6LmxevHgw,3981,The AMR system shall have an operational life of no less than five years.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjbxloEe2IA6LmxevHgw,3982,The handheld device shall provide for the means for the meter reader to manually enter a meter reading.,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SE8ZcRloEe2IA6LmxevHgw,3984,AMR Graphic,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcFRloEe2IA6LmxevHgw,3985,References,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyoxRloEe2IA6LmxevHgw,3986,The processing servers/computers in the system shall run in a network configuration.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjpBloEe2IA6LmxevHgw,3987,"The handheld device shall support usage to determine water service / consumption for the more than 79,000 meter connections to residential, commercial and industrial customers inside a 72 square mile area.",http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyofRloEe2IA6LmxevHgw,3988,"The system, when deployed, will initially include water service for residential, commercial and industrial customers inside a 72 square mile area (~79,000 meter connections).",http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyovRloEe2IA6LmxevHgw,3989,The meter interface unit shall allow a mechanism to accept / retrieve software / firmware / system updates.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcKRloEe2IA6LmxevHgw,3990,The meter interface unit shall compare the average for the hour of the day to the rolling average for the 24 hour period.,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyovBloEe2IA6LmxevHgw,3991,The meter interface unit shall store data for a defined period while powered off.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUuRloEe2IA6LmxevHgw,3992,Standards Compliance,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyoehloEe2IA6LmxevHgw,3993,Term,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SEyolRloEe2IA6LmxevHgw,3994,Brazil,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjehloEe2IA6LmxevHgw,3995,"The handheld device shall display the following data for leakage: timestamp, meter ID",http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEpemBloEe2IA6LmxevHgw,3996,8. The Meter Reader sends a command to retrieve leak data from Water Meter.,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcGBloEe2IA6LmxevHgw,3997,Product Perspective,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyoyBloEe2IA6LmxevHgw,3998,The control computer must be capable of residing as a node on the City’s existing network.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUthloEe2IA6LmxevHgw,3999,Communications Interfaces,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjbRloEe2IA6LmxevHgw,4000,Functional Requirements,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SE8ZgRloEe2IA6LmxevHgw,4001,Leashed Pets,http://jazz.net/ns/rm#Text,Hazard and Risk
-https://jazz.ibm.com:9443/rm/resources/BI_SE8ZfhloEe2IA6LmxevHgw,4002,Fire/Explosion,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyoqRloEe2IA6LmxevHgw,4003,Update client address and meter location information.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUpxloEe2IA6LmxevHgw,4004,"Definitions, Acronyms, and Abbreviations",http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUqBloEe2IA6LmxevHgw,4005,References,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SERrIxloEe2IA6LmxevHgw,4006,Alternate Flows,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyonBloEe2IA6LmxevHgw,4007,Handheld device,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjgRloEe2IA6LmxevHgw,4008,The meter interface unit shall capture usage data hourly and store this consumption data for up to 365 days. This hourly consumption data is considered usage profile data.,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcEhloEe2IA6LmxevHgw,4009,Purpose,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcPhloEe2IA6LmxevHgw,4010,Introduction,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyovhloEe2IA6LmxevHgw,4011,The meter interface shall detect water leaks and record leak status with the account data.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUsxloEe2IA6LmxevHgw,4012,User Interfaces,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUpBloEe2IA6LmxevHgw,4013,Introduction,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SERrHhloEe2IA6LmxevHgw,4014,"<Primary Actor>, <Secondary Actor>, e.g., Astronaut, Mission Control, The Press (use Glossary Terms for actors throughout use case text)",http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjoBloEe2IA6LmxevHgw,4015,Assumptions and Dependencies,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjbBloEe2IA6LmxevHgw,4016,System Requirements,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUnBloEe2IA6LmxevHgw,4017,All portable equipment shall have a ruggedness of IK06 or better in accordance with Standard IEC 62262:2002.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyosBloEe2IA6LmxevHgw,4017,All portable equipment shall have a ruggedness of IK06 or better in accordance with Standard IEC 62262:2002.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjlxloEe2IA6LmxevHgw,4018,Database server with the following minimum specifications:,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUsRloEe2IA6LmxevHgw,4019,Functional Requirements,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcHxloEe2IA6LmxevHgw,4020,monitorPressure,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SE8ZfxloEe2IA6LmxevHgw,4021,Environmental Hazards,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyoxhloEe2IA6LmxevHgw,4022,The server shall communicate with the existing billing software.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SERrERloEe2IA6LmxevHgw,4023,<Use Case Name>,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUtBloEe2IA6LmxevHgw,4024,Hardware Interfaces,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyolBloEe2IA6LmxevHgw,4026,The AMR system shall be approved for sale in the following markets:,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyojxloEe2IA6LmxevHgw,4027,Operational Environment,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyolxloEe2IA6LmxevHgw,4028,"The AMR system functions, reports, and data on the control computer shall be securely accessible by properly authorized persons from other workstations on the City’s network.",http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjlRloEe2IA6LmxevHgw,4029,"Warranty - 3 years parts on-site labor, next business day",http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyoqxloEe2IA6LmxevHgw,4030,The handheld device shall have a mechanism to recharge the unit.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEpejxloEe2IA6LmxevHgw,4031,Trigger,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SE8ZgBloEe2IA6LmxevHgw,4032,Animals,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyowBloEe2IA6LmxevHgw,4033,Fixed Network Automated Meter Reading System,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjtRloEe2IA6LmxevHgw,4034,Notes,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyomRloEe2IA6LmxevHgw,4035,Specific Description,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyotBloEe2IA6LmxevHgw,4036,<Picture>,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjZRloEe2IA6LmxevHgw,4037,Functions and Purpose,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyosxloEe2IA6LmxevHgw,4038,Meter Interface Unit,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUmBloEe2IA6LmxevHgw,4039,"All portable equipment should survive multiple 6 ft./1.8 m drops on to concrete, across the operating temperature range in accordance with Standard MIL-STD 810G.",http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyokhloEe2IA6LmxevHgw,4039,"All portable equipment should survive multiple 6 ft./1.8 m drops on to concrete, across the operating temperature range in accordance with Standard MIL-STD 810G.",http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SERrJBloEe2IA6LmxevHgw,4040,1a. During the countdown the abort button is pressed.,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjuRloEe2IA6LmxevHgw,4041,Appendix,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcMhloEe2IA6LmxevHgw,4042,Design Constraints,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SE8ZcxloEe2IA6LmxevHgw,4043,AMR Information Architecture,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcKxloEe2IA6LmxevHgw,4044,The meter interface unit shall log a leak if the average for the current hour is more than 10% different from the rolling 24 hour average.,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUnhloEe2IA6LmxevHgw,4045,Any exposed ports on portable equipment will be protected to IP67 or better in accordance with Standard IEC 60529.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyoshloEe2IA6LmxevHgw,4045,Any exposed ports on portable equipment will be protected to IP67 or better in accordance with Standard IEC 60529.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyohRloEe2IA6LmxevHgw,4046,"A system goal of 100% accurate, 100% reliable, 100% of the time",http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUoBloEe2IA6LmxevHgw,4047,"All equipment shall meet the following RF standards USA: FCC Part 2, FCC OET Bulletin 65 Supplement C;Canada: RSS-102; EU: EN 50360; Japan: ARIB STD T56; Australia: Radiocommunications Standard 2003.",http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjqBloEe2IA6LmxevHgw,4047,"All equipment shall meet the following RF standards USA: FCC Part 2, FCC OET Bulletin 65 Supplement C;Canada: RSS-102; EU: EN 50360; Japan: ARIB STD T56; Australia: Radiocommunications Standard 2003.",http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyooBloEe2IA6LmxevHgw,4048,The handheld device shall have a human readable display for information collected from the meter.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjsRloEe2IA6LmxevHgw,4049,(Project-unique identifier of interface),http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyojRloEe2IA6LmxevHgw,4050,Reliability and Service,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjjxloEe2IA6LmxevHgw,4051,Operational Environment,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcIRloEe2IA6LmxevHgw,4052,The meter interface unit shall measure pressure to an accuracy of +/- 2%,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcPBloEe2IA6LmxevHgw,4054,Site Adaptation,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyocxloEe2IA6LmxevHgw,4055,Purpose of the Document,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUwhloEe2IA6LmxevHgw,4056,Site Adaptation,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SERrFxloEe2IA6LmxevHgw,4057,Preconditions,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcLBloEe2IA6LmxevHgw,4058,External Interface Requirements,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjnhloEe2IA6LmxevHgw,4059,The handheld unit shall function in environments with 99% ambient humidity.,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyoixloEe2IA6LmxevHgw,4060,Usability,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SE8ZehloEe2IA6LmxevHgw,4061,Electrocution,http://jazz.net/ns/rm#Text,Hazard and Risk
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcHRloEe2IA6LmxevHgw,4062,Specific Requirements,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyoiRloEe2IA6LmxevHgw,4063,Provide accurate meter readings,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SE8ZeBloEe2IA6LmxevHgw,4064,Sharp Edges,http://jazz.net/ns/rm#Text,Hazard and Risk
-https://jazz.ibm.com:9443/rm/resources/BI_SEyokxloEe2IA6LmxevHgw,4065,Regulatory,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyorRloEe2IA6LmxevHgw,4066,The handheld device shall record leakage data on the central office data store.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SE8ZhxloEe2IA6LmxevHgw,4067,Wireless Communication,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEpeoBloEe2IA6LmxevHgw,4068,3a. The System is unable to identify the meter and logs a failure to connect. The use case ends.,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUphloEe2IA6LmxevHgw,4069,Scope,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcORloEe2IA6LmxevHgw,4070,Transferability/Conversion,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcNBloEe2IA6LmxevHgw,4071,Hardware Limitations,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEpekxloEe2IA6LmxevHgw,4072,2. The Meter Reader sends a command to retrieve the meter info from the Water Meter.,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SEpenxloEe2IA6LmxevHgw,4073,1a. The Meter Reader is unable to connect with the Water Meter. The use case ends.,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjiRloEe2IA6LmxevHgw,4074,The systems shall forward a reading from a more remote area back to a main collector without actually storing it.,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEpelRloEe2IA6LmxevHgw,4075,4. The Meter Reader sends a command to retrieve the usage data from the Water Meter.,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SEyocRloEe2IA6LmxevHgw,4076,Introduction,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEpeiRloEe2IA6LmxevHgw,4077,Success End Condition,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUuhloEe2IA6LmxevHgw,4078,Hardware Limitations,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcIBloEe2IA6LmxevHgw,4079,The meter interface unit shall take readings of pressure with a maximum interval of 1 second,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUmhloEe2IA6LmxevHgw,4081,Any portable equipment shall be yellow.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyorhloEe2IA6LmxevHgw,4081,Any portable equipment shall be yellow.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyoihloEe2IA6LmxevHgw,4082,User Characteristics,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjZhloEe2IA6LmxevHgw,4083,"The AMR system is used to determine water service / consumption for the more than 79,000 meter connections to residential, commercial and industrial customers inside a 72 square mile area.",http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjfBloEe2IA6LmxevHgw,4084,"The meter interface unit shall operate using walk-by, mobile (vehicle-based), and mesh network collection platforms.",http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyodBloEe2IA6LmxevHgw,4085,"The Stakeholder requirements describe the user needs for a water meter reading system (AMR) including the meter, the method of collecting data from the device, and the means by which the customers will be billed for usage.",http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUshloEe2IA6LmxevHgw,4086,External Interface Requirements,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEpekRloEe2IA6LmxevHgw,4087,Main Flow,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SE8ZghloEe2IA6LmxevHgw,4088,Stray Animals,http://jazz.net/ns/rm#Text,Hazard and Risk
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjqhloEe2IA6LmxevHgw,4089,Scope,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyofBloEe2IA6LmxevHgw,4090,Scope of the System,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEpelBloEe2IA6LmxevHgw,4091,3. The System successfully identifies the meter and displays the meter info to the Meter Reader.,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SEyodxloEe2IA6LmxevHgw,4092,The AMR is intended for gathering and reporting of water consumtion data to facilitate measurement of residential and business customers.,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcPxloEe2IA6LmxevHgw,4093,Data Elements,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SE8ZgxloEe2IA6LmxevHgw,4094,External Weather,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcExloEe2IA6LmxevHgw,4095,Scope,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcFhloEe2IA6LmxevHgw,4096,Overview,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUuBloEe2IA6LmxevHgw,4097,Design Constraints,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjnxloEe2IA6LmxevHgw,4098,The handheld unit external case shall have no sharp edges and no pointed corners.,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjmxloEe2IA6LmxevHgw,4099,The handheld unit shall be no larger than 30cm x 30cm x 1cm.,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUnxloEe2IA6LmxevHgw,4100,Communication Requirements,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjpRloEe2IA6LmxevHgw,4100,Communication Requirements,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUqhloEe2IA6LmxevHgw,4101,General Description,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjeBloEe2IA6LmxevHgw,4102,The handheld device shall provide a means to automatically (electronically) read the meter.,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjaBloEe2IA6LmxevHgw,4103,<AMR Artist Rendition>,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SEpeihloEe2IA6LmxevHgw,4104,The Meter Reader usage data is successfully recorded and the system updated accordingly.,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SEpekBloEe2IA6LmxevHgw,4105,Meter Reader uses a handheld device to requests connection to local Water Mater.,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcOBloEe2IA6LmxevHgw,4106,Maintainability,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyotxloEe2IA6LmxevHgw,4107,"The meter interface unit shall support all functions (data reading, time-triggered operation, and management) of the AMR system.",http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyopxloEe2IA6LmxevHgw,4108,"impediments to meter access, including dogs;",http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SERrHRloEe2IA6LmxevHgw,4109,"Primary, Secondary Actors",http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEpegRloEe2IA6LmxevHgw,4111,Upload Usage Data Locally,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjeRloEe2IA6LmxevHgw,4112,"Individual meter usage data and leak diagnostic data, when successfully uploaded to the handheld device, shall be immediately available for display on the handheld device.",http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjhhloEe2IA6LmxevHgw,4113,Fixed Network Automated Meter Reading System,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SE8ZfBloEe2IA6LmxevHgw,4114,Future AMR handheld size growth,http://jazz.net/ns/rm#Text,Hazard and Risk
-https://jazz.ibm.com:9443/rm/resources/BI_SERrGBloEe2IA6LmxevHgw,4115,"<e.g., There is enough fuel in the rocket>",http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUlxloEe2IA6LmxevHgw,4116,"All portable equipment shall have Hazardous location certifications UL Class I, II, III Division II, A, B, C, D, F, G.",http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyolhloEe2IA6LmxevHgw,4116,"All portable equipment shall have Hazardous location certifications UL Class I, II, III Division II, A, B, C, D, F, G.",http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUxRloEe2IA6LmxevHgw,4117,Data Elements,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUrxloEe2IA6LmxevHgw,4118,Assumptions and Dependencies,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUvhloEe2IA6LmxevHgw,4119,Maintainability,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjrBloEe2IA6LmxevHgw,4120,System overview,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyojBloEe2IA6LmxevHgw,4121,A trained user shall be able to use all aspects of the system within no more than one minutes of system startup.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SERrEhloEe2IA6LmxevHgw,4122,Context,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyogxloEe2IA6LmxevHgw,4123,The systems shall meet the following objectives:,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjgxloEe2IA6LmxevHgw,4124,"When connected to a fixed network, the meter interface unit shall 'wake up' and communicate for 4 seconds every 30 minutes, synchronizing all clocks and configuration information. Between these transmissions, the unit remains in a low power state, conservi",http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyoyxloEe2IA6LmxevHgw,4125,The system software and functions shall be quickly and easily movable to another computer or workstation in the event of failure of the control computer.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjthloEe2IA6LmxevHgw,4126,Intentionally left blank,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjhBloEe2IA6LmxevHgw,4127,The meter interface shall detect water leaks and record leak status with the account data.,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEpehBloEe2IA6LmxevHgw,4128,To collect water usage data using a handheld device in near vicinity to the Water Meter.,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjYhloEe2IA6LmxevHgw,4129,Purpose of the Document,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUoRloEe2IA6LmxevHgw,4130,Any supplementary communication between subsystem units shall be available through Bluetooth in order to maintain IP67 or better in accordance with Standard IEC 60529.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjpxloEe2IA6LmxevHgw,4130,Any supplementary communication between subsystem units shall be available through Bluetooth in order to maintain IP67 or better in accordance with Standard IEC 60529.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcHhloEe2IA6LmxevHgw,4131,Functional Requirements,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcHBloEe2IA6LmxevHgw,4133,Assumptions and Dependencies,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyojhloEe2IA6LmxevHgw,4134,The AMR system shall have an operational life of no less than five years.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjkBloEe2IA6LmxevHgw,4135,Control Computer,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SE8ZiBloEe2IA6LmxevHgw,4136,Adequate wireless spectrum control,http://jazz.net/ns/rm#Text,Hazard and Risk
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUrBloEe2IA6LmxevHgw,4137,Product Functions,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjahloEe2IA6LmxevHgw,4139,Environmental Considerations,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcNhloEe2IA6LmxevHgw,4140,Availability,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyokBloEe2IA6LmxevHgw,4141,The AMR system shall be able to operate in the market environments for which it is targeted and approved.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjcBloEe2IA6LmxevHgw,4142,The handheld device shall interfaces with the city's backoffice software.,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyomxloEe2IA6LmxevHgw,4143,"In handheld AMR, a meter reader carries a handheld computer with the ability to collect meter readings from an AMR capable meter. This is sometimes referred to as ""walk-by"" meter reading since the meter reader walks by the locations where meters are instal",http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjZxloEe2IA6LmxevHgw,4144,"In handheld AMR, a meter reader carries a handheld computer with a built-in or attached receiver/transceiver (radio frequency or touch) to collect meter readings from an AMR capable meter. This is sometimes referred to as ""walk-by"" meter reading since the",http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SERrGRloEe2IA6LmxevHgw,4145,Success End Condition,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjYxloEe2IA6LmxevHgw,4146,This document describes the specific functionality of the Automated Meter Reader system. The system is currently available with a handheld collection device. The mobile and fixed network methods of data collection are outside the scope of this system.,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SEyodRloEe2IA6LmxevHgw,4147,The AMR product is intended to allow water providers to lower their cost of operation by more accurately measureing consumption and more quickly gather data.,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjmRloEe2IA6LmxevHgw,4148,"Warranty - 3 years parts on-site labor, next business day",http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SE8ZeRloEe2IA6LmxevHgw,4149,Pinch Areas,http://jazz.net/ns/rm#Text,Hazard and Risk
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUlRloEe2IA6LmxevHgw,4150,Operational Environment Requirements,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUlhloEe2IA6LmxevHgw,4151,Any portable equipment shall have an Ingress Protection Rating of IP66 or better in accordance with Standard IEC 60529.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyokRloEe2IA6LmxevHgw,4151,Any portable equipment shall have an Ingress Protection Rating of IP66 or better in accordance with Standard IEC 60529.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjfRloEe2IA6LmxevHgw,4152,"The meter interface unit shall support all data collection functions (data reading, time-triggered operation, and management) of the AMR system.",http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUwxloEe2IA6LmxevHgw,4153,Appendixes,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEpenhloEe2IA6LmxevHgw,4154,Alternate Flows,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcLRloEe2IA6LmxevHgw,4155,User Interfaces,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUkRloEe2IA6LmxevHgw,4156,Reusable requirements for the AMR project,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcQxloEe2IA6LmxevHgw,4157,Picture or Whitepaper,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjohloEe2IA6LmxevHgw,4158,The handheld device shall provide for a minimum of 16MB of memory in order to support field data collection.,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEpemxloEe2IA6LmxevHgw,4159,10. The Meter Reader sends a command to retrieve the fault status.,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcNxloEe2IA6LmxevHgw,4160,Security,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcMxloEe2IA6LmxevHgw,4161,Standards Compliance,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUlBloEe2IA6LmxevHgw,4162,All exposed equipment shall have an storage temperature range of ambient to -40°F/-40°C ambient to 158F° /70°C .,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjshloEe2IA6LmxevHgw,4163,Precedence and criticality of requirements,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEpemRloEe2IA6LmxevHgw,4164,9. The system displays the leak data.,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SEyooRloEe2IA6LmxevHgw,4165,"The handheld device shall allow for upload of all information collected on handheld computers during meter rounds, so that data can be compiled. Data shall be retrievable to business office computers in a manner that will interface with the existing billin",http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SERrHBloEe2IA6LmxevHgw,4166,"<e.g., The spacecraft does not reach escape velocity and the mission is aborted>",http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjtBloEe2IA6LmxevHgw,4167,Requirements traceability,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyogBloEe2IA6LmxevHgw,4168,Product Perspective,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcGRloEe2IA6LmxevHgw,4169,Product Functions,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjgBloEe2IA6LmxevHgw,4170,The meter interface unit shall be powered by a replaceable long lasting battery (lithium or other).,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUmRloEe2IA6LmxevHgw,4171,Envelope Requirements,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUvRloEe2IA6LmxevHgw,4172,Security,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUqxloEe2IA6LmxevHgw,4173,Product Perspective,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEpelhloEe2IA6LmxevHgw,4174,6. The usage data is displayed on the handheld device.,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUsBloEe2IA6LmxevHgw,4175,Specific Requirements,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjcxloEe2IA6LmxevHgw,4176,"The handheld device shall have a screen capable of displaying the number of accounts that have been read and unread. Display information shall include: total number of accounts in collection route, number of read accounts, number of unread accounts, the ad",http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjrhloEe2IA6LmxevHgw,4177,Referenced documents,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEpekhloEe2IA6LmxevHgw,4178,1. The Meter Reader establishes a connection with the Water Meter. The link is successful.,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SEyofhloEe2IA6LmxevHgw,4179,"The desired solution leverages the existing infrastructure of meters, but may require enhancements to support a more flexible means of determining water consumption. The goal is to best provide services and read meters in an electronically automated and co",http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyoiBloEe2IA6LmxevHgw,4180,Support conservation monitoring and enforcement,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjhRloEe2IA6LmxevHgw,4181,The meter interface unit shall sample water flow every 15 minutes in a 24 hour period to determine leakage.,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUvxloEe2IA6LmxevHgw,4182,Transferability/Conversion,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyoghloEe2IA6LmxevHgw,4183,Performance,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcIhloEe2IA6LmxevHgw,4184,The meter interface unit shall measure pressures between 0.5 bar and 10 bar,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEpeixloEe2IA6LmxevHgw,4185,Failed End Condition,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyohxloEe2IA6LmxevHgw,4186,Maximization of existing investments in meter reading technology,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyohhloEe2IA6LmxevHgw,4187,Ability to perform advanced data analysis of incremental meter readings,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjkhloEe2IA6LmxevHgw,4188,Application Server,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEpegxloEe2IA6LmxevHgw,4189,Goal,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyogRloEe2IA6LmxevHgw,4190,Configuration,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEpeiBloEe2IA6LmxevHgw,4191,It is assumed that Meter Reader is within range of the Water Meter.,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SERrIRloEe2IA6LmxevHgw,4192,Main Flow,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SERrIBloEe2IA6LmxevHgw,4193,"<e.g., The launch button is pressed by mission control>",http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjjRloEe2IA6LmxevHgw,4194,The control computer shall be capable of operating in a normal office environment using normal office power supply. Uninterruptible Power Supply; the control computer shall include an Uninterruptible Power Supply (UPS) of at least 4 hours.,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SERrGhloEe2IA6LmxevHgw,4195,"<e.g., The spacecraft will reach escape velocity and enter space>",http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUwBloEe2IA6LmxevHgw,4196,Other Requirements,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUwRloEe2IA6LmxevHgw,4197,Operations,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEpejhloEe2IA6LmxevHgw,4198,"Meter Reader, Water Meter",http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUkxloEe2IA6LmxevHgw,4199,All exposed equipment shall have an operating temperature range of -4° to 122° F/-20° to 50° C.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjtxloEe2IA6LmxevHgw,4200,Intentionally left blank,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyoxxloEe2IA6LmxevHgw,4201,The AMR System control computer must operate on the most recent Windows platform currently available.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcQRloEe2IA6LmxevHgw,4202,Carbon Trust Standard,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyopBloEe2IA6LmxevHgw,4203,The handheld device shall provide for the means for the meter reader to manually enter a meter reading or information about a meter reading such as,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyoexloEe2IA6LmxevHgw,4204,General Description,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyothloEe2IA6LmxevHgw,4205,"The meter interface unit shall allow for at least one, but preferably several, mechanisms for data collection.",http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SE8ZixloEe2IA6LmxevHgw,4206,Hazard Acronyms,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjkRloEe2IA6LmxevHgw,4207,The control computer shall be capable of operating in a normal office environment.,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjghloEe2IA6LmxevHgw,4209,Meter usage data and leak diagnostic data shall be retrievable on demand from any meter interface via the network or a handheld.,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SE8ZdxloEe2IA6LmxevHgw,4210,Physical Hazards,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SERrHxloEe2IA6LmxevHgw,4211,Trigger,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcPRloEe2IA6LmxevHgw,4212,Appendixes,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjuBloEe2IA6LmxevHgw,4213,Intentionally left blank,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEpeoRloEe2IA6LmxevHgw,4214,11a. The Meter Reader can press a button to clear the faults.,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SERrExloEe2IA6LmxevHgw,4215,Goal,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUvBloEe2IA6LmxevHgw,4216,Availability,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjoRloEe2IA6LmxevHgw,4217,The control computer shall be capable of operating in a normal office environment using normal office power supply. Uninterruptible Power Supply; the control computer shall include a UPS of at least 4 hours.,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyonxloEe2IA6LmxevHgw,4218,The handheld device shall allow for the meter reader to collect and store information from the meter.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjlhloEe2IA6LmxevHgw,4219,Database Server,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyouRloEe2IA6LmxevHgw,4220,The meter interface unit shall be compatible with MMIU.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyochloEe2IA6LmxevHgw,4221,ANSI 1252 Latin 1 for CSV Export,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SE8ZhhloEe2IA6LmxevHgw,4222,External Communications,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SERrFBloEe2IA6LmxevHgw,4223,"<e.g., To launch a spacecraft>",http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjdxloEe2IA6LmxevHgw,4224,The handheld device shall include a leak indicator.,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjfxloEe2IA6LmxevHgw,4225,The meter interface unit shall be compatible with the existing meter models in use for the area covered by this project.,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjihloEe2IA6LmxevHgw,4226,"The system shall consist of a series of antennas, towers, collectors, repeaters, or other permanently installed infrastructure to collect transmissions of meter readings from AMR capable meters and get the data to a central computer without a person in the",http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEyovxloEe2IA6LmxevHgw,4227,The meter interface shall log leakage data on the central office data store.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjlBloEe2IA6LmxevHgw,4228,Two dual-core processors with minimum 3.00 Ghz processor and 1333 Frontside Buss (FSB),http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjixloEe2IA6LmxevHgw,4229,Control Computer and Related Hardware,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjnRloEe2IA6LmxevHgw,4230,The handheld unit shall function in environments from -5 degree C through +50 degree C.,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcJxloEe2IA6LmxevHgw,4231,The meter interface unit shall calculate the average pressure for each hour of the day over a 7 day cycle,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUtRloEe2IA6LmxevHgw,4232,Software Interfaces,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcGxloEe2IA6LmxevHgw,4233,General Constraints,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEpenBloEe2IA6LmxevHgw,4234,11. The fault status is displayed on a screen.,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjdBloEe2IA6LmxevHgw,4235,The handheld device shall allow the meter reader to enter information about meters relocated on a particular route.,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SE8ZfRloEe2IA6LmxevHgw,4236,Future AMR handheld mass growth,http://jazz.net/ns/rm#Text,Hazard and Risk
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcOhloEe2IA6LmxevHgw,4237,Other Requirements,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjdhloEe2IA6LmxevHgw,4238,The handheld device shall be able to recharge using solar power.,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjnBloEe2IA6LmxevHgw,4239,The handheld unit shall have a mass no greater than 2.25kg.,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUrhloEe2IA6LmxevHgw,4240,General Constraints,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcJRloEe2IA6LmxevHgw,4241,detectLeak,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEpehRloEe2IA6LmxevHgw,4242,Scope & Level,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SERrFRloEe2IA6LmxevHgw,4243,Scope & Level,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEpejRloEe2IA6LmxevHgw,4244,"Primary, Secondary Actors",http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyoxBloEe2IA6LmxevHgw,4245,Control Computer and Related Hardware,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEpejBloEe2IA6LmxevHgw,4246,The Meter Reader is unable to collect usage data from the Water Meter due to lack of connection or a fault.,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjqxloEe2IA6LmxevHgw,4247,Identification,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyomBloEe2IA6LmxevHgw,4248,Assumptions and Dependencies,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcKBloEe2IA6LmxevHgw,4249,The meter interface unit shall compare instantaneous readings to the historical average for the hour of the day,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SE8ZiRloEe2IA6LmxevHgw,4250,Inadequate wireless coverage for all customers,http://jazz.net/ns/rm#Text,Hazard and Risk
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcNRloEe2IA6LmxevHgw,4251,Attributes,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEgUqRloEe2IA6LmxevHgw,4252,Overview,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcERloEe2IA6LmxevHgw,4253,Introduction,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcIxloEe2IA6LmxevHgw,4254,The meter interface unit shall log a low pressure event if the pressure is below 1.8 bar,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcJBloEe2IA6LmxevHgw,4255,The meter interface unit shall log a high pressure event if the pressure is above 6.5 bar,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SEbcLxloEe2IA6LmxevHgw,4256,Software Interfaces,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_SEyoyRloEe2IA6LmxevHgw,4257,The Fixed Network Application software and data collection software must operate on a central server.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_SE8ZhRloEe2IA6LmxevHgw,4258,Humidity operational limits of the device,http://jazz.net/ns/rm#Text,Hazard and Risk
-https://jazz.ibm.com:9443/rm/resources/BI_SFFjsxloEe2IA6LmxevHgw,4259,Qualification provisions,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j5FEhEe2d5dG-54qhbg,3905,"Definitions, Acronyms, and Abbreviations",http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBlVEhEe2d5dG-54qhbg,3906,Information captured via the handheld device shall be downloadable via either cable hookup or wireless signal.,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9ovvllEhEe2d5dG-54qhbg,3907,<Stakeholder/System>,http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9pNCpFEhEe2d5dG-54qhbg,3908,Performance Requirements,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pDRklEhEe2d5dG-54qhbg,3909,Operational Temperature Constraints,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMnVEhEe2d5dG-54qhbg,3910,13. The Meter Reader ends the connection with the Water Meter,http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBulEhEe2d5dG-54qhbg,3911,Handheld Unit,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBhFEhEe2d5dG-54qhbg,3912,General Description,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMh1EhEe2d5dG-54qhbg,3913,Preconditions,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punOlEhEe2d5dG-54qhbg,3914,The system shall be able to transmit and receive Meter data to the central office system without human intervention.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9punL1EhEe2d5dG-54qhbg,3916,The meter interface unit shall be compatible with the existing meter models in use for the area covered by this project.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pt_-VEhEe2d5dG-54qhbg,3917,"Definitions Acronyms, and Abbreviations",http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pNCmlEhEe2d5dG-54qhbg,3918,User Characteristics,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qLS9lEhEe2d5dG-54qhbg,3919,Interface identification and diagrams,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punHVEhEe2d5dG-54qhbg,3920,damage equipment (such as broken seals);,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBqFEhEe2d5dG-54qhbg,3921,The system shall collect transmissions of meter readings from AMR capable meters and get the data to a central computer without a person in the field to collect it.,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMglEhEe2d5dG-54qhbg,3922,Context,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9ovvm1EhEe2d5dG-54qhbg,3923,Failed End Condition,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9puABFEhEe2d5dG-54qhbg,3924,Meter reading in the most cost effective manner possible,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBuFEhEe2d5dG-54qhbg,3925,Two dual-core processors with minimum 3.00 Ghz processor and 1333 Frontside Bus (FSB),http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9punMVEhEe2d5dG-54qhbg,3926,The meter interface unit shall be powered by a replaceable long lasting battery.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9p5mJlEhEe2d5dG-54qhbg,3927,Size Limitations,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pNCklEhEe2d5dG-54qhbg,3928,Purpose,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMmlEhEe2d5dG-54qhbg,3929,10. There were leaks detected so the system displays a visual leak indication to the Meter Reader.,http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBjlEhEe2d5dG-54qhbg,3930,Handheld device,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j_lEhEe2d5dG-54qhbg,3931,Hardware Interfaces,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9o8kC1EhEe2d5dG-54qhbg,3932,Operations,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9o-ZElEhEe2d5dG-54qhbg,3933,CRC and CCA,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9o8kAVEhEe2d5dG-54qhbg,3934,Performance Requirements,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pDRolEhEe2d5dG-54qhbg,3935,The primary communication between subsystem units shall be wifi in accordance with Standard IEEE 802.11g.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBxlEhEe2d5dG-54qhbg,3935,The primary communication between subsystem units shall be wifi in accordance with Standard IEEE 802.11g.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9p5mL1EhEe2d5dG-54qhbg,3936,Temperature Operational Limit of the device,http://jazz.net/ns/rm#Text,Hazard and Risk
+https://jazz.ibm.com:9443/rm/resources/BI_9o8kAFEhEe2d5dG-54qhbg,3937,Communications Interfaces,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punI1EhEe2d5dG-54qhbg,3938,"The handheld device shall be capable of displaying diagnostic information, including suspected water leaks.",http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9punQ1EhEe2d5dG-54qhbg,3939,"The AMR system functions, reports, and data on the control computer shall be securely accessible by properly authorized persons from other workstations on the City’s network.",http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBp1EhEe2d5dG-54qhbg,3940,The system shall have a permanently installed network to capture meter readings,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9punIVEhEe2d5dG-54qhbg,3941,"The handheld device shall have a screen that displays the number of accounts that have been read and unread along with the total number of accounts, date/time, and the id of the handheld reading device.",http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9p5mNVEhEe2d5dG-54qhbg,3942,Process Hazards,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punH1EhEe2d5dG-54qhbg,3943,consumption appears to be abnormal and / or record possible reasons for fluctuations.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j51EhEe2d5dG-54qhbg,3944,General Description,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pDRnVEhEe2d5dG-54qhbg,3945,All portable equipment shall use standard rubber casing to Internal document 630-520-4587.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9punKFEhEe2d5dG-54qhbg,3945,All portable equipment shall use standard rubber casing to Internal document 630-520-4587.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBnlEhEe2d5dG-54qhbg,3946,"The meter interface unit shall employ two-way communications down to the endpoint making it possible for operators to 'push' interval data requests, firmware updates, new capabilities and updated monitoring schedules via the network.",http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMhlEhEe2d5dG-54qhbg,3947,Stakeholder,http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9pNCqFEhEe2d5dG-54qhbg,3948,Attributes,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBw1EhEe2d5dG-54qhbg,3949,The meter interface unit shall be able to store data into nonvolatile RAM which does not need power supply to maintain memory.,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pNpo1EhEe2d5dG-54qhbg,3950,Introduction,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pDRm1EhEe2d5dG-54qhbg,3951,All external fixings for portable equipment shall be hexalobular internal driving feature T25 or T30 bolts in accordance with Standard ISO 10664 to improve serviceability.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9punJlEhEe2d5dG-54qhbg,3951,All external fixings for portable equipment shall be hexalobular internal driving feature T25 or T30 bolts in accordance with Standard ISO 10664 to improve serviceability.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBs1EhEe2d5dG-54qhbg,3952,Application server with the following minimum specifications:,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9punOFEhEe2d5dG-54qhbg,3953,<Picture>,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9punGlEhEe2d5dG-54qhbg,3954,"The handheld meter reading device shall allow for programming of a defined route, advancing to the next meter on the route as the meter reader moves through the route.",http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBkVEhEe2d5dG-54qhbg,3955,"The handheld device shall allow for programming of a defined route, advancing to the next meter on the route as the meter reader moves through the route.",http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9p5mIVEhEe2d5dG-54qhbg,3956,System Hazards,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qLS9VEhEe2d5dG-54qhbg,3957,Requirements,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punFFEhEe2d5dG-54qhbg,3958,<Picture>,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9punMlEhEe2d5dG-54qhbg,3959,The meter interface unit shall be able to collect meter data at regular intervals and store that data for up to one year.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qLS81EhEe2d5dG-54qhbg,3960,Document overview,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBi1EhEe2d5dG-54qhbg,3962,The control computer shall be capable of operating in a normal office environment.,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBrlEhEe2d5dG-54qhbg,3964,Non-Functional Requirements,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punHFEhEe2d5dG-54qhbg,3965,meter irregularities;,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j-lEhEe2d5dG-54qhbg,3966,The meter interface unit shall log a leak if the instantaneous reading is more than 10% different from the historical average for the hour of the day,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBgVEhEe2d5dG-54qhbg,3967,Introduction,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBrFEhEe2d5dG-54qhbg,3968,"The city will require a two server system, application and data storage.",http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMl1EhEe2d5dG-54qhbg,3969,7. System records the meter as read.,http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j9lEhEe2d5dG-54qhbg,3970,The meter interface unit shall calculate a rolling average pressure over a period of 24 hours +/- 1 hour,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBklEhEe2d5dG-54qhbg,3971,"The handheld device shall have the ability to search for accounts by Last Name, Service Address, Meter Number, and Unread Meters.",http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9punQVEhEe2d5dG-54qhbg,3972,The control computer shall be capable of operating in a normal office environment.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9punGVEhEe2d5dG-54qhbg,3974,The handheld device shall allow the meter reader to access account information for a given address or meter.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j6lEhEe2d5dG-54qhbg,3975,User Characteristics,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punEVEhEe2d5dG-54qhbg,3976,Description,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pt_9lEhEe2d5dG-54qhbg,3978,Intended Use,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9ovvolEhEe2d5dG-54qhbg,3979,"1. The countdown commences starting (ten, nine, eight, etc.).",http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9pt__1EhEe2d5dG-54qhbg,3980,The AMR system shall have an operational life of no less than five years.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBj1EhEe2d5dG-54qhbg,3981,The handheld device shall provide for the means for the meter reader to manually enter a meter reading.,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBm1EhEe2d5dG-54qhbg,3982,Meter Interface Unit,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pwcMVEhEe2d5dG-54qhbg,3983,AMR Graphic,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBxFEhEe2d5dG-54qhbg,3985,"The handheld device shall support usage to determine water service / consumption for the more than 79,000 meter connections to residential, commercial and industrial customers inside a 72 square mile area.",http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9punPFEhEe2d5dG-54qhbg,3986,The processing servers/computers in the system shall run in a network configuration.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pt__VEhEe2d5dG-54qhbg,3987,"The system, when deployed, will initially include water service for residential, commercial and industrial customers inside a 72 square mile area (~79,000 meter connections).",http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j5VEhEe2d5dG-54qhbg,3988,References,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punDFEhEe2d5dG-54qhbg,3989,Brazil,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j-VEhEe2d5dG-54qhbg,3990,The meter interface unit shall compare the average for the hour of the day to the rolling average for the 24 hour period.,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBmlEhEe2d5dG-54qhbg,3991,"The handheld device shall display the following data for leakage: timestamp, meter ID",http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pNCplEhEe2d5dG-54qhbg,3992,Standards Compliance,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punNFEhEe2d5dG-54qhbg,3993,The meter interface unit shall allow a mechanism to accept / retrieve software / firmware / system updates.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMmFEhEe2d5dG-54qhbg,3994,8. The Meter Reader sends a command to retrieve leak data from Water Meter.,http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j6FEhEe2d5dG-54qhbg,3995,Product Perspective,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punM1EhEe2d5dG-54qhbg,3996,The meter interface unit shall store data for a defined period while powered off.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pt_-lEhEe2d5dG-54qhbg,3997,Term,http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9punP1EhEe2d5dG-54qhbg,3998,The control computer must be capable of residing as a node on the City’s existing network.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pNCo1EhEe2d5dG-54qhbg,3999,Communications Interfaces,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9p5mLFEhEe2d5dG-54qhbg,4000,Leashed Pets,http://jazz.net/ns/rm#Text,Hazard and Risk
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBjVEhEe2d5dG-54qhbg,4001,Functional Requirements,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9p5mKVEhEe2d5dG-54qhbg,4002,Fire/Explosion,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punIFEhEe2d5dG-54qhbg,4003,Update client address and meter location information.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pNClFEhEe2d5dG-54qhbg,4004,"Definitions, Acronyms, and Abbreviations",http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pNClVEhEe2d5dG-54qhbg,4005,References,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9ovvo1EhEe2d5dG-54qhbg,4006,Alternate Flows,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punE1EhEe2d5dG-54qhbg,4007,Handheld device,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBoVEhEe2d5dG-54qhbg,4008,The meter interface unit shall capture usage data hourly and store this consumption data for up to 365 days. This hourly consumption data is considered usage profile data.,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j4lEhEe2d5dG-54qhbg,4009,Purpose,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9ovvnlEhEe2d5dG-54qhbg,4010,"<Primary Actor>, <Secondary Actor>, e.g., Astronaut, Mission Control, The Press (use Glossary Terms for actors throughout use case text)",http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9punNVEhEe2d5dG-54qhbg,4011,The meter interface shall detect water leaks and record leak status with the account data.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9o8kDlEhEe2d5dG-54qhbg,4012,Introduction,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pNCoFEhEe2d5dG-54qhbg,4013,User Interfaces,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pNCkVEhEe2d5dG-54qhbg,4014,Introduction,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pDRnFEhEe2d5dG-54qhbg,4015,All portable equipment shall have a ruggedness of IK06 or better in accordance with Standard IEC 62262:2002.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9punJ1EhEe2d5dG-54qhbg,4015,All portable equipment shall have a ruggedness of IK06 or better in accordance with Standard IEC 62262:2002.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBwFEhEe2d5dG-54qhbg,4016,Assumptions and Dependencies,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBjFEhEe2d5dG-54qhbg,4017,System Requirements,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBt1EhEe2d5dG-54qhbg,4018,Database server with the following minimum specifications:,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9p5mKlEhEe2d5dG-54qhbg,4019,Environmental Hazards,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j71EhEe2d5dG-54qhbg,4020,monitorPressure,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pNCnlEhEe2d5dG-54qhbg,4021,Functional Requirements,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punPVEhEe2d5dG-54qhbg,4023,The server shall communicate with the existing billing software.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9ovvkVEhEe2d5dG-54qhbg,4024,<Use Case Name>,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punC1EhEe2d5dG-54qhbg,4025,The AMR system shall be approved for sale in the following markets:,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9punBlEhEe2d5dG-54qhbg,4026,Operational Environment,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punDlEhEe2d5dG-54qhbg,4027,"The AMR system functions, reports, and data on the control computer shall be securely accessible by properly authorized persons from other workstations on the City’s network.",http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMj1EhEe2d5dG-54qhbg,4028,Trigger,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9p5mK1EhEe2d5dG-54qhbg,4029,Animals,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pNCoVEhEe2d5dG-54qhbg,4030,Hardware Interfaces,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBtVEhEe2d5dG-54qhbg,4031,"Warranty - 3 years parts on-site labor, next business day",http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9punEFEhEe2d5dG-54qhbg,4032,Specific Description,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punIlEhEe2d5dG-54qhbg,4033,The handheld device shall have a mechanism to recharge the unit.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9punKlEhEe2d5dG-54qhbg,4034,Meter Interface Unit,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punK1EhEe2d5dG-54qhbg,4035,<Picture>,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qLS-1EhEe2d5dG-54qhbg,4036,Notes,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punN1EhEe2d5dG-54qhbg,4037,Fixed Network Automated Meter Reading System,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9ovvpFEhEe2d5dG-54qhbg,4038,1a. During the countdown the abort button is pressed.,http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9qLS_1EhEe2d5dG-54qhbg,4039,Appendix,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9o8kAlEhEe2d5dG-54qhbg,4040,Design Constraints,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pDRmFEhEe2d5dG-54qhbg,4041,"All portable equipment should survive multiple 6 ft./1.8 m drops on to concrete, across the operating temperature range in accordance with Standard MIL-STD 810G.",http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9punCVEhEe2d5dG-54qhbg,4041,"All portable equipment should survive multiple 6 ft./1.8 m drops on to concrete, across the operating temperature range in accordance with Standard MIL-STD 810G.",http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pDRnlEhEe2d5dG-54qhbg,4042,Any exposed ports on portable equipment will be protected to IP67 or better in accordance with Standard IEC 60529.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9punKVEhEe2d5dG-54qhbg,4042,Any exposed ports on portable equipment will be protected to IP67 or better in accordance with Standard IEC 60529.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9puABVEhEe2d5dG-54qhbg,4043,"A system goal of 100% accurate, 100% reliable, 100% of the time",http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pwcM1EhEe2d5dG-54qhbg,4044,AMR Information Architecture,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBhVEhEe2d5dG-54qhbg,4045,Functions and Purpose,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pDRoFEhEe2d5dG-54qhbg,4046,"All equipment shall meet the following RF standards USA: FCC Part 2, FCC OET Bulletin 65 Supplement C;Canada: RSS-102; EU: EN 50360; Japan: ARIB STD T56; Australia: Radiocommunications Standard 2003.",http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qHByFEhEe2d5dG-54qhbg,4046,"All equipment shall meet the following RF standards USA: FCC Part 2, FCC OET Bulletin 65 Supplement C;Canada: RSS-102; EU: EN 50360; Japan: ARIB STD T56; Australia: Radiocommunications Standard 2003.",http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9punF1EhEe2d5dG-54qhbg,4047,The handheld device shall have a human readable display for information collected from the meter.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qLS91EhEe2d5dG-54qhbg,4048,(Project-unique identifier of interface),http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j-1EhEe2d5dG-54qhbg,4049,The meter interface unit shall log a leak if the average for the current hour is more than 10% different from the rolling 24 hour average.,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j8VEhEe2d5dG-54qhbg,4050,The meter interface unit shall measure pressure to an accuracy of +/- 2%,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9punBFEhEe2d5dG-54qhbg,4051,Reliability and Service,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBr1EhEe2d5dG-54qhbg,4052,Operational Environment,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9o8kDFEhEe2d5dG-54qhbg,4053,Site Adaptation,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pt_81EhEe2d5dG-54qhbg,4054,Purpose of the Document,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j_FEhEe2d5dG-54qhbg,4055,External Interface Requirements,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pNpoVEhEe2d5dG-54qhbg,4056,Site Adaptation,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9ovvl1EhEe2d5dG-54qhbg,4057,Preconditions,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punAlEhEe2d5dG-54qhbg,4059,Usability,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9p5mI1EhEe2d5dG-54qhbg,4060,Sharp Edges,http://jazz.net/ns/rm#Text,Hazard and Risk
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j7VEhEe2d5dG-54qhbg,4061,Specific Requirements,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punAFEhEe2d5dG-54qhbg,4062,Provide accurate meter readings,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9p5mJVEhEe2d5dG-54qhbg,4063,Electrocution,http://jazz.net/ns/rm#Text,Hazard and Risk
+https://jazz.ibm.com:9443/rm/resources/BI_9punClEhEe2d5dG-54qhbg,4064,Regulatory,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punJFEhEe2d5dG-54qhbg,4065,The handheld device shall record leakage data on the central office data store.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBvlEhEe2d5dG-54qhbg,4066,The handheld unit shall function in environments with 99% ambient humidity.,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMk1EhEe2d5dG-54qhbg,4067,2. The Meter Reader sends a command to retrieve the meter info from the Water Meter.,http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMoFEhEe2d5dG-54qhbg,4068,3a. The System is unable to identify the meter and logs a failure to connect. The use case ends.,http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBqVEhEe2d5dG-54qhbg,4069,The systems shall forward a reading from a more remote area back to a main collector without actually storing it.,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9p5mMlEhEe2d5dG-54qhbg,4070,Wireless Communication,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pNCk1EhEe2d5dG-54qhbg,4071,Scope,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMn1EhEe2d5dG-54qhbg,4072,1a. The Meter Reader is unable to connect with the Water Meter. The use case ends.,http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMlVEhEe2d5dG-54qhbg,4073,4. The Meter Reader sends a command to retrieve the usage data from the Water Meter.,http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9o8kCVEhEe2d5dG-54qhbg,4074,Transferability/Conversion,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMiVEhEe2d5dG-54qhbg,4075,Success End Condition,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pt_8VEhEe2d5dG-54qhbg,4076,Introduction,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBnFEhEe2d5dG-54qhbg,4077,"The meter interface unit shall operate using walk-by, mobile (vehicle-based), and mesh network collection platforms.",http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9o8kBFEhEe2d5dG-54qhbg,4079,Hardware Limitations,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pNCp1EhEe2d5dG-54qhbg,4080,Hardware Limitations,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punAVEhEe2d5dG-54qhbg,4081,User Characteristics,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pDRmlEhEe2d5dG-54qhbg,4082,Any portable equipment shall be yellow.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9punJVEhEe2d5dG-54qhbg,4082,Any portable equipment shall be yellow.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBhlEhEe2d5dG-54qhbg,4083,"The AMR system is used to determine water service / consumption for the more than 79,000 meter connections to residential, commercial and industrial customers inside a 72 square mile area.",http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9pt_9FEhEe2d5dG-54qhbg,4084,"The Stakeholder requirements describe the user needs for a water meter reading system (AMR) including the meter, the method of collecting data from the device, and the means by which the customers will be billed for usage.",http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9p5mLVEhEe2d5dG-54qhbg,4085,Stray Animals,http://jazz.net/ns/rm#Text,Hazard and Risk
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMkVEhEe2d5dG-54qhbg,4086,Main Flow,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j8FEhEe2d5dG-54qhbg,4087,The meter interface unit shall take readings of pressure with a maximum interval of 1 second,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pNCn1EhEe2d5dG-54qhbg,4088,External Interface Requirements,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9p5mLlEhEe2d5dG-54qhbg,4089,External Weather,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qLS8FEhEe2d5dG-54qhbg,4090,Scope,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9o8kD1EhEe2d5dG-54qhbg,4091,Data Elements,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pt__FEhEe2d5dG-54qhbg,4092,Scope of the System,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pNCpVEhEe2d5dG-54qhbg,4093,Design Constraints,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j41EhEe2d5dG-54qhbg,4094,Scope,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pt_91EhEe2d5dG-54qhbg,4095,The AMR is intended for gathering and reporting of water consumtion data to facilitate measurement of residential and business customers.,http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMlFEhEe2d5dG-54qhbg,4096,3. The System successfully identifies the meter and displays the meter info to the Meter Reader.,http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBu1EhEe2d5dG-54qhbg,4097,The handheld unit shall be no larger than 30cm x 30cm x 1cm.,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBv1EhEe2d5dG-54qhbg,4098,The handheld unit external case shall have no sharp edges and no pointed corners.,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j5lEhEe2d5dG-54qhbg,4099,Overview,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBmFEhEe2d5dG-54qhbg,4100,The handheld device shall provide a means to automatically (electronically) read the meter.,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMilEhEe2d5dG-54qhbg,4101,The Meter Reader usage data is successfully recorded and the system updated accordingly.,http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9pDRn1EhEe2d5dG-54qhbg,4102,Communication Requirements,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBxVEhEe2d5dG-54qhbg,4102,Communication Requirements,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pNCl1EhEe2d5dG-54qhbg,4103,General Description,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9o8kCFEhEe2d5dG-54qhbg,4104,Maintainability,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBiFEhEe2d5dG-54qhbg,4105,<AMR Artist Rendition>,http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMkFEhEe2d5dG-54qhbg,4106,Meter Reader uses a handheld device to requests connection to local Water Mater.,http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9punLlEhEe2d5dG-54qhbg,4107,"The meter interface unit shall support all functions (data reading, time-triggered operation, and management) of the AMR system.",http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9punHlEhEe2d5dG-54qhbg,4108,"impediments to meter access, including dogs;",http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBplEhEe2d5dG-54qhbg,4110,Fixed Network Automated Meter Reading System,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBmVEhEe2d5dG-54qhbg,4111,"Individual meter usage data and leak diagnostic data, when successfully uploaded to the handheld device, shall be immediately available for display on the handheld device.",http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9ovvnVEhEe2d5dG-54qhbg,4112,"Primary, Secondary Actors",http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMgVEhEe2d5dG-54qhbg,4113,Upload Usage Data Locally,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pNCnFEhEe2d5dG-54qhbg,4114,Assumptions and Dependencies,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pDRl1EhEe2d5dG-54qhbg,4115,"All portable equipment shall have Hazardous location certifications UL Class I, II, III Division II, A, B, C, D, F, G.",http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9punDVEhEe2d5dG-54qhbg,4115,"All portable equipment shall have Hazardous location certifications UL Class I, II, III Division II, A, B, C, D, F, G.",http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pNppFEhEe2d5dG-54qhbg,4116,Data Elements,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9ovvklEhEe2d5dG-54qhbg,4117,Context,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pNCq1EhEe2d5dG-54qhbg,4118,Maintainability,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9ovvmFEhEe2d5dG-54qhbg,4119,"<e.g., There is enough fuel in the rocket>",http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9qLS8lEhEe2d5dG-54qhbg,4120,System overview,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punA1EhEe2d5dG-54qhbg,4121,A trained user shall be able to use all aspects of the system within no more than one minutes of system startup.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMhFEhEe2d5dG-54qhbg,4122,To collect water usage data using a handheld device in near vicinity to the Water Meter.,http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9p5mJ1EhEe2d5dG-54qhbg,4123,Future AMR handheld size growth,http://jazz.net/ns/rm#Text,Hazard and Risk
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBo1EhEe2d5dG-54qhbg,4124,"When connected to a fixed network, the meter interface unit shall 'wake up' and communicate for 4 seconds every 30 minutes, synchronizing all clocks and configuration information. Between these transmissions, the unit remains in a low power state, conservi",http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9puAA1EhEe2d5dG-54qhbg,4125,The systems shall meet the following objectives:,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qLS_FEhEe2d5dG-54qhbg,4126,Intentionally left blank,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pDRoVEhEe2d5dG-54qhbg,4127,Any supplementary communication between subsystem units shall be available through Bluetooth in order to maintain IP67 or better in accordance with Standard IEC 60529.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBx1EhEe2d5dG-54qhbg,4127,Any supplementary communication between subsystem units shall be available through Bluetooth in order to maintain IP67 or better in accordance with Standard IEC 60529.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9punBVEhEe2d5dG-54qhbg,4128,The AMR system shall have an operational life of no less than five years.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j7lEhEe2d5dG-54qhbg,4129,Functional Requirements,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punQlEhEe2d5dG-54qhbg,4130,The system software and functions shall be quickly and easily movable to another computer or workstation in the event of failure of the control computer.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBglEhEe2d5dG-54qhbg,4131,Purpose of the Document,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBpFEhEe2d5dG-54qhbg,4132,The meter interface shall detect water leaks and record leak status with the account data.,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j7FEhEe2d5dG-54qhbg,4133,Assumptions and Dependencies,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBsFEhEe2d5dG-54qhbg,4135,Control Computer,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9p5mM1EhEe2d5dG-54qhbg,4136,Adequate wireless spectrum control,http://jazz.net/ns/rm#Text,Hazard and Risk
+https://jazz.ibm.com:9443/rm/resources/BI_9punElEhEe2d5dG-54qhbg,4137,"In handheld AMR, a meter reader carries a handheld computer with the ability to collect meter readings from an AMR capable meter. This is sometimes referred to as ""walk-by"" meter reading since the meter reader walks by the locations where meters are instal",http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9o8kBlEhEe2d5dG-54qhbg,4138,Availability,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBilEhEe2d5dG-54qhbg,4139,Environmental Considerations,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punB1EhEe2d5dG-54qhbg,4140,The AMR system shall be able to operate in the market environments for which it is targeted and approved.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9ovvmVEhEe2d5dG-54qhbg,4142,Success End Condition,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBh1EhEe2d5dG-54qhbg,4143,"In handheld AMR, a meter reader carries a handheld computer with a built-in or attached receiver/transceiver (radio frequency or touch) to collect meter readings from an AMR capable meter. This is sometimes referred to as ""walk-by"" meter reading since the",http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9pNCmVEhEe2d5dG-54qhbg,4144,Product Functions,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBkFEhEe2d5dG-54qhbg,4145,The handheld device shall interfaces with the city's backoffice software.,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pDRlVEhEe2d5dG-54qhbg,4146,Operational Environment Requirements,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBuVEhEe2d5dG-54qhbg,4147,"Warranty - 3 years parts on-site labor, next business day",http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pt_9VEhEe2d5dG-54qhbg,4148,The AMR product is intended to allow water providers to lower their cost of operation by more accurately measureing consumption and more quickly gather data.,http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9o-ZE1EhEe2d5dG-54qhbg,4149,Picture or Whitepaper,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9p5mJFEhEe2d5dG-54qhbg,4150,Pinch Areas,http://jazz.net/ns/rm#Text,Hazard and Risk
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBnVEhEe2d5dG-54qhbg,4151,"The meter interface unit shall support all data collection functions (data reading, time-triggered operation, and management) of the AMR system.",http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBg1EhEe2d5dG-54qhbg,4152,This document describes the specific functionality of the Automated Meter Reader system. The system is currently available with a handheld collection device. The mobile and fixed network methods of data collection are outside the scope of this system.,http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMm1EhEe2d5dG-54qhbg,4153,10. The Meter Reader sends a command to retrieve the fault status.,http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9pDRllEhEe2d5dG-54qhbg,4154,Any portable equipment shall have an Ingress Protection Rating of IP66 or better in accordance with Standard IEC 60529.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9punCFEhEe2d5dG-54qhbg,4154,Any portable equipment shall have an Ingress Protection Rating of IP66 or better in accordance with Standard IEC 60529.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBwlEhEe2d5dG-54qhbg,4155,The handheld device shall provide for a minimum of 16MB of memory in order to support field data collection.,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9o8kB1EhEe2d5dG-54qhbg,4156,Security,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMnlEhEe2d5dG-54qhbg,4157,Alternate Flows,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pNpolEhEe2d5dG-54qhbg,4158,Appendixes,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMmVEhEe2d5dG-54qhbg,4159,9. The system displays the leak data.,http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9punGFEhEe2d5dG-54qhbg,4160,"The handheld device shall allow for upload of all information collected on handheld computers during meter rounds, so that data can be compiled. Data shall be retrievable to business office computers in a manner that will interface with the existing billin",http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pDRkVEhEe2d5dG-54qhbg,4161,Reusable requirements for the AMR project,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j_VEhEe2d5dG-54qhbg,4162,User Interfaces,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9ovvnFEhEe2d5dG-54qhbg,4163,"<e.g., The spacecraft does not reach escape velocity and the mission is aborted>",http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9qLS-FEhEe2d5dG-54qhbg,4164,Precedence and criticality of requirements,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qLS-lEhEe2d5dG-54qhbg,4165,Requirements traceability,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9o8kA1EhEe2d5dG-54qhbg,4166,Standards Compliance,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j6VEhEe2d5dG-54qhbg,4167,Product Functions,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBoFEhEe2d5dG-54qhbg,4168,The meter interface unit shall be powered by a replaceable long lasting battery (lithium or other).,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9puAAFEhEe2d5dG-54qhbg,4169,Product Perspective,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pDRlFEhEe2d5dG-54qhbg,4170,All exposed equipment shall have an storage temperature range of ambient to -40°F/-40°C ambient to 158F° /70°C .,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qLS9FEhEe2d5dG-54qhbg,4171,Referenced documents,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pNCqlEhEe2d5dG-54qhbg,4172,Security,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pNCnVEhEe2d5dG-54qhbg,4173,Specific Requirements,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pNCmFEhEe2d5dG-54qhbg,4174,Product Perspective,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMklEhEe2d5dG-54qhbg,4175,1. The Meter Reader establishes a connection with the Water Meter. The link is successful.,http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9pDRmVEhEe2d5dG-54qhbg,4176,Envelope Requirements,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMllEhEe2d5dG-54qhbg,4177,6. The usage data is displayed on the handheld device.,http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBk1EhEe2d5dG-54qhbg,4178,"The handheld device shall have a screen capable of displaying the number of accounts that have been read and unread. Display information shall include: total number of accounts in collection route, number of read accounts, number of unread accounts, the ad",http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j8lEhEe2d5dG-54qhbg,4179,The meter interface unit shall measure pressures between 0.5 bar and 10 bar,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9puACFEhEe2d5dG-54qhbg,4180,Support conservation monitoring and enforcement,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9puAAlEhEe2d5dG-54qhbg,4181,Performance,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pt__lEhEe2d5dG-54qhbg,4182,"The desired solution leverages the existing infrastructure of meters, but may require enhancements to support a more flexible means of determining water consumption. The goal is to best provide services and read meters in an electronically automated and co",http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMi1EhEe2d5dG-54qhbg,4183,Failed End Condition,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pNCrFEhEe2d5dG-54qhbg,4184,Transferability/Conversion,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBslEhEe2d5dG-54qhbg,4185,Application Server,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBpVEhEe2d5dG-54qhbg,4186,The meter interface unit shall sample water flow every 15 minutes in a 24 hour period to determine leakage.,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9puABlEhEe2d5dG-54qhbg,4187,Ability to perform advanced data analysis of incremental meter readings,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9puAB1EhEe2d5dG-54qhbg,4188,Maximization of existing investments in meter reading technology,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMiFEhEe2d5dG-54qhbg,4189,It is assumed that Meter Reader is within range of the Water Meter.,http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9ovvoFEhEe2d5dG-54qhbg,4190,"<e.g., The launch button is pressed by mission control>",http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9ovvmlEhEe2d5dG-54qhbg,4191,"<e.g., The spacecraft will reach escape velocity and enter space>",http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBrVEhEe2d5dG-54qhbg,4192,The control computer shall be capable of operating in a normal office environment using normal office power supply. Uninterruptible Power Supply; the control computer shall include an Uninterruptible Power Supply (UPS) of at least 4 hours.,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pNCrVEhEe2d5dG-54qhbg,4193,Other Requirements,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9puAAVEhEe2d5dG-54qhbg,4194,Configuration,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pNpoFEhEe2d5dG-54qhbg,4195,Operations,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punPlEhEe2d5dG-54qhbg,4196,The AMR System control computer must operate on the most recent Windows platform currently available.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9ovvoVEhEe2d5dG-54qhbg,4197,Main Flow,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMg1EhEe2d5dG-54qhbg,4198,Goal,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9o-ZEVEhEe2d5dG-54qhbg,4199,Carbon Trust Standard,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pDRk1EhEe2d5dG-54qhbg,4200,All exposed equipment shall have an operating temperature range of -4° to 122° F/-20° to 50° C.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMjlEhEe2d5dG-54qhbg,4201,"Meter Reader, Water Meter",http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9pt_-1EhEe2d5dG-54qhbg,4202,General Description,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qLS_VEhEe2d5dG-54qhbg,4203,Intentionally left blank,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punLVEhEe2d5dG-54qhbg,4204,"The meter interface unit shall allow for at least one, but preferably several, mechanisms for data collection.",http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9p5mNlEhEe2d5dG-54qhbg,4205,Hazard Acronyms,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBsVEhEe2d5dG-54qhbg,4206,The control computer shall be capable of operating in a normal office environment.,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9punG1EhEe2d5dG-54qhbg,4207,The handheld device shall provide for the means for the meter reader to manually enter a meter reading or information about a meter reading such as,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBolEhEe2d5dG-54qhbg,4208,Meter usage data and leak diagnostic data shall be retrievable on demand from any meter interface via the network or a handheld.,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9ovvn1EhEe2d5dG-54qhbg,4210,Trigger,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qLS_lEhEe2d5dG-54qhbg,4211,Intentionally left blank,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pNCqVEhEe2d5dG-54qhbg,4212,Availability,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBwVEhEe2d5dG-54qhbg,4213,The control computer shall be capable of operating in a normal office environment using normal office power supply. Uninterruptible Power Supply; the control computer shall include a UPS of at least 4 hours.,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9p5mIlEhEe2d5dG-54qhbg,4214,Physical Hazards,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMoVEhEe2d5dG-54qhbg,4215,11a. The Meter Reader can press a button to clear the faults.,http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9o8kDVEhEe2d5dG-54qhbg,4216,Appendixes,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punMFEhEe2d5dG-54qhbg,4217,The meter interface unit shall be compatible with MMIU.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9ovvk1EhEe2d5dG-54qhbg,4218,Goal,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punFlEhEe2d5dG-54qhbg,4219,The handheld device shall allow for the meter reader to collect and store information from the meter.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pt_8lEhEe2d5dG-54qhbg,4220,ANSI 1252 Latin 1 for CSV Export,http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBtlEhEe2d5dG-54qhbg,4221,Database Server,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9p5mMVEhEe2d5dG-54qhbg,4222,External Communications,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBtFEhEe2d5dG-54qhbg,4223,Two dual-core processors with minimum 3.00 Ghz processor and 1333 Frontside Buss (FSB),http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBn1EhEe2d5dG-54qhbg,4224,The meter interface unit shall be compatible with the existing meter models in use for the area covered by this project.,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBqlEhEe2d5dG-54qhbg,4225,"The system shall consist of a series of antennas, towers, collectors, repeaters, or other permanently installed infrastructure to collect transmissions of meter readings from AMR capable meters and get the data to a central computer without a person in the",http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBl1EhEe2d5dG-54qhbg,4226,The handheld device shall include a leak indicator.,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9ovvlFEhEe2d5dG-54qhbg,4227,"<e.g., To launch a spacecraft>",http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBq1EhEe2d5dG-54qhbg,4228,Control Computer and Related Hardware,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBvVEhEe2d5dG-54qhbg,4229,The handheld unit shall function in environments from -5 degree C through +50 degree C.,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9punNlEhEe2d5dG-54qhbg,4230,The meter interface shall log leakage data on the central office data store.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j91EhEe2d5dG-54qhbg,4231,The meter interface unit shall calculate the average pressure for each hour of the day over a 7 day cycle,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMnFEhEe2d5dG-54qhbg,4232,11. The fault status is displayed on a screen.,http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9pNColEhEe2d5dG-54qhbg,4233,Software Interfaces,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBlFEhEe2d5dG-54qhbg,4234,The handheld device shall allow the meter reader to enter information about meters relocated on a particular route.,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBvFEhEe2d5dG-54qhbg,4235,The handheld unit shall have a mass no greater than 2.25kg.,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j61EhEe2d5dG-54qhbg,4236,General Constraints,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9p5mKFEhEe2d5dG-54qhbg,4237,Future AMR handheld mass growth,http://jazz.net/ns/rm#Text,Hazard and Risk
+https://jazz.ibm.com:9443/rm/resources/BI_9qHBllEhEe2d5dG-54qhbg,4238,The handheld device shall be able to recharge using solar power.,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pNCm1EhEe2d5dG-54qhbg,4239,General Constraints,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9punO1EhEe2d5dG-54qhbg,4240,Control Computer and Related Hardware,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMjVEhEe2d5dG-54qhbg,4241,"Primary, Secondary Actors",http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9o8kClEhEe2d5dG-54qhbg,4242,Other Requirements,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMhVEhEe2d5dG-54qhbg,4243,Scope & Level,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j9VEhEe2d5dG-54qhbg,4244,detectLeak,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9ovvlVEhEe2d5dG-54qhbg,4245,Scope & Level,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j-FEhEe2d5dG-54qhbg,4246,The meter interface unit shall compare instantaneous readings to the historical average for the hour of the day,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j4VEhEe2d5dG-54qhbg,4247,Introduction,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pNCllEhEe2d5dG-54qhbg,4248,Overview,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9o8kBVEhEe2d5dG-54qhbg,4249,Attributes,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9p5mNFEhEe2d5dG-54qhbg,4250,Inadequate wireless coverage for all customers,http://jazz.net/ns/rm#Text,Hazard and Risk
+https://jazz.ibm.com:9443/rm/resources/BI_9qLS8VEhEe2d5dG-54qhbg,4251,Identification,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9pWMjFEhEe2d5dG-54qhbg,4252,The Meter Reader is unable to collect usage data from the Water Meter due to lack of connection or a fault.,http://jazz.net/ns/rm#Text,Information
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j81EhEe2d5dG-54qhbg,4253,The meter interface unit shall log a low pressure event if the pressure is below 1.8 bar,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9punD1EhEe2d5dG-54qhbg,4254,Assumptions and Dependencies,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j9FEhEe2d5dG-54qhbg,4255,The meter interface unit shall log a high pressure event if the pressure is above 6.5 bar,http://jazz.net/ns/rm#Text,System Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9qLS-VEhEe2d5dG-54qhbg,4256,Qualification provisions,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9o8j_1EhEe2d5dG-54qhbg,4257,Software Interfaces,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_9p5mMFEhEe2d5dG-54qhbg,4258,Humidity operational limits of the device,http://jazz.net/ns/rm#Text,Hazard and Risk
+https://jazz.ibm.com:9443/rm/resources/BI_9punQFEhEe2d5dG-54qhbg,4259,The Fixed Network Application software and data collection software must operate on a central server.,http://jazz.net/ns/rm#Text,Stakeholder Requirement

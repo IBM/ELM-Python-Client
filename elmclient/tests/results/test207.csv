@@ -1,9 +1,9 @@
-﻿$uri,Identifier,Order Index,Type,http://open-services.net/ns/qm#validatesRequirement
-https://jazz.ibm.com:9443/qm/oslc_qm/contexts/_JF1lUFEfEe2UhZTKNaJuJg/resources/com.ibm.rqm.planning.VersionedTestCase/_eTq_kVEgEe2UhZTKNaJuJg,rp35:_eTq_kVEgEe2UhZTKNaJuJg,3,http://open-services.net/ns/qm#TestCase,[]
-https://jazz.ibm.com:9443/qm/oslc_qm/contexts/_JF1lUFEfEe2UhZTKNaJuJg/resources/com.ibm.rqm.planning.VersionedTestCase/_d9CoQVEgEe2UhZTKNaJuJg,rp35:_d9CoQVEgEe2UhZTKNaJuJg,0,http://open-services.net/ns/qm#TestCase,[]
-https://jazz.ibm.com:9443/qm/oslc_qm/contexts/_JF1lUFEfEe2UhZTKNaJuJg/resources/com.ibm.rqm.planning.VersionedTestCase/_eUxy0VEgEe2UhZTKNaJuJg,rp35:_eUxy0VEgEe2UhZTKNaJuJg,4,http://open-services.net/ns/qm#TestCase,[]
-https://jazz.ibm.com:9443/qm/oslc_qm/contexts/_JF1lUFEfEe2UhZTKNaJuJg/resources/com.ibm.rqm.planning.VersionedTestCase/_eWuTkVEgEe2UhZTKNaJuJg,rp35:_eWuTkVEgEe2UhZTKNaJuJg,6,http://open-services.net/ns/qm#TestCase,[]
-https://jazz.ibm.com:9443/qm/oslc_qm/contexts/_JF1lUFEfEe2UhZTKNaJuJg/resources/com.ibm.rqm.planning.VersionedTestCase/_eVx4YVEgEe2UhZTKNaJuJg,rp35:_eVx4YVEgEe2UhZTKNaJuJg,5,http://open-services.net/ns/qm#TestCase,[]
-https://jazz.ibm.com:9443/qm/oslc_qm/contexts/_JF1lUFEfEe2UhZTKNaJuJg/resources/com.ibm.rqm.planning.VersionedTestCase/_eYBUEVEgEe2UhZTKNaJuJg,rp35:_eYBUEVEgEe2UhZTKNaJuJg,7,http://open-services.net/ns/qm#TestCase,[]
-https://jazz.ibm.com:9443/qm/oslc_qm/contexts/_JF1lUFEfEe2UhZTKNaJuJg/resources/com.ibm.rqm.planning.VersionedTestCase/_eRt3wVEgEe2UhZTKNaJuJg,rp35:_eRt3wVEgEe2UhZTKNaJuJg,1,http://open-services.net/ns/qm#TestCase,[]
-https://jazz.ibm.com:9443/qm/oslc_qm/contexts/_JF1lUFEfEe2UhZTKNaJuJg/resources/com.ibm.rqm.planning.VersionedTestCase/_eSvLcVEgEe2UhZTKNaJuJg,rp35:_eSvLcVEgEe2UhZTKNaJuJg,2,http://open-services.net/ns/qm#TestCase,[]
+﻿$uri,Adapter Type,Identifier,Order Index,http://open-services.net/ns/qm#validatesRequirement
+https://jazz.ibm.com:9443/qm/oslc_qm/contexts/_JF1lUFEfEe2UhZTKNaJuJg/resources/com.ibm.rqm.planning.VersionedTestCase/_eTq_kVEgEe2UhZTKNaJuJg,http://open-services.net/ns/qm#TestCase,rp35:_eTq_kVEgEe2UhZTKNaJuJg,3,[]
+https://jazz.ibm.com:9443/qm/oslc_qm/contexts/_JF1lUFEfEe2UhZTKNaJuJg/resources/com.ibm.rqm.planning.VersionedTestCase/_d9CoQVEgEe2UhZTKNaJuJg,http://open-services.net/ns/qm#TestCase,rp35:_d9CoQVEgEe2UhZTKNaJuJg,0,[]
+https://jazz.ibm.com:9443/qm/oslc_qm/contexts/_JF1lUFEfEe2UhZTKNaJuJg/resources/com.ibm.rqm.planning.VersionedTestCase/_eUxy0VEgEe2UhZTKNaJuJg,http://open-services.net/ns/qm#TestCase,rp35:_eUxy0VEgEe2UhZTKNaJuJg,4,[]
+https://jazz.ibm.com:9443/qm/oslc_qm/contexts/_JF1lUFEfEe2UhZTKNaJuJg/resources/com.ibm.rqm.planning.VersionedTestCase/_eWuTkVEgEe2UhZTKNaJuJg,http://open-services.net/ns/qm#TestCase,rp35:_eWuTkVEgEe2UhZTKNaJuJg,6,[]
+https://jazz.ibm.com:9443/qm/oslc_qm/contexts/_JF1lUFEfEe2UhZTKNaJuJg/resources/com.ibm.rqm.planning.VersionedTestCase/_eVx4YVEgEe2UhZTKNaJuJg,http://open-services.net/ns/qm#TestCase,rp35:_eVx4YVEgEe2UhZTKNaJuJg,5,[]
+https://jazz.ibm.com:9443/qm/oslc_qm/contexts/_JF1lUFEfEe2UhZTKNaJuJg/resources/com.ibm.rqm.planning.VersionedTestCase/_eYBUEVEgEe2UhZTKNaJuJg,http://open-services.net/ns/qm#TestCase,rp35:_eYBUEVEgEe2UhZTKNaJuJg,7,[]
+https://jazz.ibm.com:9443/qm/oslc_qm/contexts/_JF1lUFEfEe2UhZTKNaJuJg/resources/com.ibm.rqm.planning.VersionedTestCase/_eRt3wVEgEe2UhZTKNaJuJg,http://open-services.net/ns/qm#TestCase,rp35:_eRt3wVEgEe2UhZTKNaJuJg,1,[]
+https://jazz.ibm.com:9443/qm/oslc_qm/contexts/_JF1lUFEfEe2UhZTKNaJuJg/resources/com.ibm.rqm.planning.VersionedTestCase/_eSvLcVEgEe2UhZTKNaJuJg,http://open-services.net/ns/qm#TestCase,rp35:_eSvLcVEgEe2UhZTKNaJuJg,2,[]

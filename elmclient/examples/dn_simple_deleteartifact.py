@@ -5,8 +5,9 @@
 
 # example of updating a core artifact
 
-# provide on the commandline the id of an artifact in the  project/component/configuration
-# also provide on the commandline a string (surrounded in " if it includes space) and this will be put on the front of the existing text of the artifact
+# provide on the commandline the id of an artifact in the  project/component/configuration to delete
+# this code finds the core artifact and all its bindings, delees each binding individually then deletes the core artifact
+# will delete whole modules with deleting the bindings in it
 
 import logging
 import os.path
@@ -43,7 +44,7 @@ jtscontext = 'jts'
 rmcontext  = 'rm'
 
 # the project+compontent+config that will be updated
-proj = "rm_optout_p1"
+proj = "rm_optout_p2"
 comp = proj
 conf =  f"{comp} Initial Stream"
 
@@ -52,11 +53,11 @@ conf =  f"{comp} Initial Stream"
 # 1=clear cache initially then continue with cache enabled
 # 2=clear cache and disable caching
 caching = 2
-
+    
 ##################################################################################
 if __name__=="__main__":
-    if len(sys.argv) != 3:
-        raise Exception( 'You must provide an identifier and a string (surrounded by " if including spaces)' )
+    if len(sys.argv) != 2:
+        raise Exception( 'You must provide an identifier for the artifact to delete' )
 
     # create our "server" which is how we connect to DOORS Next
     # first enable the proxy so if a proxy is running it can monitor the communication with server (this is ignored if proxy isn't running)
@@ -103,14 +104,42 @@ if __name__=="__main__":
     
     # find the core artifact - it has a value for rm_nav:parent
     theartifact_u = None
+    bindings=[]
     for artifact in artifacts.keys():
 #        print( f"Testing parent on {artifact=}" )
         if artifacts[artifact].get("rm_nav:parent") is not None:
+            if theartifact_u:
+                barf
             theartifact_u = artifact
-            break
+        else:
+            bindings.append(artifact)
+    
+    if bindings:
+        # delete the bindings one by one
+        for binding_u in bindings:
+            print( f"Deleting binding {binding_u}" )
+            # now get the artifact content and its etag
+            theartifact_x, etag = c.execute_get_rdf_xml( binding_u, return_etag=True, intent="Retrieve the artifact" )
+            print( f"{ET.tostring(theartifact_x)=}\n" )
+
+            # get the text - this is always xhtml in a div below jazz_rm:primaryText
+            thetext = rdfxml.xml_find_element( theartifact_x, ".//jazz_rm:primaryText/xhtml:div" )
+            print( f"Binding {sys.argv[1]} text='{thetext}'" )
+            
+            # DELETE to remove the binding
+            response = c.execute_delete( binding_u, headers={'If-Match':etag}, intent="Update the artifact"  )
+            print( f"{response.status_code}" )
+            location = response.headers.get('Location')
+            if response.status_code != 200:
+                raise Exception( "Binding DELETE failed!" )
+            else:
+                print( f"Binding delete succeeded!" )
+            
+    else:
+        print( f"No bindings!" )
 
     if not theartifact_u:
-        raise Exception( "Artifact with rm_nav:parent not found!" )
+        raise Exception( "Artifact with rm_nav:parent (i.e. the core artifact) not found!" )
 
     print( f"Found core artifact {theartifact_u=}" )
 
@@ -118,26 +147,15 @@ if __name__=="__main__":
     theartifact_x, etag = c.execute_get_rdf_xml( theartifact_u, return_etag=True, intent="Retrieve the artifact" )
     print( f"{ET.tostring(theartifact_x)=}\n" )
 
-#    # Display the tag hierarchy - so you can see the namespace of each tag :-)explore the structure for childBinding (which corresponds to nesting) and Binding (which is a binding of an artifact into the module)
-#    it = iterwalk1( theartifact_x.getroot(), events=["start","end"] )
-#    for event,el in it():
-#        print( f"{event=} {el.tag=}" )
-
-    # update the text - this is always xhtml in a div below jazz_rm:primaryText
-    # NOTE the xml primary text div is a tag hierarchy so setting the text below it just updates the top-level tag, i.e. doesn't remove
-    # any subtags - if you want to replace the entire context then you need to remove those other tags!
+    # find the text - this is always xhtml in a div below jazz_rm:primaryText
     thetext = rdfxml.xml_find_element( theartifact_x, ".//jazz_rm:primaryText/xhtml:div" )
-    thetext.text = sys.argv[2] + thetext.text
+    print( f"Artifact {sys.argv[1]} text='{thetext}'" )
     
-    # PUT it back to update the artifact
-    response = c.execute_post_rdf_xml( theartifact_u, data=theartifact_x, put=True, cacheable=False, headers={'If-Match':etag}, intent="Update the artifact"  )
+    # DELETE it to remove the core artifact
+    response = c.execute_delete( theartifact_u, headers={'If-Match':etag}, intent="Update the artifact"  )
     print( f"{response.status_code}" )
     location = response.headers.get('Location')
     if response.status_code != 200:
-        raise Exception( "PUT failed!" )
+        raise Exception( "DELETE failed!" )
+        
                     
-    # get the content again
-    theartifact_x, etag = c.execute_get_rdf_xml( theartifact_u, return_etag=True, intent="Retrieve the artifact" )
-    thetext = rdfxml.xml_find_element( theartifact_x, ".//jazz_rm:primaryText/xhtml:div" )
-    print( f"{ET.tostring(thetext)=}" )
-

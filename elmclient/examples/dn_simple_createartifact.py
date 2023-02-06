@@ -66,7 +66,7 @@ caching = 2
 ##################################################################################
 if __name__=="__main__":
     if len(sys.argv) != 4:
-        raise Exception( 'You must provide a string (surrounded by " if including spaces)' )
+        raise Exception( 'You must provide: The artifact type, the artifact text, and the folder path to create the artifact in - each surrounded by " if including spaces' )
 
     # create our "server" which is how we connect to DOORS Next
     # first enable the proxy so if a proxy is running it can monitor the communication with server (this is ignored if proxy isn't running)

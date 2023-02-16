@@ -152,7 +152,7 @@ if __name__=="__main__":
     print( f"Artifact {sys.argv[1]} text='{thetext}'" )
     
     # DELETE it to remove the core artifact
-    response = c.execute_delete( theartifact_u, headers={'If-Match':etag}, intent="Update the artifact"  )
+    response = c.execute_delete( theartifact_u, headers={'If-Match':etag}, intent="Delete the artifact"  )
     print( f"{response.status_code}" )
     location = response.headers.get('Location')
     if response.status_code != 200:

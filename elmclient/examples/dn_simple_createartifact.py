@@ -66,7 +66,11 @@ caching = 2
 ##################################################################################
 if __name__=="__main__":
     if len(sys.argv) != 4:
+        print( 'A typical commandline might be: dn_simple_createartifact.py "Stakeholder Requirement" "My first stakefilder requirement" /' )
         raise Exception( 'You must provide: The artifact type, the artifact text, and the folder path to create the artifact in - each surrounded by " if including spaces' )
+
+    print( f"Attempting to create a '{sys.argv[1]}' in project '{proj}' in configuration {conf} in folder '{sys.argv[3]}'" )
+    print( f"Using credentials user '{username}' password '{password}'")
 
     # create our "server" which is how we connect to DOORS Next
     # first enable the proxy so if a proxy is running it can monitor the communication with server (this is ignored if proxy isn't running)

@@ -131,7 +131,9 @@ class _OSLCOperations_Mixin:
             logger.debug( f"{parsedselect=} {selectprefixes=} {prefixes=}" )
         else:
             parsedselect = []
-
+            
+        parsedisnulls,_ = self._parse_select(",".join(isnulls))
+        parsedisnotnulls,_ = self._parse_select(",".join(isnotnulls))
         # process orderby
         if len(orderby)>0:
             parsedorderby,orderprefixes = self._parse_orderby(orderby)
@@ -267,13 +269,14 @@ class _OSLCOperations_Mixin:
                     newv = vattr
                 v[tot]=len(newv) if totalize else newv
 
-        if isnulls or isnotnulls:
+        if parsedisnulls or parsedisnotnulls:
             logger.debug( f"{isnulls=} {isnotnulls=}" )
             # now filter for isnulls and isnotnulls
             todeletes = []
             for kuri in list(mappedresult.keys()):
-                for isnull in isnulls:
-                    # lookup the isnul URI to a name (as used in the results)
+                for isnull in parsedisnulls:
+                    # lookup the isnull URI to a name (as used in the results)
+                    lookupname = self.resolve_uri_to_name(isnull)
                     lookupname = self.resolve_uri_to_name(isnull)
                     v = mappedresult[kuri].get(lookupname,None)
                     if v:
@@ -282,8 +285,8 @@ class _OSLCOperations_Mixin:
                         kuri = None
                         break
                 if kuri is not None:
-                    for isnotnull in isnotnulls:
-                        # lookup the isnul URI to a name (as used in the results)
+                    for isnotnull in parsedisnotnulls:
+                        # lookup the isnotnull URI to a name (as used in the results)
                         lookupname = self.resolve_uri_to_name(isnotnull)
                         v = mappedresult[kuri].get(lookupname,None)
                         if not v:
@@ -913,8 +916,10 @@ class _OSLCOperations_Mixin:
     # refer to OSLC Query 3.0 section 7.4 https://tools.oasis-open.org/version-control/svn/oslc-core/trunk/specs/oslc-query.html
     #
     def _parse_select(self, selectstring, verbose=False):
+        if not selectstring:
+            return [],[]
         logger.info( f"{selectstring=}" )
-        parser = lark.Lark(_queryparser._select_grammar, start='select_terms', debug=False)
+        parser = lark.Lark(_queryparser._select_grammar, start='select_terms', debug=True)
         tree = parser.parse(selectstring)
         xformer = _queryparser._ParseTreeToOSLCOrderBySelect( resolverobject=self )
         selects = xformer.transform(tree)

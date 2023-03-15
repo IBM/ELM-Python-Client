@@ -45,7 +45,7 @@ def reqif_main():
     # get some defaults which can be overridden in the environment
     JAZZURL     = os.environ.get("QUERY_JAZZURL"    ,"https://jazz.ibm.com:9443" )
     USER        = os.environ.get("QUERY_USER"       ,"ibm" )
-    PASSWORD    = os.environ.get("OUERY_PASSWORD"   ,"ibm" )
+    PASSWORD    = os.environ.get("QUERY_PASSWORD"   ,"ibm" )
     JTS         = os.environ.get("QUERY_JTS"        ,"jts" )
     APPSTRINGS  = os.environ.get("QUERY_APPSTRINGS" ,"rm" )
     LOGLEVEL    = os.environ.get("QUERY_LOGLEVEL"   ,"TRACE,OFF" )
@@ -54,6 +54,8 @@ def reqif_main():
     for app in _app._App.__subclasses__():
         if app.artifact_formats:
             allformats.append(f"{app.domain}: "+",".join( app.artifact_formats )+ "." )
+    del app
+    
     allformats = " ".join(allformats)
 
     parser = argparse.ArgumentParser(description="Perform Reportable REST query on an application, with results output to CSV and/or XML - use -h to get some basic help")
@@ -66,7 +68,7 @@ def reqif_main():
     parser.add_argument('-F', '--configuration', default=None, help='Scope: Name of local config - you need to provide the project - defaults to the "Initial Stream" or "Initial Development" +same name as the project')
     parser.add_argument("-J", "--jazzurl", default=JAZZURL, help="jazz server url (without the /jts!) default {JAZZURL} Default can be set using environment variable QUERY_JAZZURL - defaults to https://jazz.ibm.com:9443 which DOESN'T EXIST")
     parser.add_argument('-L', '--loglevel', default=LOGLEVEL,help=f'Set logging on console and (if providing a , and a second level) to file to one of DEBUG, INFO, WARNING, ERROR, CRITICAL, OFF - default is {LOGLEVEL} - can be set by environment variable QUERY_LOGLEVEL')
-    parser.add_argument("-P", "--password", default=PASSWORD, help="User password - can be set using env variable OUERY_PASSWORD - set to PROMPT to be prompted at runtime")
+    parser.add_argument("-P", "--password", default=PASSWORD, help=f"User password default '{PASSWORD}' - can be set using env variable OUERY_PASSWORD - set to PROMPT to be prompted at runtime")
     parser.add_argument('-T', '--certs', action="store_true", help="Verify SSL certificates")
     parser.add_argument("-U", "--username", default=USER, help="User id - can be set using environment variable QUERY_USER")
     parser.add_argument('-W', '--cachecontrol', action='count', default=0, help="Used once -W erases cache then continues with caching enabled. Used twice -WW wipes cache and disables caching. Otherwise caching is continued from previous run(s).")
@@ -227,9 +229,9 @@ def reqif_main():
         if theproj.is_optin:
             print( f"Warning - project '{args.projectname}' is opt-in but you didn't specify a component - using default component '{args.projectname}'" )
         args.component = args.projectname
-
+    print( f"{mainapp=}" )
     # not all apps support components, and even if the app does this project may not be opt-in
-    if app.supports_components:
+    if mainapp.supports_components:
         if not theproj.singlemode and not args.component:
             raise Exception( f"Project {args.projectname} supports components so you must provide a component name" )
         if theproj.singlemode:
@@ -265,12 +267,12 @@ def reqif_main():
                 raise Exception( f"Configuration '{args.configuration}' not found in component {args.component}" )
 
         thecomp.set_local_config(config)
-
+        print( f"{config=}" )
 
         queryon = thecomp
     else:
         queryon = theproj
-
+        
     ######################################################
     # return True if string contains any of the characters that might be used in a regex
     def isregexp( s ):

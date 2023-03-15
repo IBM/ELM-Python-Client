@@ -567,11 +567,31 @@ class _RMProject(_project._Project):
                 logger.debug( f"ALREADY KNOWN" )
                 continue
 
+            # get the property definition
+            # a link has a Reference oslc:representation
+            if rdfxml.xml_find_element( el, "oslc:representation[@rdf:resource='http://open-services.net/ns/core#Reference']") is not None:
+                if propuri is not None:
+                # this could be a link type or an attribute datatype reference
+                # confirm this is a link type by checking for oslc:representation rdf:resource="http://open-services.net/ns/core#Reference"
+                
+                    # record the link type in the typesystem
+                    if propuri.startswith( self.reluri() ):
+                        linktype_x = self._get_typeuri_rdf(propuri)
+                        label = rdfxml.xml_find_element(linktype_x, './/rdfs:label').text
+                        ilabel = rdfxml.xml_find_element(linktype_x, './/rdfs:inverseLabel')
+                        inverselabel = ilabel.text if ilabel is not None else None
+                        rdfuri = None
+                    else:
+                        rdfuri = propuri
+                        label = property_title
+                        inverselabel = None
+                        
+                    self.register_linktype( property_title, propuri, label, inverselabel=inverselabel, rdfuri=rdfuri, shape_uri=uri )
             logger.info( f"Defining property {name}.{property_title} {propuri=} +++++++++++++++++++++++++++++++++++++++" )
 #            print( f"Defining property {name}.{property_title} {propuri=} {uri=} +++++++++++++++++++++++++++++++++++++++" )
 #            self.register_property(property_title,propuri, shape_uri=uri)
             self.register_property(property_title,propuri)
-
+            # load the attribute definitions
             n += 1
             for range_el in rdfxml.xml_find_elements(el, 'oslc:range'):
                 range_uri = range_el.get("{%s}resource" % rdfxml.RDF_DEFAULT_PREFIX["rdf"])

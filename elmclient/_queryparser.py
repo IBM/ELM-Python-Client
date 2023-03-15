@@ -247,7 +247,7 @@ class _ParseTreeToOSLCQuery(lark.visitors.Transformer):
             #
             if op == "in":
                 # the "value" is actually a list of values, each of which must be resolved if it is an identifier
-                print( f"{value=}" )
+                logger.info( f"{value=}" )
                 if not isinstance(value, list):
                     value = [value]
                 resultlist = []
@@ -516,7 +516,6 @@ class _ParseTreeToOSLCQuery(lark.visitors.Transformer):
 
     def scoped_term(self, s):
         logger.info( f"scoped_term {s=}" )
-        print( f"scoped_term {s=}" )
         return [s[0], "scope", s[1:]]
 
 # from https://tools.oasis-open.org/version-control/svn/oslc-core/trunk/specs/oslc-core.html#selectiveProperties
@@ -533,7 +532,7 @@ identifier     : ( ( URI_REF_ESC | NAME | "'" SPACYNAME "'" ) ":" )? NAME
                     | "'" SPACYNAME "'"
 
 URI_REF_ESC     : /<https?:.*>/
-NAME            : /[a-zA-Z0-9_]\w*/
+NAME            : /[a-zA-Z0-9_][^, ]*/
 SPACYNAME           : /[a-zA-Z0-9_][^']*/
 """
 
@@ -578,9 +577,11 @@ class _ParseTreeToOSLCOrderBySelect(lark.visitors.Transformer):
         return "*"
 
     def properties(self,s):
+        logger.info( f"properties {s=} {s[0]=}" )
         return s
 
     def property(self,s):
+        logger.info( f"property {s=} {s[0]=}" )
         return s[0]
 
     def sort_terms(self,s):
@@ -590,14 +591,17 @@ class _ParseTreeToOSLCOrderBySelect(lark.visitors.Transformer):
         return s[0]
 
     def signedterm(self,s):
+        logger.info( f"signedterm {s=} {s[0]=}" )
         # mapping to always + or -
         signs = { ">": "+", "<": '-', "+": "+", "-": "-"}
         return signs[s[0]]+s[1]
 
     def scoped_sort_terms(self,s):
+        logger.info( f"scoped_sort_terms {s=} {s[0]=}" )
         return s
 
     def identifier(self, s):
+        logger.info( f"identifier {s=} {s[0]=}" )
         if len(s) == 1:
             resultname = s[0].value
         elif len(s) > 1:
@@ -622,7 +626,10 @@ class _ParseTreeToOSLCOrderBySelect(lark.visitors.Transformer):
                 raise Exception( f"Cannot resolve {resultname} - no name resolver provided! " )
         else:
             # a prefixed name is assumed to be usable directly (the prefix has been added to prefixes)
+            prefix = resultname.split( ":",1 )[0]
+            self.prefixes[rdfxml.RDF_DEFAULT_PREFIX[prefix]] = prefix
             result = resultname
+        logger.info( f"identifier1 {result=}" )
         return result
 
     def dottedname(self,s):
@@ -641,3 +648,4 @@ class _ParseTreeToOSLCOrderBySelect(lark.visitors.Transformer):
         self.mapping_uri_to_identifer[result] = f"{shapename}.{propname}"
         logger.info( f"dottedname {s=} {s[0]=} returns {result}" )
         return result
+

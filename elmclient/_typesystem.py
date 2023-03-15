@@ -26,6 +26,7 @@ class Type_System_Mixin():
     def clear_typesystem(self):
         self.shapes = {}
         self.properties = {}
+        self.linktypes = {}
         self.enums = {}
         self.values = {}
         self.typesystem_loaded = False
@@ -47,9 +48,11 @@ class Type_System_Mixin():
             report += s + end
 
         reportedproperties = []
+        reportedlinktypes = []
         # print a nicely sorted report with shapes at left, then properties (with type, if defined) in that shape, then enumerations in that property
         for shapeuri in sorted(self.shapes.keys(),key=lambda k: self.shapes[k]['name'].lower()):
             rows.append( [f"{quote(self.shapes[shapeuri]['name']):25}"] )
+            # properties
             for propertyuri in sorted(self.shapes[shapeuri]['properties'], key=lambda k: self.properties[k]['name'].lower()):
                 reportedproperties.append(propertyuri)
                 rows.append( [ "",f"{quote(self.properties[propertyuri]['name'])}"] )
@@ -68,6 +71,21 @@ class Type_System_Mixin():
                     eid = self.enums[enum_uri].get('id') or enum_uri
                     rows.append( [""]*newrowlen+[f"{quote(self.enums[enum_uri]['name'])}",eid,enum_uri ] )
                     logger.info( f"appended for enum {rows[-1]}" )
+            # linktypes not reported on the shape as they're common to all shapes
+#            # link types
+#            for linktypeuri in sorted(self.shapes[shapeuri].get('linktypes',[]), key=lambda k: self.linktypes[k]['name'].lower()):
+#                reportedlinktypes.append(linktypeuri)
+#                rows.append( [ "",f"{quote(self.linktypes[linktypeuri]['name'])}"] )
+#                rows[-1].append( f"{rdfxml.uri_to_default_prefixed_tag(linktypeuri)}" )
+#                if self.linktypes[linktypeuri]['rdfuri'] is not None:
+#                    rows[-1].append( f"{rdfxml.uri_to_default_prefixed_tag(self.linktypes[linktypeuri]['rdfuri'])}" )
+#                else:
+#                    rows[-1].append("")
+#                rows[-1].append( f"{self.linktypes[linktypeuri]['label']}" )
+#                rows[-1].append( f"{self.linktypes[linktypeuri]['inverselabel']}" )
+                
+                newrowlen = len(rows[-1])-3
+            
         if len(rows)>0:
             addtoreport( "<h2>Shapes<h2>\n" )
             report += utils.print_in_html( rows,['Shape','Property Name','Property label','URI'] )
@@ -93,10 +111,26 @@ class Type_System_Mixin():
                     eid = self.enums[enum_uri].get('id') or enum_uri
                     rows.append( [""]*newrowlen+[f"{quote(self.enums[enum_uri]['name'])}",eid,enum_uri ] )
                     logger.info( f"appended for enum {rows[-1]}" )
-
         if len(rows)>0:
             addtoreport( "<h2>Properties with no shape</h2>\n" )
             report += utils.print_in_html( rows,['Shape','Property Name','Property label','URI'] )
+            
+        # now report link types
+        rows = []
+        for linktypeuri in sorted(self.linktypes, key=lambda k: self.linktypes[k]['name'].lower()):
+            rows.append( [ f"{quote(self.linktypes[linktypeuri]['name'])}"] )
+            rows[-1].append( f"{rdfxml.uri_to_default_prefixed_tag(linktypeuri)}" )
+            if self.linktypes[linktypeuri]['rdfuri'] is not None:
+                rows[-1].append( f"{rdfxml.uri_to_default_prefixed_tag(self.linktypes[linktypeuri]['rdfuri'])}" )
+            else:
+                rows[-1].append("")
+            rows[-1].append( f"{self.linktypes[linktypeuri]['label']}" )
+            rows[-1].append( f"{self.linktypes[linktypeuri]['inverselabel']}" )
+                
+        if len(rows)>0:
+            addtoreport( "<h2>Link Types</h2>\n" )
+            report += utils.print_in_html( rows,['Name', 'URI', 'RDF URI','Label','Inverse Label'] )
+            
 
         return report
 
@@ -127,7 +161,7 @@ class Type_System_Mixin():
         if shape_uri in self.shapes:
             raise Exception( f"Shape {shape_uri} already defined!" )
         # add the URI as the main registration for the shape
-        self.shapes[shape_uri] = {'name':shape_name,'shape':shape_uri,'properties':[]}
+        self.shapes[shape_uri] = {'name':shape_name,'shape':shape_uri,'properties':[], 'linktypes':[]}
         self.loaded = True
 
     def get_shape_uri( self, shape_name ):
@@ -171,6 +205,17 @@ class Type_System_Mixin():
             self.properties[rdfxml.uri_to_default_prefixed_tag(property_definition_uri)] = {'name': altname, 'shape': shape_uri, 'enums': [], 'value_type': property_value_type, 'altname':None}
         if shape_uri is not None:
             self.shapes[shape_uri]['properties'].append(property_uri)
+        self.loaded = True
+
+    def register_linktype( self, linktype_name, linktype_uri, label, *, inverselabel=None, rdfuri=None, shape_uri=None ):
+        logger.info( f"register_linktype {linktype_name=} {linktype_uri=} {label=} {inverselabel=} {rdfuri=}" )
+        linktype_uri = self.normalise_uri( linktype_uri )
+        shape_uri = self.normalise_uri( shape_uri )
+        if linktype_uri not in self.linktypes:
+#            self.linktypes[linktype_uri] = {'name': label, 'inverselabel': inverselabel, 'shape': shape_uri, 'rdfuri': rdfuri }
+            self.linktypes[linktype_uri] = {'name': linktype_name, 'label': label, 'inverselabel': inverselabel, 'rdfuri': rdfuri }
+        if shape_uri is not None:
+            self.shapes[shape_uri]['linktypes'].append(linktype_uri)
         self.loaded = True
 
     def get_property_uri( self, property_name, *, shape_uri=None ):
@@ -269,5 +314,15 @@ class Type_System_Mixin():
         return result
 
     def get_name_uri( self, name ):
-        result = self.get_shape_uri(name) or self.get_property_uri(name) or self.get_enum_uri(name) or self.get_value_uri(name)
+        result = self.get_shape_uri(name) or self.get_property_uri(name) or self.get_enum_uri(name) or self.get_value_uri(name) or self.get_linktype_uri(name)
         return result
+
+    def get_linktype_uri( self, name ):
+        linktypes = [k for k,v in self.linktypes.items() if v['name']==name]
+        if len(linktypes) > 1:
+            raise Exception( f"Multiple link types with same name '{name}'" )
+        if len(linktypes) == 0:
+            return None
+            
+        return linktypes[0]
+        

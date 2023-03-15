@@ -104,7 +104,6 @@ class _QMProject(_project._Project):
             # get all components
             crx = self.execute_get_xml( components_uri, intent="Retrieve component definition" )
             logger.info( f"{crx=}" )
-            print( f"{crx=}" )
 #      <oslc_config:Component rdf:about="https://jazz.ibm.com:9443/qm/oslc_config/resources/com.ibm.team.vvc.Component/_iw4s4EB3Eeus6Zk4qsm_Cw">
 #        <dcterms:title rdf:parseType="Literal">SGC Agile</dcterms:title>
 #        <oslc:instanceShape rdf:resource="https://jazz.ibm.com:9443/qm/oslc_config/resourceShapes/com.ibm.team.vvc.Component"/>

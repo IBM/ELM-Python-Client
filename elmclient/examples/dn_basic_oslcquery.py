@@ -17,7 +17,6 @@
 #  only works for a query which doesn't involve custom attributes/links - because otherwise you have to find the URIs of these - hardcoded to get all resuls with no oslc.where
 #  only works for RM - it's hardcoded to rm
 #  Only works for the first project/component/configuration name which matches (assumes names are unique)
-# Only works for Liberty form authentication (won't work with JAS)
 #  ...
 
 import logging
@@ -45,11 +44,17 @@ rmcontext  = 'rm'
 
 projectname = "rm_gc_p1"
 componentname = "rm_gc_p1"
-configname=f"{componentname} Initial Stream"
+configname="rm_gc_p1 Initial Stream"
 
+projectname = "SGC Requirements"
+componentname = "SGC AMR"
+configname="test1"
+
+query = 'dcterms:modified>"" and dcterms:modified<""'
 select= "*"
+prefix = 'dcterms=<>'
 
-outfile = "dn_basic_oslcquery_results.csv"
+outfile = "dn_basicoslcqueryresults.csv"
 
 prefixes = {
     'dcterms':          'http://purl.org/dc/terms/',

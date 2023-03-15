@@ -118,11 +118,6 @@ if __name__=="__main__":
     theartifact_x, etag = c.execute_get_rdf_xml( theartifact_u, return_etag=True, intent="Retrieve the artifact" )
     print( f"{ET.tostring(theartifact_x)=}\n" )
 
-#    # Display the tag hierarchy - so you can see the namespace of each tag :-)explore the structure for childBinding (which corresponds to nesting) and Binding (which is a binding of an artifact into the module)
-#    it = iterwalk1( theartifact_x.getroot(), events=["start","end"] )
-#    for event,el in it():
-#        print( f"{event=} {el.tag=}" )
-
     # update the text - this is always xhtml in a div below jazz_rm:primaryText
     # NOTE the xml primary text div is a tag hierarchy so setting the text below it just updates the top-level tag, i.e. doesn't remove
     # any subtags - if you want to replace the entire context then you need to remove those other tags!

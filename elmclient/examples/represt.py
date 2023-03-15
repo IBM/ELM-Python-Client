@@ -42,7 +42,7 @@ def represt_main():
     # get some defaults which can be overridden in the environment
     JAZZURL     = os.environ.get("QUERY_JAZZURL"    ,"https://jazz.ibm.com:9443" )
     USER        = os.environ.get("QUERY_USER"       ,"ibm" )
-    PASSWORD    = os.environ.get("OUERY_PASSWORD"   ,"ibm" )
+    PASSWORD    = os.environ.get("QUERY_PASSWORD"   ,"ibm" )
     JTS         = os.environ.get("QUERY_JTS"        ,"jts" )
     APPSTRINGS  = os.environ.get("QUERY_APPSTRINGS" ,"rm" )
     LOGLEVEL    = os.environ.get("QUERY_LOGLEVEL"   ,"ERROR,DEBUG" )

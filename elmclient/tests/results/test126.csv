@@ -78,7 +78,7 @@ https://jazz.ibm.com:9443/rm/resources/BI_9qHBm1EhEe2d5dG-54qhbg,3982,Meter Inte
 https://jazz.ibm.com:9443/rm/resources/BI_9pwcMVEhEe2d5dG-54qhbg,3983,AMR Graphic,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/BI_9qHBxFEhEe2d5dG-54qhbg,3985,"The handheld device shall support usage to determine water service / consumption for the more than 79,000 meter connections to residential, commercial and industrial customers inside a 72 square mile area.",http://jazz.net/ns/rm#Text,System Requirement
 https://jazz.ibm.com:9443/rm/resources/BI_9punPFEhEe2d5dG-54qhbg,3986,The processing servers/computers in the system shall run in a network configuration.,http://jazz.net/ns/rm#Text,Stakeholder Requirement
-https://jazz.ibm.com:9443/rm/resources/BI_9pt__VEhEe2d5dG-54qhbg,3987,Some text,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/BI_9pt__VEhEe2d5dG-54qhbg,3987,"The system, when deployed, will initially include water service for residential, commercial and industrial customers inside a 72 square mile area (~79,000 meter connections).",http://jazz.net/ns/rm#Text,Stakeholder Requirement
 https://jazz.ibm.com:9443/rm/resources/BI_9o8j5VEhEe2d5dG-54qhbg,3988,References,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/BI_9punDFEhEe2d5dG-54qhbg,3989,Brazil,http://jazz.net/ns/rm#Text,Stakeholder Requirement
 https://jazz.ibm.com:9443/rm/resources/BI_9o8j-VEhEe2d5dG-54qhbg,3990,The meter interface unit shall compare the average for the hour of the day to the rolling average for the 24 hour period.,http://jazz.net/ns/rm#Text,System Requirement

@@ -305,6 +305,10 @@ def do_oslc_query(inputargs=None):
         # find the project
         p = app.find_project(args.projectname)
         if p is None:
+            print( f"Project '{args.projectname}' not found! Available projects are:" )
+            projlist = app.list_projects()
+            for p in projlist:
+                print( f"  '{p}'" )
             raise Exception( f"Project '{args.projectname}' not found")
         
         # assert default for the component name to be the same as the project name
@@ -355,6 +359,10 @@ def do_oslc_query(inputargs=None):
             if args.component:
                 c = p.find_local_component(args.component)
                 if not c:
+                    print( f"Component '{args.component}' not found in project {args.projectname} - Available components are:" )
+                    complist = p.list_components()
+                    for c in complist:
+                        print( f"  '{c}'" )
                     raise Exception( f"Component '{args.component}' not found in project {args.projectname}" )
             else:
                 c = None
@@ -373,6 +381,9 @@ def do_oslc_query(inputargs=None):
                             args.configuration = c.get_default_stream_name()
                     config = c.get_local_config(args.configuration)
                     if config is None:
+                        print( f"Configuration '{args.configuration}' not found in component {args.component} - available configs are:" )
+                        for c in c.list_configs():
+                            print( f"  '{c}'" )
                         raise Exception( f"Configuration '{args.configuration}' not found in component {args.component}" )
                     queryon = c
 

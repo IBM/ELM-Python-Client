@@ -174,6 +174,14 @@ class _QMProject(_project._Project):
                     return cu
         return None
 
+    def list_configs( self ):
+        configs = []
+        self.load_configs()
+        for cu, cd in self._configurations.items():
+            configs.append( cd['name'] )
+        
+        return configs
+
     # load the typesystem using the OSLC shape resources
     def _load_types(self,force=False):
         logger.debug( f"load type {self=} {force=}" )
@@ -228,6 +236,15 @@ class _QMProject(_project._Project):
         else:
             return self
         return None
+
+    def list_components( self ):
+        # list all the component names
+        self.load_components_and_configurations()
+        components = []
+        for compuri, compdetail in self._components.items():
+            if compdetail.get('name'):
+                components.append( compdetail.get('name') )
+        return components
 
     def _create_component_api(self, component_prj_url, component_name):
         logger.info( f"CREATE QM COMPONENT {self=} {component_prj_url=} {component_name=} {self.app=} {self.is_optin=} {self.singlemode=}" )

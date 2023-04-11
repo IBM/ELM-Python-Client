@@ -164,7 +164,17 @@ class _App( httpops.HttpOperations_Mixin ):
                     res = self.project_class(self._projects[projectu]['name'], self._projects[projectu]['projectu'], self, is_optin=self._projects[projectu]['is_optin'],singlemode=self._projects[projectu]['singlemode'])
         logger.info( f'Project {projectname_or_uri} found {projectu} {res}' )
         return res
-
+        
+    def is_uri( self, name_or_uri ):
+        if name_or_uri.startswith('http://') or name_or_uri.startswith('https://'):
+            return True
+        return False
+        
+    def list_projects( self ):
+        self._load_projects()
+        projects = [p for p in self._projects if not self.is_uri(p)]
+        return projects
+        
     def report_type_system( self ):
         qcdetails = self.get_query_capability_uris()
         report = "<HTML><BODY>\n"

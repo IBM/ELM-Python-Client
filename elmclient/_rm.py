@@ -121,6 +121,7 @@ class _RMProject(_project._Project):
         while len(self._foldersnotyetloaded)>0:
             logger.info( "-----------------------" )
             queryuri = self._foldersnotyetloaded.pop(0)
+            queryuri = self._foldersnotyetloaded.pop(0)
             parent = self._folders.get(queryuri) # parent is None for the first query for the root folder
 
             logger.info( f"Retrieving {queryuri=} parent {self._folders.get(queryuri)}" )
@@ -487,6 +488,14 @@ class _RMProject(_project._Project):
                     result = cu
         return result
 
+    def list_configs( self ):
+        configs = []
+        self.load_configs()
+        for cu, cd in self._configurations.items():
+            configs.append( cd['name'] )
+        
+        return configs
+        
     # for RM, load the typesystem using the OSLC shape resources listed for the Requirements and Requirements Collection creation factories
     def _load_types(self,force=False):
         logger.debug( f"load type {self=} {force=}" )
@@ -626,13 +635,23 @@ class _RMProject(_project._Project):
             results[compuri] = compdetail['name']
         return results
 
+
     def find_local_component(self, name_or_uri):
         self.load_components_and_configurations()
         for compuri, compdetail in self._components.items():
             if compuri == name_or_uri or compdetail['name'] == name_or_uri:
                 return compdetail['component']
         return None
-
+        
+    def list_components( self ):
+        # list all the component names
+        self.load_components_and_configurations()
+        components = []
+        for compuri, compdetail in self._components.items():
+            if compdetail.get('name'):
+                components.append( compdetail.get('name') )
+        return components
+            
     def _create_component_api(self, component_prj_url, component_name, confs_to_load):
         logger.info( f"CREATE RM COMPONENT {self=} {component_prj_url=} {component_name=} {self.app=} {self.is_optin=} {self.singlemode=}" )
         result = _RMComponent(component_name, component_prj_url, self.app, self.is_optin, self.singlemode, defaultinit=False, project=self)

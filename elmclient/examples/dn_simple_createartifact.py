@@ -95,7 +95,7 @@ if __name__=="__main__":
 
     # load the folder (using folder query capability)
     # NOTE this returns as soon as it finds a matching folder - i.e. doesn't load them all!
-    thefolder = c.load_folders(sys.argv[3])
+    thefolder = c.find_folder(sys.argv[3])
     if thefolder is None:
         raise Exception( f"Folder '{sys.argv[3]}' not found!" )
     print( f"Folder URL = {thefolder.folderuri}" )

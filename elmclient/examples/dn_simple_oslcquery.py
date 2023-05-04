@@ -7,6 +7,8 @@
 #
 # elmclient simple oslc query for hardcoded values
 #
+# by default this doesn't provide an oslc.where so the query will return all artifacts in the configuration
+#
 
 import sys
 import os

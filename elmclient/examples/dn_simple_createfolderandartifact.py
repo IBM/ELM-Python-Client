@@ -105,13 +105,13 @@ if __name__=="__main__":
     if not fullnewfoldername.endswith( "/" ):
         fullnewfoldername += "/"
     fullnewfoldername += sys.argv[4]
-    thefolder = c.load_folders(fullnewfoldername)
+    thefolder = c.find_folder(fullnewfoldername)
     
     # check if the folder doesn't exist
     if thefolder is None:
         # have to create it!
         # get the parent
-        thefolder = c.load_folders(sys.argv[3])
+        thefolder = c.find_folder(sys.argv[3])
         if not thefolder:
             raise Exception( f"Parent folder '{sys.argv[3]}' doesn't exist!" )
     

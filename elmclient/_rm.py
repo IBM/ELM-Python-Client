@@ -7,6 +7,7 @@ import datetime
 import logging
 import re
 import sys
+import time
 
 import anytree
 import dateutil.parser
@@ -73,14 +74,53 @@ class _RMProject(_project._Project):
         self.default_query_resource = "oslc_rm:Requirement"
         self._iscomponent=False
         self._confs_to_load = []
+        
+    # save a folder details, and return the new folder instance
+    def _savefolder( self, parent, fname, folderuri ):
+        ROOTNAME = "+-+root+-+"
+        if parent is None:
+            # ROOT folder
+            thisfolder = _Folder(name=ROOTNAME,folderuri=folderuri)
+            self._folders[ROOTNAME] = thisfolder
+            logger.debug( f"Adding root {ROOTNAME} {thisfolder}" )
+        else:
+            # non-ROOT folder
+            thisfolder = _Folder(name=fname,folderuri=folderuri, parent=parent)
+
+        # insert the name and its queryuri
+        if fname in self._folders:
+            if self._folders[fname] is not None:
+                if folderuri != self._folders[fname].folderuri:
+                    self._folders[fname] = None # ambiguous!!!
+                    logger.info( f"Folder name ambiguous {fname=} {folderuri} is ambiguous!" )
+        else:
+            logger.info( "Not ambiguous" )
+            self._folders[fname]=thisfolder
+
+        # insert by folder uri
+        self._folders[folderuri] = thisfolder
+        logger.debug( f"Adding by uri {folderuri} {thisfolder}" )
+
+        # insert by path
+        if parent is None:
+            pathname = "/"
+        else:
+            pathname = "/"+"/".join([n.name for n in thisfolder.path[1:]])
+        logger.info( f"{pathname=}" )
+        self._folders[pathname]=thisfolder
+        logger.debug( f"Adding by path {pathname} {thisfolder}" )
+
+        thisfolder.pathname = pathname
+        return thisfolder
+
     #
     # load folders until name_or_uri is found (cuts loading short, remembers folders still to load) or until all loaded
     #  returns None or the matching Folder instance
     #
     # name_or_uri can be:
     #   a folder URI
-    #   a folder name - BUT NOTE if the name is ambiguous the return will be None!
-    #   a folder path
+    #   a folder name - NEVER begins with / - BUT NOTE if the name is ambiguous the return will be None!
+    #   a folder path - which ALWAYS begins with /, mustn't end with /. Whitespace is allowed in names but not at start or end!
     #
     # can be called again and will continue loading folders
     # returns None or Folder instance
@@ -91,22 +131,28 @@ class _RMProject(_project._Project):
     #    folder path ->  Folder instance
     #    query uri   ->  Folder instance (query URI is only used when building the folder tree)
     #
+    
     def load_folders(self,name_or_uri=None,force=False):
+        raise Exception( "This call is no longer supported - use find_folder() instead of load_folders()!" )
+        
+    def _load_folders(self,name_or_uri=None,force=False):
         logger.info( f"load_folders {name_or_uri=}" )
         if name_or_uri is None:
             raise Exception( "name_or_uri is None!" )
 
-        ROOTNAME = "+-+root+-+"
 
         if self._folders is not None and name_or_uri in self._folders:
+            # we've loaded _folders, and the one we're looking for is present in _folders
             if self._folders[name_or_uri] is None:
-                # ambiguous
-                logger.info( f"Found {name_or_uri} as Ambiguous" )
+                # ambiguous name
+                logger.info( f"Found folder name {name_or_uri} as Ambiguous" )
                 return None
             logger.info( f"Found {name_or_uri} as {self._folders[name_or_uri]}" )
             return self._folders[name_or_uri]
 
+        # the name_or_uri isn't known - may need to load some more folders!
         if force or self._folders is None:
+            # need to load folders from scratch starting from the folder query capability
             self._folders = {}
             self._foldersnotyetloaded=[]
             # retrieve the folder query - this is the starting point
@@ -118,14 +164,16 @@ class _RMProject(_project._Project):
             logger.debug( f"Root folder query= {qcuri}" )
             self._foldersnotyetloaded=[qcuri] # this list becomes None once all folders are loaded - as folders are loaded, their subfolders are added here
 
+        # load more folders until either the name_or_uri is matched or there aren't any more to load
         while len(self._foldersnotyetloaded)>0:
             logger.info( "-----------------------" )
-            queryuri = self._foldersnotyetloaded.pop(0)
+            # retrieve the next fodler query result
             queryuri = self._foldersnotyetloaded.pop(0)
             parent = self._folders.get(queryuri) # parent is None for the first query for the root folder
 
             logger.info( f"Retrieving {queryuri=} parent {self._folders.get(queryuri)}" )
-            folderxml = self.execute_get_xml(queryuri, intent="Retrieve folder definition").getroot()
+            # get these with caching disabled because folder changes are more frequent than typesystem (probably?)
+            folderxml = self.execute_get_xml(queryuri, cacheable=False, intent="Retrieve folder definition").getroot()
 
             # find the contained folders
             folderels = rdfxml.xml_find_elements(folderxml,'.//rm_nav:folder')
@@ -137,43 +185,13 @@ class _RMProject(_project._Project):
                 folderuri = rdfxml.xmlrdf_get_resource_uri( folderel )
                 logger.info( f"{fname=} {folderuri=}" )
 
-                if parent is None:
-                    # ROOT folder
-                    thisfolder = _Folder(name=ROOTNAME,folderuri=folderuri)
-                    self._folders[ROOTNAME] = thisfolder
-                    logger.debug( f"Adding root {ROOTNAME} {thisfolder}" )
-                else:
-                    thisfolder = _Folder(name=fname,folderuri=folderuri, parent=parent)
-
-                # insert the name and its queryuri
-                if fname in self._folders:
-                    if self._folders[fname] is not None:
-                        if folderuri != self._folders[fname].folderuri:
-                            self._folders[fname] = None # ambiguous!!!
-                            logger.info( f"Folder name ambiguous {fname=} {folderuri} is ambiguous!" )
-                else:
-                    logger.info( "Not ambiguous" )
-                    self._folders[fname]=thisfolder
-
-                # insert by folder uri
-                self._folders[folderuri] = thisfolder
-                logger.debug( f"Adding by uri {folderuri} {thisfolder}" )
-
-                # insert by path
-                if parent is None:
-                    pathname = "/"
-                else:
-                    pathname = "/"+"/".join([n.name for n in thisfolder.path[1:]])
-                logger.info( f"{pathname=}" )
-                self._folders[pathname]=thisfolder
-                logger.debug( f"Adding by path {pathname} {thisfolder}" )
-
-                thisfolder.pathname = pathname
+                thisfolder = self._savefolder( parent, fname, folderuri )
 
                 # insert the subfolder query uris into the list still to be loaded
                 for subel in rdfxml.xml_find_elements(folderel,'.//rm_nav:subfolders'):
                     # add the subfolder query queryuri onto the list of folders to retrieve
                     subqueryuri = rdfxml.xmlrdf_get_resource_uri( subel )
+                    # add at start of folders to load so search goes deep first
                     self._foldersnotyetloaded.insert( 0,subqueryuri )
                     # for the queryuri, record the folder which is its parent
                     self._folders[subqueryuri] = thisfolder
@@ -187,7 +205,73 @@ class _RMProject(_project._Project):
                 logger.info( f"Retrieved {name_or_uri} as {self._folders[name_or_uri]}" )
                 return self._folders[name_or_uri]
         return None
+        
+    def find_folder( self, name_or_path_or_uri, force=False ):
+        return self._load_folders( name_or_path_or_uri, force=force )
 
+    # MUST be provided a path starting with / because if it were just a name we wouldn't know where to create it!
+    # this will create any missing folders in the path to create the final folder
+    # new folders are recorded so no need to reoaod the full folder hierarchy!
+    def create_folder( self, path ):
+        if not path.startswith( "/" ):
+            raise Exception( f"You *must* provide a path starting with / for the new folder otherwise don't know where to create it! You provided {path}" )
+        existing = self._load_folders(name_or_uri=path)
+        if existing is not None:
+            return existing
+        # at this point we know the folder path doesn't already exist - will have to create at least the final folder on the path
+        pathels = path[1:].split( "/" )
+        # walk forwards through the path ensuring all the path elements exist
+        # get the root folder - must have been loaded by the prior call to load_folders() above here
+        parent = self.find_folder( "/" )
+        for n in range( len( pathels) ):
+            if len(pathels[n].strip())==0:
+                raise Exception( f"Badly specified path '{path}' has consecutive // or a path element is just whitespace or path ends with /!" )
+            thispath = "/"+"/".join(pathels[0:n+1])
+            this_folder = self.find_folder( thispath )
+            if this_folder is None:
+                # create the new folder
+                folderfactory_u = self.reluri( "folders" )
+                # this isn't an elegant way of creating XML; would be much better to build it and let ET do the namespaces!
+                # NOTE the rdf:about must be an empty string!
+                folderuri = parent.folderuri if parent else None
+                logger.info( f"Creating folder {pathels[n]=} in {parent} {folderuri=}" )
+                newfolder_t = f"""<rdf:RDF
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:dcterms="http://purl.org/dc/terms/"
+xmlns:oslc="http://open-services.net/ns/core"
+xmlns:oslc_config="http://open-services.net/ns/config#"
+xmlns:nav="http://jazz.net/ns/rm/navigation#"
+xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
+>
+<nav:folder rdf:about="">
+  <dcterms:title>{pathels[n]}</dcterms:title>
+  <dcterms:description>The description is optional.</dcterms:description>
+  <nav:parent rdf:resource="{parent.folderuri}"/>
+</nav:folder>
+</rdf:RDF>"""
+
+                newfolder_x = ET.fromstring( newfolder_t )
+                response = self.execute_post_rdf_xml( folderfactory_u, data=newfolder_x, params={'projectURL': self.reluri(f'process/project-areas/{self.iid}')}, headers={'vvc.configuration': self.local_config, 'Configuration-Context': None, }, intent=f"Create the new folder '{this_folder}'"  )
+                thefolder_u = response.headers.get('Location')
+
+                # in case caching is in use, re-retrieve the parent folder bypassing the cache
+                # no need to save it!
+                logger.info( f"re-retrieve parent {parent.folderuri=} parent '{self._folders.get(parent.folderuri)}'" )
+                self.execute_get_xml( parent.folderuri, cacheable=False, intent="Re-retrieve parent folder definition" )
+                
+                # insert the new folder into the known folders
+                newfolder = self._savefolder( parent, pathels[n], thefolder_u )                
+                parent = newfolder
+            else:
+                logger.info( f"Path exists {thispath=}" )
+                parent = this_folder
+                pass
+        logger.info( f"{self.find_folder( path )=}" )
+        return self.find_folder( path )
+        
+    def delete_folder( self, name_or_uri ):
+        raise Exception( "Folder delete not implemented! Left as an exercise for the user" )
+        
     def load_components_and_configurations(self,force=False):
         if self._components and not force:
             return
@@ -782,7 +866,7 @@ class _RMProject(_project._Project):
         logger.debug( f"Finding uri {path_or_uri}" )
         if self.is_folder_uri(path_or_uri):
             return path_or_uri
-        name = self.load_folders(path_or_uri)
+        name = self._load_folders(path_or_uri)
         if name is not None:
             return name
         if path_or_uri in self._folders:
@@ -793,7 +877,7 @@ class _RMProject(_project._Project):
         logger.debug( f"Finding name {uri}" )
         if not self.is_folder_uri(uri):
             raise Exception( "Folder uri isn't a uri {uri}" )
-        thisfolder = self.load_folders(uri)
+        thisfolder = self._load_folders(uri)
         if thisfolder is not None:
             return thisfolder.pathname
         logger.info( f"Folder uri {uri} not found")
@@ -824,6 +908,143 @@ class _RMComponent(_RMProject):
         self.services_uri = project.services_uri    # needed for reqif which wants to put the services.xml URI into created XML for new definitions
         self._iscomponent=True
 
+    # this is a bit primitive but works well enough for now
+    def getconfigtype( self, configuri ):
+        if '/baseline/' in configuri:   return "Baseline" 
+        if '/stream/' in configuri:     return "Stream"
+        if '/changeset/' in configuri:  return "Changeset"
+        raise Exception( f"Config URL {configuri} not valid!" )
+        
+    # create a changeset in the current config (must be a stream)
+    def create_changeset( self, name, noexception=False ):
+        # make sure config is a stream
+        if self.getconfigtype( self.local_config ) != 'Stream' :
+            raise Exception( "Can't create CS if not in stream!" )
+            
+        # make sure name doesn't already exist amywhere in this component!
+        if self.find_config( name, nowarning=True) is not None:
+            if noexception:
+                return None
+            raise Exception( "CS name already exists!" )
+        
+        # create the changeset - it's up to the caller to select it as current config
+        # get the current stream
+        stream_x = self.execute_get_rdf_xml( self.local_config )
+        print( f"{stream_x=}" )
+        # find the changesets URL
+        cs_u = rdfxml.xmlrdf_get_resource_uri( stream_x, ".//rm_config:changesets" )
+        comp_u = rdfxml.xmlrdf_get_resource_uri( stream_x, './/oslc_config:component' )
+        print( f"{cs_u=}" )
+        print( f"{comp_u=}" )
+        # create a new CS by POST
+        body = f"""<rdf:RDF
+    xmlns:dcterms="http://purl.org/dc/terms/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:oslc="http://open-services.net/ns/core#"
+    xmlns:oslc_config="http://open-services.net/ns/config#"
+    xmlns:acc="http://open-services.net/ns/core/acc#"
+    xmlns:process="http://jazz.net/ns/process#">
+  <oslc_config:Configuration  rdf:about="https://laptop-e95ocmuv:9443/rm/cm/changeset/something">
+    <oslc_config:component rdf:resource="{comp_u}"/>
+    <dcterms:title rdf:parseType="Literal">{name}</dcterms:title>
+  </oslc_config:Configuration>
+</rdf:RDF>"""
+        
+        response = self.execute_post_rdf_xml( cs_u, data=body, headers={'Content-Type': 'application/rdf+xml', 'OSLC-Core-Version':'2.0'}, intent="Initiate changeset creation" )
+
+        location = response.headers.get('Location')
+        if response.status_code == 201:
+            pass
+        elif response.status_code == 202 and location is not None:
+            # wait for the tracker to finished
+            result = self.wait_for_tracker( location, interval=1.0, progressbar=True, msg=f"Waiting for changeset creation to complete")
+            if result is None:
+                raise Exception( f"No result from tracker!" )
+        else:
+            raise Exception( f"Unknown response {response.status_code}" )
+                
+        cs = rdfxml.xmlrdf_get_resource_uri( result, './/dcterms:references')
+        
+        return cs
+        
+    def discard_changeset( self ):
+        raise Exception( "Discard changeset not implemented yet!" )
+        
+    # deliver changeset and forget it
+    def deliver_changeset( self ):
+        raise Exception( "unfinished/untested!" )
+        # check we're in a changeset
+        if self.getconfigtype( self.local_config ) != 'Changeset' :
+            raise Exception( f"Can't deliver CS if not in CS! Current config is {self.local_config}" )
+            
+        # get the target stream from the changeset
+        cs_x = self.execute_get_rdf_xml( self.local_config )
+        stream_u = rdfxml.xmlrdf_get_resource_uri( cs_x, './/oslc_config:overrides' )
+        csname = rdfxml.xmlrdf_get_resource_text( cs_x, './/dcterms:title' )
+        print( f"target {stream_u=}" )
+        print( f"cs name {csname=}" )
+        # find the delivery session factory
+        ds_f_u = self.get_factory_uri("rm_config:DeliverySession" )
+        print( f"{ds_f_u=}" )
+        print( f"{self.services_uri=}" )
+        # create the content 
+        body=f"""<rdf:RDF
+    xmlns:dcterms="http://purl.org/dc/terms/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rm_config="http://jazz.net/ns/rm/dng/config#"
+    xmlns:oslc="http://open-services.net/ns/core#">
+  <rm_config:DeliverySession>
+    <oslc:serviceProvider rdf:resource="{self.services_uri}"/>  
+    <rm_config:source rdf:resource="{self.local_config}"/>
+    <rm_config:target rdf:resource="{stream_u}"/>
+    <dcterms:title rdf:parseType="Literal">Delivery session for cs {csname}</dcterms:title>
+  </rm_config:DeliverySession>
+</rdf:RDF>
+"""
+
+        # switch to the target config
+        self.local_config = stream_u
+
+        # create the delivery session
+        response = self.execute_post_rdf_xml( ds_f_u, data=body,headers={'Content-Type': 'application/rdf+xml', 'OSLC-Core-Version':'2.0'}, intent="Create delivery session" )
+        location = response.headers.get('Location')
+        if response.status_code == 201:
+            ds_u = location
+        else:
+            raise Exception( f"Unknown response {response.status_code}" )
+        print( f"{ds_u=}" )
+        
+        # deliver it by first retrieving the delivery session then putting it back with a different state
+        ds_x = self.execute_get_rdf_xml( ds_u )
+        # set rm_config:deliverySessionState to rm_config:delivered
+        state_x = rdfxml.xml_find_element( ds_x, ".//rm_config:deliverySessionState" )
+        print( f"{state_x=}" )
+        print( f"{state_x.items()=}" )
+        print( f'{rdfxml.tag_to_uri("rdf:resource")=}' )
+        print( f'{rdfxml.tag_to_uri( "rm_config:delivered" )=}' )
+        state_x.set(rdfxml.uri_to_tag("rdf:resource"), rdfxml.tag_to_uri( "rm_config:delivered" ) )
+        print( f"{state_x.items()=}" )
+        # PUT the new state to start delivery
+        response = self.execute_post_rdf_xml( ds_u, data=ds_x,headers={'Content-Type': 'application/rdf+xml', 'OSLC-Core-Version':'2.0'}, intent="Start the delivery", put=True )
+        location = response.headers.get('Location')
+        if response.status_code == 200:
+            state = rdfxml.xmlrdf_get_resource_uri( response, ".//rm_config:deliverySessionState" )
+            print( f"{state=}" )
+        elif response.status_code == 202:
+            # wait for the tracker to finished
+            result = self.wait_for_tracker( location, interval=1.0, progressbar=True, msg=f"Waiting for changeset delivery to complete")
+            if result is None:
+                raise Exception( f"No result from tracker!" )
+            print( f"{result=}" )
+            print( ET.tostring(result) )
+            state = rdfxml.xmlrdf_get_resource_uri( result, './/oslc_auto:verdict ')
+        else:
+            raise Exception( f"Unknown response {response.status_code}" )
+        print( f"tracker result {state=}" )
+        
+        self.local_config = None
+        # TODO: how to remove the delivered changeset from known configs?
+        
 
 #################################################################################################
 

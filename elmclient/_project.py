@@ -241,6 +241,16 @@ class _Project(oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixin
             # retrieve the services.xml in the current config!
             self.services_xml = self.execute_get_rdf_xml(self.component_project.services_uri, intent="Retrieve project's services.xml")
 
+    # create a changeset in the current config (must be a stream)
+    def create_changeset( self, name ):
+        raise Exception( "Can't create a changeset on a project!" )
+        
+    def discard_changeset( self ):
+        raise Exception( "Can't discard a changeset on a project!" )
+        
+    def deliver_changeset( self ):
+        raise Exception( "Can't deliver a changeset on a project!" )
+        
     def _load_types(self,force=False):
         logger.info( f"{self=}" )
         raise Exception( "This must be implemented by the app-specific project class!" )

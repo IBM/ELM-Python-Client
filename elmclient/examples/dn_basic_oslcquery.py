@@ -6,12 +6,12 @@
 # a self-contained example for 7.0.2/7.0.2SR1 not using elmclient - does all low-level HTTP GETs to discover to find the project+component_config and then do OSLC Query
 # and then does a very basic save to CSV
 
+# NOTE the very primitive authentication in this code only works with Liberty form authentication, i.e. NOT with JAS!
+
 # You see all the fun of picking stuff out of the RDF XML
 # It's quite possible this could be simpler or at least more readable using rdflib
 
 # CONTRAST this with dn_simple_oslcquery.py which uses elmclient
-
-# NOTE the authentication in this code only works with Liberty form authentication, i.e. NOT with JAS!
 
 # this brutally minimal example has many limitations:
 #  only works for a query which doesn't involve custom attributes/links - because otherwise you have to find the URIs of these - hardcoded to get all resuls with no oslc.where
@@ -144,6 +144,8 @@ def getconfigtype( configuri ):
 #######################################################################################################
 #
 # low-level version NOT using elmclient AT ALL - everything including authentication for basic Liberty form auth is done here
+#
+# NOTE THIS ONLY WORKS FOR FORM-BASED login, i.e. doesn't work with JAS!
 #
 
 # generic HTTP GET with login if auth is needed

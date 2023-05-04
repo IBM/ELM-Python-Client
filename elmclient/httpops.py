@@ -332,35 +332,6 @@ class HttpRequest():
                 logger.warning( f'RETRY: Retry after {wait_dur} seconds... URL: {self._req.url}' )
                 time.sleep(wait_dur)
         raise Exception('programming error this point should never be reached')
-
-    def _execute_request_newbutunused( self, *, no_error_log=False, close=False, cacheable=True, **kwargs ):
-        logger.debug( f"execute_preventing_csrf {cacheable=}",)  
-        try:
-            if not cacheable:
-                # add a header so the response isn't cached
-                self._req.headers['Cache-Control'] = "no-store, max-age=0"
-            result = self._execute_one_request_with_login(no_error_log=no_error_log, close=close, **kwargs)
-            logger.debug( f"execute_request result {result}" )
-            return result
-        except requests.HTTPError as e:
-            logger.debug( f"execute_request Exception {e}" )
-            if (e.response.status_code==http.client.FORBIDDEN or e.response.status_code==http.client.CONFLICT) and e.response.text.find('X-Jazz-CSRF-Prevent'):
-                # Add special header and try again
-                print( f"{e.response=}" )
-                print( f"{e.request._cookies=}" )
-                jsessionid = getcookievalue( e.request._cookies, 'JSESSIONID',None)
-                if not jsessionid:
-                    logger.debug("Retrying request with CSRF header, but coudln't get JSESSIONID from the cookie for url [%s]." % request.url)
-                    raise
-                
-#                e.close()
-                logger.debug("  Retrying request with CSRF header...")
-                self._req.headers['X-Jazz-CSRF-Prevent'] = jsessionid
-                return self._execute_one_request_with_login( close=close, **kwargs )
-            else:
-                raise
-
-
         
     # log a request/response, which may be the result of one or more redirections, so first log each of their request/response
     def log_redirection_history( self, response, intent, action=None, donotlogbody=False ):

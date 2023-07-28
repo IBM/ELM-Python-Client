@@ -191,7 +191,8 @@ options:
                         SECRET used to encrypt and decrypt the obfuscated credentials (make this longer for greater
                         security) - only affects if using -0 or -1
   -4, --credspassword   Prompt user for a password to save/read obfuscated credentials (make this longer for greater
-                        security)```
+                        security)
+```
 
 
 BEFORE you start:
@@ -389,9 +390,9 @@ Use the typesystem report to see all the shapes, properties and enumeration name
 
 If the title of a module (or anything) includes a double-quote " then you have to escape it with \\ and double the quote to "" so it becomes \\"" in the command line. For example to find a module with title `A "specification"` use `-q "dcterms:title=""A \\""specification\"""""`
 
-You can add a filter like `-v rm_nav:parent` to only show results where parent isn't empty - i.e. to get only core artifacts - unfortunately this filters can only be done is by postprocessing the query results so it doesn't speed up the query itself.
+You can add a filter like `-v rm_nav:parent` to only show results where parent isn't empty - i.e. to get only core artifacts - unfortunately this filters can only be done by postprocessing the query results so it doesn't speed up the query itself.
 
-The converse filter is `-n rm_nav:parent`, which filters out results where parent is empty, i.e. only returns module artifacts. You can use -n and -v but that only makes sense (i.e. if you want to possibly get some results) if they reference different attributes.
+The converse filter is `-n rm_nav:parent`, which post-filters out results where parent is empty, i.e. only returns module artifacts. You can use -n and -v but that only makes sense (i.e. if you want to possibly get some results) if they reference different attributes.
 
 You can use a global configuration name with a DN query on a project and it will return resources matching the query which are in components which have a configuration contributing to that GC. To use a global configuration you *must* include gc in the --APPSTRING after rm, e.g. -A rm,gc (it is included as /gc by default).
 

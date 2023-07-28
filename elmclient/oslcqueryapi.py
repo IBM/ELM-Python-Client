@@ -179,6 +179,8 @@ class _OSLCOperations_Mixin:
         mappedresult = {}
         originalresults = resultstack[0]
         
+#        print( f"{len(originalresults)=}" )
+        
         # add requested columns to each result
         if len(addcolumns)>0:
 #            print( f"Adding columns {addcolumns}" )
@@ -247,6 +249,7 @@ class _OSLCOperations_Mixin:
 
             if show_progress:
                 pbar.update(1)
+#        print( f"{len(mappedresult)=}" )
                 
         # if showing progress and pbar has been created (after the first set of results if paged)
         if show_progress and pbar is not None:
@@ -545,6 +548,7 @@ class _OSLCOperations_Mixin:
         searchterms = searchterms or []
         prefixes = prefixes or {}
         logger.debug( f"{prefixes=}" )
+        
         headers = {}
 
         if pagesize > 0 or maxresults:
@@ -618,7 +622,7 @@ class _OSLCOperations_Mixin:
                 # no more results to get
                 break
 
-            # no parameters should be sent on following pages, they are present in the href link to next page!
+            # no parameters should be sent on following pages, they are already present in the href link to next page!
             params = None
 
             # work out the url for the next page
@@ -669,6 +673,7 @@ class _OSLCOperations_Mixin:
                     pbar.update(donesofar-donelasttime)
                 donelasttime = donesofar
 
+            # check for any keypresses - user can abort by pressing escape key
             while kbhit():
                 ch = getch()
                 if ch == b'\x1b':
@@ -683,7 +688,12 @@ class _OSLCOperations_Mixin:
             if delaybetweenpages>0.0:
                 time.sleep(delaybetweenpages)
             
-                
+            # suppress the Configuration-Context header because it seems that
+            # when that and param oslc_config.context are provided they both get added
+            # to each nextpage URL which grows ever longer and eventually breaks
+            # requests see https://github.com/IBM/ELM-Python-Client/discussions/44#discussioncomment-6151370
+            headers = {'Configuration-Context': None}
+        
         # finished doing the actual query - now process what's been received!
 
         # if showing progress and pbar has been created (after the first set of results if paged)
@@ -753,6 +763,7 @@ class _OSLCOperations_Mixin:
             for sel in select:
                 selecturis[rdfxml.tag_to_uri(sel,prefix_map=revprefixes)] = sel
         result = {}
+        nresults = 0
         for result_xml in result_xmls:
 
             # find the elements:
@@ -769,10 +780,12 @@ class _OSLCOperations_Mixin:
                     rdfs_member_es = rdfxml.xml_find_elements( result_xml, './/rdf:Description[@rdf:about]/dcterms:title/..')
 #                    print( f"2 {rdfs_member_es=}" )
 
-
+#            print( f"{len(rdfs_member_es)=}" )
             # process them
             if len(rdfs_member_es) > 0:
                 for rdfs_member in rdfs_member_es:
+                    nresults += 1
+#                    print( f"{nresults=}" )
                     # print( f"{rdfs_member.tag=}" )
                     # about is the uri of the resource
                     if cmmode or gcmode:
@@ -785,6 +798,7 @@ class _OSLCOperations_Mixin:
                         desc = rdfs_member
                         # skip entries which have a totalCount - they're not actual results, these are the summary provided by QM
                         if qmmode and len(rdfxml.xml_find_elements( rdfs_member, './/oslc:totalCount'))>0:
+#                            print( f"SKIPPED!" )
                             continue
                     else:
                         raise Exception("Query result extraction mode not set to anything!")
@@ -794,6 +808,12 @@ class _OSLCOperations_Mixin:
 #                        dup = False
                     else:
 #                        dup = True
+#                        print( f"DUP {about}" )
+#                        print( f"{result[about]=}" )
+#                        print( f"{desc=}" )
+#                        print( f"{ET.tostring(desc)=}" )
+#                        print( "\n" )
+#                        burp
                         pass
                     if desc is not None:
                         # for an entry with no children, if dup and value is same then ignore it
@@ -859,7 +879,7 @@ class _OSLCOperations_Mixin:
                             # now look at itse children
                             if len(ent)>0 and rdfxml.xmlrdf_get_resource_uri(ent,attrib="rdf:parseType") != "Literal":
                                 # this has children and isn't literal text
-                                # print( "has subs")
+#                                print( "has subs")
                                 # this entity has children; it's like using oslc.selct=oslc_rm:uses{dcterms:identifier}
                                 # work out a heading for this column by concatenating the ent tag with its child's tags
                                 for subent in ent[0]:
@@ -876,6 +896,9 @@ class _OSLCOperations_Mixin:
                                     else:
                                         result[about][place] = [value]
                                         logger.debug( f"Saving1 {about} {place} {value}" )
+                    else:
+#                        print( f"desc is none {about}" )
+                        raise Exception( f"desc is none {about}" )
 
         return result
 

@@ -88,7 +88,6 @@ def represt_main():
     common_args.add_argument('-X', '--xmloutputfile', default=None, help='Name of file to save the XML results to')
     common_args.add_argument('-Z', '--proxyport', default=8888, type=int, help='Port for proxy default is 8888 - used if found to be active - set to 0 to disable')
 
-
     # various options
 #    common_args.add_argument('--nresults', default=-1, type=int, help="TESTING UNFINISHED: Number of results expected (used for regression testing against stored data, doesn't need the target server - use -1 to disable checking")
 
@@ -103,13 +102,16 @@ def represt_main():
     for appcls in _app._App.__subclasses__():
         if appcls.supports_reportable_rest:
             appcls.add_represt_arguments( subparsers, common_args )
-
+            
     args = parser.parse_args()
     
+    # if no appstring specified use the default
+    args.appstrings = args.appstrings or APPSTRINGS
+
     if not args.appstrings.split(",")[0].startswith(args.subparser_name):
         args.appstrings=f"{args.subparser_name}:{args.subparser_name},{args.appstrings}"
         print( f"{args.subparser_name} added to front of appstrings - using {args.appstrings} if you need a different context root from /{args.subparser_name} use -A to specify it" )
-    
+
     # setup logging
     levels = [utils.loglevels.get(l,-1) for l in args.loglevel.split(",",1)]
     if len(levels)<2:
@@ -274,7 +276,7 @@ def represt_main():
             timer_start = time.perf_counter()
             
             # call the REST API
-            result = mainapp.execute_get_xml(reluri=queryurl, headers=headers, cacheable=False, intent="Retrieve Reportable REST content"  )
+            result = mainapp.execute_get_xml(reluri=queryurl, headers=headers, cacheable=False, intent=f"Retrieve Reportable REST content page {npages+1}"  )
             
             # calculate and record the duration
             duration = time.perf_counter()-timer_start

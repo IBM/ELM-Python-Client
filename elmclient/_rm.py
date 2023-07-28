@@ -1105,7 +1105,7 @@ class _RMApp(_app._App, _typesystem.No_Type_System_Mixin):
         NOTE this is called on the class (i.e. is a class method) because at this point don't know which app with be queried
         '''
         parser_rm = subparsers.add_parser('rm', help='RM Reportable REST actions', parents=[common_args] )
-        
+
         parser_rm.add_argument('artifact_format', choices=cls.artifact_formats, default=None, help=f'RM artifact format - possible values are {", ".join(cls.artifact_formats)}')
 
         # SCOPE settings

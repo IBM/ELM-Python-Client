@@ -103,5 +103,5 @@ if __name__=="__main__":
             thefolder = c.create_folder( path )
             print( f"Folder '{path}' created uri is {thefolder.folderuri}" )
         else:
-            print( f"Folder '{path}' already exists" )
+            print( f"Folder '{path}' already exists {thefolder.folderuri}" )
     

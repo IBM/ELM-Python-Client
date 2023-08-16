@@ -85,7 +85,7 @@ This method assumes you have developer knowledge how to modify and merge code.
 
 By far the preferred method is to first fork the github repository. You'll then get a folder on your PC which has a sub-folder `elmclient'.
 
-Open a command prompt in that folder and run the command (Windows) `pip install -e .` or (*nix) `pip3 install -e .`
+Open a command prompt in the folder which has a subfolder `elmclient` and run the command (Windows) `pip install -e .` or (*nix) `pip3 install -e .`
 
 Test that all was successful by running `oslcquery -h` you should get a version number then a swathe of text with all the options.
 

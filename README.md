@@ -13,6 +13,9 @@
 What's New?
 ===========
 
+0.21.0 16-Aug-2023
+* tested with Python 3.11.4 - worked OOTB. Now developing using 3.11.4 - won't be back-tested with older Pythons but should work back to 3.9 at least.
+
 0.20.0 4-May-2023
 * Deprecated RM load_folders() - use find_folder() instead.
 * Added RM create_folder() - this doesn't require doing a forced reload of all folders, because it inserts the new folder into the internal info about folders
@@ -41,65 +44,58 @@ There are links to these examples below.
 Installation
 ============
 
-Requirements:
+Either method of install described below installs the elmclient package and puts example commands (such as `oslcquery` into your path so a) they can be run simply by typing the command, e.g. `oslcquery` and b) as you edit the source code these commands automatically use the latest code.
 
-This version has been tested with:
-* Python 3.9.1 x64 on Windows 10 x64**.
-* Python 3.9.6 x64 on CentOS (Redhat) 8.4
+Requirements: Python 3.11/3.10/3.9 - NOTE I'm developing using Python 3.11.4 and compatibility with older versions is NOT checked.
 
-The only version constraint of the requirements is on Windows that requests==2.24.0 and urllib3==1.25.11 - On Windows there seems to be a problem with requests>=2.25.0 (latest is 2.26.0) when using Fiddler proxy on port 8888.
+Overview
+--------
 
-The move to Python 3.9 was relatively recent - this code may work with 3.8.x and possibly earlier versions. Trying to install with Python 3.10 using `pip` failed when getting `lxml` - there may be other problems as didn't get past this.
+Step 1: Install Python so it can be run from a command prompt
+Either Step 2a: Quickest and easiest to get started: install elmclient from pypi
+Or Step 2b: If you want to change elmclient code
 
-The content on github is at https://github.com/IBM/ELM-Python-Client
+Step 1
+------
 
-NOTE: the python package installed is call `elmclient`
+Install Python so you can run Python from the commandline - might be python3 if you're on *nix. On Windows the command is `python` - you can find install guides all over the internet.
 
-If you need to install Python, on Windows you can download the Python 3.9.* installer exe from python.org and then use this command to silently install so python is on your path (modifying to reflect the installer exe you have downloaded):
+Step 2a - Quickest and easiest to just use elmclient
+----------------------------------------------------
 
-* python-3.9.6-amd64.exe /quiet InstallAllUsers=1 TargetDir=c:\Python39 PrependPath=1 Include_test=0
+This method is also easiest to update with new versions of elmclient.
 
-Then exit and start a new command shell and python will be on your path.
+at a command prompt:
+* for Windows type `pip install elmclient`
+* For *nix use `pip3 install elmclient`
 
-FIRST option for `elmclient` is to install from the github.com zip:
+To update:
+* for Windows type `pip install -U elmclient`
+* For *nix use `pip3 install -U elmclient`
 
-Download the github zip:
+Using this method you could copy the examples from where they're lurking in your Python installation's library to a different folder, rename if using one of the commands such as oslcquery to a different name, and edit them in this folder separate from the elmclient install.
 
-* wget https://github.com/IBM/ELM-Python-Client/archive/refs/heads/master.zip
-
-Unzip to its own folder and open a command prompt in that folder.
-
-Either, install using:
-
-```
-python setup.py install
-```
-
-This adds the example commands (e.g. `oslcquery`) to the Python Scripts folder - if this folder is in the path you can use the command from anywhere.
+Test that all was successful by running `oslcquery -h` you should get a version number then a swathe of text with all the options.
 
 
-Or, if you want to run from source because you want to modify the code then download the github zip then you can extract it to a directory of your choice and install as an editable package by opening a command prompt in the directory and using the command:
+Step 2b - If you want to edit the code in elmclient
+---------------------------------------------------
 
-```
-pip install -e .
-```
+This method assumes you have developer knowledge how to modify and merge code.
 
-This installs the elmclient and puts example commands into your scripts so a) they can be run simply by typing the command, e.g. `oslcquery` and b) as you edit the source code these commands automatically use the latest code.
+By far the preferred method is to first fork the github repository. You'll then get a folder on your PC which has a sub-folder `elmclient'.
+
+Open a command prompt in that folder and run the command (Windows) `pip install -e .` or (*nix) `pip3 install -e .`
+
+Test that all was successful by running `oslcquery -h` you should get a version number then a swathe of text with all the options.
 
 
-SECOND option its to install from pypi using pip:
-
-The package is available from pypi it will be installed using `pip` (NOTE there's isn't a -e for editable install option when using `pip` to install from `pypi`):
-
-```
-pip install elmclient
-```
-
-This will install the provided example commands such as `oslcquery`, `batchquery`, `reqif_io`, etc. to the python scripts folder; for ease of use, when installing Python make sure this is in your path.
 
 
 Coding using the elmclient
 ==========================
+
+You code will import elmclient, then use it.
 
 The basis of using the elmclient is to first create a "server", then add the needed application(s) to it - typically just one application such as rm, or perhaps more applications such as rm and gc.
 
@@ -113,7 +109,15 @@ The other examples add fairly complex details around the use of elmclient to pro
 Authentication (in httpops.py)
 ==============================
 
-The auth code works with form authentication using Liberty in local user registry, LDAP and OIDC (Jazz Authorisation Server) modes. Other modes haven't been tested. You'll have to provide a username and password. The examples `oslcquery` and `reqif_io` layer methods on top of this to allow saving obfuscated credentials to a file so you don't have to provide these on the commandline every time. See the code for these examples.
+The auth code works with:
+* form authentication using Liberty in local user registry
+* LDAP (using JTS setup for LDAP) and OIDC (Jazz Authorisation Server, which might be configured for LDAP)
+
+Other authentication methods haven't been tested.
+
+You'll have to provide a username and password; that username will determine the permissions to read/write data on your server, just as they would through a browser UI.
+
+The examples `oslcquery` and `reqif_io` layer authentication enhancements on top of this to allow saving obfuscated credentials to a file so you don't have to provide these on the commandline every time. See the code for these examples.
 
 
 Handling different context roots
@@ -136,7 +140,7 @@ These examples drove the evolution of `elmclient`:
 * General Reportable REST export to XML/CSV - read more [here](elmclient/examples/REPREST.md) - currently only implemented for DOORS Next but with potential to expand to EWM and ETM - commandline options
 * Simple Simple DOORS Next Module Structure API - read more [here](elmclient/examples/DN_SIMPLE_MODULESTRUCTURE.md) - Access a module structure and print out the indentend artifiact titles with section number - hardcoded
 * Simple DOORS Next Reportable REST - read more [here](elmclient/examples/DN_REPREST.md) - this is a very simple example of using `elmclient` to access the DOORS Next Reportable REST API - hardcoded
-
+* .. and more, check the examples folder...
 
 ELM APIs
 ========

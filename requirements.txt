@@ -15,4 +15,4 @@ urllib3
 bump2version
 wheel
 twine
-
+filelock

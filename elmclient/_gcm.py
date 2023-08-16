@@ -86,6 +86,15 @@ class _GCMProject(_project._Project):
                 return compdetail['component']
         return None
 
+    def list_components( self ):
+        # list all the component names
+        self.load_components_and_configurations()
+        components = []
+        for compuri, compdetail in self._components.items():
+            if compdetail.get('name'):
+                components.append( compdetail.get('name') )
+        return components
+            
     def load_components_and_configurations(self,force=False):
         if self._components is not None and self._configurations is not None and not force:
             return

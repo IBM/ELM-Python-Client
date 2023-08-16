@@ -335,8 +335,8 @@ def represt_main():
             # def getcontentrow( node, thisrowdict, allcolumns, level, path, remove_ns=True ):
             row = utils.getcontentrow( res )
             for k in row.keys():
-                if args.collapsetags:
-                    k1 = k.rsplit("/",1)[1]
+                if args.collapsetags and '/' in k:
+                    k1 = k.rsplit("/",1)
                     if k in headingsmapping and headingsmapping[k] != k1:
                         headingsmapping[k1] = k
                 else:

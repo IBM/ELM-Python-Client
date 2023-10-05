@@ -467,7 +467,7 @@ class HttpRequest():
     def tidy_cookies(self):
         '''
         LQE 7.0.2SR1 and 7.0.3 has the unpleasant habit of including double-quotes in the auth cookie path so it looks like "/lqe" (which includes the quotation marks in the path) rather than /lqe, and then the path is never matched so authentication is lost
-        This code cleans up the path on all cookies on the session4
+        This code cleans up the path on all cookies on the session
         # return True if any cookie changed
         '''
         result = False

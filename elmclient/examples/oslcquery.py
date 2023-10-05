@@ -297,7 +297,6 @@ def do_oslc_query(inputargs=None):
                             raise Exception( f"Multiple matches for GC configuration {args.globalconfiguration}" )
                         gcconfiguri = list(conf.keys())[0]
                         logger.info( f"{gcconfiguri=}" )
-                        logger.debug( f"{gcconfiguri=}" )
                 # check the gc config uri exists - a GET from it shouldn't fail!
                 if not gcapp.check_valid_config_uri(gcconfiguri,raise_exception=False):
                     raise Exception( f"GC configuration URI {gcconfiguri} not valid!" )
@@ -385,6 +384,7 @@ def do_oslc_query(inputargs=None):
                         for c in c.list_configs():
                             print( f"  '{c}'" )
                         raise Exception( f"Configuration '{args.configuration}' not found in component {args.component}" )
+                    
                     queryon = c
 
                 elif gcconfiguri:
@@ -413,6 +413,12 @@ def do_oslc_query(inputargs=None):
                 queryon = p
             queryon.set_local_config(config,gcconfiguri)
             logger.debug( f"setting {config=} {gcconfiguri=}" )
+            if args.verbose:
+                if config:
+                    print( f"Local config {config}" )
+                if gcconfiguri:
+                    print( f"Global config {gcconfiguri}" )
+                
             # we're querying the component
         else:
             if args.saveconfigs:

@@ -584,6 +584,7 @@ class _OSLCOperations_Mixin:
         fullurl = f"{query_url}?{urllib.parse.urlencode( params, quote_via=urllib.parse.quote, safe='/')}"
         if verbose:
             print( f"Full query URL is {fullurl}" )
+            
 #        print( f"Full query URL is {fullurl}" )
         # retrieve all pages of results - they will be processed later
         total = 1
@@ -808,7 +809,7 @@ class _OSLCOperations_Mixin:
 #                        dup = False
                     else:
 #                        dup = True
-#                        print( f"DUP {about}" )
+                        print( f"DUPLICATED RESULT {about}" )
 #                        print( f"{result[about]=}" )
 #                        print( f"{desc=}" )
 #                        print( f"{ET.tostring(desc)=}" )

@@ -8,15 +8,15 @@
  
  SPDX-License-Identifier: MIT
 
- version="0.21.0"
+ version="0.22.0"
 
 What's New?
 ===========
 
-0.21.0 16-Aug-2023
+0.22.0 16-Aug-2023
 * tested with Python 3.11.4 - worked OOTB. Now developing using 3.11.4 - won't be back-tested with older Pythons but should work back to 3.9 at least.
 
-0.21.0 4-May-2023
+0.22.0 4-May-2023
 * Deprecated RM load_folders() - use find_folder() instead.
 * Added RM create_folder() - this doesn't require doing a forced reload of all folders, because it inserts the new folder into the internal info about folders
 * Added example dn_simple_createfolderpath.py - allows exercising the create_folders() function

@@ -103,7 +103,19 @@ class _Project(oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixin
             rows.append( [shortname,k,qcdetails[k]])
         # print in a nice table with equal length columns
         report += utils.print_in_html(rows,['Short Name', 'URI', 'Query Capability URI'])
+        
+        report += "<H2>Project Factory Resource Types, short name and URI</H2>\n"
+        factorydetails = self.get_factory_uris()
+        rows = []
+        for k in sorted(factorydetails.keys()):
+            shortname = k.split('#')[-1]
+            shortname +=  " (default)" if self.default_query_resource is not None and k==rdfxml.tag_to_uri(self.default_query_resource) else ""
+            rows.append( [shortname,k,factorydetails[k]])
+        # print in a nice table with equal length columns
+        report += utils.print_in_html(rows,['Short Name', 'URI', 'Query Capability URI'])
+
         report += self.textreport()
+
         rows = []
         for prefix in sorted(rdfxml.RDF_DEFAULT_PREFIX.keys()):
             rows.append([prefix,rdfxml.RDF_DEFAULT_PREFIX[prefix]] )
@@ -138,6 +150,11 @@ class _Project(oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixin
         context = context or self
         resource_type = resource_type or context.default_query_resource
         return self.app.get_factory_uri_from_xml(factoriesxml=context.get_services_xml(), resource_type=resource_type,context=context, return_shapes=return_shapes)
+
+    def get_factory_uris(self,resource_type=None,context=None):
+        context = context or self
+        resource_type = resource_type or context.default_query_resource
+        return self.app.get_factory_uris_from_xml(factoriesxml=context.get_services_xml(),context=context)
 
     def load_type_from_resource_shape(self, el):
         raise Exception( "This must be provided by the inheriting class!" )

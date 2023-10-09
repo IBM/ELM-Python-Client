@@ -94,10 +94,9 @@ def to_binary(text, encoding=None, errors='strict'):
 #################################################################################################
 
 def getcookievalue( cookies, cookiename, defaultvalue=None):
-    print( f"gcv {cookies=} {cookiename=} {defaultvalue=}" )
     for c in cookies:
         if c.name == cookiename:
-            print( f"Found {cookiename} {c.value}" )
+#            print( f"Found {cookiename} {c.value}" )
             return c.value
     print( f"Not found {cookiename}" )
     return defaultvalue
@@ -167,6 +166,7 @@ class HttpOperations_Mixin():
         return response
 
     def execute_post_rdf_xml(self, reluri, *, data=None, params=None, headers=None, put=False, **kwargs):
+        print( f"EPRX {params=}" )
         reqheaders = {'Accept': 'application/xml', 'Content-Type': 'application/rdf+xml'}
         if headers is not None:
             reqheaders.update(headers)
@@ -290,6 +290,7 @@ class HttpOperations_Mixin():
         return self._get_request('GET', reluri, params=params, headers=headers)
 
     def _get_post_request(self, reluri='', *, params=None, headers=None, data=None, put=False ):
+        print( f"GPR {params=}" )
         if put:
             return self._get_request('PUT', reluri, params=params, headers=headers, data=data)
         return self._get_request('POST', reluri, params=params, headers=headers, data=data)
@@ -305,7 +306,6 @@ class HttpRequest():
             paramstring = f"?{urllib.parse.urlencode( params, quote_via=urllib.parse.quote, safe='/')}"
         else:
             paramstring = ""
-
 #        self._req = requests.Request( verb,uri, params=params, headers=headers, data=data )
         self._req = requests.Request( verb,uri+paramstring, headers=headers, data=data )
         self._session = session

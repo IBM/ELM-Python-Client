@@ -14,6 +14,7 @@ logger = logging.getLogger(__name__)
 RDF_DEFAULT_PREFIX = {
     'acc':              'http://open-services.net/ns/core/acc#',  # added for GCM
     'acp':              'http://jazz.net/ns/acp#',
+    'atom':             "http://www.w3.org/2005/Atom",
     'config_ext':       'http://jazz.net/ns/config_ext#',
     'dc':               'http://purl.org/dc/elements/1.1/',
     'dcterms':          'http://purl.org/dc/terms/',
@@ -44,6 +45,7 @@ RDF_DEFAULT_PREFIX = {
     'public_rm_10':     'http://www.ibm.com/xmlns/rm/public/1.0/',
     'prov':             'http://www.w3.org/ns/prov#',  # added for GCM
     'qm_rqm':           "http://jazz.net/ns/qm/rqm#",
+    'qm_ns2':           "http://jazz.net/xmlns/alm/qm/v0.1/",
     'rdf':              'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
     'rdfs':             'http://www.w3.org/2000/01/rdf-schema#',
     'rdm_types':        'http://www.ibm.com/xmlns/rdm/types/',

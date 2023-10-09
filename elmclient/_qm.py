@@ -21,6 +21,7 @@ from . import oslcqueryapi
 from . import rdfxml
 from . import server
 from . import utils
+from . import _qmrestapi
 
 #################################################################################################
 
@@ -29,7 +30,7 @@ logger = logging.getLogger(__name__)
 #################################################################################################
 
 
-class _QMProject(_project._Project):
+class _QMProject(_project._Project, _qmrestapi.QM_REST_API_Mixin):
     # A QM project
     def __init__(self, name, project_uri, app, is_optin=False, singlemode=False,defaultinit=True):
         super().__init__(name, project_uri, app, is_optin,singlemode,defaultinit=defaultinit)

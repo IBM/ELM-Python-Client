@@ -86,7 +86,7 @@ unsignedinteger     : /[1-9][0-9]*/
 
 URI_REF_ESC         : /<https?:.*?>/
 
-SPACYNAME           : /[ a-zA-Z0-9_][^']*/
+SPACYNAME           : /[ a-zA-Z0-9_()][^']*/
 
 urioffoldername     : "$" string_esc
 
@@ -533,7 +533,7 @@ identifier     : ( ( URI_REF_ESC | NAME | "'" SPACYNAME "'" ) ":" )? NAME
 
 URI_REF_ESC     : /<https?:.*>/
 NAME            : /[a-zA-Z0-9_][^, ]*/
-SPACYNAME           : /[a-zA-Z0-9_][^']*/
+SPACYNAME           : /[a-zA-Z0-9_()][^']*/
 """
 
 _orderby_grammar = """

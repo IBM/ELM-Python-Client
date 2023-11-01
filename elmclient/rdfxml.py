@@ -272,13 +272,15 @@ def uri_to_prefixed_tag(uri, uri_to_prefix_map=None, default_map=None,oktocreate
             logger.debug( f"Creating new prefix {ns_uri=}" )
             prefixok=False
             if oktocreate:
-                # create a new prefix
-                for i in range(1000):
+                # create a new and unique prefix
+                i = 0
+                while True:
                     prefix = 'rp' + str(i)
                     if prefix not in list(uri_to_prefix_map.values()) and prefix not in default_map.keys():
                         prefixok = True
                         logger.debug( f"New prefix {prefix}" )
                         break
+                    i += 1
 
         if prefixok:
             uri_to_prefix_map[ns_uri] = prefix

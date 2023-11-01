@@ -105,7 +105,7 @@ def do_oslc_query(inputargs=None):
     # various options
     parser.add_argument('--nresults', default=-1, type=int, help="Number of results expected - used for regression testing - use `--nresults -1` to disable checking")
     parser.add_argument('--compareresults', default=None, help="TESTING UNFINISHED: saved CSV file to compare results with")
-    parser.add_argument('--pagesize', default=200, type=int, help="Page size for OSLC query (default 200) use 0 to suppress paging (server may still page)")
+    parser.add_argument('--pagesize', default=0, type=int, help="Page size for OSLC query (default 0) use 0 to suppress paging (server may still page)")
     parser.add_argument('--typesystemreport', default=None, help="Load the specified project/configuration and then produce a simple HTML type system report of resource shapes/properties/enumerations to this file" )
     parser.add_argument('--cachedays', default=7,type=int, help="The number of days for caching received data, default 7. To disable caching use -WW. To keep using a non-default cache period you must specify this value every time" )
     parser.add_argument('--saverawresults', default=None, help="Save the raw results as XML to this path/file prefix - pages are numbered starting from 0000" )
@@ -535,7 +535,7 @@ def do_oslc_query(inputargs=None):
                             print( f"Added external component {queryon=} for {compuri}" )
                     else:
                         raise Exception( "Component {compuri} not found in current project - maybe you need to use --crossproject?" )
-                # check the comonent is accessible (may have been achived!)
+                # check the comonent is accessible (may have been archived!)
                 if not app.is_accessible( compuri ):
                     print( f"**** Archived component {compuri} !")
                     continue

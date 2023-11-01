@@ -463,23 +463,6 @@ class HttpRequest():
         auth_app_context = form_auth_path[0] if len(form_auth_path) == 1 else request_url_parsed.path.split('/')[1]
         return auth_app_context
         
-        
-    def tidy_cookies(self):
-        '''
-        LQE 7.0.2SR1 and 7.0.3 has the unpleasant habit of including double-quotes in the auth cookie path so it looks like "/lqe" (which includes the quotation marks in the path) rather than /lqe, and then the path is never matched so authentication is lost
-        This code cleans up the path on all cookies on the session
-        # return True if any cookie changed
-        '''
-        result = False
-        for cookie in self._session.cookies:
-            if cookie.path.startswith('%22'):
-                oldvalue = cookie.path
-                cookie.path = cookie.path.replace("%22","")
-                logger.debug( f"REVISED cookie {cookie.name} path {oldvalue} to {cookie.path=}" )
-                result = True
-        return result
-
-
     # execute a request once, except:
     #  1. if the response indicates login is required then login and try the request again
     #  2. if request is rejected for various reasons retry with the CSRF header applied

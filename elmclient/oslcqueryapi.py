@@ -825,7 +825,6 @@ class _OSLCOperations_Mixin:
                         #
 
                         themembers = list(desc)
-                        # print( f"{len(themembers)=}" )
                         # now scan its children - these are the select results
                         for ent in themembers:
                             # first make sure this level is stored in the results, if it has a URI
@@ -898,8 +897,8 @@ class _OSLCOperations_Mixin:
                                         result[about][place] = [value]
                                         logger.debug( f"Saving1 {about} {place} {value}" )
                     else:
-#                        print( f"desc is none {about}" )
-                        raise Exception( f"desc is none {about}" )
+                        print( f"WARNING query results reference {about} but this isn't included in the results!" )
+#                        raise Exception( f"desc is none {about}" )
 
         return result
 

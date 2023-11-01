@@ -32,7 +32,7 @@ logger = logging.getLogger(__name__)
 
 #################################################################################################
 
-# hook to adapt OSLC query parameters needed for GC - no orderBy, prefixes must NOT include dcterms
+# hook to adapt OSLC query parameters needed for GC - no orderBy, prefixes must NOT include dcterms or oslc_config
 def _hook_beforequery(querydetails):
     # remove orderby
     if 'orderBy' in querydetails:
@@ -41,7 +41,7 @@ def _hook_beforequery(querydetails):
     if 'dcterms=' in querydetails.get('oslc.prefix',"") or 'oslc' in querydetails.get('oslc.prefix',"") or 'rdf' in querydetails.get('oslc.prefix',""):
         oldprefix = querydetails['oslc.prefix']
         prefixes = oldprefix.split(",")
-        newprefixes = [p for p in prefixes if not p.startswith("dcterms=") and not p.startswith("oslc=") and not p.startswith("rdf=")]
+        newprefixes = [p for p in prefixes if not p.startswith("dcterms=") and not p.startswith("oslc=") and not p.startswith("rdf=") and not p.startswith("oslc_config=")]
         querydetails['oslc.prefix'] = ",".join(newprefixes)
         newprefix = querydetails['oslc.prefix']
     return querydetails

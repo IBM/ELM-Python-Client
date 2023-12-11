@@ -13,10 +13,14 @@
 What's New?
 ===========
 
-0.24.0 16-Aug-2023
+11-Dec-2023
+* Added _validate.py to provide the Validate API, available on all apps (may need to restrict this to just ccm/gc/qm/rm?)
+* Added examples/validate.py as an example of using the validate API - for most options refer to oslcquery readme
+
+16-Aug-2023
 * tested with Python 3.11.4 - worked OOTB. Now developing using 3.11.4 - won't be back-tested with older Pythons but should work back to 3.9 at least.
 
-0.24.0 4-May-2023
+4-May-2023
 * Deprecated RM load_folders() - use find_folder() instead.
 * Added RM create_folder() - this doesn't require doing a forced reload of all folders, because it inserts the new folder into the internal info about folders
 * Added example dn_simple_createfolderpath.py - allows exercising the create_folders() function

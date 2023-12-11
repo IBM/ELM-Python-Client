@@ -1,583 +1,584 @@
 ﻿$uri,Identifier,http://jazz.net/ns/rm/navigation#parent
-https://jazz.ibm.com:9443/rm/materializedviews/VW_S-1DsFEfEe2d5dG-54qhbg,,
-https://jazz.ibm.com:9443/rm/materializedviews/VW_S-5VKlEfEe2d5dG-54qhbg,,
-https://jazz.ibm.com:9443/rm/materializedviews/VW_S-5VKFEfEe2d5dG-54qhbg,,
-https://jazz.ibm.com:9443/rm/materializedviews/VW_S-5VJ1EfEe2d5dG-54qhbg,,
-https://jazz.ibm.com:9443/rm/resources/MD_S0mJoVEfEe2d5dG-54qhbg,1,/JKE Private Banking and Securities Project/Use Case Content
-https://jazz.ibm.com:9443/rm/resources/MD_S0mJolEfEe2d5dG-54qhbg,2,/JKE Private Banking and Securities Project/Use Case Content
-https://jazz.ibm.com:9443/rm/resources/MD_S0mJoFEfEe2d5dG-54qhbg,3,/JKE Private Banking and Securities Project/Use Case Content
-https://jazz.ibm.com:9443/rm/resources/MD_S0e04FEfEe2d5dG-54qhbg,4,/JKE Enterprise Project/Templates
-https://jazz.ibm.com:9443/rm/resources/WR_S6hLcFEfEe2d5dG-54qhbg,5,/JKE Enterprise Project/UI Sketches/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S4WBMFEfEe2d5dG-54qhbg,6,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S4t0oFEfEe2d5dG-54qhbg,7,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S617kFEfEe2d5dG-54qhbg,8,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S7SngFEfEe2d5dG-54qhbg,9,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Images/Mobile
-https://jazz.ibm.com:9443/rm/resources/WR_S3H5MFEfEe2d5dG-54qhbg,10,/JKE Enterprise Project/0. README/JKE Business and IT Context v1.10.1.doc <11:03:43>
-https://jazz.ibm.com:9443/rm/resources/WR_S34HIFEfEe2d5dG-54qhbg,11,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Images/Mobile
-https://jazz.ibm.com:9443/rm/resources/WR_S1aB8FEfEe2d5dG-54qhbg,12,/JKE Business Recovery Matters Project/0. README/images
-https://jazz.ibm.com:9443/rm/resources/WR_S2oJ8FEfEe2d5dG-54qhbg,13,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Images/Mobile
-https://jazz.ibm.com:9443/rm/resources/WR_S5xkkFEfEe2d5dG-54qhbg,14,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S1bQEFEfEe2d5dG-54qhbg,15,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S8HG4FEfEe2d5dG-54qhbg,16,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S50n4FEfEe2d5dG-54qhbg,17,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S3bbMFEfEe2d5dG-54qhbg,18,/JKE Enterprise Project/UI Sketches/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S3JuYFEfEe2d5dG-54qhbg,19,/JKE Enterprise Project/0. README/JKE Business and IT Context v1.10.1.doc <11:03:43>
-https://jazz.ibm.com:9443/rm/resources/WR_S1-psFEfEe2d5dG-54qhbg,20,/JKE Enterprise Project/UI Sketches/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S3klIFEfEe2d5dG-54qhbg,21,/JKE Business Recovery Matters Project/Reports
-https://jazz.ibm.com:9443/rm/resources/WR_S8T7MFEfEe2d5dG-54qhbg,22,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Images/Mobile
-https://jazz.ibm.com:9443/rm/resources/WR_S4rYYFEfEe2d5dG-54qhbg,23,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Images/Mobile
-https://jazz.ibm.com:9443/rm/resources/WR_S70L8FEfEe2d5dG-54qhbg,24,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S41JYFEfEe2d5dG-54qhbg,25,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S6pHQFEfEe2d5dG-54qhbg,26,/JKE Business Recovery Matters Project/Reports
-https://jazz.ibm.com:9443/rm/resources/WR_S5OK8FEfEe2d5dG-54qhbg,27,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Images/Mobile
-https://jazz.ibm.com:9443/rm/resources/WR_S3uWIFEfEe2d5dG-54qhbg,28,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S4X2YFEfEe2d5dG-54qhbg,29,/JKE Enterprise Project/0. README/JKE Business and IT Context Document <11:40:02>
-https://jazz.ibm.com:9443/rm/resources/WR_S2m70FEfEe2d5dG-54qhbg,30,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S5R1UFEfEe2d5dG-54qhbg,31,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Images/Mobile
-https://jazz.ibm.com:9443/rm/resources/WR_S5epoFEfEe2d5dG-54qhbg,32,/JKE Business Recovery Matters Project/Reports
-https://jazz.ibm.com:9443/rm/resources/WR_S8TUIFEfEe2d5dG-54qhbg,33,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S8bP8FEfEe2d5dG-54qhbg,34,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S2uQkFEfEe2d5dG-54qhbg,35,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S1Gf8FEfEe2d5dG-54qhbg,36,/JKE Business Recovery Matters Project/Reports
-https://jazz.ibm.com:9443/rm/resources/WR_S50A0FEfEe2d5dG-54qhbg,37,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S7Cv4FEfEe2d5dG-54qhbg,38,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S693YFEfEe2d5dG-54qhbg,39,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S4gZQFEfEe2d5dG-54qhbg,40,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S5bmUFEfEe2d5dG-54qhbg,41,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S104sFEfEe2d5dG-54qhbg,42,/JKE Business Recovery Matters Project/Reports
-https://jazz.ibm.com:9443/rm/resources/WR_S8N0kFEfEe2d5dG-54qhbg,43,/JKE Business Recovery Matters Project/0. README/images
-https://jazz.ibm.com:9443/rm/resources/WR_S7usYFEfEe2d5dG-54qhbg,44,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S8eTQFEfEe2d5dG-54qhbg,45,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S8SGAFEfEe2d5dG-54qhbg,46,/JKE Enterprise Project/0. README/JKE Business and IT Context v1.10.1.doc <11:03:43>
-https://jazz.ibm.com:9443/rm/resources/WR_S3qEsFEfEe2d5dG-54qhbg,47,/JKE Business Recovery Matters Project/Reports
-https://jazz.ibm.com:9443/rm/resources/WR_S8h9oFEfEe2d5dG-54qhbg,48,/JKE Business Recovery Matters Project/0. README/images
-https://jazz.ibm.com:9443/rm/resources/WR_S4-TUFEfEe2d5dG-54qhbg,49,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S60GYFEfEe2d5dG-54qhbg,50,/JKE Business Recovery Matters Project/0. README/images
-https://jazz.ibm.com:9443/rm/resources/WR_S31q4FEfEe2d5dG-54qhbg,51,/JKE Enterprise Project/0. README/JKE Business and IT Context Document <11:40:02>
-https://jazz.ibm.com:9443/rm/resources/WR_S5TqgFEfEe2d5dG-54qhbg,52,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Images/Mobile
-https://jazz.ibm.com:9443/rm/resources/WR_S5AIgFEfEe2d5dG-54qhbg,53,/JKE Enterprise Project/0. README/JKE Business and IT Context v1.10.1.doc <11:03:43>
-https://jazz.ibm.com:9443/rm/resources/WR_S6YokFEfEe2d5dG-54qhbg,54,/JKE Business Recovery Matters Project/Reports
-https://jazz.ibm.com:9443/rm/resources/WR_S7vTcFEfEe2d5dG-54qhbg,55,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S4bgwFEfEe2d5dG-54qhbg,56,/JKE Business Recovery Matters Project/0. README/images
-https://jazz.ibm.com:9443/rm/resources/WR_S4GJkFEfEe2d5dG-54qhbg,57,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S3yAgFEfEe2d5dG-54qhbg,58,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S3Fc8FEfEe2d5dG-54qhbg,59,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Images/Mobile
-https://jazz.ibm.com:9443/rm/resources/WR_S4wQ4FEfEe2d5dG-54qhbg,60,/JKE Enterprise Project/UI Sketches/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S8UiQFEfEe2d5dG-54qhbg,61,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S8F4wFEfEe2d5dG-54qhbg,62,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S3nocFEfEe2d5dG-54qhbg,63,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S3GrEFEfEe2d5dG-54qhbg,64,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Images/Mobile
-https://jazz.ibm.com:9443/rm/resources/WR_S473EFEfEe2d5dG-54qhbg,65,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Images/Mobile
-https://jazz.ibm.com:9443/rm/resources/WR_S7pM0FEfEe2d5dG-54qhbg,66,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S5IEUFEfEe2d5dG-54qhbg,67,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S5ssEFEfEe2d5dG-54qhbg,68,/JKE Enterprise Project/0. README/JKE Business and IT Context Document <11:40:02>
-https://jazz.ibm.com:9443/rm/resources/WR_S6q8cFEfEe2d5dG-54qhbg,69,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S37xgFEfEe2d5dG-54qhbg,70,/JKE Business Recovery Matters Project/Reports
-https://jazz.ibm.com:9443/rm/resources/WR_S4w38FEfEe2d5dG-54qhbg,71,/JKE Enterprise Project/Reports
-https://jazz.ibm.com:9443/rm/resources/WR_S1IVIFEfEe2d5dG-54qhbg,72,/JKE Enterprise Project/0. README/JKE Business and IT Context Document <11:40:02>
-https://jazz.ibm.com:9443/rm/resources/WR_S0whsFEfEe2d5dG-54qhbg,73,/JKE Enterprise Project/0. README/JKE Business and IT Context v1.10.1.doc <11:03:43>
-https://jazz.ibm.com:9443/rm/resources/WR_S3SRQFEfEe2d5dG-54qhbg,74,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S76SkFEfEe2d5dG-54qhbg,75,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S4fLIFEfEe2d5dG-54qhbg,76,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S7_LEFEfEe2d5dG-54qhbg,77,/JKE Enterprise Project/0. README/JKE Business and IT Context Document <11:40:02>
-https://jazz.ibm.com:9443/rm/resources/WR_S1W-oFEfEe2d5dG-54qhbg,78,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S3S4UFEfEe2d5dG-54qhbg,79,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S39msFEfEe2d5dG-54qhbg,80,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Images/Mobile
-https://jazz.ibm.com:9443/rm/resources/WR_S4M3QFEfEe2d5dG-54qhbg,81,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/WR_S8MmcFEfEe2d5dG-54qhbg,82,/JKE Enterprise Project/0. README/Images
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AFlEfEe2d5dG-54qhbg,83,
-https://jazz.ibm.com:9443/rm/resources/TX_S0mJo1EfEe2d5dG-54qhbg,83,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S032cFEfEe2d5dG-54qhbg,84,/JKE Enterprise Project/Business Goals
-https://jazz.ibm.com:9443/rm/resources/TX_S06SsFEfEe2d5dG-54qhbg,85,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/DM_S1JjQFEfEe2d5dG-54qhbg,86,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Mobile
-https://jazz.ibm.com:9443/rm/resources/CO_S1KxYFEfEe2d5dG-54qhbg,87,/JKE Business Recovery Matters Project/0. README
-https://jazz.ibm.com:9443/rm/resources/TX_S1StMFEfEe2d5dG-54qhbg,88,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/DM_S08H4FEfEe2d5dG-54qhbg,89,/JKE Business Recovery Matters Project/Processes
-https://jazz.ibm.com:9443/rm/resources/TX_S1UiYFEfEe2d5dG-54qhbg,90,/JKE Enterprise Project/Business Goals
-https://jazz.ibm.com:9443/rm/resources/BI_S0QLblEfEe2d5dG-54qhbg,91,
-https://jazz.ibm.com:9443/rm/resources/TX_S1VwgFEfEe2d5dG-54qhbg,91,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SyScjFEfEe2d5dG-54qhbg,91,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AElEfEe2d5dG-54qhbg,91,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmEHVEfEe2d5dG-54qhbg,91,
-https://jazz.ibm.com:9443/rm/resources/TX_S1YMwFEfEe2d5dG-54qhbg,92,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/TX_S1Za4FEfEe2d5dG-54qhbg,93,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/TX_S1b3IFEfEe2d5dG-54qhbg,94,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/TX_S1dFQFEfEe2d5dG-54qhbg,95,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SyScilEfEe2d5dG-54qhbg,95,
-https://jazz.ibm.com:9443/rm/resources/TX_S1eTYFEfEe2d5dG-54qhbg,96,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SyTquVEfEe2d5dG-54qhbg,96,
-https://jazz.ibm.com:9443/rm/resources/TX_S1hWsFEfEe2d5dG-54qhbg,97,/JKE Business Recovery Matters Project/Business Goals
-https://jazz.ibm.com:9443/rm/resources/BI_S0QygVEfEe2d5dG-54qhbg,98,
-https://jazz.ibm.com:9443/rm/resources/TX_S1gIkFEfEe2d5dG-54qhbg,98,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S1kaAFEfEe2d5dG-54qhbg,99,/JKE Business Recovery Matters Project/Features/Mobile
-https://jazz.ibm.com:9443/rm/resources/TX_S1jL4FEfEe2d5dG-54qhbg,100,/JKE Business Recovery Matters Project/Business Rules
-https://jazz.ibm.com:9443/rm/resources/TX_S1rHsFEfEe2d5dG-54qhbg,101,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/TX_S1pSgFEfEe2d5dG-54qhbg,102,/JKE Business Recovery Matters Project/Features
-https://jazz.ibm.com:9443/rm/resources/TX_S1uyEFEfEe2d5dG-54qhbg,103,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SzmEK1EfEe2d5dG-54qhbg,103,
-https://jazz.ibm.com:9443/rm/resources/BI_S0QLflEfEe2d5dG-54qhbg,104,
-https://jazz.ibm.com:9443/rm/resources/TX_S1s84FEfEe2d5dG-54qhbg,104,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqp1EfEe2d5dG-54qhbg,104,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AG1EfEe2d5dG-54qhbg,104,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmELVEfEe2d5dG-54qhbg,104,
-https://jazz.ibm.com:9443/rm/resources/TX_S1wAMFEfEe2d5dG-54qhbg,105,/JKE Business Recovery Matters Project/User Story Elaboration/Roles - Actors
-https://jazz.ibm.com:9443/rm/resources/DM_S1wnQFEfEe2d5dG-54qhbg,106,/JKE Business Recovery Matters Project/User Story Elaboration/Storyboards
-https://jazz.ibm.com:9443/rm/resources/TX_S11fwFEfEe2d5dG-54qhbg,107,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SzmrIVEfEe2d5dG-54qhbg,107,
-https://jazz.ibm.com:9443/rm/resources/TX_S1zDgFEfEe2d5dG-54qhbg,108,/JKE Business Recovery Matters Project/Features
-https://jazz.ibm.com:9443/rm/resources/BI_S0QLb1EfEe2d5dG-54qhbg,109,
-https://jazz.ibm.com:9443/rm/resources/TX_S14jEFEfEe2d5dG-54qhbg,109,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S12t4FEfEe2d5dG-54qhbg,110,/JKE Business Recovery Matters Project/Features
-https://jazz.ibm.com:9443/rm/resources/TX_S180gFEfEe2d5dG-54qhbg,111,/JKE Enterprise Project/Non Functional Requirements
-https://jazz.ibm.com:9443/rm/resources/TX_S17mYFEfEe2d5dG-54qhbg,112,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/DM_S19bkFEfEe2d5dG-54qhbg,113,/JKE Enterprise Project/UI Sketches
-https://jazz.ibm.com:9443/rm/resources/TX_S1_QwFEfEe2d5dG-54qhbg,114,/JKE Enterprise Project/0. README
-https://jazz.ibm.com:9443/rm/resources/TX_S2iDUFEfEe2d5dG-54qhbg,115,/JKE Business Recovery Matters Project/Project Meetings
-https://jazz.ibm.com:9443/rm/resources/TX_S2p_IFEfEe2d5dG-54qhbg,116,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AH1EfEe2d5dG-54qhbg,116,
-https://jazz.ibm.com:9443/rm/resources/TX_S2vesFEfEe2d5dG-54qhbg,117,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/TX_S2r0UFEfEe2d5dG-54qhbg,118,/JKE Business Recovery Matters Project/Features
-https://jazz.ibm.com:9443/rm/resources/BI_S0QyfVEfEe2d5dG-54qhbg,119,
-https://jazz.ibm.com:9443/rm/resources/TX_S2xT4FEfEe2d5dG-54qhbg,119,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S2kfkFEfEe2d5dG-54qhbg,120,/JKE Private Banking and Securities Project/Use Case Content
-https://jazz.ibm.com:9443/rm/resources/DM_S20XMFEfEe2d5dG-54qhbg,121,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Mobile
-https://jazz.ibm.com:9443/rm/resources/TX_S2yiAFEfEe2d5dG-54qhbg,122,/JKE Private Banking and Securities Project/Use Case Content
-https://jazz.ibm.com:9443/rm/resources/TX_S23agFEfEe2d5dG-54qhbg,123,/JKE Business Recovery Matters Project/Business Rules
-https://jazz.ibm.com:9443/rm/resources/BI_S0QygFEfEe2d5dG-54qhbg,124,
-https://jazz.ibm.com:9443/rm/resources/BI_SyTquFEfEe2d5dG-54qhbg,124,
-https://jazz.ibm.com:9443/rm/resources/TX_S22MYFEfEe2d5dG-54qhbg,124,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_ALFEfEe2d5dG-54qhbg,124,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmrL1EfEe2d5dG-54qhbg,124,
-https://jazz.ibm.com:9443/rm/resources/TX_S27r8FEfEe2d5dG-54qhbg,125,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AHlEfEe2d5dG-54qhbg,125,
-https://jazz.ibm.com:9443/rm/resources/TX_S25PsFEfEe2d5dG-54qhbg,126,/JKE Enterprise Project/0. README
-https://jazz.ibm.com:9443/rm/resources/TX_S2-vQFEfEe2d5dG-54qhbg,127,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/BI_S0QydFEfEe2d5dG-54qhbg,128,
-https://jazz.ibm.com:9443/rm/resources/TX_S29hIFEfEe2d5dG-54qhbg,128,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqrVEfEe2d5dG-54qhbg,128,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AIVEfEe2d5dG-54qhbg,128,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmrJFEfEe2d5dG-54qhbg,128,
-https://jazz.ibm.com:9443/rm/resources/TX_S3BykFEfEe2d5dG-54qhbg,129,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SzmrLVEfEe2d5dG-54qhbg,129,
-https://jazz.ibm.com:9443/rm/resources/BI_S0QLfFEfEe2d5dG-54qhbg,130,
-https://jazz.ibm.com:9443/rm/resources/TX_S2_9YFEfEe2d5dG-54qhbg,130,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S3CZoFEfEe2d5dG-54qhbg,131,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SzmEJ1EfEe2d5dG-54qhbg,131,
-https://jazz.ibm.com:9443/rm/resources/DM_S3DnwFEfEe2d5dG-54qhbg,132,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Parts
-https://jazz.ibm.com:9443/rm/resources/DM_S3GEAFEfEe2d5dG-54qhbg,133,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Mobile
-https://jazz.ibm.com:9443/rm/resources/TX_S3IgQFEfEe2d5dG-54qhbg,134,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqqFEfEe2d5dG-54qhbg,134,
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqsFEfEe2d5dG-54qhbg,135,
-https://jazz.ibm.com:9443/rm/resources/TX_S3NYwFEfEe2d5dG-54qhbg,135,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqtFEfEe2d5dG-54qhbg,136,
-https://jazz.ibm.com:9443/rm/resources/TX_S3RDIFEfEe2d5dG-54qhbg,136,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AKFEfEe2d5dG-54qhbg,136,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmrK1EfEe2d5dG-54qhbg,136,
-https://jazz.ibm.com:9443/rm/resources/BI_S0Qye1EfEe2d5dG-54qhbg,136,
-https://jazz.ibm.com:9443/rm/resources/BI_S0QLfVEfEe2d5dG-54qhbg,137,
-https://jazz.ibm.com:9443/rm/resources/TX_S3MKoFEfEe2d5dG-54qhbg,137,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_S0Qyf1EfEe2d5dG-54qhbg,138,
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqt1EfEe2d5dG-54qhbg,138,
-https://jazz.ibm.com:9443/rm/resources/TX_S3UGcFEfEe2d5dG-54qhbg,138,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AK1EfEe2d5dG-54qhbg,138,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmrLlEfEe2d5dG-54qhbg,138,
-https://jazz.ibm.com:9443/rm/resources/DM_S3Om4FEfEe2d5dG-54qhbg,139,/JKE Business Recovery Matters Project/User Story Elaboration/Storyboards
-https://jazz.ibm.com:9443/rm/resources/TX_S3UtgFEfEe2d5dG-54qhbg,140,/JKE Enterprise Project/Templates
-https://jazz.ibm.com:9443/rm/resources/BI_S0QyfFEfEe2d5dG-54qhbg,141,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmrLFEfEe2d5dG-54qhbg,141,
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqtVEfEe2d5dG-54qhbg,141,
-https://jazz.ibm.com:9443/rm/resources/TX_S3a0IFEfEe2d5dG-54qhbg,141,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AKVEfEe2d5dG-54qhbg,141,
-https://jazz.ibm.com:9443/rm/resources/BI_S0QLcVEfEe2d5dG-54qhbg,142,
-https://jazz.ibm.com:9443/rm/resources/TX_S3ZmAFEfEe2d5dG-54qhbg,142,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/CO_S3YX4FEfEe2d5dG-54qhbg,143,/JKE Business Recovery Matters Project/0. README
-https://jazz.ibm.com:9443/rm/resources/TX_S3cCQFEfEe2d5dG-54qhbg,144,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/BI_S0QLe1EfEe2d5dG-54qhbg,145,
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqpFEfEe2d5dG-54qhbg,145,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AGVEfEe2d5dG-54qhbg,145,
-https://jazz.ibm.com:9443/rm/resources/TX_S3dQYFEfEe2d5dG-54qhbg,145,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SzmEKlEfEe2d5dG-54qhbg,145,
-https://jazz.ibm.com:9443/rm/resources/DM_S3fFkFEfEe2d5dG-54qhbg,146,/JKE Enterprise Project/UI Sketches/Parts
-https://jazz.ibm.com:9443/rm/resources/TX_S3d3cFEfEe2d5dG-54qhbg,147,/JKE Business Recovery Matters Project/User Story Elaboration/Elaborated Stories/Mobile
-https://jazz.ibm.com:9443/rm/resources/DM_S3gTsFEfEe2d5dG-54qhbg,148,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Mobile
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqqlEfEe2d5dG-54qhbg,149,
-https://jazz.ibm.com:9443/rm/resources/TX_S3fsoFEfEe2d5dG-54qhbg,149,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S3iI4FEfEe2d5dG-54qhbg,150,/JKE Enterprise Project/Non Functional Requirements
-https://jazz.ibm.com:9443/rm/resources/BI_S0Qyd1EfEe2d5dG-54qhbg,151,
-https://jazz.ibm.com:9443/rm/resources/TX_S3hh0FEfEe2d5dG-54qhbg,151,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqvFEfEe2d5dG-54qhbg,152,
-https://jazz.ibm.com:9443/rm/resources/TX_S3j-EFEfEe2d5dG-54qhbg,152,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S3jXAFEfEe2d5dG-54qhbg,153,/JKE Enterprise Project/Use Case Content/Actors
-https://jazz.ibm.com:9443/rm/resources/TX_S3lMMFEfEe2d5dG-54qhbg,154,/JKE Business Recovery Matters Project/Features
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AGFEfEe2d5dG-54qhbg,155,
-https://jazz.ibm.com:9443/rm/resources/TX_S3maUFEfEe2d5dG-54qhbg,155,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S3oPgFEfEe2d5dG-54qhbg,156,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/BI_S0QyeVEfEe2d5dG-54qhbg,157,
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqslEfEe2d5dG-54qhbg,157,
-https://jazz.ibm.com:9443/rm/resources/TX_S3pdoFEfEe2d5dG-54qhbg,157,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AJlEfEe2d5dG-54qhbg,157,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmrKVEfEe2d5dG-54qhbg,157,
-https://jazz.ibm.com:9443/rm/resources/TX_S3qrwFEfEe2d5dG-54qhbg,158,/JKE Business Recovery Matters Project/Features
-https://jazz.ibm.com:9443/rm/resources/TX_S3tIAFEfEe2d5dG-54qhbg,159,/JKE Business Recovery Matters Project/Business Rules
-https://jazz.ibm.com:9443/rm/resources/TX_S3r54FEfEe2d5dG-54qhbg,160,/JKE Business Recovery Matters Project/Features
-https://jazz.ibm.com:9443/rm/resources/DM_S3vkQFEfEe2d5dG-54qhbg,161,/JKE Enterprise Project/UI Sketches/Parts
-https://jazz.ibm.com:9443/rm/resources/DM_S325AFEfEe2d5dG-54qhbg,162,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches
-https://jazz.ibm.com:9443/rm/resources/TX_S34uMFEfEe2d5dG-54qhbg,163,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/TX_S3zOoFEfEe2d5dG-54qhbg,164,/JKE Enterprise Project/Templates
-https://jazz.ibm.com:9443/rm/resources/TX_S358UFEfEe2d5dG-54qhbg,165,/JKE Business Recovery Matters Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/BI_S0QydlEfEe2d5dG-54qhbg,166,
-https://jazz.ibm.com:9443/rm/resources/TX_S3-00FEfEe2d5dG-54qhbg,166,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqr1EfEe2d5dG-54qhbg,166,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AI1EfEe2d5dG-54qhbg,166,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmrJlEfEe2d5dG-54qhbg,166,
-https://jazz.ibm.com:9443/rm/resources/TX_S4B4IFEfEe2d5dG-54qhbg,167,/JKE Enterprise Project/Business Goals
-https://jazz.ibm.com:9443/rm/resources/TX_S3_b4FEfEe2d5dG-54qhbg,168,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S4EUYFEfEe2d5dG-54qhbg,169,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/DM_S4HXsFEfEe2d5dG-54qhbg,170,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches
-https://jazz.ibm.com:9443/rm/resources/TX_S38YkFEfEe2d5dG-54qhbg,171,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SzmEI1EfEe2d5dG-54qhbg,171,
-https://jazz.ibm.com:9443/rm/resources/TX_S4KbAFEfEe2d5dG-54qhbg,172,/JKE Enterprise Project/Non Functional Requirements
-https://jazz.ibm.com:9443/rm/resources/TX_S4Il0FEfEe2d5dG-54qhbg,173,/JKE Business Recovery Matters Project/User Story Elaboration/Elaborated Stories
-https://jazz.ibm.com:9443/rm/resources/DM_S4NeUFEfEe2d5dG-54qhbg,174,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Mobile
-https://jazz.ibm.com:9443/rm/resources/TX_S4LpIFEfEe2d5dG-54qhbg,175,/JKE Enterprise Project/Business Goals
-https://jazz.ibm.com:9443/rm/resources/BI_Sy-ZA1EfEe2d5dG-54qhbg,176,
-https://jazz.ibm.com:9443/rm/resources/BI_SyScgVEfEe2d5dG-54qhbg,176,
-https://jazz.ibm.com:9443/rm/resources/TX_S4OFYFEfEe2d5dG-54qhbg,176,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SzmEElEfEe2d5dG-54qhbg,176,
-https://jazz.ibm.com:9443/rm/resources/CO_S4PTgFEfEe2d5dG-54qhbg,177,/JKE Business Recovery Matters Project/0. README
-https://jazz.ibm.com:9443/rm/resources/TX_S4Tk8FEfEe2d5dG-54qhbg,178,/JKE Business Recovery Matters Project/0. README
-https://jazz.ibm.com:9443/rm/resources/TX_S4RIsFEfEe2d5dG-54qhbg,179,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/TX_S4UzEFEfEe2d5dG-54qhbg,180,/JKE Business Recovery Matters Project/Business Rules
-https://jazz.ibm.com:9443/rm/resources/TX_S4SW0FEfEe2d5dG-54qhbg,181,/JKE Business Recovery Matters Project/Features
-https://jazz.ibm.com:9443/rm/resources/BI_S0Qyc1EfEe2d5dG-54qhbg,182,
-https://jazz.ibm.com:9443/rm/resources/TX_S4WoQFEfEe2d5dG-54qhbg,182,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S4aSoFEfEe2d5dG-54qhbg,183,/JKE Enterprise Project/0. README
-https://jazz.ibm.com:9443/rm/resources/BI_S0QLa1EfEe2d5dG-54qhbg,184,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy-ZC1EfEe2d5dG-54qhbg,184,
-https://jazz.ibm.com:9443/rm/resources/BI_SySciVEfEe2d5dG-54qhbg,184,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmEGlEfEe2d5dG-54qhbg,184,
-https://jazz.ibm.com:9443/rm/resources/TX_S4cH0FEfEe2d5dG-54qhbg,184,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqpVEfEe2d5dG-54qhbg,185,
-https://jazz.ibm.com:9443/rm/resources/TX_S4ZEgFEfEe2d5dG-54qhbg,185,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S4hnYFEfEe2d5dG-54qhbg,186,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/TX_S4iOcFEfEe2d5dG-54qhbg,187,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SzmEKVEfEe2d5dG-54qhbg,187,
-https://jazz.ibm.com:9443/rm/resources/TX_S4l40FEfEe2d5dG-54qhbg,188,/JKE Business Recovery Matters Project/Features
-https://jazz.ibm.com:9443/rm/resources/TX_S4kDoFEfEe2d5dG-54qhbg,189,/JKE Business Recovery Matters Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/DM_S4nuAFEfEe2d5dG-54qhbg,190,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Parts
-https://jazz.ibm.com:9443/rm/resources/TX_S4cu4FEfEe2d5dG-54qhbg,191,/JKE Enterprise Project/Non Functional Requirements
-https://jazz.ibm.com:9443/rm/resources/TX_S4smgFEfEe2d5dG-54qhbg,192,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/BI_SzmEIFEfEe2d5dG-54qhbg,193,
-https://jazz.ibm.com:9443/rm/resources/TX_S4qKQFEfEe2d5dG-54qhbg,193,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_S0QyelEfEe2d5dG-54qhbg,194,
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqs1EfEe2d5dG-54qhbg,194,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AJ1EfEe2d5dG-54qhbg,194,
-https://jazz.ibm.com:9443/rm/resources/TX_S4vCwFEfEe2d5dG-54qhbg,194,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SzmrKlEfEe2d5dG-54qhbg,194,
-https://jazz.ibm.com:9443/rm/resources/BI_S0QLc1EfEe2d5dG-54qhbg,195,
-https://jazz.ibm.com:9443/rm/resources/TX_S4yGEFEfEe2d5dG-54qhbg,195,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S4zUMFEfEe2d5dG-54qhbg,196,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/TX_S42XgFEfEe2d5dG-54qhbg,197,/JKE Business Recovery Matters Project/Business Rules
-https://jazz.ibm.com:9443/rm/resources/TX_S43loFEfEe2d5dG-54qhbg,198,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_ALVEfEe2d5dG-54qhbg,198,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy-ZAlEfEe2d5dG-54qhbg,199,
-https://jazz.ibm.com:9443/rm/resources/BI_SyScgFEfEe2d5dG-54qhbg,199,
-https://jazz.ibm.com:9443/rm/resources/TX_S44MsFEfEe2d5dG-54qhbg,199,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_S0QLYlEfEe2d5dG-54qhbg,199,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmEEVEfEe2d5dG-54qhbg,199,
-https://jazz.ibm.com:9443/rm/resources/TX_S45a0FEfEe2d5dG-54qhbg,200,/JKE Enterprise Project/0. README
-https://jazz.ibm.com:9443/rm/resources/TX_S46o8FEfEe2d5dG-54qhbg,201,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SzmrMFEfEe2d5dG-54qhbg,201,
-https://jazz.ibm.com:9443/rm/resources/TX_S48eIFEfEe2d5dG-54qhbg,202,/JKE Business Recovery Matters Project/Features
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqplEfEe2d5dG-54qhbg,203,
-https://jazz.ibm.com:9443/rm/resources/TX_S4_hcFEfEe2d5dG-54qhbg,203,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqo1EfEe2d5dG-54qhbg,204,
-https://jazz.ibm.com:9443/rm/resources/TX_S5BWoFEfEe2d5dG-54qhbg,204,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqtlEfEe2d5dG-54qhbg,205,
-https://jazz.ibm.com:9443/rm/resources/TX_S5Dy4FEfEe2d5dG-54qhbg,205,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/CO_S5B9sFEfEe2d5dG-54qhbg,206,/JKE Business Recovery Matters Project/0. README
-https://jazz.ibm.com:9443/rm/resources/TX_S5FBAFEfEe2d5dG-54qhbg,207,/JKE Enterprise Project/Templates
-https://jazz.ibm.com:9443/rm/resources/TX_S5LHoFEfEe2d5dG-54qhbg,208,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqrFEfEe2d5dG-54qhbg,208,
-https://jazz.ibm.com:9443/rm/resources/TX_S5PZEFEfEe2d5dG-54qhbg,209,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/TX_S5QnMFEfEe2d5dG-54qhbg,210,/JKE Private Banking and Securities Project/Business Rules
-https://jazz.ibm.com:9443/rm/resources/DM_S5JScFEfEe2d5dG-54qhbg,211,/JKE Enterprise Project/Templates
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AKlEfEe2d5dG-54qhbg,212,
-https://jazz.ibm.com:9443/rm/resources/TX_S5TDcFEfEe2d5dG-54qhbg,212,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/DM_S5LusFEfEe2d5dG-54qhbg,213,/JKE Enterprise Project/Use Case Content
-https://jazz.ibm.com:9443/rm/resources/TX_S5U4oFEfEe2d5dG-54qhbg,214,/JKE Business Recovery Matters Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/BI_SzmELlEfEe2d5dG-54qhbg,215,
-https://jazz.ibm.com:9443/rm/resources/TX_S5Wt0FEfEe2d5dG-54qhbg,215,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SySci1EfEe2d5dG-54qhbg,216,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AEVEfEe2d5dG-54qhbg,216,
-https://jazz.ibm.com:9443/rm/resources/TX_S5WGwFEfEe2d5dG-54qhbg,216,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_S0QLbVEfEe2d5dG-54qhbg,216,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmEHFEfEe2d5dG-54qhbg,216,
-https://jazz.ibm.com:9443/rm/resources/TX_S5X78FEfEe2d5dG-54qhbg,217,/JKE Business Recovery Matters Project/Features
-https://jazz.ibm.com:9443/rm/resources/TX_S5aYMFEfEe2d5dG-54qhbg,218,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/TX_S5c0cFEfEe2d5dG-54qhbg,219,/JKE Enterprise Project/Business Goals
-https://jazz.ibm.com:9443/rm/resources/TX_S5ZKEFEfEe2d5dG-54qhbg,220,/JKE Business Recovery Matters Project/Business Rules
-https://jazz.ibm.com:9443/rm/resources/BI_S0QycVEfEe2d5dG-54qhbg,221,
-https://jazz.ibm.com:9443/rm/resources/TX_S5hF4FEfEe2d5dG-54qhbg,221,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/DM_S5dbgFEfEe2d5dG-54qhbg,222,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Mobile
-https://jazz.ibm.com:9443/rm/resources/TX_S5f3wFEfEe2d5dG-54qhbg,223,/JKE Enterprise Project/Non Functional Requirements
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AIlEfEe2d5dG-54qhbg,224,
-https://jazz.ibm.com:9443/rm/resources/TX_S5hs8FEfEe2d5dG-54qhbg,224,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S5nMgFEfEe2d5dG-54qhbg,225,/JKE Enterprise Project/Use Case Content
-https://jazz.ibm.com:9443/rm/resources/TX_S5kwQFEfEe2d5dG-54qhbg,226,/JKE Business Recovery Matters Project/Features
-https://jazz.ibm.com:9443/rm/resources/DM_S5oaoFEfEe2d5dG-54qhbg,227,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Mobile
-https://jazz.ibm.com:9443/rm/resources/DM_S5i7EFEfEe2d5dG-54qhbg,228,/JKE Private Banking and Securities Project/Processes
-https://jazz.ibm.com:9443/rm/resources/TX_S5rd8FEfEe2d5dG-54qhbg,229,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/TX_S5qP0FEfEe2d5dG-54qhbg,230,/JKE Enterprise Project/Non Functional Requirements
-https://jazz.ibm.com:9443/rm/resources/BI_S0Qyi1EfEe2d5dG-54qhbg,231,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_nIlEfEe2d5dG-54qhbg,231,
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqwlEfEe2d5dG-54qhbg,231,
-https://jazz.ibm.com:9443/rm/resources/TX_S5t6MFEfEe2d5dG-54qhbg,231,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SzmrOVEfEe2d5dG-54qhbg,231,
-https://jazz.ibm.com:9443/rm/resources/TX_S5vvYFEfEe2d5dG-54qhbg,232,/JKE Business Recovery Matters Project/User Story Elaboration/Roles - Actors
-https://jazz.ibm.com:9443/rm/resources/TX_S5uhQFEfEe2d5dG-54qhbg,233,/JKE Enterprise Project/Business Goals
-https://jazz.ibm.com:9443/rm/resources/DM_S5w9gFEfEe2d5dG-54qhbg,234,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Mobile
-https://jazz.ibm.com:9443/rm/resources/TX_S51O8FEfEe2d5dG-54qhbg,235,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SzmrM1EfEe2d5dG-54qhbg,235,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AE1EfEe2d5dG-54qhbg,236,
-https://jazz.ibm.com:9443/rm/resources/TX_S5yysFEfEe2d5dG-54qhbg,236,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_S0QLaVEfEe2d5dG-54qhbg,237,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy-ZCVEfEe2d5dG-54qhbg,237,
-https://jazz.ibm.com:9443/rm/resources/BI_SySch1EfEe2d5dG-54qhbg,237,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmEGFEfEe2d5dG-54qhbg,237,
-https://jazz.ibm.com:9443/rm/resources/TX_S53rMFEfEe2d5dG-54qhbg,237,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S55gYFEfEe2d5dG-54qhbg,238,/JKE Enterprise Project/Use Case Content
-https://jazz.ibm.com:9443/rm/resources/BI_SzmEIlEfEe2d5dG-54qhbg,239,
-https://jazz.ibm.com:9443/rm/resources/TX_S52dEFEfEe2d5dG-54qhbg,239,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_S0QLelEfEe2d5dG-54qhbg,240,
-https://jazz.ibm.com:9443/rm/resources/TX_S56ugFEfEe2d5dG-54qhbg,240,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_Sy-ZDFEfEe2d5dG-54qhbg,241,
-https://jazz.ibm.com:9443/rm/resources/TX_S54SQFEfEe2d5dG-54qhbg,241,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/DM_S578oFEfEe2d5dG-54qhbg,242,/JKE Enterprise Project/UI Sketches/Parts
-https://jazz.ibm.com:9443/rm/resources/TX_S6A1IFEfEe2d5dG-54qhbg,243,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/DM_S5_nAFEfEe2d5dG-54qhbg,244,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches
-https://jazz.ibm.com:9443/rm/resources/TX_S59KwFEfEe2d5dG-54qhbg,245,/JKE Business Recovery Matters Project/Features
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqwFEfEe2d5dG-54qhbg,246,
-https://jazz.ibm.com:9443/rm/resources/TX_S5-Y4FEfEe2d5dG-54qhbg,246,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S6BcMFEfEe2d5dG-54qhbg,247,/JKE Private Banking and Securities Project/Use Case Content/Actors
-https://jazz.ibm.com:9443/rm/resources/TX_S6LNMFEfEe2d5dG-54qhbg,248,/JKE Business Recovery Matters Project/Business Goals
-https://jazz.ibm.com:9443/rm/resources/BI_SzmEG1EfEe2d5dG-54qhbg,249,
-https://jazz.ibm.com:9443/rm/resources/TX_S6D4cFEfEe2d5dG-54qhbg,249,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S6KmIFEfEe2d5dG-54qhbg,250,/JKE Enterprise Project/Use Case Content/Actors
-https://jazz.ibm.com:9443/rm/resources/TX_S6MbUFEfEe2d5dG-54qhbg,251,/JKE Business Recovery Matters Project/Features
-https://jazz.ibm.com:9443/rm/resources/TX_S6CqUFEfEe2d5dG-54qhbg,252,/JKE Enterprise Project/Non Functional Requirements
-https://jazz.ibm.com:9443/rm/resources/BI_S0QydVEfEe2d5dG-54qhbg,253,
-https://jazz.ibm.com:9443/rm/resources/TX_S6OQgFEfEe2d5dG-54qhbg,253,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_S0QyhVEfEe2d5dG-54qhbg,254,
-https://jazz.ibm.com:9443/rm/resources/TX_S6JYAFEfEe2d5dG-54qhbg,254,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_S0QLeFEfEe2d5dG-54qhbg,255,
-https://jazz.ibm.com:9443/rm/resources/TX_S6TwEFEfEe2d5dG-54qhbg,255,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_S0QycFEfEe2d5dG-54qhbg,256,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AHVEfEe2d5dG-54qhbg,256,
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqqVEfEe2d5dG-54qhbg,256,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmrIFEfEe2d5dG-54qhbg,256,
-https://jazz.ibm.com:9443/rm/resources/TX_S6Sh8FEfEe2d5dG-54qhbg,256,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S6FGkFEfEe2d5dG-54qhbg,257,/JKE Business Recovery Matters Project/0. README
-https://jazz.ibm.com:9443/rm/resources/DM_S6RT0FEfEe2d5dG-54qhbg,258,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Mobile
-https://jazz.ibm.com:9443/rm/resources/BI_S0QLZVEfEe2d5dG-54qhbg,259,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy-ZBVEfEe2d5dG-54qhbg,259,
-https://jazz.ibm.com:9443/rm/resources/BI_SyScg1EfEe2d5dG-54qhbg,259,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmEFFEfEe2d5dG-54qhbg,259,
-https://jazz.ibm.com:9443/rm/resources/TX_S6PeoFEfEe2d5dG-54qhbg,259,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SzmrJ1EfEe2d5dG-54qhbg,260,
-https://jazz.ibm.com:9443/rm/resources/TX_S6VlQFEfEe2d5dG-54qhbg,260,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S6QFsFEfEe2d5dG-54qhbg,261,/JKE Enterprise Project/Use Case Content
-https://jazz.ibm.com:9443/rm/resources/DM_S6UXIFEfEe2d5dG-54qhbg,262,/JKE Enterprise Project/UI Sketches
-https://jazz.ibm.com:9443/rm/resources/TX_S6adwFEfEe2d5dG-54qhbg,263,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/TX_S6ZPoFEfEe2d5dG-54qhbg,264,/JKE Business Recovery Matters Project/User Story Elaboration/Roles - Actors
-https://jazz.ibm.com:9443/rm/resources/TX_S6br4FEfEe2d5dG-54qhbg,265,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/TX_S6WMUFEfEe2d5dG-54qhbg,266,/JKE Enterprise Project/Use Case Content/Actors
-https://jazz.ibm.com:9443/rm/resources/TX_S6XacFEfEe2d5dG-54qhbg,267,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S6eIIFEfEe2d5dG-54qhbg,268,/JKE Enterprise Project/Templates
-https://jazz.ibm.com:9443/rm/resources/TX_S6evMFEfEe2d5dG-54qhbg,269,/JKE Business Recovery Matters Project/Features
-https://jazz.ibm.com:9443/rm/resources/DM_S6c6AFEfEe2d5dG-54qhbg,270,/JKE Enterprise Project/UI Sketches/Parts
-https://jazz.ibm.com:9443/rm/resources/BI_S0QLbFEfEe2d5dG-54qhbg,271,
-https://jazz.ibm.com:9443/rm/resources/TX_S6k10FEfEe2d5dG-54qhbg,271,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S6jnsFEfEe2d5dG-54qhbg,272,/JKE Business Recovery Matters Project/User Story Elaboration/Elaborated Stories/Mobile
-https://jazz.ibm.com:9443/rm/resources/BI_S0QyclEfEe2d5dG-54qhbg,273,
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqq1EfEe2d5dG-54qhbg,273,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AIFEfEe2d5dG-54qhbg,273,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmrIlEfEe2d5dG-54qhbg,273,
-https://jazz.ibm.com:9443/rm/resources/TX_S6nSEFEfEe2d5dG-54qhbg,273,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S6mD8FEfEe2d5dG-54qhbg,274,/JKE Business Recovery Matters Project/User Story Elaboration/Elaborated Stories
-https://jazz.ibm.com:9443/rm/resources/TX_S6puUFEfEe2d5dG-54qhbg,275,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/TX_S6hygFEfEe2d5dG-54qhbg,276,/JKE Business Recovery Matters Project/Features/Mobile
-https://jazz.ibm.com:9443/rm/resources/BI_S0QLYVEfEe2d5dG-54qhbg,277,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy-ZAVEfEe2d5dG-54qhbg,277,
-https://jazz.ibm.com:9443/rm/resources/BI_SyMV4FEfEe2d5dG-54qhbg,277,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmEEFEfEe2d5dG-54qhbg,277,
-https://jazz.ibm.com:9443/rm/resources/TX_S6n5IFEfEe2d5dG-54qhbg,277,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S6t_wFEfEe2d5dG-54qhbg,278,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S6um0FEfEe2d5dG-54qhbg,279,/JKE Enterprise Project/Non Functional Requirements
-https://jazz.ibm.com:9443/rm/resources/BI_S0QLd1EfEe2d5dG-54qhbg,280,
-https://jazz.ibm.com:9443/rm/resources/TX_S6rjgFEfEe2d5dG-54qhbg,280,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SzmrJVEfEe2d5dG-54qhbg,281,
-https://jazz.ibm.com:9443/rm/resources/TX_S6yRMFEfEe2d5dG-54qhbg,281,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_S0QyflEfEe2d5dG-54qhbg,282,
-https://jazz.ibm.com:9443/rm/resources/TX_S6xDEFEfEe2d5dG-54qhbg,282,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S6v08FEfEe2d5dG-54qhbg,283,/JKE Enterprise Project/Non Functional Requirements
-https://jazz.ibm.com:9443/rm/resources/BI_SyScjVEfEe2d5dG-54qhbg,284,
-https://jazz.ibm.com:9443/rm/resources/TX_S6y4QFEfEe2d5dG-54qhbg,284,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_S0QLdlEfEe2d5dG-54qhbg,285,
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqoFEfEe2d5dG-54qhbg,285,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AFVEfEe2d5dG-54qhbg,285,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmEJlEfEe2d5dG-54qhbg,285,
-https://jazz.ibm.com:9443/rm/resources/TX_S6sxoFEfEe2d5dG-54qhbg,285,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S63JsFEfEe2d5dG-54qhbg,286,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_nIFEfEe2d5dG-54qhbg,287,
-https://jazz.ibm.com:9443/rm/resources/TX_S64X0FEfEe2d5dG-54qhbg,287,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_S0QLdVEfEe2d5dG-54qhbg,288,
-https://jazz.ibm.com:9443/rm/resources/BI_SyTDkFEfEe2d5dG-54qhbg,288,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AFFEfEe2d5dG-54qhbg,288,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmEJVEfEe2d5dG-54qhbg,288,
-https://jazz.ibm.com:9443/rm/resources/TX_S66NAFEfEe2d5dG-54qhbg,288,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_S0QLZlEfEe2d5dG-54qhbg,289,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy-ZBlEfEe2d5dG-54qhbg,289,
-https://jazz.ibm.com:9443/rm/resources/BI_SySchFEfEe2d5dG-54qhbg,289,
-https://jazz.ibm.com:9443/rm/resources/TX_S68pQFEfEe2d5dG-54qhbg,289,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SzmEFVEfEe2d5dG-54qhbg,289,
-https://jazz.ibm.com:9443/rm/resources/TX_S6-ecFEfEe2d5dG-54qhbg,290,/JKE Enterprise Project/Use Case Content
-https://jazz.ibm.com:9443/rm/resources/DM_S61UgFEfEe2d5dG-54qhbg,291,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Mobile
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AMFEfEe2d5dG-54qhbg,292,
-https://jazz.ibm.com:9443/rm/resources/TX_S68CMFEfEe2d5dG-54qhbg,292,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S7AToFEfEe2d5dG-54qhbg,293,/JKE Enterprise Project/Use Case Content
-https://jazz.ibm.com:9443/rm/resources/BI_S0QLalEfEe2d5dG-54qhbg,294,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy-ZClEfEe2d5dG-54qhbg,294,
-https://jazz.ibm.com:9443/rm/resources/BI_SySciFEfEe2d5dG-54qhbg,294,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmEGVEfEe2d5dG-54qhbg,294,
-https://jazz.ibm.com:9443/rm/resources/TX_S7CI0FEfEe2d5dG-54qhbg,294,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_S0QyiFEfEe2d5dG-54qhbg,295,
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqv1EfEe2d5dG-54qhbg,295,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AMlEfEe2d5dG-54qhbg,295,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmrNlEfEe2d5dG-54qhbg,295,
-https://jazz.ibm.com:9443/rm/resources/TX_S7A6sFEfEe2d5dG-54qhbg,295,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AGlEfEe2d5dG-54qhbg,296,
-https://jazz.ibm.com:9443/rm/resources/TX_S7D-AFEfEe2d5dG-54qhbg,296,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_S0QLeVEfEe2d5dG-54qhbg,297,
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqolEfEe2d5dG-54qhbg,297,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AF1EfEe2d5dG-54qhbg,297,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmEKFEfEe2d5dG-54qhbg,297,
-https://jazz.ibm.com:9443/rm/resources/TX_S65l8FEfEe2d5dG-54qhbg,297,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_S0Qyg1EfEe2d5dG-54qhbg,298,
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqulEfEe2d5dG-54qhbg,298,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_ALlEfEe2d5dG-54qhbg,298,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmrMVEfEe2d5dG-54qhbg,298,
-https://jazz.ibm.com:9443/rm/resources/TX_S7ElEFEfEe2d5dG-54qhbg,298,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S7FMIFEfEe2d5dG-54qhbg,299,/JKE Enterprise Project/Templates
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqrlEfEe2d5dG-54qhbg,300,
-https://jazz.ibm.com:9443/rm/resources/TX_S7KrsFEfEe2d5dG-54qhbg,300,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/DM_S7QLQFEfEe2d5dG-54qhbg,301,/JKE Enterprise Project/UI Sketches/Parts
-https://jazz.ibm.com:9443/rm/resources/BI_S0QLZFEfEe2d5dG-54qhbg,302,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy-ZBFEfEe2d5dG-54qhbg,302,
-https://jazz.ibm.com:9443/rm/resources/BI_SyScglEfEe2d5dG-54qhbg,302,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmEE1EfEe2d5dG-54qhbg,302,
-https://jazz.ibm.com:9443/rm/resources/TX_S7PkMFEfEe2d5dG-54qhbg,302,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S7OWEFEfEe2d5dG-54qhbg,303,/JKE Business Recovery Matters Project/Business Rules
-https://jazz.ibm.com:9443/rm/resources/TX_S7RZYFEfEe2d5dG-54qhbg,304,/JKE Enterprise Project/Business Goals
-https://jazz.ibm.com:9443/rm/resources/TX_S7GaQFEfEe2d5dG-54qhbg,305,/JKE Business Recovery Matters Project/Features
-https://jazz.ibm.com:9443/rm/resources/TX_S7T1oFEfEe2d5dG-54qhbg,306,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/DM_S7L50FEfEe2d5dG-54qhbg,307,/JKE Enterprise Project/Processes
-https://jazz.ibm.com:9443/rm/resources/DM_S7WR4FEfEe2d5dG-54qhbg,308,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Parts
-https://jazz.ibm.com:9443/rm/resources/DM_S7XgAFEfEe2d5dG-54qhbg,309,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches
-https://jazz.ibm.com:9443/rm/resources/TX_S7UcsFEfEe2d5dG-54qhbg,310,/JKE Business Recovery Matters Project/User Story Elaboration/Elaborated Stories
-https://jazz.ibm.com:9443/rm/resources/DM_S7IPcFEfEe2d5dG-54qhbg,311,/JKE Business Recovery Matters Project/Processes
-https://jazz.ibm.com:9443/rm/resources/TX_S7bKYFEfEe2d5dG-54qhbg,312,/JKE Enterprise Project/Non Functional Requirements
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AJFEfEe2d5dG-54qhbg,313,
-https://jazz.ibm.com:9443/rm/resources/TX_S7ifIFEfEe2d5dG-54qhbg,313,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S7kUUFEfEe2d5dG-54qhbg,314,/JKE Business Recovery Matters Project/Business Rules
-https://jazz.ibm.com:9443/rm/resources/DM_S7hRAFEfEe2d5dG-54qhbg,315,/JKE Enterprise Project/UI Sketches/Parts
-https://jazz.ibm.com:9443/rm/resources/TX_S7jGMFEfEe2d5dG-54qhbg,316,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/DM_S7YuIFEfEe2d5dG-54qhbg,317,/JKE Enterprise Project/Processes
-https://jazz.ibm.com:9443/rm/resources/BI_S0QyeFEfEe2d5dG-54qhbg,318,
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqsVEfEe2d5dG-54qhbg,318,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AJVEfEe2d5dG-54qhbg,318,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmrKFEfEe2d5dG-54qhbg,318,
-https://jazz.ibm.com:9443/rm/resources/TX_S7licFEfEe2d5dG-54qhbg,318,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S7fb0FEfEe2d5dG-54qhbg,319,/JKE Enterprise Project/Non Functional Requirements
-https://jazz.ibm.com:9443/rm/resources/BI_S0QLaFEfEe2d5dG-54qhbg,320,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy-ZCFEfEe2d5dG-54qhbg,320,
-https://jazz.ibm.com:9443/rm/resources/BI_SySchlEfEe2d5dG-54qhbg,320,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmEF1EfEe2d5dG-54qhbg,320,
-https://jazz.ibm.com:9443/rm/resources/TX_S7mJgFEfEe2d5dG-54qhbg,320,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/DM_S7c_kFEfEe2d5dG-54qhbg,321,/JKE Business Recovery Matters Project/Processes/Mobile
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AEFEfEe2d5dG-54qhbg,322,
-https://jazz.ibm.com:9443/rm/resources/TX_S7nXoFEfEe2d5dG-54qhbg,322,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_S0QLZ1EfEe2d5dG-54qhbg,323,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy-ZB1EfEe2d5dG-54qhbg,323,
-https://jazz.ibm.com:9443/rm/resources/BI_SySchVEfEe2d5dG-54qhbg,323,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmEFlEfEe2d5dG-54qhbg,323,
-https://jazz.ibm.com:9443/rm/resources/TX_S7sQIFEfEe2d5dG-54qhbg,323,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_S0QyhlEfEe2d5dG-54qhbg,324,
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqvVEfEe2d5dG-54qhbg,324,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmrNFEfEe2d5dG-54qhbg,324,
-https://jazz.ibm.com:9443/rm/resources/TX_S7rpEFEfEe2d5dG-54qhbg,324,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S7teQFEfEe2d5dG-54qhbg,325,/JKE Private Banking and Securities Project/Use Case Content
-https://jazz.ibm.com:9443/rm/resources/TX_S7qa8FEfEe2d5dG-54qhbg,326,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/BI_S0QyilEfEe2d5dG-54qhbg,327,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_nIVEfEe2d5dG-54qhbg,327,
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqwVEfEe2d5dG-54qhbg,327,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmrOFEfEe2d5dG-54qhbg,327,
-https://jazz.ibm.com:9443/rm/resources/TX_S7olwFEfEe2d5dG-54qhbg,327,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/DM_S7whkFEfEe2d5dG-54qhbg,328,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Mobile
-https://jazz.ibm.com:9443/rm/resources/BI_SzmELFEfEe2d5dG-54qhbg,329,
-https://jazz.ibm.com:9443/rm/resources/TX_S7xIoFEfEe2d5dG-54qhbg,329,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_S0QyiVEfEe2d5dG-54qhbg,330,
-https://jazz.ibm.com:9443/rm/resources/TX_S71aEFEfEe2d5dG-54qhbg,330,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S732UFEfEe2d5dG-54qhbg,331,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S72BIFEfEe2d5dG-54qhbg,332,/JKE Business Recovery Matters Project/Features
-https://jazz.ibm.com:9443/rm/resources/TX_S765oFEfEe2d5dG-54qhbg,333,/JKE Business Recovery Matters Project/Business Rules
-https://jazz.ibm.com:9443/rm/resources/TX_S7y90FEfEe2d5dG-54qhbg,334,/JKE Business Recovery Matters Project/Business Goals
-https://jazz.ibm.com:9443/rm/resources/TX_S7yWwFEfEe2d5dG-54qhbg,335,/JKE Private Banking and Securities Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/TX_S75EcFEfEe2d5dG-54qhbg,336,/JKE Enterprise Project/Business Goals
-https://jazz.ibm.com:9443/rm/resources/DM_S78HwFEfEe2d5dG-54qhbg,337,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Parts
-https://jazz.ibm.com:9443/rm/resources/BI_SzmrN1EfEe2d5dG-54qhbg,338,
-https://jazz.ibm.com:9443/rm/resources/TX_S7988FEfEe2d5dG-54qhbg,338,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_S0QyhFEfEe2d5dG-54qhbg,339,
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqu1EfEe2d5dG-54qhbg,339,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AL1EfEe2d5dG-54qhbg,339,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmrMlEfEe2d5dG-54qhbg,339,
-https://jazz.ibm.com:9443/rm/resources/TX_S7_yIFEfEe2d5dG-54qhbg,339,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S8DcgFEfEe2d5dG-54qhbg,340,/JKE Business Recovery Matters Project/Features/Mobile
-https://jazz.ibm.com:9443/rm/resources/TX_S8EqoFEfEe2d5dG-54qhbg,341,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/DM_S8COYFEfEe2d5dG-54qhbg,342,/JKE Business Recovery Matters Project/User Story Elaboration/Storyboards/Mobile
-https://jazz.ibm.com:9443/rm/resources/DM_S8BAQFEfEe2d5dG-54qhbg,343,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Parts
-https://jazz.ibm.com:9443/rm/resources/DM_S8Ht8FEfEe2d5dG-54qhbg,344,/JKE Business Recovery Matters Project/Processes
-https://jazz.ibm.com:9443/rm/resources/TX_S8KKMFEfEe2d5dG-54qhbg,345,/JKE Business Recovery Matters Project/Features
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AHFEfEe2d5dG-54qhbg,346,
-https://jazz.ibm.com:9443/rm/resources/TX_S8PpwFEfEe2d5dG-54qhbg,346,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SzmrI1EfEe2d5dG-54qhbg,347,
-https://jazz.ibm.com:9443/rm/resources/TX_S8QQ0FEfEe2d5dG-54qhbg,347,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_S0Qyh1EfEe2d5dG-54qhbg,348,
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqvlEfEe2d5dG-54qhbg,348,
-https://jazz.ibm.com:9443/rm/resources/BI_Sy_AMVEfEe2d5dG-54qhbg,348,
-https://jazz.ibm.com:9443/rm/resources/BI_SzmrNVEfEe2d5dG-54qhbg,348,
-https://jazz.ibm.com:9443/rm/resources/TX_S8Re8FEfEe2d5dG-54qhbg,348,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SyTqoVEfEe2d5dG-54qhbg,349,
-https://jazz.ibm.com:9443/rm/resources/TX_S8OboFEfEe2d5dG-54qhbg,349,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S8LYUFEfEe2d5dG-54qhbg,350,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/TX_S8b3AFEfEe2d5dG-54qhbg,351,/JKE Enterprise Project/Glossary
-https://jazz.ibm.com:9443/rm/resources/BI_S0QyglEfEe2d5dG-54qhbg,352,
-https://jazz.ibm.com:9443/rm/resources/TX_S8aB0FEfEe2d5dG-54qhbg,352,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_S8YMoFEfEe2d5dG-54qhbg,353,/JKE Enterprise Project/Use Case Content/Actors
-https://jazz.ibm.com:9443/rm/resources/DM_S8YzsFEfEe2d5dG-54qhbg,354,/JKE Business Recovery Matters Project/User Story Elaboration/Storyboards
-https://jazz.ibm.com:9443/rm/resources/TX_S8W-gFEfEe2d5dG-54qhbg,355,/JKE Private Banking and Securities Project/Use Case Content
-https://jazz.ibm.com:9443/rm/resources/TX_S8dFIFEfEe2d5dG-54qhbg,356,/JKE Business Recovery Matters Project/User Story Elaboration/Elaborated Stories
-https://jazz.ibm.com:9443/rm/resources/TX_S8VwYFEfEe2d5dG-54qhbg,357,/JKE Enterprise Project/Non Functional Requirements
-https://jazz.ibm.com:9443/rm/resources/DM_S8kZ4FEfEe2d5dG-54qhbg,358,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Mobile
-https://jazz.ibm.com:9443/rm/resources/BI_S0QLf1EfEe2d5dG-54qhbg,359,
-https://jazz.ibm.com:9443/rm/resources/TX_S8gvgFEfEe2d5dG-54qhbg,359,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SzmEJFEfEe2d5dG-54qhbg,360,
-https://jazz.ibm.com:9443/rm/resources/TX_S8fhYFEfEe2d5dG-54qhbg,360,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_SzmEHlEfEe2d5dG-54qhbg,361,
-https://jazz.ibm.com:9443/rm/resources/TX_S8iksFEfEe2d5dG-54qhbg,361,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_dnUsYFEfEe2d5dG-54qhbg,905,
-https://jazz.ibm.com:9443/rm/resources/TX_dpKfcFEfEe2d5dG-54qhbg,905,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_dtT_oFEfEe2d5dG-54qhbg,906,
-https://jazz.ibm.com:9443/rm/resources/TX_dt-G8FEfEe2d5dG-54qhbg,906,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_dx_EQVEfEe2d5dG-54qhbg,907,
-https://jazz.ibm.com:9443/rm/resources/TX_dyhPwVEfEe2d5dG-54qhbg,907,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/materializedviews/VW_HACKDmONEe6zFOoTqPMMWg,,
+https://jazz.ibm.com:9443/rm/materializedviews/VW_HACKGWONEe6zFOoTqPMMWg,,
+https://jazz.ibm.com:9443/rm/materializedviews/VW_HACKFmONEe6zFOoTqPMMWg,,
+https://jazz.ibm.com:9443/rm/materializedviews/VW_HACKF2ONEe6zFOoTqPMMWg,,
+https://jazz.ibm.com:9443/rm/resources/MD_HAF0bGONEe6zFOoTqPMMWg,3721,/JKE Private Banking and Securities Project/Use Case Content
+https://jazz.ibm.com:9443/rm/resources/MD_HAF0a2ONEe6zFOoTqPMMWg,3722,/JKE Private Banking and Securities Project/Use Case Content
+https://jazz.ibm.com:9443/rm/resources/MD_HAF0bWONEe6zFOoTqPMMWg,3723,/JKE Private Banking and Securities Project/Use Case Content
+https://jazz.ibm.com:9443/rm/resources/MD_HAF0amONEe6zFOoTqPMMWg,3724,/JKE Enterprise Project/Templates
+https://jazz.ibm.com:9443/rm/resources/WR_HBHvIGONEe6zFOoTqPMMWg,3725,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HB1g0WONEe6zFOoTqPMMWg,3726,/JKE Enterprise Project/UI Sketches/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HBPD4WONEe6zFOoTqPMMWg,3727,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HCH0sGONEe6zFOoTqPMMWg,3728,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Images/Mobile
+https://jazz.ibm.com:9443/rm/resources/WR_HBm3UGONEe6zFOoTqPMMWg,3729,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HB9coWONEe6zFOoTqPMMWg,3730,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HATPwWONEe6zFOoTqPMMWg,3731,/JKE Business Recovery Matters Project/0. README/images
+https://jazz.ibm.com:9443/rm/resources/WR_HAs4YWONEe6zFOoTqPMMWg,3732,/JKE Enterprise Project/0. README/JKE Business and IT Context v1.10.1.doc <11:03:43>
+https://jazz.ibm.com:9443/rm/resources/WR_HA9-IGONEe6zFOoTqPMMWg,3733,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Images/Mobile
+https://jazz.ibm.com:9443/rm/resources/WR_HCZhgWONEe6zFOoTqPMMWg,3734,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HAT20GONEe6zFOoTqPMMWg,3735,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HBlpMGONEe6zFOoTqPMMWg,3736,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HAkVgWONEe6zFOoTqPMMWg,3737,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Images/Mobile
+https://jazz.ibm.com:9443/rm/resources/WR_HA3QcWONEe6zFOoTqPMMWg,3738,/JKE Business Recovery Matters Project/Reports
+https://jazz.ibm.com:9443/rm/resources/WR_HAtfcWONEe6zFOoTqPMMWg,3739,/JKE Enterprise Project/0. README/JKE Business and IT Context v1.10.1.doc <11:03:43>
+https://jazz.ibm.com:9443/rm/resources/WR_HAeO4GONEe6zFOoTqPMMWg,3740,/JKE Enterprise Project/UI Sketches/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HAzmEGONEe6zFOoTqPMMWg,3741,/JKE Enterprise Project/UI Sketches/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HA7h4GONEe6zFOoTqPMMWg,3742,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HBaqEGONEe6zFOoTqPMMWg,3743,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Images/Mobile
+https://jazz.ibm.com:9443/rm/resources/WR_HCfBEGONEe6zFOoTqPMMWg,3744,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Images/Mobile
+https://jazz.ibm.com:9443/rm/resources/WR_HB5LMGONEe6zFOoTqPMMWg,3745,/JKE Business Recovery Matters Project/Reports
+https://jazz.ibm.com:9443/rm/resources/WR_HCSz0GONEe6zFOoTqPMMWg,3746,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HAkVgGONEe6zFOoTqPMMWg,3747,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HAmKsGONEe6zFOoTqPMMWg,3748,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HBOc0GONEe6zFOoTqPMMWg,3749,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Images/Mobile
+https://jazz.ibm.com:9443/rm/resources/WR_HBRgIGONEe6zFOoTqPMMWg,3750,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HBIWMWONEe6zFOoTqPMMWg,3751,/JKE Enterprise Project/0. README/JKE Business and IT Context Document <11:40:02>
+https://jazz.ibm.com:9443/rm/resources/WR_HBbRIWONEe6zFOoTqPMMWg,3752,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Images/Mobile
+https://jazz.ibm.com:9443/rm/resources/WR_HAIQoGONEe6zFOoTqPMMWg,3753,/JKE Business Recovery Matters Project/Reports
+https://jazz.ibm.com:9443/rm/resources/WR_HBmQQGONEe6zFOoTqPMMWg,3754,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HCck0GONEe6zFOoTqPMMWg,3755,/JKE Business Recovery Matters Project/0. README/images
+https://jazz.ibm.com:9443/rm/resources/WR_HCeaAWONEe6zFOoTqPMMWg,3756,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HChdUWONEe6zFOoTqPMMWg,3757,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HBgJoGONEe6zFOoTqPMMWg,3758,/JKE Business Recovery Matters Project/Reports
+https://jazz.ibm.com:9443/rm/resources/WR_HCBuEWONEe6zFOoTqPMMWg,3759,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HBLZgWONEe6zFOoTqPMMWg,3760,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HA9XEGONEe6zFOoTqPMMWg,3761,/JKE Enterprise Project/0. README/JKE Business and IT Context Document <11:40:02>
+https://jazz.ibm.com:9443/rm/resources/WR_HB_44WONEe6zFOoTqPMMWg,3762,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HCircGONEe6zFOoTqPMMWg,3763,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HBcfQGONEe6zFOoTqPMMWg,3764,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Images/Mobile
+https://jazz.ibm.com:9443/rm/resources/WR_HAbLkGONEe6zFOoTqPMMWg,3765,/JKE Business Recovery Matters Project/Reports
+https://jazz.ibm.com:9443/rm/resources/WR_HBe7gWONEe6zFOoTqPMMWg,3766,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HCQXkGONEe6zFOoTqPMMWg,3767,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HCj5kGONEe6zFOoTqPMMWg,3768,/JKE Business Recovery Matters Project/0. README/images
+https://jazz.ibm.com:9443/rm/resources/WR_HCeaAGONEe6zFOoTqPMMWg,3769,/JKE Enterprise Project/0. README/JKE Business and IT Context v1.10.1.doc <11:03:43>
+https://jazz.ibm.com:9443/rm/resources/WR_HBVKgmONEe6zFOoTqPMMWg,3770,/JKE Enterprise Project/0. README/JKE Business and IT Context v1.10.1.doc <11:03:43>
+https://jazz.ibm.com:9443/rm/resources/WR_HB81kGONEe6zFOoTqPMMWg,3771,/JKE Business Recovery Matters Project/0. README/images
+https://jazz.ibm.com:9443/rm/resources/WR_HA5ssGONEe6zFOoTqPMMWg,3772,/JKE Business Recovery Matters Project/Reports
+https://jazz.ibm.com:9443/rm/resources/WR_HBJkUGONEe6zFOoTqPMMWg,3773,/JKE Business Recovery Matters Project/0. README/images
+https://jazz.ibm.com:9443/rm/resources/WR_HCfoIGONEe6zFOoTqPMMWg,3774,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HBVKgGONEe6zFOoTqPMMWg,3775,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HCQ-oGONEe6zFOoTqPMMWg,3776,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HBzEkGONEe6zFOoTqPMMWg,3777,/JKE Business Recovery Matters Project/Reports
+https://jazz.ibm.com:9443/rm/resources/WR_HBTVUmONEe6zFOoTqPMMWg,3778,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Images/Mobile
+https://jazz.ibm.com:9443/rm/resources/WR_HA8I8GONEe6zFOoTqPMMWg,3779,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HBPq8WONEe6zFOoTqPMMWg,3780,/JKE Enterprise Project/UI Sketches/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HBBogWONEe6zFOoTqPMMWg,3781,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HA4ekWONEe6zFOoTqPMMWg,3782,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HAs4YGONEe6zFOoTqPMMWg,3783,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Images/Mobile
+https://jazz.ibm.com:9443/rm/resources/WR_HCZhgGONEe6zFOoTqPMMWg,3784,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HBj0AWONEe6zFOoTqPMMWg,3785,/JKE Enterprise Project/0. README/JKE Business and IT Context Document <11:40:02>
+https://jazz.ibm.com:9443/rm/resources/WR_HAsRUGONEe6zFOoTqPMMWg,3786,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Images/Mobile
+https://jazz.ibm.com:9443/rm/resources/WR_HA_MQGONEe6zFOoTqPMMWg,3787,/JKE Business Recovery Matters Project/Reports
+https://jazz.ibm.com:9443/rm/resources/WR_HAGbcGONEe6zFOoTqPMMWg,3788,/JKE Enterprise Project/0. README/JKE Business and IT Context v1.10.1.doc <11:03:43>
+https://jazz.ibm.com:9443/rm/resources/WR_HBYN0GONEe6zFOoTqPMMWg,3789,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HBEEwGONEe6zFOoTqPMMWg,3790,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HBPq8mONEe6zFOoTqPMMWg,3791,/JKE Enterprise Project/Reports
+https://jazz.ibm.com:9443/rm/resources/WR_HAI3sGONEe6zFOoTqPMMWg,3792,/JKE Enterprise Project/0. README/JKE Business and IT Context Document <11:40:02>
+https://jazz.ibm.com:9443/rm/resources/WR_HB5yQGONEe6zFOoTqPMMWg,3793,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HCOiYWONEe6zFOoTqPMMWg,3794,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HCUpAGONEe6zFOoTqPMMWg,3795,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HASosGONEe6zFOoTqPMMWg,3796,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HBLZgGONEe6zFOoTqPMMWg,3797,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HCb9wGONEe6zFOoTqPMMWg,3798,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HA_zUGONEe6zFOoTqPMMWg,3799,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Images/Mobile
+https://jazz.ibm.com:9443/rm/resources/WR_HAv7sGONEe6zFOoTqPMMWg,3800,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/WR_HCWeMGONEe6zFOoTqPMMWg,3801,/JKE Enterprise Project/0. README/JKE Business and IT Context Document <11:40:02>
+https://jazz.ibm.com:9443/rm/resources/WR_HAvUoWONEe6zFOoTqPMMWg,3802,/JKE Enterprise Project/0. README/Images
+https://jazz.ibm.com:9443/rm/resources/TX_HAF0bmONEe6zFOoTqPMMWg,3803,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YU2ONEe6zFOoTqPMMWg,3803,
+https://jazz.ibm.com:9443/rm/resources/TX_HAGbcWONEe6zFOoTqPMMWg,3804,/JKE Enterprise Project/Business Goals
+https://jazz.ibm.com:9443/rm/resources/DM_HAI3sWONEe6zFOoTqPMMWg,3805,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Mobile
+https://jazz.ibm.com:9443/rm/resources/TX_HAHCgGONEe6zFOoTqPMMWg,3806,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/CO_HAJewGONEe6zFOoTqPMMWg,3807,/JKE Business Recovery Matters Project/0. README
+https://jazz.ibm.com:9443/rm/resources/TX_HARakWONEe6zFOoTqPMMWg,3808,/JKE Enterprise Project/Business Goals
+https://jazz.ibm.com:9443/rm/resources/TX_HARakGONEe6zFOoTqPMMWg,3809,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/DM_HAHpkGONEe6zFOoTqPMMWg,3810,/JKE Business Recovery Matters Project/Processes
+https://jazz.ibm.com:9443/rm/resources/TX_HASBoGONEe6zFOoTqPMMWg,3811,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YT2ONEe6zFOoTqPMMWg,3811,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87LmONEe6zFOoTqPMMWg,3811,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE2_mONEe6zFOoTqPMMWg,3811,
+https://jazz.ibm.com:9443/rm/resources/BI_HCscfmONEe6zFOoTqPMMWg,3811,
+https://jazz.ibm.com:9443/rm/resources/TX_HATPwGONEe6zFOoTqPMMWg,3812,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/TX_HASosWONEe6zFOoTqPMMWg,3813,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/TX_HAVE8GONEe6zFOoTqPMMWg,3814,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HCtDgGONEe6zFOoTqPMMWg,3814,
+https://jazz.ibm.com:9443/rm/resources/TX_HAUd4GONEe6zFOoTqPMMWg,3815,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HCscfGONEe6zFOoTqPMMWg,3815,
+https://jazz.ibm.com:9443/rm/resources/TX_HAT20WONEe6zFOoTqPMMWg,3816,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/TX_HAVsAGONEe6zFOoTqPMMWg,3817,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3IWONEe6zFOoTqPMMWg,3817,
+https://jazz.ibm.com:9443/rm/resources/TX_HAWTEWONEe6zFOoTqPMMWg,3818,/JKE Business Recovery Matters Project/Features/Mobile
+https://jazz.ibm.com:9443/rm/resources/TX_HAWTEGONEe6zFOoTqPMMWg,3819,/JKE Business Recovery Matters Project/Business Rules
+https://jazz.ibm.com:9443/rm/resources/TX_HAVsAWONEe6zFOoTqPMMWg,3820,/JKE Business Recovery Matters Project/Business Goals
+https://jazz.ibm.com:9443/rm/resources/TX_HAW6IGONEe6zFOoTqPMMWg,3821,/JKE Business Recovery Matters Project/Features
+https://jazz.ibm.com:9443/rm/resources/TX_HAYvUGONEe6zFOoTqPMMWg,3822,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YWGONEe6zFOoTqPMMWg,3822,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87PmONEe6zFOoTqPMMWg,3822,
+https://jazz.ibm.com:9443/rm/resources/BI_HCsciGONEe6zFOoTqPMMWg,3822,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3DmONEe6zFOoTqPMMWg,3822,
+https://jazz.ibm.com:9443/rm/resources/TX_HAZWYGONEe6zFOoTqPMMWg,3823,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC87PGONEe6zFOoTqPMMWg,3823,
+https://jazz.ibm.com:9443/rm/resources/TX_HAYIQGONEe6zFOoTqPMMWg,3824,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/TX_HAZWYWONEe6zFOoTqPMMWg,3825,/JKE Business Recovery Matters Project/User Story Elaboration/Roles - Actors
+https://jazz.ibm.com:9443/rm/resources/DM_HAZ9cGONEe6zFOoTqPMMWg,3826,/JKE Business Recovery Matters Project/User Story Elaboration/Storyboards
+https://jazz.ibm.com:9443/rm/resources/TX_HAbyoGONEe6zFOoTqPMMWg,3827,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC87QWONEe6zFOoTqPMMWg,3827,
+https://jazz.ibm.com:9443/rm/resources/TX_HAakgGONEe6zFOoTqPMMWg,3828,/JKE Business Recovery Matters Project/Features
+https://jazz.ibm.com:9443/rm/resources/TX_HAcZsGONEe6zFOoTqPMMWg,3829,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HDE2_2ONEe6zFOoTqPMMWg,3829,
+https://jazz.ibm.com:9443/rm/resources/TX_HAbyoWONEe6zFOoTqPMMWg,3830,/JKE Business Recovery Matters Project/Features
+https://jazz.ibm.com:9443/rm/resources/TX_HAdAwGONEe6zFOoTqPMMWg,3831,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/TX_HAdAwWONEe6zFOoTqPMMWg,3832,/JKE Enterprise Project/Non Functional Requirements
+https://jazz.ibm.com:9443/rm/resources/DM_HAdn0GONEe6zFOoTqPMMWg,3833,/JKE Enterprise Project/UI Sketches
+https://jazz.ibm.com:9443/rm/resources/TX_HAeO4WONEe6zFOoTqPMMWg,3834,/JKE Enterprise Project/0. README
+https://jazz.ibm.com:9443/rm/resources/TX_HAjucGONEe6zFOoTqPMMWg,3835,/JKE Private Banking and Securities Project/Use Case Content
+https://jazz.ibm.com:9443/rm/resources/TX_HAk8kGONEe6zFOoTqPMMWg,3836,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YXGONEe6zFOoTqPMMWg,3836,
+https://jazz.ibm.com:9443/rm/resources/TX_HAjHYGONEe6zFOoTqPMMWg,3837,/JKE Business Recovery Matters Project/Project Meetings
+https://jazz.ibm.com:9443/rm/resources/TX_HAmxwGONEe6zFOoTqPMMWg,3838,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/TX_HAljoGONEe6zFOoTqPMMWg,3839,/JKE Business Recovery Matters Project/Features
+https://jazz.ibm.com:9443/rm/resources/TX_HAmxwWONEe6zFOoTqPMMWg,3840,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3HWONEe6zFOoTqPMMWg,3840,
+https://jazz.ibm.com:9443/rm/resources/TX_HAnY0GONEe6zFOoTqPMMWg,3841,/JKE Private Banking and Securities Project/Use Case Content
+https://jazz.ibm.com:9443/rm/resources/TX_HAn_4WONEe6zFOoTqPMMWg,3842,/JKE Business Recovery Matters Project/Business Rules
+https://jazz.ibm.com:9443/rm/resources/TX_HAn_4GONEe6zFOoTqPMMWg,3843,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YaWONEe6zFOoTqPMMWg,3843,
+https://jazz.ibm.com:9443/rm/resources/BI_HCscmWONEe6zFOoTqPMMWg,3843,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87T2ONEe6zFOoTqPMMWg,3843,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3IGONEe6zFOoTqPMMWg,3843,
+https://jazz.ibm.com:9443/rm/resources/DM_HAnY0WONEe6zFOoTqPMMWg,3844,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Mobile
+https://jazz.ibm.com:9443/rm/resources/TX_HAom8GONEe6zFOoTqPMMWg,3845,/JKE Enterprise Project/0. README
+https://jazz.ibm.com:9443/rm/resources/TX_HAp1EGONEe6zFOoTqPMMWg,3846,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/TX_HApOAGONEe6zFOoTqPMMWg,3847,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YW2ONEe6zFOoTqPMMWg,3847,
+https://jazz.ibm.com:9443/rm/resources/TX_HApOAWONEe6zFOoTqPMMWg,3848,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC87RGONEe6zFOoTqPMMWg,3848,
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YXmONEe6zFOoTqPMMWg,3848,
+https://jazz.ibm.com:9443/rm/resources/BI_HCscjmONEe6zFOoTqPMMWg,3848,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3FGONEe6zFOoTqPMMWg,3848,
+https://jazz.ibm.com:9443/rm/resources/TX_HAqcIGONEe6zFOoTqPMMWg,3849,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3DGONEe6zFOoTqPMMWg,3849,
+https://jazz.ibm.com:9443/rm/resources/TX_HArDMGONEe6zFOoTqPMMWg,3850,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC87OGONEe6zFOoTqPMMWg,3850,
+https://jazz.ibm.com:9443/rm/resources/TX_HAqcIWONEe6zFOoTqPMMWg,3851,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC87TWONEe6zFOoTqPMMWg,3851,
+https://jazz.ibm.com:9443/rm/resources/DM_HArqQGONEe6zFOoTqPMMWg,3852,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Parts
+https://jazz.ibm.com:9443/rm/resources/TX_HAuGgGONEe6zFOoTqPMMWg,3853,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3DWONEe6zFOoTqPMMWg,3853,
+https://jazz.ibm.com:9443/rm/resources/DM_HAsRUWONEe6zFOoTqPMMWg,3854,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Mobile
+https://jazz.ibm.com:9443/rm/resources/TX_HAtfcGONEe6zFOoTqPMMWg,3855,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HCsciWONEe6zFOoTqPMMWg,3855,
+https://jazz.ibm.com:9443/rm/resources/TX_HAuGgWONEe6zFOoTqPMMWg,3856,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HCsckWONEe6zFOoTqPMMWg,3856,
+https://jazz.ibm.com:9443/rm/resources/TX_HAv7sWONEe6zFOoTqPMMWg,3857,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YaGONEe6zFOoTqPMMWg,3857,
+https://jazz.ibm.com:9443/rm/resources/BI_HCscmGONEe6zFOoTqPMMWg,3857,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87TmONEe6zFOoTqPMMWg,3857,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3H2ONEe6zFOoTqPMMWg,3857,
+https://jazz.ibm.com:9443/rm/resources/TX_HAvUoGONEe6zFOoTqPMMWg,3858,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YZWONEe6zFOoTqPMMWg,3858,
+https://jazz.ibm.com:9443/rm/resources/BI_HCsclWONEe6zFOoTqPMMWg,3858,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87S2ONEe6zFOoTqPMMWg,3858,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3G2ONEe6zFOoTqPMMWg,3858,
+https://jazz.ibm.com:9443/rm/resources/DM_HAutkGONEe6zFOoTqPMMWg,3859,/JKE Business Recovery Matters Project/User Story Elaboration/Storyboards
+https://jazz.ibm.com:9443/rm/resources/TX_HAwiwGONEe6zFOoTqPMMWg,3860,/JKE Enterprise Project/Templates
+https://jazz.ibm.com:9443/rm/resources/TX_HAy_AWONEe6zFOoTqPMMWg,3861,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YZmONEe6zFOoTqPMMWg,3861,
+https://jazz.ibm.com:9443/rm/resources/BI_HCsclmONEe6zFOoTqPMMWg,3861,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87TGONEe6zFOoTqPMMWg,3861,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3HGONEe6zFOoTqPMMWg,3861,
+https://jazz.ibm.com:9443/rm/resources/TX_HAy_AGONEe6zFOoTqPMMWg,3862,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3AWONEe6zFOoTqPMMWg,3862,
+https://jazz.ibm.com:9443/rm/resources/CO_HAyX8GONEe6zFOoTqPMMWg,3863,/JKE Business Recovery Matters Project/0. README
+https://jazz.ibm.com:9443/rm/resources/TX_HAzmEWONEe6zFOoTqPMMWg,3864,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/TX_HA0NIGONEe6zFOoTqPMMWg,3865,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YVmONEe6zFOoTqPMMWg,3865,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87O2ONEe6zFOoTqPMMWg,3865,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3C2ONEe6zFOoTqPMMWg,3865,
+https://jazz.ibm.com:9443/rm/resources/BI_HCschWONEe6zFOoTqPMMWg,3865,
+https://jazz.ibm.com:9443/rm/resources/DM_HA00MWONEe6zFOoTqPMMWg,3866,/JKE Enterprise Project/UI Sketches/Parts
+https://jazz.ibm.com:9443/rm/resources/TX_HA00MGONEe6zFOoTqPMMWg,3867,/JKE Business Recovery Matters Project/User Story Elaboration/Elaborated Stories/Mobile
+https://jazz.ibm.com:9443/rm/resources/TX_HA1bQGONEe6zFOoTqPMMWg,3868,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HCsci2ONEe6zFOoTqPMMWg,3868,
+https://jazz.ibm.com:9443/rm/resources/DM_HA2CUGONEe6zFOoTqPMMWg,3869,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Mobile
+https://jazz.ibm.com:9443/rm/resources/TX_HA2pYWONEe6zFOoTqPMMWg,3870,/JKE Enterprise Project/Use Case Content/Actors
+https://jazz.ibm.com:9443/rm/resources/TX_HA2CUWONEe6zFOoTqPMMWg,3871,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3F2ONEe6zFOoTqPMMWg,3871,
+https://jazz.ibm.com:9443/rm/resources/TX_HA2pYGONEe6zFOoTqPMMWg,3872,/JKE Enterprise Project/Non Functional Requirements
+https://jazz.ibm.com:9443/rm/resources/TX_HA3QcGONEe6zFOoTqPMMWg,3873,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HCtDg2ONEe6zFOoTqPMMWg,3873,
+https://jazz.ibm.com:9443/rm/resources/TX_HA4ekGONEe6zFOoTqPMMWg,3874,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YVWONEe6zFOoTqPMMWg,3874,
+https://jazz.ibm.com:9443/rm/resources/TX_HA33gGONEe6zFOoTqPMMWg,3875,/JKE Business Recovery Matters Project/Features
+https://jazz.ibm.com:9443/rm/resources/TX_HA5FoGONEe6zFOoTqPMMWg,3876,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/TX_HA5FoWONEe6zFOoTqPMMWg,3877,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YY2ONEe6zFOoTqPMMWg,3877,
+https://jazz.ibm.com:9443/rm/resources/BI_HCsck2ONEe6zFOoTqPMMWg,3877,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87SWONEe6zFOoTqPMMWg,3877,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3GWONEe6zFOoTqPMMWg,3877,
+https://jazz.ibm.com:9443/rm/resources/TX_HA5ssWONEe6zFOoTqPMMWg,3878,/JKE Business Recovery Matters Project/Features
+https://jazz.ibm.com:9443/rm/resources/DM_HA7h4WONEe6zFOoTqPMMWg,3879,/JKE Enterprise Project/UI Sketches/Parts
+https://jazz.ibm.com:9443/rm/resources/TX_HA660GONEe6zFOoTqPMMWg,3880,/JKE Business Recovery Matters Project/Business Rules
+https://jazz.ibm.com:9443/rm/resources/TX_HA6TwGONEe6zFOoTqPMMWg,3881,/JKE Business Recovery Matters Project/Features
+https://jazz.ibm.com:9443/rm/resources/TX_HA9-IWONEe6zFOoTqPMMWg,3882,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/DM_HA9XEWONEe6zFOoTqPMMWg,3883,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches
+https://jazz.ibm.com:9443/rm/resources/TX_HA8I8WONEe6zFOoTqPMMWg,3884,/JKE Enterprise Project/Templates
+https://jazz.ibm.com:9443/rm/resources/TX_HA-lMGONEe6zFOoTqPMMWg,3885,/JKE Business Recovery Matters Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/TX_HA_zUWONEe6zFOoTqPMMWg,3886,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3FmONEe6zFOoTqPMMWg,3886,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87RmONEe6zFOoTqPMMWg,3886,
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YYGONEe6zFOoTqPMMWg,3886,
+https://jazz.ibm.com:9443/rm/resources/BI_HCsckGONEe6zFOoTqPMMWg,3886,
+https://jazz.ibm.com:9443/rm/resources/TX_HA_MQWONEe6zFOoTqPMMWg,3887,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC87NGONEe6zFOoTqPMMWg,3887,
+https://jazz.ibm.com:9443/rm/resources/TX_HBBBcGONEe6zFOoTqPMMWg,3888,/JKE Enterprise Project/Business Goals
+https://jazz.ibm.com:9443/rm/resources/TX_HBAaYGONEe6zFOoTqPMMWg,3889,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/TX_HBBogGONEe6zFOoTqPMMWg,3890,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/TX_HBC2oGONEe6zFOoTqPMMWg,3891,/JKE Business Recovery Matters Project/User Story Elaboration/Elaborated Stories
+https://jazz.ibm.com:9443/rm/resources/DM_HBCPkGONEe6zFOoTqPMMWg,3892,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches
+https://jazz.ibm.com:9443/rm/resources/TX_HBDdsGONEe6zFOoTqPMMWg,3893,/JKE Enterprise Project/Business Goals
+https://jazz.ibm.com:9443/rm/resources/TX_HBC2oWONEe6zFOoTqPMMWg,3894,/JKE Enterprise Project/Non Functional Requirements
+https://jazz.ibm.com:9443/rm/resources/DM_HBEEwWONEe6zFOoTqPMMWg,3895,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Mobile
+https://jazz.ibm.com:9443/rm/resources/TX_HBF58GONEe6zFOoTqPMMWg,3896,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/TX_HBEr0GONEe6zFOoTqPMMWg,3897,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC87I2ONEe6zFOoTqPMMWg,3897,
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YQ2ONEe6zFOoTqPMMWg,3897,
+https://jazz.ibm.com:9443/rm/resources/BI_HCscc2ONEe6zFOoTqPMMWg,3897,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE282ONEe6zFOoTqPMMWg,3897,
+https://jazz.ibm.com:9443/rm/resources/CO_HBFS4GONEe6zFOoTqPMMWg,3898,/JKE Business Recovery Matters Project/0. README
+https://jazz.ibm.com:9443/rm/resources/TX_HBHIEWONEe6zFOoTqPMMWg,3899,/JKE Business Recovery Matters Project/Business Rules
+https://jazz.ibm.com:9443/rm/resources/TX_HBIWMGONEe6zFOoTqPMMWg,3900,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3E2ONEe6zFOoTqPMMWg,3900,
+https://jazz.ibm.com:9443/rm/resources/TX_HBGhAGONEe6zFOoTqPMMWg,3901,/JKE Business Recovery Matters Project/Features
+https://jazz.ibm.com:9443/rm/resources/TX_HBHIEGONEe6zFOoTqPMMWg,3902,/JKE Business Recovery Matters Project/0. README
+https://jazz.ibm.com:9443/rm/resources/TX_HBI9QGONEe6zFOoTqPMMWg,3903,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HCschmONEe6zFOoTqPMMWg,3903,
+https://jazz.ibm.com:9443/rm/resources/TX_HBKLYGONEe6zFOoTqPMMWg,3904,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YS2ONEe6zFOoTqPMMWg,3904,
+https://jazz.ibm.com:9443/rm/resources/BI_HCsce2ONEe6zFOoTqPMMWg,3904,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87K2ONEe6zFOoTqPMMWg,3904,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE2-2ONEe6zFOoTqPMMWg,3904,
+https://jazz.ibm.com:9443/rm/resources/TX_HBKycGONEe6zFOoTqPMMWg,3905,/JKE Enterprise Project/Non Functional Requirements
+https://jazz.ibm.com:9443/rm/resources/TX_HBMAkGONEe6zFOoTqPMMWg,3906,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/TX_HBI9QWONEe6zFOoTqPMMWg,3907,/JKE Enterprise Project/0. README
+https://jazz.ibm.com:9443/rm/resources/TX_HBMnoGONEe6zFOoTqPMMWg,3908,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC87OmONEe6zFOoTqPMMWg,3908,
+https://jazz.ibm.com:9443/rm/resources/TX_HBMnoWONEe6zFOoTqPMMWg,3909,/JKE Business Recovery Matters Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/TX_HBNOsGONEe6zFOoTqPMMWg,3910,/JKE Business Recovery Matters Project/Features
+https://jazz.ibm.com:9443/rm/resources/TX_HBPq8GONEe6zFOoTqPMMWg,3911,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YZGONEe6zFOoTqPMMWg,3911,
+https://jazz.ibm.com:9443/rm/resources/BI_HCsclGONEe6zFOoTqPMMWg,3911,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87SmONEe6zFOoTqPMMWg,3911,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3GmONEe6zFOoTqPMMWg,3911,
+https://jazz.ibm.com:9443/rm/resources/DM_HBN1wGONEe6zFOoTqPMMWg,3912,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Parts
+https://jazz.ibm.com:9443/rm/resources/TX_HBN1wWONEe6zFOoTqPMMWg,3913,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC87MWONEe6zFOoTqPMMWg,3913,
+https://jazz.ibm.com:9443/rm/resources/TX_HBQ5EGONEe6zFOoTqPMMWg,3914,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/TX_HBQSAGONEe6zFOoTqPMMWg,3915,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3A2ONEe6zFOoTqPMMWg,3915,
+https://jazz.ibm.com:9443/rm/resources/TX_HBSuQWONEe6zFOoTqPMMWg,3916,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YQmONEe6zFOoTqPMMWg,3916,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87ImONEe6zFOoTqPMMWg,3916,
+https://jazz.ibm.com:9443/rm/resources/BI_HCsccmONEe6zFOoTqPMMWg,3916,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE28mONEe6zFOoTqPMMWg,3916,
+https://jazz.ibm.com:9443/rm/resources/TX_HBTVUGONEe6zFOoTqPMMWg,3917,/JKE Enterprise Project/0. README
+https://jazz.ibm.com:9443/rm/resources/TX_HBSuQGONEe6zFOoTqPMMWg,3918,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YamONEe6zFOoTqPMMWg,3918,
+https://jazz.ibm.com:9443/rm/resources/TX_HBSHMGONEe6zFOoTqPMMWg,3919,/JKE Business Recovery Matters Project/Business Rules
+https://jazz.ibm.com:9443/rm/resources/TX_HBTVUWONEe6zFOoTqPMMWg,3920,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC87UGONEe6zFOoTqPMMWg,3920,
+https://jazz.ibm.com:9443/rm/resources/TX_HBVKgWONEe6zFOoTqPMMWg,3921,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HCsch2ONEe6zFOoTqPMMWg,3921,
+https://jazz.ibm.com:9443/rm/resources/TX_HBPD4GONEe6zFOoTqPMMWg,3922,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/TX_HBUjcGONEe6zFOoTqPMMWg,3923,/JKE Business Recovery Matters Project/Features
+https://jazz.ibm.com:9443/rm/resources/TX_HBWYoGONEe6zFOoTqPMMWg,3924,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HCscl2ONEe6zFOoTqPMMWg,3924,
+https://jazz.ibm.com:9443/rm/resources/TX_HBVxkGONEe6zFOoTqPMMWg,3925,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HCschGONEe6zFOoTqPMMWg,3925,
+https://jazz.ibm.com:9443/rm/resources/CO_HBVxkWONEe6zFOoTqPMMWg,3926,/JKE Business Recovery Matters Project/0. README
+https://jazz.ibm.com:9443/rm/resources/TX_HBW_sGONEe6zFOoTqPMMWg,3927,/JKE Enterprise Project/Templates
+https://jazz.ibm.com:9443/rm/resources/TX_HBZb8GONEe6zFOoTqPMMWg,3928,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HCscjWONEe6zFOoTqPMMWg,3928,
+https://jazz.ibm.com:9443/rm/resources/TX_HBbRIGONEe6zFOoTqPMMWg,3929,/JKE Private Banking and Securities Project/Business Rules
+https://jazz.ibm.com:9443/rm/resources/TX_HBaqEWONEe6zFOoTqPMMWg,3930,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/DM_HBY04GONEe6zFOoTqPMMWg,3931,/JKE Enterprise Project/Templates
+https://jazz.ibm.com:9443/rm/resources/TX_HBb4MGONEe6zFOoTqPMMWg,3932,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YZ2ONEe6zFOoTqPMMWg,3932,
+https://jazz.ibm.com:9443/rm/resources/TX_HBcfQWONEe6zFOoTqPMMWg,3933,/JKE Business Recovery Matters Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/TX_HBdGUWONEe6zFOoTqPMMWg,3934,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC87P2ONEe6zFOoTqPMMWg,3934,
+https://jazz.ibm.com:9443/rm/resources/TX_HBeUcGONEe6zFOoTqPMMWg,3935,/JKE Business Recovery Matters Project/Business Rules
+https://jazz.ibm.com:9443/rm/resources/TX_HBfikGONEe6zFOoTqPMMWg,3936,/JKE Enterprise Project/Business Goals
+https://jazz.ibm.com:9443/rm/resources/TX_HBdGUGONEe6zFOoTqPMMWg,3937,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YTmONEe6zFOoTqPMMWg,3937,
+https://jazz.ibm.com:9443/rm/resources/BI_HCscfWONEe6zFOoTqPMMWg,3937,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE2_WONEe6zFOoTqPMMWg,3937,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87LWONEe6zFOoTqPMMWg,3937,
+https://jazz.ibm.com:9443/rm/resources/DM_HBZb8WONEe6zFOoTqPMMWg,3938,/JKE Enterprise Project/Use Case Content
+https://jazz.ibm.com:9443/rm/resources/TX_HBdtYGONEe6zFOoTqPMMWg,3939,/JKE Business Recovery Matters Project/Features
+https://jazz.ibm.com:9443/rm/resources/TX_HBe7gGONEe6zFOoTqPMMWg,3940,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/DM_HBfikWONEe6zFOoTqPMMWg,3941,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Mobile
+https://jazz.ibm.com:9443/rm/resources/TX_HBgJoWONEe6zFOoTqPMMWg,3942,/JKE Enterprise Project/Non Functional Requirements
+https://jazz.ibm.com:9443/rm/resources/TX_HBgwsGONEe6zFOoTqPMMWg,3943,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3EWONEe6zFOoTqPMMWg,3943,
+https://jazz.ibm.com:9443/rm/resources/TX_HBhXwGONEe6zFOoTqPMMWg,3944,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YX2ONEe6zFOoTqPMMWg,3944,
+https://jazz.ibm.com:9443/rm/resources/TX_HBjM8GONEe6zFOoTqPMMWg,3945,/JKE Enterprise Project/Non Functional Requirements
+https://jazz.ibm.com:9443/rm/resources/DM_HBil4WONEe6zFOoTqPMMWg,3946,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Mobile
+https://jazz.ibm.com:9443/rm/resources/TX_HBil4GONEe6zFOoTqPMMWg,3947,/JKE Enterprise Project/Use Case Content
+https://jazz.ibm.com:9443/rm/resources/TX_HBh-0GONEe6zFOoTqPMMWg,3948,/JKE Business Recovery Matters Project/Features
+https://jazz.ibm.com:9443/rm/resources/TX_HBkbEGONEe6zFOoTqPMMWg,3949,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YcmONEe6zFOoTqPMMWg,3949,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87WWONEe6zFOoTqPMMWg,3949,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3K2ONEe6zFOoTqPMMWg,3949,
+https://jazz.ibm.com:9443/rm/resources/BI_HCtDiWONEe6zFOoTqPMMWg,3949,
+https://jazz.ibm.com:9443/rm/resources/TX_HBlpMWONEe6zFOoTqPMMWg,3950,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YUGONEe6zFOoTqPMMWg,3950,
+https://jazz.ibm.com:9443/rm/resources/TX_HBkbEWONEe6zFOoTqPMMWg,3951,/JKE Enterprise Project/Business Goals
+https://jazz.ibm.com:9443/rm/resources/DM_HBlCIWONEe6zFOoTqPMMWg,3952,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Mobile
+https://jazz.ibm.com:9443/rm/resources/TX_HBneYGONEe6zFOoTqPMMWg,3953,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC87M2ONEe6zFOoTqPMMWg,3953,
+https://jazz.ibm.com:9443/rm/resources/TX_HBm3UWONEe6zFOoTqPMMWg,3954,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC87U2ONEe6zFOoTqPMMWg,3954,
+https://jazz.ibm.com:9443/rm/resources/TX_HBj0AGONEe6zFOoTqPMMWg,3955,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/DM_HBhXwWONEe6zFOoTqPMMWg,3956,/JKE Private Banking and Securities Project/Processes
+https://jazz.ibm.com:9443/rm/resources/TX_HBoFcWONEe6zFOoTqPMMWg,3957,/JKE Enterprise Project/Use Case Content
+https://jazz.ibm.com:9443/rm/resources/TX_HBneYWONEe6zFOoTqPMMWg,3958,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YSWONEe6zFOoTqPMMWg,3958,
+https://jazz.ibm.com:9443/rm/resources/BI_HCsceWONEe6zFOoTqPMMWg,3958,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87KWONEe6zFOoTqPMMWg,3958,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE2-WONEe6zFOoTqPMMWg,3958,
+https://jazz.ibm.com:9443/rm/resources/TX_HBoFcGONEe6zFOoTqPMMWg,3959,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YTGONEe6zFOoTqPMMWg,3959,
+https://jazz.ibm.com:9443/rm/resources/TX_HBqhsGONEe6zFOoTqPMMWg,3960,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HCtDh2ONEe6zFOoTqPMMWg,3960,
+https://jazz.ibm.com:9443/rm/resources/TX_HBpTkGONEe6zFOoTqPMMWg,3961,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3CmONEe6zFOoTqPMMWg,3961,
+https://jazz.ibm.com:9443/rm/resources/DM_HBpTkWONEe6zFOoTqPMMWg,3962,/JKE Enterprise Project/UI Sketches/Parts
+https://jazz.ibm.com:9443/rm/resources/TX_HBp6oGONEe6zFOoTqPMMWg,3963,/JKE Business Recovery Matters Project/Features
+https://jazz.ibm.com:9443/rm/resources/TX_HBrIwWONEe6zFOoTqPMMWg,3964,/JKE Private Banking and Securities Project/Use Case Content/Actors
+https://jazz.ibm.com:9443/rm/resources/TX_HBrIwGONEe6zFOoTqPMMWg,3965,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/TX_HBlCIGONEe6zFOoTqPMMWg,3966,/JKE Business Recovery Matters Project/User Story Elaboration/Roles - Actors
+https://jazz.ibm.com:9443/rm/resources/DM_HBqhsWONEe6zFOoTqPMMWg,3967,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches
+https://jazz.ibm.com:9443/rm/resources/TX_HBuzIGONEe6zFOoTqPMMWg,3968,/JKE Enterprise Project/Use Case Content/Actors
+https://jazz.ibm.com:9443/rm/resources/TX_HBuMEGONEe6zFOoTqPMMWg,3969,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3JWONEe6zFOoTqPMMWg,3969,
+https://jazz.ibm.com:9443/rm/resources/TX_HBsW4GONEe6zFOoTqPMMWg,3970,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC87LGONEe6zFOoTqPMMWg,3970,
+https://jazz.ibm.com:9443/rm/resources/TX_HBrv0GONEe6zFOoTqPMMWg,3971,/JKE Enterprise Project/Non Functional Requirements
+https://jazz.ibm.com:9443/rm/resources/TX_HBwBQGONEe6zFOoTqPMMWg,3972,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3FWONEe6zFOoTqPMMWg,3972,
+https://jazz.ibm.com:9443/rm/resources/TX_HBuzIWONEe6zFOoTqPMMWg,3973,/JKE Business Recovery Matters Project/Business Goals
+https://jazz.ibm.com:9443/rm/resources/TX_HBvaMGONEe6zFOoTqPMMWg,3974,/JKE Business Recovery Matters Project/Features
+https://jazz.ibm.com:9443/rm/resources/TX_HBs98GONEe6zFOoTqPMMWg,3975,/JKE Business Recovery Matters Project/0. README
+https://jazz.ibm.com:9443/rm/resources/TX_HBwBQWONEe6zFOoTqPMMWg,3976,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YRWONEe6zFOoTqPMMWg,3976,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87JWONEe6zFOoTqPMMWg,3976,
+https://jazz.ibm.com:9443/rm/resources/BI_HCscdWONEe6zFOoTqPMMWg,3976,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE29WONEe6zFOoTqPMMWg,3976,
+https://jazz.ibm.com:9443/rm/resources/TX_HBxPYGONEe6zFOoTqPMMWg,3977,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YWmONEe6zFOoTqPMMWg,3977,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87QGONEe6zFOoTqPMMWg,3977,
+https://jazz.ibm.com:9443/rm/resources/BI_HCscimONEe6zFOoTqPMMWg,3977,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3EGONEe6zFOoTqPMMWg,3977,
+https://jazz.ibm.com:9443/rm/resources/DM_HBwoUWONEe6zFOoTqPMMWg,3978,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Mobile
+https://jazz.ibm.com:9443/rm/resources/TX_HBwoUGONEe6zFOoTqPMMWg,3979,/JKE Enterprise Project/Use Case Content
+https://jazz.ibm.com:9443/rm/resources/TX_HBxPYWONEe6zFOoTqPMMWg,3980,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3CGONEe6zFOoTqPMMWg,3980,
+https://jazz.ibm.com:9443/rm/resources/TX_HBydgWONEe6zFOoTqPMMWg,3981,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/DM_HBx2cGONEe6zFOoTqPMMWg,3982,/JKE Enterprise Project/UI Sketches
+https://jazz.ibm.com:9443/rm/resources/TX_HBydgGONEe6zFOoTqPMMWg,3983,/JKE Enterprise Project/Use Case Content/Actors
+https://jazz.ibm.com:9443/rm/resources/TX_HBx2cWONEe6zFOoTqPMMWg,3984,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC87R2ONEe6zFOoTqPMMWg,3984,
+https://jazz.ibm.com:9443/rm/resources/TX_HBzroGONEe6zFOoTqPMMWg,3985,/JKE Business Recovery Matters Project/User Story Elaboration/Roles - Actors
+https://jazz.ibm.com:9443/rm/resources/TX_HB0SsGONEe6zFOoTqPMMWg,3986,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/TX_HBzroWONEe6zFOoTqPMMWg,3987,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/TX_HB05wGONEe6zFOoTqPMMWg,3988,/JKE Enterprise Project/Templates
+https://jazz.ibm.com:9443/rm/resources/TX_HB2u8GONEe6zFOoTqPMMWg,3989,/JKE Business Recovery Matters Project/User Story Elaboration/Elaborated Stories/Mobile
+https://jazz.ibm.com:9443/rm/resources/DM_HB0SsWONEe6zFOoTqPMMWg,3990,/JKE Enterprise Project/UI Sketches/Parts
+https://jazz.ibm.com:9443/rm/resources/TX_HB2H4GONEe6zFOoTqPMMWg,3991,/JKE Business Recovery Matters Project/Features/Mobile
+https://jazz.ibm.com:9443/rm/resources/TX_HB1g0GONEe6zFOoTqPMMWg,3992,/JKE Business Recovery Matters Project/Features
+https://jazz.ibm.com:9443/rm/resources/TX_HB4kIWONEe6zFOoTqPMMWg,3993,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC87IWONEe6zFOoTqPMMWg,3993,
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YQWONEe6zFOoTqPMMWg,3993,
+https://jazz.ibm.com:9443/rm/resources/BI_HCsccWONEe6zFOoTqPMMWg,3993,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE28WONEe6zFOoTqPMMWg,3993,
+https://jazz.ibm.com:9443/rm/resources/TX_HB3WAGONEe6zFOoTqPMMWg,3994,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HDE2_GONEe6zFOoTqPMMWg,3994,
+https://jazz.ibm.com:9443/rm/resources/TX_HB39EGONEe6zFOoTqPMMWg,3995,/JKE Business Recovery Matters Project/User Story Elaboration/Elaborated Stories
+https://jazz.ibm.com:9443/rm/resources/TX_HB4kIGONEe6zFOoTqPMMWg,3996,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC87QmONEe6zFOoTqPMMWg,3996,
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YXWONEe6zFOoTqPMMWg,3996,
+https://jazz.ibm.com:9443/rm/resources/BI_HCscjGONEe6zFOoTqPMMWg,3996,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3EmONEe6zFOoTqPMMWg,3996,
+https://jazz.ibm.com:9443/rm/resources/TX_HB5LMWONEe6zFOoTqPMMWg,3997,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/TX_HB5yQWONEe6zFOoTqPMMWg,3998,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3B2ONEe6zFOoTqPMMWg,3998,
+https://jazz.ibm.com:9443/rm/resources/TX_HB6ZUGONEe6zFOoTqPMMWg,3999,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YUmONEe6zFOoTqPMMWg,3999,
+https://jazz.ibm.com:9443/rm/resources/BI_HCscgWONEe6zFOoTqPMMWg,3999,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87N2ONEe6zFOoTqPMMWg,3999,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3BmONEe6zFOoTqPMMWg,3999,
+https://jazz.ibm.com:9443/rm/resources/TX_HB8OgGONEe6zFOoTqPMMWg,4000,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC87RWONEe6zFOoTqPMMWg,4000,
+https://jazz.ibm.com:9443/rm/resources/TX_HB7AYGONEe6zFOoTqPMMWg,4001,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/TX_HB8OgWONEe6zFOoTqPMMWg,4002,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HCscf2ONEe6zFOoTqPMMWg,4002,
+https://jazz.ibm.com:9443/rm/resources/TX_HB7ncGONEe6zFOoTqPMMWg,4003,/JKE Enterprise Project/Non Functional Requirements
+https://jazz.ibm.com:9443/rm/resources/TX_HB7ncWONEe6zFOoTqPMMWg,4004,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3HmONEe6zFOoTqPMMWg,4004,
+https://jazz.ibm.com:9443/rm/resources/TX_HB7AYWONEe6zFOoTqPMMWg,4005,/JKE Enterprise Project/Non Functional Requirements
+https://jazz.ibm.com:9443/rm/resources/TX_HB-DsGONEe6zFOoTqPMMWg,4006,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/DM_HB9coGONEe6zFOoTqPMMWg,4007,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Mobile
+https://jazz.ibm.com:9443/rm/resources/TX_HB_44GONEe6zFOoTqPMMWg,4008,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YRmONEe6zFOoTqPMMWg,4008,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87JmONEe6zFOoTqPMMWg,4008,
+https://jazz.ibm.com:9443/rm/resources/BI_HCscdmONEe6zFOoTqPMMWg,4008,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE29mONEe6zFOoTqPMMWg,4008,
+https://jazz.ibm.com:9443/rm/resources/TX_HB_R0GONEe6zFOoTqPMMWg,4009,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YUWONEe6zFOoTqPMMWg,4009,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87NmONEe6zFOoTqPMMWg,4009,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3BWONEe6zFOoTqPMMWg,4009,
+https://jazz.ibm.com:9443/rm/resources/BI_HCscgGONEe6zFOoTqPMMWg,4009,
+https://jazz.ibm.com:9443/rm/resources/TX_HB_R0WONEe6zFOoTqPMMWg,4010,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YbWONEe6zFOoTqPMMWg,4010,
+https://jazz.ibm.com:9443/rm/resources/TX_HB-qwGONEe6zFOoTqPMMWg,4011,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YVGONEe6zFOoTqPMMWg,4011,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87OWONEe6zFOoTqPMMWg,4011,
+https://jazz.ibm.com:9443/rm/resources/BI_HCscg2ONEe6zFOoTqPMMWg,4011,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3CWONEe6zFOoTqPMMWg,4011,
+https://jazz.ibm.com:9443/rm/resources/TX_HCBHAGONEe6zFOoTqPMMWg,4012,/JKE Enterprise Project/Use Case Content
+https://jazz.ibm.com:9443/rm/resources/TX_HB-DsWONEe6zFOoTqPMMWg,4013,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YcGONEe6zFOoTqPMMWg,4013,
+https://jazz.ibm.com:9443/rm/resources/TX_HCAf8GONEe6zFOoTqPMMWg,4014,/JKE Enterprise Project/Use Case Content
+https://jazz.ibm.com:9443/rm/resources/TX_HCCVIWONEe6zFOoTqPMMWg,4015,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0Ya2ONEe6zFOoTqPMMWg,4015,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87UWONEe6zFOoTqPMMWg,4015,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3I2ONEe6zFOoTqPMMWg,4015,
+https://jazz.ibm.com:9443/rm/resources/BI_HCtDgWONEe6zFOoTqPMMWg,4015,
+https://jazz.ibm.com:9443/rm/resources/TX_HCCVIGONEe6zFOoTqPMMWg,4016,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YV2ONEe6zFOoTqPMMWg,4016,
+https://jazz.ibm.com:9443/rm/resources/TX_HCBuEGONEe6zFOoTqPMMWg,4017,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YSmONEe6zFOoTqPMMWg,4017,
+https://jazz.ibm.com:9443/rm/resources/BI_HCscemONEe6zFOoTqPMMWg,4017,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87KmONEe6zFOoTqPMMWg,4017,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE2-mONEe6zFOoTqPMMWg,4017,
+https://jazz.ibm.com:9443/rm/resources/TX_HCBHAWONEe6zFOoTqPMMWg,4018,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3KGONEe6zFOoTqPMMWg,4018,
+https://jazz.ibm.com:9443/rm/resources/BI_HC0Yb2ONEe6zFOoTqPMMWg,4018,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87VmONEe6zFOoTqPMMWg,4018,
+https://jazz.ibm.com:9443/rm/resources/BI_HCtDhmONEe6zFOoTqPMMWg,4018,
+https://jazz.ibm.com:9443/rm/resources/TX_HCC8MGONEe6zFOoTqPMMWg,4019,/JKE Enterprise Project/Templates
+https://jazz.ibm.com:9443/rm/resources/TX_HCExYGONEe6zFOoTqPMMWg,4020,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HCscj2ONEe6zFOoTqPMMWg,4020,
+https://jazz.ibm.com:9443/rm/resources/TX_HCDjQGONEe6zFOoTqPMMWg,4021,/JKE Business Recovery Matters Project/Features
+https://jazz.ibm.com:9443/rm/resources/DM_HCFYcGONEe6zFOoTqPMMWg,4022,/JKE Enterprise Project/Processes
+https://jazz.ibm.com:9443/rm/resources/DM_HCEKUGONEe6zFOoTqPMMWg,4023,/JKE Business Recovery Matters Project/Processes
+https://jazz.ibm.com:9443/rm/resources/TX_HCH0sWONEe6zFOoTqPMMWg,4024,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/TX_HCGmkGONEe6zFOoTqPMMWg,4025,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YRGONEe6zFOoTqPMMWg,4025,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87JGONEe6zFOoTqPMMWg,4025,
+https://jazz.ibm.com:9443/rm/resources/BI_HCscdGONEe6zFOoTqPMMWg,4025,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE29GONEe6zFOoTqPMMWg,4025,
+https://jazz.ibm.com:9443/rm/resources/DM_HCGmkWONEe6zFOoTqPMMWg,4026,/JKE Enterprise Project/UI Sketches/Parts
+https://jazz.ibm.com:9443/rm/resources/TX_HCHNoGONEe6zFOoTqPMMWg,4027,/JKE Enterprise Project/Business Goals
+https://jazz.ibm.com:9443/rm/resources/DM_HCJC0WONEe6zFOoTqPMMWg,4028,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches
+https://jazz.ibm.com:9443/rm/resources/TX_HCIbwGONEe6zFOoTqPMMWg,4029,/JKE Business Recovery Matters Project/User Story Elaboration/Elaborated Stories
+https://jazz.ibm.com:9443/rm/resources/DM_HCJC0GONEe6zFOoTqPMMWg,4030,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Parts
+https://jazz.ibm.com:9443/rm/resources/TX_HCF_gGONEe6zFOoTqPMMWg,4031,/JKE Business Recovery Matters Project/Business Rules
+https://jazz.ibm.com:9443/rm/resources/DM_HCJp4GONEe6zFOoTqPMMWg,4032,/JKE Enterprise Project/Processes
+https://jazz.ibm.com:9443/rm/resources/TX_HCMtMGONEe6zFOoTqPMMWg,4033,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/TX_HCNUQGONEe6zFOoTqPMMWg,4034,/JKE Business Recovery Matters Project/Business Rules
+https://jazz.ibm.com:9443/rm/resources/TX_HCMGIWONEe6zFOoTqPMMWg,4035,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YYWONEe6zFOoTqPMMWg,4035,
+https://jazz.ibm.com:9443/rm/resources/DM_HCMGIGONEe6zFOoTqPMMWg,4036,/JKE Enterprise Project/UI Sketches/Parts
+https://jazz.ibm.com:9443/rm/resources/TX_HCKQ8GONEe6zFOoTqPMMWg,4037,/JKE Enterprise Project/Non Functional Requirements
+https://jazz.ibm.com:9443/rm/resources/TX_HCLfEGONEe6zFOoTqPMMWg,4038,/JKE Enterprise Project/Non Functional Requirements
+https://jazz.ibm.com:9443/rm/resources/TX_HCN7UGONEe6zFOoTqPMMWg,4039,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YSGONEe6zFOoTqPMMWg,4039,
+https://jazz.ibm.com:9443/rm/resources/BI_HCsceGONEe6zFOoTqPMMWg,4039,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87KGONEe6zFOoTqPMMWg,4039,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE2-GONEe6zFOoTqPMMWg,4039,
+https://jazz.ibm.com:9443/rm/resources/TX_HCNUQWONEe6zFOoTqPMMWg,4040,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YYmONEe6zFOoTqPMMWg,4040,
+https://jazz.ibm.com:9443/rm/resources/BI_HCsckmONEe6zFOoTqPMMWg,4040,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87SGONEe6zFOoTqPMMWg,4040,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3GGONEe6zFOoTqPMMWg,4040,
+https://jazz.ibm.com:9443/rm/resources/TX_HCOiYGONEe6zFOoTqPMMWg,4041,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YcWONEe6zFOoTqPMMWg,4041,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87WGONEe6zFOoTqPMMWg,4041,
+https://jazz.ibm.com:9443/rm/resources/BI_HCtDiGONEe6zFOoTqPMMWg,4041,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3KmONEe6zFOoTqPMMWg,4041,
+https://jazz.ibm.com:9443/rm/resources/TX_HCPJcWONEe6zFOoTqPMMWg,4042,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC87VGONEe6zFOoTqPMMWg,4042,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3JmONEe6zFOoTqPMMWg,4042,
+https://jazz.ibm.com:9443/rm/resources/BI_HCtDhGONEe6zFOoTqPMMWg,4042,
+https://jazz.ibm.com:9443/rm/resources/TX_HCN7UWONEe6zFOoTqPMMWg,4043,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YTWONEe6zFOoTqPMMWg,4043,
+https://jazz.ibm.com:9443/rm/resources/TX_HCPJcGONEe6zFOoTqPMMWg,4044,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/DM_HCQ-oWONEe6zFOoTqPMMWg,4045,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Mobile
+https://jazz.ibm.com:9443/rm/resources/TX_HCPwgGONEe6zFOoTqPMMWg,4046,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YR2ONEe6zFOoTqPMMWg,4046,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87J2ONEe6zFOoTqPMMWg,4046,
+https://jazz.ibm.com:9443/rm/resources/BI_HCscd2ONEe6zFOoTqPMMWg,4046,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE292ONEe6zFOoTqPMMWg,4046,
+https://jazz.ibm.com:9443/rm/resources/TX_HCPwgWONEe6zFOoTqPMMWg,4047,/JKE Private Banking and Securities Project/Use Case Content
+https://jazz.ibm.com:9443/rm/resources/DM_HCK4AGONEe6zFOoTqPMMWg,4048,/JKE Business Recovery Matters Project/Processes/Mobile
+https://jazz.ibm.com:9443/rm/resources/TX_HCSz0WONEe6zFOoTqPMMWg,4049,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3KWONEe6zFOoTqPMMWg,4049,
+https://jazz.ibm.com:9443/rm/resources/TX_HCRlsWONEe6zFOoTqPMMWg,4050,/JKE Private Banking and Securities Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/TX_HCSMwGONEe6zFOoTqPMMWg,4051,/JKE Business Recovery Matters Project/Business Goals
+https://jazz.ibm.com:9443/rm/resources/TX_HCUB8GONEe6zFOoTqPMMWg,4052,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/TX_HCTa4GONEe6zFOoTqPMMWg,4053,/JKE Business Recovery Matters Project/Features
+https://jazz.ibm.com:9443/rm/resources/TX_HCRlsGONEe6zFOoTqPMMWg,4054,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC87PWONEe6zFOoTqPMMWg,4054,
+https://jazz.ibm.com:9443/rm/resources/TX_HCV3IGONEe6zFOoTqPMMWg,4055,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC87V2ONEe6zFOoTqPMMWg,4055,
+https://jazz.ibm.com:9443/rm/resources/TX_HCUB8WONEe6zFOoTqPMMWg,4056,/JKE Enterprise Project/Business Goals
+https://jazz.ibm.com:9443/rm/resources/TX_HCVQEGONEe6zFOoTqPMMWg,4057,/JKE Business Recovery Matters Project/Business Rules
+https://jazz.ibm.com:9443/rm/resources/TX_HCWeMWONEe6zFOoTqPMMWg,4058,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YbGONEe6zFOoTqPMMWg,4058,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87UmONEe6zFOoTqPMMWg,4058,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3JGONEe6zFOoTqPMMWg,4058,
+https://jazz.ibm.com:9443/rm/resources/BI_HCtDgmONEe6zFOoTqPMMWg,4058,
+https://jazz.ibm.com:9443/rm/resources/DM_HCXFQGONEe6zFOoTqPMMWg,4059,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Parts
+https://jazz.ibm.com:9443/rm/resources/DM_HCVQEWONEe6zFOoTqPMMWg,4060,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Parts
+https://jazz.ibm.com:9443/rm/resources/DM_HCXFQWONEe6zFOoTqPMMWg,4061,/JKE Business Recovery Matters Project/User Story Elaboration/Storyboards/Mobile
+https://jazz.ibm.com:9443/rm/resources/TX_HCY6cGONEe6zFOoTqPMMWg,4062,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/TX_HCbWsGONEe6zFOoTqPMMWg,4063,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/TX_HCavoGONEe6zFOoTqPMMWg,4064,/JKE Business Recovery Matters Project/Features
+https://jazz.ibm.com:9443/rm/resources/TX_HCXsUGONEe6zFOoTqPMMWg,4065,/JKE Business Recovery Matters Project/Features/Mobile
+https://jazz.ibm.com:9443/rm/resources/TX_HCdL4GONEe6zFOoTqPMMWg,4066,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Update profile account information (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YWWONEe6zFOoTqPMMWg,4066,
+https://jazz.ibm.com:9443/rm/resources/TX_HCck0WONEe6zFOoTqPMMWg,4067,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HCscgmONEe6zFOoTqPMMWg,4067,
+https://jazz.ibm.com:9443/rm/resources/TX_HCdy8WONEe6zFOoTqPMMWg,4068,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC0YbmONEe6zFOoTqPMMWg,4068,
+https://jazz.ibm.com:9443/rm/resources/BI_HC87VWONEe6zFOoTqPMMWg,4068,
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3J2ONEe6zFOoTqPMMWg,4068,
+https://jazz.ibm.com:9443/rm/resources/BI_HCtDhWONEe6zFOoTqPMMWg,4068,
+https://jazz.ibm.com:9443/rm/resources/DM_HCaIkGONEe6zFOoTqPMMWg,4069,/JKE Business Recovery Matters Project/Processes
+https://jazz.ibm.com:9443/rm/resources/TX_HCdy8GONEe6zFOoTqPMMWg,4070,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC87Q2ONEe6zFOoTqPMMWg,4070,
+https://jazz.ibm.com:9443/rm/resources/TX_HCfoIWONEe6zFOoTqPMMWg,4071,/JKE Enterprise Project/Non Functional Requirements
+https://jazz.ibm.com:9443/rm/resources/TX_HCgPMWONEe6zFOoTqPMMWg,4072,/JKE Enterprise Project/Use Case Content/Actors
+https://jazz.ibm.com:9443/rm/resources/TX_HChdUGONEe6zFOoTqPMMWg,4073,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3ImONEe6zFOoTqPMMWg,4073,
+https://jazz.ibm.com:9443/rm/resources/TX_HCgPMGONEe6zFOoTqPMMWg,4074,/JKE Private Banking and Securities Project/Use Case Content
+https://jazz.ibm.com:9443/rm/resources/DM_HCg2QGONEe6zFOoTqPMMWg,4075,/JKE Business Recovery Matters Project/User Story Elaboration/Storyboards
+https://jazz.ibm.com:9443/rm/resources/TX_HCiEYWONEe6zFOoTqPMMWg,4076,/JKE Business Recovery Matters Project/User Story Elaboration/Elaborated Stories
+https://jazz.ibm.com:9443/rm/resources/TX_HCiEYGONEe6zFOoTqPMMWg,4077,/JKE Enterprise Project/Glossary
+https://jazz.ibm.com:9443/rm/resources/DM_HCkgoGONEe6zFOoTqPMMWg,4078,/JKE Business Recovery Matters Project/User Story Elaboration/UI Sketches/Mobile
+https://jazz.ibm.com:9443/rm/resources/TX_HCjSgWONEe6zFOoTqPMMWg,4079,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Access an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HDE3D2ONEe6zFOoTqPMMWg,4079,
+https://jazz.ibm.com:9443/rm/resources/TX_HCjSgGONEe6zFOoTqPMMWg,4080,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC87NWONEe6zFOoTqPMMWg,4080,
+https://jazz.ibm.com:9443/rm/resources/TX_HCj5kWONEe6zFOoTqPMMWg,4081,/Base Artifacts/JKE Private Banking and Securities Project/Use Case Content/_Open an account (Module Example) artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_HC87L2ONEe6zFOoTqPMMWg,4081,
+https://jazz.ibm.com:9443/rm/resources/TX_Mr_AMGONEe6zFOoTqPMMWg,4625,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_MrQncGONEe6zFOoTqPMMWg,4625,
+https://jazz.ibm.com:9443/rm/resources/TX_MuxOcGONEe6zFOoTqPMMWg,4626,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_MuRfMGONEe6zFOoTqPMMWg,4626,
+https://jazz.ibm.com:9443/rm/resources/TX_MxcH8GONEe6zFOoTqPMMWg,4627,/Base Artifacts/JKE Enterprise Project/Templates/_Use Case Module (Formal) Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_MxBRMGONEe6zFOoTqPMMWg,4627,

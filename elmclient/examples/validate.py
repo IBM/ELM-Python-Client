@@ -84,7 +84,7 @@ def do_validate(inputargs=None):
     parser_list = subparsers.add_parser('list', help='List feeds on this app' )
     parser_validate = subparsers.add_parser('validate', help='Validate a feed on this app' )
 
-    parser_validate.add_argument( 'feedid', help='The feed id - this can be an integer corresponding to the number in the list of feeds, or a unique string which matches part of or all of a feed ID or name')
+    parser_validate.add_argument( 'feedid', help='The feed id - this can be an integer corresponding to the number in the list of feeds, or a unique string (case-sensitive!) which matches part of or all of exactly one feed ID or name')
     parser_validate.add_argument('-r', '--repair', action="store_true", help="Use to automatically resolve problems encountered in the feed. Ignored if not supported by the feed.")
     parser_validate.add_argument('-s', '--resetIncrementalData', action="store_true", help="Same the web UI option. If true the system will discard past validation results and recheck the entire feed again. Otherwise, only changes since last time will be validated. This option is normally only needed if indicated so by IBM support.")
     parser_validate.add_argument('-f', '--full', action="store_true", help="Same the web UI option. If true the entire TRS feed will be checked, which takes much longer. This may return more accurate results. This does not discard past validation results, so future validations can still be incremental. If this option consistently returns different results then you may need to also reset the incremental data")

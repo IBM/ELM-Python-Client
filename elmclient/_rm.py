@@ -859,6 +859,23 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
             logger.info( f"rmtu {result=}" )
         return result
 
+#    def resolve_configname_to_uri( self, configname ):
+        # configname syntax is domain/project/component/config
+        # for example (remove the')  'rm:rm23/rm_optin_p1/rm_optin_p1 comp2/rm_optin_p1 comp2 Initial Stream'
+#        # get the query capability base URL
+#        qcbase = self.get_query_capability_uri("oslc_rm:Requirement")
+#        results = self.execute_oslc_query( qcbase, whereterms=[['and', ['dcterms:title','=',f'"{modulename}"'],['rdm_types:ArtifactFormat','=','jazz_rm:Module']]], prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms',rdfxml.RDF_DEFAULT_PREFIX["rdm_types"]:'rdm_types',rdfxml.RDF_DEFAULT_PREFIX["jazz_rm"]:'jazz_rm'})
+#        logger.debug( f"resolve_modulename_to_uri {results=}" )
+#        if len( results.keys() ) == 0:
+#            result = None
+#        else:
+#            if len( results.keys() ) > 1:
+#                raise Exception( f"More than one module named {modulename}!" )
+#            result = list(results.keys())[0]
+#            logger.info( f"rmtu {result=}" )
+#        return result
+
+
     def resolve_uri_to_reqid( self, requri ):
         pass
 

@@ -32,7 +32,7 @@ logger = logging.getLogger(__name__)
 #  For DNG You can refer to a foldername using e.g. $"folder name" - this gets converted to the URI of the folder in <> NOT EXTENSIVELY TESTED!
 #  You can refer to a user name using e.g. @"user name" - this gets converted to the server-specific URI of the user
 
-_core_oslc_grammar = """
+_core_oslc_grammar = r"""
 ?compound_term      : simple_term
                     | simple_term boolean_op compound_term                    -> do_oslcand
 
@@ -77,6 +77,7 @@ value              : URI_REF_ESC
                     | urioffoldername
                     | uriofuser
                     | uriofmodule
+                    | uriofconfig
 
 valueidentifier     : ( ( URI_REF_ESC | NAME | "'" SPACYNAME "'" ) ":" )? NAME
                     | "'" SPACYNAME "'"
@@ -89,6 +90,8 @@ URI_REF_ESC         : /<https?:.*?>/
 SPACYNAME           : /[ a-zA-Z0-9_][^']*/
 
 urioffoldername     : "$" string_esc
+
+uriofconfig         : "#" string_esc
 
 uriofuser           : "@" string_esc
 
@@ -174,6 +177,7 @@ class _ParseTreeToOSLCQuery(lark.visitors.Transformer):
         self.mapping_users = {} # contains both: key name->uri and key uri->name (uris and names never overlap)
         self.mapping_modules = {} # contains both: key name->uri and key uri->name (uris and names never overlap)
         self.mapping_projects = {} # contains both: key name->uri and key uri->name (uris and names never overlap)
+        self.mapping_configs = {} # contains both: key name->uri and key uri->name (uris and names never overlap)
 
     def where_expression(self, s):
         logger.debug( f"where_expression {s=}" )
@@ -265,7 +269,7 @@ class _ParseTreeToOSLCQuery(lark.visitors.Transformer):
             else:
                 t1 = type(value)
                 logger.info( f"t1 {value} {t1=}" )
-                if isinstance(value, str) and not value.startswith('"') and not value.startswith("'") and ':' not in value and not re.match("\d",value):
+                if isinstance(value, str) and not value.startswith('"') and not value.startswith("'") and ':' not in value and not re.match(r"\d",value):
                     # this is a valueidentifier - try to resolve it as an enum in the context of identifier
                     if self.resolverobject.resolve_enum_name_to_uri is not None:
                         result = self.resolverobject.resolve_enum_name_to_uri(value, identifier)
@@ -369,6 +373,21 @@ class _ParseTreeToOSLCQuery(lark.visitors.Transformer):
             result = "<"+uri+">"
         else:
             raise Exception( "This application doesn't support module names!" )
+        return result
+
+    def uriofconfig(self,s):
+        logger.info( f"uriofconfig {s=}" )
+        name=s[0].strip('"')
+        if self.resolverobject.resolve_configname_to_uri is not None:
+            uri = self.resolverobject.resolve_configname_to_uri(name)
+            if uri is None:
+                raise Exception( f"Config {name} not found!" )
+            logger.info( f"uriofconfig {uri=}" )
+            self.mapping_configs[name]=uri
+            self.mapping_configs[uri]=name
+            result = "<"+uri+">"
+        else:
+            raise Exception( "This application doesn't support resolving configuration names!" )
         return result
 
 #    def uriofproject(self,s):
@@ -536,7 +555,7 @@ NAME            : /[a-zA-Z0-9_][^, ]*/
 SPACYNAME           : /[a-zA-Z0-9_][^']*/
 """
 
-_orderby_grammar = """
+_orderby_grammar = r"""
 sort_terms          : sort_term ("," sort_term)*
 sort_term           : scoped_sort_terms | signedterm
 signedterm          : SIGN ( dottedname | identifier )

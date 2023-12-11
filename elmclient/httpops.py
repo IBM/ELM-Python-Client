@@ -219,7 +219,7 @@ class HttpOperations_Mixin():
         reqheaders = {}
         if headers is not None:
             reqheaders.update(headers)
-        request = self._get_post_request(str(uri), data=data, headers=reqheaders)
+        request = self._get_post_request(str(uri), data=data, params=params, headers=reqheaders)
         if put:
             request.method = "PUT"
         response = request.execute( **kwargs )
@@ -244,14 +244,19 @@ class HttpOperations_Mixin():
         response = request.execute( **kwargs )
         return response
 
-    def wait_for_tracker( self, location, *, interval=1.0, progressbar=False, msg='Waiting for tracker' ):
+    def wait_for_tracker( self, location, *, interval=1.0, progressbar=False, msg='Waiting for tracker', useJson=False, returnFinal=False ):
         verdict = None
         if progressbar:
             pbar = tqdm.tqdm(initial=0, total=100,smoothing=1,unit=" results",desc=msg)
             donelasttime=0
         while True:
-            response_x = self.execute_get_rdf_xml( location, cacheable=False, intent="Poll tracker until result shows completiom" )
-            percent = rdfxml.xmlrdf_get_resource_text( response_x, './/dng_task:percentage' )
+            if useJson:
+                response_j = self.execute_get_json( location, cacheable=False, intent="Poll tracker until result shows completiom" )
+                percent=None
+                donelasttime = 1 if donelasttime<100 else 0
+            else:
+                response_x = self.execute_get_rdf_xml( location, cacheable=False, intent="Poll tracker until result shows completiom" )
+                percent = rdfxml.xmlrdf_get_resource_text( response_x, './/dng_task:percentage' )
             if progressbar:
                 if percent is not None:
                     pbar.update(int(percent)-donelasttime)
@@ -260,19 +265,32 @@ class HttpOperations_Mixin():
                     pbar.update(donelasttime)
                 
             # check for "complete" status
-            if rdfxml.xmlrdf_get_resource_uri( response_x, ".//oslc_auto:state[@rdf:resource='http://open-services.net/ns/auto#complete']" ) is not None:
-                if rdfxml.xmlrdf_get_resource_uri( response_x, ".//oslc_auto:verdict[@rdf:resource='http://open-services.net/ns/auto#error']" ) is not None:
-                    status = rdfxml.xmlrdf_get_resource_text( response_x, ".//oslc:statusCode" ) or "NO STATUS CODE"
-                    message = rdfxml.xmlrdf_get_resource_text( response_x, ".//oslc:message" ) or "NO MESSAGE"
-                    verdict = f"{status} {message}"
-                else:
-                    verdict = response_x
-                break
+            if useJson:
+                status = response_j.get("status",None)
+                if status != "InProgress":
+                    verdict = "Completed"
+                    result = response_j
+                    break
+            else:
+                if rdfxml.xmlrdf_get_resource_uri( response_x, ".//oslc_auto:state[@rdf:resource='http://open-services.net/ns/auto#complete']" ) is not None:
+                    if rdfxml.xmlrdf_get_resource_uri( response_x, ".//oslc_auto:verdict[@rdf:resource='http://open-services.net/ns/auto#error']" ) is not None:
+                        status = rdfxml.xmlrdf_get_resource_text( response_x, ".//oslc:statusCode" ) or "NO STATUS CODE"
+                        message = rdfxml.xmlrdf_get_resource_text( response_x, ".//oslc:message" ) or "NO MESSAGE"
+                        verdict = f"{status} {message}"
+                    else:
+                        verdict = response_x
+                    result = response_x
+                    break
             time.sleep( interval )
         if progressbar:
+            pbar.update(100-donelasttime)
             pbar.close()
-        logger.info( f"Returning task tracker {verdict=}" )
-        return verdict
+        if returnFinal:
+            logger.info( f"Returning task tracker {result=}" )
+            return result
+        else:
+            logger.info( f"Returning task tracker {verdict=}" )
+            return verdict
 
     # record an action in the log
     def record_action( self, action ):
@@ -290,7 +308,6 @@ class HttpOperations_Mixin():
         return self._get_request('GET', reluri, params=params, headers=headers)
 
     def _get_post_request(self, reluri='', *, params=None, headers=None, data=None, put=False ):
-        print( f"GPR {params=}" )
         if put:
             return self._get_request('PUT', reluri, params=params, headers=headers, data=data)
         return self._get_request('POST', reluri, params=params, headers=headers, data=data)
@@ -567,7 +584,7 @@ class HttpRequest():
                 logger.trace( "WIRE: handle content-style auth redirect" )
                 # Handle content-style or Javascript-style auth redirect
                 body_content = e.response.text
-                m = re.search('AuthRedirect\((.*?)\)', body_content)
+                m = re.search(r'AuthRedirect\((.*?)\)', body_content)
                 json_string = m and m.group(1)
                 json_object = json_string and json.loads(json_string)
                 auth_url = json_object and json_object.get('redirect')

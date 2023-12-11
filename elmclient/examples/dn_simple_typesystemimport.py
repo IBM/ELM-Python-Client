@@ -5,6 +5,7 @@
 
 # example of using the type system import API
 # also see https://jazz.net/wiki/bin/view/Main/DNGTypeImport
+# assumes the changeset already exists (created manually)
 
 # the names for project/component/configs involved are hard-coded for simplicity
 

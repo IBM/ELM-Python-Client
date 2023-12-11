@@ -642,7 +642,7 @@ class _OSLCOperations_Mixin:
                 else:
                     totaltext = rdfxml.xmlrdf_get_resource_text(this_result_xml, './oslc:ResponseInfo/dcterms:title')
                     if totaltext is not None:
-                        ttm = re.search("(\d+)$", totaltext)
+                        ttm = re.search(r"(\d+)$", totaltext)
                         if ttm is not None:
                             total = int(ttm.group(1))
                         else:
@@ -651,17 +651,17 @@ class _OSLCOperations_Mixin:
                         raise Exception( "Something very odd happened - total text not found" )
 
                 # work out how many already retrieved
-                rematch = re.search("(page|pageNum)=(\d+)", query_url)
+                rematch = re.search(r"(page|pageNum)=(\d+)", query_url)
                 if rematch is not None:
                     nextpagenumber = int(rematch.group(2))
-                    psm = re.search("oslc.pageSize=(\d+)", query_url)
+                    psm = re.search(r"oslc.pageSize=(\d+)", query_url)
                     if psm is None:
                         raise Exception( "Something very odd happened - oslc.pagesize not found" )
                     ps = int(psm.group(1))
                     donesofar = (nextpagenumber - 1) * ps
                 else:
                     # 7.x way
-                    rematch1 = re.search("_startIndex=(\d+)", query_url )
+                    rematch1 = re.search(r"_startIndex=(\d+)", query_url )
                     if rematch1:
                         donesofar=int(rematch1.group(1))
                     else:

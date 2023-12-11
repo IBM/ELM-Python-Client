@@ -13,13 +13,14 @@ from . import rdfxml
 from . import oslcqueryapi
 from . import utils
 from . import httpops
+from . import _validate
 
 logger = logging.getLogger(__name__)
 
 #################################################################################################
 # a generic jazz application
 
-class _App( httpops.HttpOperations_Mixin ):
+class _App( httpops.HttpOperations_Mixin, _validate.Validate_Mixin ):
     'A generic Jazz application'
     domain = 'UNSPECIFIED APP DOMAIN'
     project_class = None

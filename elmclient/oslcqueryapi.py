@@ -814,7 +814,6 @@ class _OSLCOperations_Mixin:
 #                        print( f"{desc=}" )
 #                        print( f"{ET.tostring(desc)=}" )
 #                        print( "\n" )
-#                        burp
                         pass
                     if desc is not None:
                         # for an entry with no children, if dup and value is same then ignore it

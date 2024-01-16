@@ -55,7 +55,13 @@ class _QMProject(_project._Project, _qmrestapi.QM_REST_API_Mixin):
             # for QM, no configs to load!
             return
         elif self.singlemode:
+            
+            # xmlns:ns3="http://open-services.net/ns/core#
+            # <ns3:details ns4:resource="https://jazz.ibm.com:9443/qm/process/project-areas/_AzVy8LOJEe6f6NR46ab0Iw"/>
             logger.debug( f"{self.singlemode=}" )
+            self.singlemode=False
+            self.is_optin=False
+            return
             #get the single component from a QueryCapability
             # <oslc:QueryCapability>
             #    <oslc_config:component rdf:resource="https://mb02-calm.rtp.raleigh.ibm.com:9443/rm/cm/component/_ln_roBIOEeumc4tx0skHCA"/>
@@ -68,9 +74,8 @@ class _QMProject(_project._Project, _qmrestapi.QM_REST_API_Mixin):
 
             sx = self.get_services_xml()
             assert sx is not None, "sx is None"
-            compuri = rdfxml.xmlrdf_get_resource_uri(sx, ".//oslc:QueryCapability/oslc_config:component")
+            compuri = rdfxml.xmlrdf_get_resource_uri(sx, ".//oslc:details")
             assert compuri is not None, "compuri is None"
-
             ncomps += 1
             self._components[compuri] = {'name': self.name, 'configurations': {}, 'confs_to_load': []}
             configs = self.execute_get_xml( compuri+"/configurations", intent="Retrieve all project/component configurations (singlemode)" )
@@ -468,6 +473,43 @@ class _QMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
         if headers:
             result.update(headers)
         return result
+
+    # load the projects from the project areas XML - doesn't create any project classes, this is done later when finding a project to open
+    # this is specific to QM so that projects enabled for baselines are treated as opt-out (which means you can't query baselines!)
+    def _load_projects(self,include_archived=False,force=False):
+        if self.project_class is None:
+            raise Exception(f"projectClass has not been set on {self}!")
+        if self._projects is not None and not force:
+            return
+        logger.info( "Loading projects")
+        self._projects = {}
+        uri = rdfxml.xmlrdf_get_resource_uri(self.rootservices_xml, 'jp06:projectAreas')
+        params = {}
+        if include_archived:
+            params['includeArchived'] = 'true'
+        self.project_areas_xml = self.execute_get_xml(uri, params=params, intent="Retrieve all project area definitions" )
+        logger.debug( f"{self.project_areas_xml=}" )
+        for projectel in rdfxml.xml_find_elements(self.project_areas_xml,".//jp06:project-area" ):
+            logger.debug( f"{projectel=}" )
+            projectu = rdfxml.xmlrdf_get_resource_text(projectel,".//jp06:url")
+            projectname = rdfxml.xmlrdf_get_resource_uri(projectel,attrib='jp06:name')
+            logger.debug( f"{projectname=}" )
+            is_optin = False
+            singlemode = False
+            if self.supports_configs:
+                en = rdfxml.xmlrdf_get_resource_text(projectel,'.//jp:configuration-management-enabled')
+                is_optin = ( rdfxml.xmlrdf_get_resource_text(projectel,'.//jp:configuration-management-enabled') == "true" )
+                singlemode = ( rdfxml.xmlrdf_get_resource_text(projectel,'.//jp:configuration-management-mode') == "SINGLE" )
+                if singlemode:
+                    # for QM, treat opt-in SINGLE as opt-out
+                    is_optin = False
+                    singlemode = False
+            logger.info( f"{projectname=} {projectu=} {is_optin=} {singlemode=}" )
+
+            self._projects[projectu] = {'name':projectname, 'project': None, 'projectu': projectu, 'is_optin': is_optin, 'singlemode': singlemode }
+            self._projects[projectname] = projectu
+
+
 
     # load the typesystem using the OSLC shape resources listed for all the creation factories and query capabilities
     def load_types(self, force=False):

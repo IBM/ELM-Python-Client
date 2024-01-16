@@ -482,7 +482,6 @@ class _ParseTreeToOSLCQuery(lark.visitors.Transformer):
     def string_esc(self, s):
         logger.info( f"string_esc {s} returning {s[0].value}" )
 #        print( f"{s=}" )
-#        burp
         return s[0].value  # string literals include double quotes in the value
 
     def typedliteralstring(self, s):

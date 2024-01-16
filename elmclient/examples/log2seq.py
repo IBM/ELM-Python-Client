@@ -184,7 +184,7 @@ def decodemessage(msg):
     response = {'status': None,'headers':[], 'body':None, 'action':None }
     parts = re.search( r"\n*(?:INTENT: ([^\n]*?)\n+)?(?:(?:(GET|PUT|POST|HEAD|DELETE|POST) +(\S+)\n((?: +.*?\n)+)\n*)(?::+?=\n(.*?)\n-+?=\n)?.*?\n+Response: (\d+?)\n( .*?)\n\n(?::+?@\n(.*?)\n-+?@\n+)?)?(?:ACTION: (.*?)\n)?",msg, flags=re.DOTALL )
     if parts.group(0) == '':
-        burp
+        raise Exception( "formatting wrong!" )
 #    for l,g in enumerate(parts.groups()):
 #        print( f"{l=} {g=}" )
     request['intent'] = parts.group(1)

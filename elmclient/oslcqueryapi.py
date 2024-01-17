@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 ##
 
-
+import copy
 import logging
 import re
 import time
@@ -338,7 +338,7 @@ class _OSLCOperations_Mixin:
 #                    raise Exception( f"Very strange parse result! {step}" )
                 else:
                     # do an actual query
-                    results = self.execute_oslc_query(querycapabilityuri,whereterms=[step], select=select, prefixes=prefixes, orderbys=orderbys, searchterms=searchterms, show_progress=show_progress, maxresults=maxresults, delaybetweenpages=delaybetweenpages, pagesize=pagesize, verbose=verbose, saverawresults=saverawresults, cacheable=cacheable)
+                    results = self.execute_oslc_query(querycapabilityuri,whereterms=[step], select=select, prefixes=prefixes, orderbys=orderbys, searchterms=searchterms, show_progress=show_progress, maxresults=maxresults, delaybetweenpages=delaybetweenpages, pagesize=pagesize, verbose=verbose, saverawresults=saverawresults, cacheable=cacheable, intent="Perform OSLC Query")
                     if isinstance(results, list):
                         resultlist = {}
                         for result in results:
@@ -580,12 +580,15 @@ class _OSLCOperations_Mixin:
         params = {}
         params.update(query)
         logger.info( f"The parameters for this query are {params}" )
-
         fullurl = f"{query_url}?{urllib.parse.urlencode( params, quote_via=urllib.parse.quote, safe='/')}"
         if verbose:
             print( f"Full query URL is {fullurl}" )
+            if self.local_config:
+                params1 = copy.copy( params )
+                params1['oslc_config.context'] = self.local_config
+                fullurlparam = f"{query_url}?{urllib.parse.urlencode( params1, quote_via=urllib.parse.quote, safe='/')}"
+                print( f"FYI the query URL with local configuration is {fullurlparam}" )
             
-#        print( f"Full query URL is {fullurl}" )
         # retrieve all pages of results - they will be processed later
         total = 1
         page = 0
@@ -689,7 +692,7 @@ class _OSLCOperations_Mixin:
             if delaybetweenpages>0.0:
                 time.sleep(delaybetweenpages)
             
-            # suppress the Configuration-Context header because it seems that
+            # after the first page suppress the Configuration-Context header because it seems that
             # when that and param oslc_config.context are provided they both get added
             # to each nextpage URL which grows ever longer and eventually breaks
             # requests see https://github.com/IBM/ELM-Python-Client/discussions/44#discussioncomment-6151370

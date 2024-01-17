@@ -8,7 +8,7 @@
  
  SPDX-License-Identifier: MIT
 
- version="0.26.0"
+ version="0.26.2"
 
 What's New?
 ===========

@@ -172,9 +172,9 @@ if __name__=="__main__":
     # query for a title and for format=module
     modules = c.execute_oslc_query(
         qcbase,
-        whereterms=[['dcterms:title','=',f'"{mod}"'], ['rdm_types:ArtifactFormat','=','jazz_rm:Module']],
+        whereterms=[['dcterms:title','=',f'"{mod}"'], ['rdf:type','=','<http://jazz.net/ns/rm#Module>']],
         select=['*'],
-        prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms',rdfxml.RDF_DEFAULT_PREFIX["rdm_types"]:'rdm_types',rdfxml.RDF_DEFAULT_PREFIX["jazz_rm"]:'jazz_rm'} # note this is referest - url to prefix
+        prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms'} # note this is referest - url to prefix
         )
         
     if len(modules)==0:

@@ -295,7 +295,7 @@ class _Project(oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixin
         return result
 
     # for OSLC query, given a type URI, return its name
-    def resolve_uri_to_name(self, uri):
+    def resolve_uri_to_name(self, uri, trytouseasid=False):
         logger.debug( f"rutn {uri}" )
         if not uri:
             result = None
@@ -312,7 +312,7 @@ class _Project(oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixin
                 logger.debug( f"NOT Changed {uri} to {uri1}" )
             # use the transformed URI
             uri = uri1
-        if not uri.startswith( "http://" ) and not uri.startswith( "https://" ):
+        if not trytouseasid and not uri.startswith( "http://" ) and not uri.startswith( "https://" ):
             # not a URI so return it unmodified
             return uri
         if uri.startswith( self.reluri() ) and not self.is_known_uri(uri):
@@ -331,6 +331,14 @@ class _Project(oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixin
                 logger.debug( f"iku2" )
                 logger.info( f"{result=}" )
 #            self.register_name(result,uri)
+        elif trytouseasid:
+            # assume it's an id
+            result = self.enums.get(uri)            
+            if not result:
+                split = uri.rsplit("/",1)[-1]
+                
+                result = self.enums.get(uri.rsplit("/",1)[-1])            
+                burp
         else:
             result = self.get_uri_name(uri)
             if result is None:

@@ -78,6 +78,7 @@ value              : URI_REF_ESC
                     | uriofuser
                     | uriofmodule
                     | uriofconfig
+                    | dottedname
 
 valueidentifier     : ( ( URI_REF_ESC | NAME | "'" SPACYNAME "'" ) ":" )? NAME
                     | "'" SPACYNAME "'"

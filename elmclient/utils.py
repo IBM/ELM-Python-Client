@@ -82,6 +82,30 @@ def setup_logging( *, filelevel=logging.INFO, consolelevel=None ):
             
 ############################################################################
 
+def parsexml(file, stripnamespaces=True):
+    # instead of ET.fromstring(xml)
+    it = ET.iterparse(file)
+    for _, el in it:
+        text = (el.text or "").strip()
+        tail = (el.tail or "").strip()
+        if stripnamespaces:
+            if '}' in el.tag:
+                el.tag = el.tag.split('}', 1)[1]  # strip all namespaces
+            for at in list(el.attrib.keys()): # strip namespaces from attributes too
+                if '}' in at:
+                    newat = at.split('}', 1)[1]
+                    el.attrib[newat] = el.attrib[at]
+                    del el.attrib[at]
+        # sort the children by string
+#        print "=================\nsorting",list(el)
+        el[:] = sorted(el, key=lambda child: ET.tostring(child))
+#        print "sorted",list(el)
+    root = it.root
+    tree = ET.ElementTree(root)
+    return tree
+
+############################################################################
+
 def log_commandline( prog,args=None ):
     args = args or []
     def optquote(s):

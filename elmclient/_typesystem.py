@@ -145,7 +145,10 @@ class Type_System_Mixin():
             result = rdfxml.tag_to_uri( uri )
             logger.info( f"tag_to_uri {uri=} {result=}" )
         else:
-            raise Exception( f"Expecting a uri but this doesn't look like a URI {uri}" )
+            if exception_if_name:
+                raise Exception( f"Expecting a uri but this doesn't look like a URI {uri}" )
+            print( f"Warning: Expecting a uri but this doesn't look like a URI {uri} - assuming it's a name" )
+            result = uri
         return result
 
     def is_known_shape_uri(self,shape_uri ):
@@ -262,6 +265,9 @@ class Type_System_Mixin():
         enum_uri = self.normalise_uri( enum_uri )
         property_uri = self.normalise_uri( property_uri )
         self.enums[enum_uri] = {'name': enum_name, 'id':id, 'property': property_uri}
+        if id:
+            self.enums[id] = {'name': enum_name, 'id':id, 'property': property_uri}
+        
         self.properties[property_uri]['enums'].append(enum_uri)
         self.loaded = True
 
@@ -287,6 +293,7 @@ class Type_System_Mixin():
         for enum_uri in self.properties[property_uri]['enums']:
             if self.enums[enum_uri]['name']==enum_name:
                 result = self.enums[enum_uri]['id'] or enum_uri
+                result = enum_uri
                 break
         logger.info( f"get_enum_id {enum_name=} {property_uri=} {result=}" )
         return result

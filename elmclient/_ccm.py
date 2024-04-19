@@ -23,6 +23,20 @@ from . import utils
 
 logger = logging.getLogger(__name__)
 
+# generate a compact stacktrace of function-line-file because it's often
+# helpful to know how a function was called
+import inspect
+def callers():
+    caller_list = []
+    # get the stacktrace and do a couple of f_back-s to remove the call to this function and to the _log_request()/_log_response() function
+    frame = inspect.currentframe().f_back.f_back
+    while frame.f_back:
+        caller_list.append(
+            '{2}:{1}:{0}()'.format(frame.f_code.co_name, frame.f_lineno, frame.f_code.co_filename.split("\\")[-1]))
+        frame = frame.f_back
+    callers = ' <= '.join(caller_list)
+    return callers
+
 #################################################################################################
 
 class _CCMProject(_project._Project):
@@ -49,7 +63,6 @@ class _CCMProject(_project._Project):
 
             pbar.close()
 
-            return
         self.typesystem_loaded = True
         return None
 
@@ -236,6 +249,9 @@ class _CCMProject(_project._Project):
         if uri and uri.startswith(self.app.baseurl) and '/oslc/context/' in uri:
             return True
         return False
+
+    def resolve_uri_to_name(self, uri, trytouseasid=False):
+        return self.__super__.resolve_uri_to_name(self, uri, trytouseasid=True)
 
 #################################################################################################
 

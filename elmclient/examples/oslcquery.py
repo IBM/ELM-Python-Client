@@ -7,6 +7,7 @@
 import argparse
 import csv
 import getpass
+import io
 import json
 import logging
 import os
@@ -19,6 +20,7 @@ import time
 import urllib3
 import webbrowser
 import concurrent.futures
+import zipfile
 
 import cryptography
 import cryptography.fernet
@@ -459,10 +461,9 @@ def do_oslc_query(inputargs=None):
         if not app.has_typesystem:
             raise Exception( f"The {app.domain} application does not support application-level OSLC Queries - perhaps you meant to provide a project name using -p" )
 
-    #ensure type system is loaded
-    if args.resolvenames:
-        queryon.load_types()
-
+    #ensure type system is loaded, even if it won't be used
+    queryon.load_types()
+                                    
     if args.typesystemreport:
         # ensure output folder exists
         args.typesystemreport = os.path.abspath(args.typesystemreport)

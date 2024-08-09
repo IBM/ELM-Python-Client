@@ -26,7 +26,7 @@ Of course there are things about a query that can't be elided - you still have t
 Overview - OSLC Query
 =====================
 
-For full details on the OSLC Query specification see https://docs.oasis-open.org/oslc-core/oslc-query/v3.0/oslc-query-v3.0.html
+For full details on the OSLC Query specification see https://docs.oasis-open-projects.org/oslc-op/query/v3.0/os/oslc-query.html
 
 IBM DOORS Next (DN), Engineering Test Manager (ETM), Engineering Workflow Manager (EWM) and Global Configuration Management (GCM) have supported OSLC query for many years now.
 

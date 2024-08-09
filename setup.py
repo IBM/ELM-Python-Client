@@ -30,10 +30,10 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
     ],
     packages=["elmclient", "elmclient.examples","elmclient.tests"],
     include_package_data=True,
-#    install_requires=['CacheControl==0.12.6','anytree==2.8.0',"colorama==0.4.4","cryptography==3.4.4",'lark_parser==0.12.0','lockfile==0.12.2','lxml==4.7.1',"openpyxl == 3.0.9","python-dateutil==2.8.2", "pytz==2021.3", "requests>=2.24.0","requests_toolbelt>=0.9.1",'tqdm==4.56.2','urllib3==1.25.11', "bump2version", "twine"],
     install_requires=['CacheControl','anytree',"colorama","cryptography",'lark_parser','lockfile','lxml',"openpyxl","python-dateutil", "pytz", "requests","requests_toolbelt",'tqdm','urllib3', "bump2version", "twine",'filelock'],
     entry_points={
         "console_scripts": [

@@ -70,7 +70,7 @@ def do_oslc_query(inputargs=None):
     # setup arghandler
     parser = argparse.ArgumentParser(description="Perform OSLC query on a Jazz application, with results output to CSV (and other) formats - use -h to get some basic help")
 
-    parser.add_argument('-f', '--searchterms', action='append', default=[], help='**APPS MAY NOT FULLY SUPPORT THIS** A word or phrase to search, returning ranked results"')
+    parser.add_argument('-f', '--searchterms', action='append', default=[], help='**APPS MAY NOT FULLY SUPPORT THIS** A word or phrase to search, returning ranked results - use once for each term and oslcquery will insert the quotes and commas"')
     parser.add_argument('-n', '--null', action='append', default=[], help='Post-filter: A property that must be null (empty) for the resource to be included in the results - you can specify this option more than once')
     parser.add_argument('-o', '--orderby', default='', help='**APPS MAY NOT FULLY SUPPORT THIS** A comma-separated list of properties to sort by - prefix with "+" for ascending, "-" for descending- if -f/--searchterms is specified this orders items with the same oslc:score - to speciy a leading -, use = e.g. -o=-dcterms:title')
     parser.add_argument('-p', '--projectname', default=None, help='Name of the project - omit to run a query on the application')
@@ -80,6 +80,7 @@ def do_oslc_query(inputargs=None):
     parser.add_argument('-u', '--unique', action="store_true", help="Post-filter: Remove results with an rm_nav:parent value which are not-unique in the results on dcterms:identifier - this keeps module artifacts (which don't have rm_nav:parent) and artifacts for modules (which don't have a module artifact)) - RELEVANT ONLY FOR DOORS Next!")
     parser.add_argument('-v', '--value', action='append', default=[], help='Post-filter: A property name that must have a value for the resource to be included in the results - you can specify this option more than once')
     parser.add_argument('-A', '--appstrings', default=None, help=f'A comma-seperated list of apps, the query goes to the first entry, default "{APPSTRINGS}". Each entry must be a domain or domain:contextroot e.g. rm or rm:rm1 - Default can be set using environemnt variable QUERY_APPSTRINGS')
+    parser.add_argument('-B', '--browser', default=None, help='Save results in HTML file and open in a browser')
     parser.add_argument('-C', '--component', help='The local component (optional, you *have* to specify the local configuration using -F)')
     parser.add_argument('-D', '--delaybetweenpages', type=float,default=0.0, help="Delay in seconds between each page of results - use this to reduce overall server load particularly for large result sets or when retrieving many properties")
     parser.add_argument('-E', '--globalproject', default=None, help="The global configuration project - optional if the globalconfiguration is unique in the gcm app")
@@ -187,6 +188,7 @@ def do_oslc_query(inputargs=None):
             serverport=80
         else:
             raise Exception( "Unknown scheme in jazzurl {args.jazzurl}" )
+            
     # now try to connect
     if not server.tcp_can_connect_to_url(serverhost, serverport, timeout=2.0):
         raise Exception( f"Server not contactable {args.jazzurl}" )
@@ -643,7 +645,7 @@ def do_oslc_query(inputargs=None):
     print( f"Query result has {len(results.keys())} {resultsentries}" )
 
     # COMPARE IS UNTESTED!
-    if args.outputfile or args.compareresults:
+    if args.outputfile or args.browser or args.compareresults:
         # write to CSV and/or compare with CSV
         # FIRST merge columns with same name - this merges types across components based on name
         # which is only need for queries in a GC. NOTE this doesn't attempt to use RDF URIs which it probably should :-o
@@ -682,13 +684,33 @@ def do_oslc_query(inputargs=None):
                     v[sk1] = otherexisting if otherexisting else existing
 
         fieldnames = sorted(headings)
+        
         if args.outputfile:
+            # produce a CSV file
             with open(args.outputfile, 'w', newline='', encoding='utf-8-sig') as csvfile:
                 writer = csv.DictWriter(csvfile, fieldnames=fieldnames, restval='')
                 writer.writeheader()
                 for k, v in results.items():
                     writer.writerow(v)
                     
+        if args.browser:
+            # produce an html file and also open it in your browser
+            with open(args.browser, 'w', newline='', encoding='utf-8-sig') as htmlfile:
+                htmlfile.write( "<html><body><table><tr>")
+                for fieldname in fieldnames:
+                    htmlfile.write( f"<th>{fieldname}</th>" )
+                htmlfile.write( "</tr>" )
+                for k, v in results.items():
+                    htmlfile.write( "<tr>" )
+                    for fieldname in fieldnames:
+                        htmlfile.write( f"<td>{v.get( fieldname,"" )}</td>" )
+                    htmlfile.write( "</tr>" )
+                htmlfile.write( "</table>" )
+                htmlfile.write( "</body></html>" )
+            # display the report
+            url = f'file://{os.path.abspath(args.browser)}'
+            webbrowser.open(url, new=2)  # open in new tab
+            
         if args.saveprocessedresults:
             open(args.saveprocessedresults+"_after.json","wt").write(json.dumps(results))
 
@@ -762,7 +784,7 @@ def do_oslc_query(inputargs=None):
 #            print( f"creating {outputpath=}" )
             os.makedirs( outputpath, exist_ok=True)
     
-        # basically for RM: retrieve all the result resources (as RDF-XML) and store to one file per resource
+        # intended for RM (not sure what it will do for the other apps): retrieve all the result resources (as RDF-XML) and store to one file per resource
         unknownid = 1
         retrieved = {}
         for k in results.keys():

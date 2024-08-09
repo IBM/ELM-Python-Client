@@ -16,7 +16,7 @@
 # then you POST some basic content compliant with the shape to the factory URL
 # this must also specify the folder where you want the artifact to be created - which means you need to find the folder URL
 # folders are found using a OSLC Query capability for folders - this returns one level at a time
-# sowill likely need a series of ueries to find an existing folder
+# so will likely need a series of queries to find an existing folder
 
 import logging
 import os.path

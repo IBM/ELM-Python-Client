@@ -1066,7 +1066,7 @@ class _RMComponent(_RMProject):
 #################################################################################################
 
 @utils.mixinomatic
-class _RMApp(_app._App, _typesystem.No_Type_System_Mixin):
+class _RMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixin):
     domain = 'rm'
     project_class = _RMProject
     supports_configs = True
@@ -1115,6 +1115,40 @@ class _RMApp(_app._App, _typesystem.No_Type_System_Mixin):
         logger.info( f"rmapp_gh {result}" )
         logger.info( f"rm gh {result=}" )
         return result
+
+    # load the typesystem using the OSLC shape resources listed for all the creation factories and query capabilities
+    def load_types(self, force=False):
+        self._load_types(force)
+
+    # load the typesystem using the OSLC shape resources
+    def _load_types(self,force=False):
+        logger.debug( f"load type {self=} {force=}" )
+
+        # if already loaded, try to avoid reloading
+        if self.typesystem_loaded and not force:
+            return
+
+        self.clear_typesystem()
+
+        # get the services.xml
+        sx = self.retrieve_oslc_catalog_xml()
+        if sx:
+            shapes_to_load = rdfxml.xml_find_elements(sx, './/oslc:resourceShape')
+            print( f"{shapes_to_load=}" )
+            burp
+            
+            pbar = tqdm.tqdm(initial=0, total=len(shapes_to_load),smoothing=1,unit=" results",desc="Loading ERM/DN shapes")
+
+            for el in shapes_to_load:
+                self._load_type_from_resource_shape(el)
+                pbar.update(1)
+
+            pbar.close()
+        else:
+            raise Exception( "services xml not found!" )
+
+        self.typesystem_loaded = True
+        return None
 
     @classmethod
     def add_represt_arguments( cls, subparsers, common_args ):

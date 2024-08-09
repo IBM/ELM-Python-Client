@@ -196,13 +196,15 @@ class HttpOperations_Mixin():
         response = request.execute( **kwargs )
         return response
 
-    def execute_get_json(self, reluri, *, params=None, headers=None, **kwargs):
+    def execute_get_json(self, reluri, *, params=None, headers=None, return_etag = False, **kwargs):
         reqheaders = {'Accept': 'application/json'}
         if headers is not None:
             reqheaders.update(headers)
         request = self._get_get_request(reluri=reluri, params=params, headers=reqheaders)
         response = request.execute( **kwargs )
         result = json.loads(response.content)
+        if return_etag:
+            return (result,response.headers['ETag'])
         return result
 
     def execute_get_binary( self, reluri, *, params=None, headers=None, **kwargs):

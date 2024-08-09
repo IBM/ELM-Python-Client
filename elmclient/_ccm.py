@@ -251,7 +251,45 @@ class _CCMProject(_project._Project):
         return False
 
     def resolve_uri_to_name(self, uri, trytouseasid=False):
-        return self.__super__.resolve_uri_to_name(self, uri, trytouseasid=True)
+        logger.info( f"resolve_uri_to_name {uri=}" )
+        if not uri:
+            result = None
+            return result
+        if not uri.startswith('http://') or not uri.startswith('https://'):
+        # try to remove prefix
+            uri1 = rdfxml.tag_to_uri(uri,noexception=True)
+            logger.debug(f"Trying to remove prefix {uri=} {uri1=}")
+            if uri1 is None:
+                return uri
+            if uri1 != uri:
+                logger.debug( f"Changed {uri} to {uri1}" )
+            else:
+                logger.debug( f"NOT Changed {uri} to {uri1}" )
+            # use the transformed URI
+            uri = uri1
+        if not uri.startswith(self.app.baseurl):
+            if self.server.jts.is_user_uri(uri):
+                result = self.server.jts.user_uritoname_resolver(uri)
+                logger.debug(f"returning user")
+                return result
+            uri1 = rdfxml.uri_to_prefixed_tag(uri,noexception=True)
+            logger.debug(f"No app base URL {self.app.baseurl=} {uri=} {uri1=}")
+            return uri1
+        elif not self.is_known_uri(uri):
+            if self.server.jts.is_user_uri(uri):
+                result = self.server.jts.user_uritoname_resolver(uri)
+            else:
+                if uri.startswith( "http://" ) or uri.startswith( "https://" ):
+                    uri1 = rdfxml.uri_to_prefixed_tag(uri)
+                    logger.debug( f"Returning the raw URI {uri} so changed it to prefixed {uri1}" )
+                    uri = uri1
+                result = uri
+            # ensure the result is in the types cache, in case it recurrs the result can be pulled from the cache
+            self.register_name(result,uri)
+        else:
+            result = self.get_uri_name(uri)
+        logger.info( f"Result {result=}" )
+        return result
 
 #################################################################################################
 

@@ -555,8 +555,9 @@ class _OSLCOperations_Mixin:
             # use paging
             query_params['oslc.paging'] = 'true'
             query_params['oslc.pageSize'] = str(pagesize) if maxresults is None or ( pagesize>0 and pagesize<maxresults ) else str(maxresults)
-
-
+        else:
+            query_params['oslc.paging'] = 'false'
+        
         logger.debug(f"execute_query {query_params} {select}")
         base_uri = querycapabilityuri
         logger.info( f"The base OSLC Query URL is {base_uri}" )

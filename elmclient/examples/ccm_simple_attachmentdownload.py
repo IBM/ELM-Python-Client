@@ -14,6 +14,17 @@ import elmclient.server as elmserver
 import elmclient.utils as utils
 import elmclient.rdfxml as rdfxml
 
+# setup logging - see levels in utils.py
+#loglevel = "INFO,INFO"
+loglevel = "TRACE,OFF"
+levels = [utils.loglevels.get(l,-1) for l in loglevel.split(",",1)]
+if len(levels)<2:
+    # assert console logging level OFF if not provided
+    levels.append(None)
+if -1 in levels:
+    raise Exception( f'Logging level {loglevel} not valid - should be comma-separated one or two values from DEBUG, INFO, WARNING, ERROR, CRITICAL, OFF' )
+utils.setup_logging( filelevel=levels[0], consolelevel=levels[1] )
+
 logger = logging.getLogger(__name__)
 
 jazzhost = 'https://jazz.ibm.com:9443'

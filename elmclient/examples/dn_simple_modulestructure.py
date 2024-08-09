@@ -6,9 +6,9 @@
 # example of accessing the module structure API https://jazz.net/wiki/bin/view/Main/DNGModuleAPI
 # also see https://jazz.net/wiki/bin/view/Main/DNGModuleApiOverview
 # prints the module content with indenting corresponding to headings and calculated section number
-# NOTE NOTE NOTE the section number calculation has not been fully verified/checked - it seems to work after superficial inspection
+# NOTE NOTE NOTE the section number calculation has not been fully verified/checked - it seems to work after superficial inspection but you probably should verify its correctness yourself
 
-# provide on the commandline the id of an artifact in the same component and a new binding for it will be created in the structure - location hardcoded!
+# if you provide on the commandline the id of an artifact in the same component then a new binding for it will be created in the structure - location hardcoded!
 
 import csv
 import logging
@@ -346,7 +346,7 @@ if __name__=="__main__":
                 raise Exception( "Root not at start of structure!" )
             # toinsert is already prepared
             # get the etag
-            response,etag = c.execute_get_rdf_xml(
+            response,etag = c.execute_get_json(
                 structure_u,
                 cacheable=False,
                 headers={
@@ -394,6 +394,7 @@ if __name__=="__main__":
             
             # get the structure again afer the update
             modstructure_j = c.execute_get_json(structure_u, cacheable=False, headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'OSLC-Core-Version': None, 'Configuration-Context': None}, intent="Retrieve module structure (JSON) after update"  ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
+            print( "Structure updated - finishing now" )
             sys.exit(0)
         # scan all the entries into a dictionary keyed by the URL
         entries = {}

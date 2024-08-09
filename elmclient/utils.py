@@ -276,9 +276,10 @@ def print_in_html( rows,headings=None ):
     result = ""
     if headings is None:
         headings = []
-    colcount = max([len(row) for row in rows])
+    colcount = max([len(row) for row in rows]) if rows else 0
     # extend all the rows
-    rows = [row + ['']*(colcount-len(row)) for row in rows]
+    if rows:
+        rows = [row + ['']*(colcount-len(row)) for row in rows]
     # extend the headings
     headings += ['']*(colcount-len(headings))
     result += "<TABLE><THEADING>\n"

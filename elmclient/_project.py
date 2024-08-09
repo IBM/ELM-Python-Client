@@ -93,6 +93,7 @@ class _Project(oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixin
                 shortname +=  " (default)" if self.app.default_query_resource is not None and k==rdfxml.tag_to_uri(self.app.default_query_resource) else ""
                 rows.append( [shortname,k,app_qcdetails[k]])
             # print in a nice table with equal length columns
+            print( f"{rows=}" )
             report += utils.print_in_html(rows,['Short Name', 'URI', 'Query Capability URI'])
 
         report += "<H2>Project Queryable Resource Types, short name and URI</H2>\n"

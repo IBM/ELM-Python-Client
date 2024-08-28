@@ -54,6 +54,9 @@ except ImportError:
             termios.tcsetattr(fd, termios.TCSADRAIN, old)
 
     def kbhit():
+        if not sys.stdin.isatty():
+            return False
+
         # Save the terminal settings
         fd = sys.stdin.fileno()
         new_term = termios.tcgetattr(fd)

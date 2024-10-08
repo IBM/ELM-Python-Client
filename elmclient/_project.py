@@ -42,6 +42,7 @@ class _Project(oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixin
         self.services_uri = None
         self.appcatalog_xml = None
         self.hooks = []
+        self.configTree = None # for a walkable tree of configs, alternating baseline->stream->baseline->... - the name property is the UUID, the textname is the visible name, configURL, ismutable, children
         # copy the server from the app - this is so OSLC query can be done on either a project including component) or app
         self.server = app.server
 

@@ -797,6 +797,10 @@ def do_oslc_query(inputargs=None):
             params = {}
             try:
                 xml1 = queryon.execute_get_rdf_xml( k, params=params, intent="Retrieve resource RDF-XML" )
+            except requests.HTTPError:
+                # this happens for e.g. Attribute Type  http://www.w3.org/2001/XMLSchema#dateTime
+                print( f"Cannot retrieve URL {k} - skipped" )
+                continue
             except AttributeError:
                 try:
                     xml1 = queryon.execute_get_rdf_xml( k, params=params, intent="Retrieve resource RDF-XML" )

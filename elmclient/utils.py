@@ -330,3 +330,55 @@ def isint(s ):
     except:
         return None
     return i
+    
+############################################################################
+    
+    
+def kb_connected():
+    # this fix courtesy of wulmer avoids an exception from termios when running in Docker/container
+    # of course there's no keyboard attached when in a container, so it's anyway not possible to escape by a keypress :-(
+    if not sys.stdin.isatty():
+        return False
+    return True
+    
+try:
+    # Win32
+#    from msvcrt import getch,kbhit
+    import msvcrt
+    def getch():
+        return msvcrt.getch()
+    def kbhit():
+        result = msvcrt.kbhit()
+        return result
+except ImportError:
+    # UNIX
+    import sys
+    import tty
+    import termios
+    import atexit
+    import select
+
+    def getch():
+        fd = sys.stdin.fileno()
+        old = termios.tcgetattr(fd)
+        try:
+            tty.setraw(fd)
+            return sys.stdin.read(1)
+        finally:
+            termios.tcsetattr(fd, termios.TCSADRAIN, old)
+
+    def kbhit():
+        if not kb_connected():
+            return False
+            
+        # Save the terminal settings
+        fd = sys.stdin.fileno()
+        new_term = termios.tcgetattr(fd)
+        old_term = termios.tcgetattr(fd)
+
+        # New terminal setting unbuffered
+        new_term[3] = (new_term[3] & ~termios.ICANON & ~termios.ECHO)
+        termios.tcsetattr(fd, termios.TCSAFLUSH, new_term)
+        dr,dw,de = select.select([sys.stdin], [], [], 0)
+        termios.tcsetattr(fd, termios.TCSAFLUSH, old_term)
+        return dr != []

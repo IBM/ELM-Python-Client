@@ -54,6 +54,10 @@ except ImportError:
             termios.tcsetattr(fd, termios.TCSADRAIN, old)
 
     def kbhit():
+        # this fix courtesy of wulmer avoids an exception when running in Docker/container
+        # of course there's no keyboard attached when in a container, so it's anyway not possible to escape by a keypress :-(
+        if not sys.stdin.isatty():
+            return False
         # Save the terminal settings
         fd = sys.stdin.fileno()
         new_term = termios.tcgetattr(fd)

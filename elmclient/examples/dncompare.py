@@ -1,16 +1,16 @@
 ##
-## © Copyright 2021- IBM Inc. All rights reserved
+## © Copyright 2024- IBM Inc. All rights reserved
 # SPDX-License-Identifier: MIT
 ##
 
 #
-# use the validate API
-# NOTE this doesn't have the capabilities of the 7.0.2 ifix025+ TRS validation UI!
+# use the DN Compare API https://jazz.net/wiki/bin/view/Main/DNGReportableRestAPI#Comparison_schema_and_API
 #
 
 import argparse
 import csv
 import getpass
+import io
 import json
 import logging
 import os
@@ -23,6 +23,7 @@ import time
 import urllib3
 import webbrowser
 import concurrent.futures
+import zipfile
 
 import cryptography
 import cryptography.fernet
@@ -34,22 +35,13 @@ from elmclient import __meta__
 from elmclient import rdfxml
 from elmclient import server
 from elmclient import utils
+from elmclient import _rm
 
-
-############################################################################
-
-def isintstring(s):
-    try:
-        int(s.strip())
-        return True
-    except:
-        pass
-    return False
-
+import tqdm
 
 ############################################################################
 
-def do_validate(inputargs=None):
+def do_compare(inputargs=None):
     print( f"Version {__meta__.version}" )
     inputargs = inputargs or sys.argv[1:]
     
@@ -62,21 +54,30 @@ def do_validate(inputargs=None):
     LOGLEVEL    = os.environ.get("QUERY_LOGLEVEL"   ,None )
 
     # setup arghandler
-    parser = argparse.ArgumentParser(description="Use the Validate APU to list feed, validate a feed, get validaiton results")
+    parser = argparse.ArgumentParser(description="Perform OSLC query on a Jazz application, with results output to CSV (and other) formats - use -h to get some basic help")
 
-    # the holder for sub-parsers
-    subparsers = parser.add_subparsers(help='sub-commands',dest='subparser_name')
-
-    # main arguments
-    parser.add_argument('-A', '--appstrings', default=None, help=f'A comma-seperated list of apps, the validate API calls go to the first entry, default "{APPSTRINGS}". Each entry must be a domain or domain:contextroot e.g. rm or rm:rm1 - Default can be set using environemnt variable QUERY_APPSTRINGS')
+    parser.add_argument('projectname', default=None, help='Name of the project')
+    parser.add_argument('config1', default=None, help='Source configuration')
+    parser.add_argument('config2', default=None, help='Target configuration')
+    parser.add_argument('-A', '--appstrings', default=None, help=f'A comma-seperated list of apps, the query goes to the first entry, default "{APPSTRINGS}". Each entry must be a domain or domain:contextroot e.g. rm or rm:rm1 - Default can be set using environemnt variable QUERY_APPSTRINGS')
+    parser.add_argument('-C', '--component', help='The local component - required if component name is different from the project')
+    parser.add_argument("-I", "--include", default=None, help="Specify includeItems as a comma-separated list from: changeSets,types,folders,artifacts" )
     parser.add_argument("-J", "--jazzurl", default=JAZZURL, help=f"jazz server url (without the /jts!) default {JAZZURL} - Default can be set using environemnt variable QUERY_JAZZURL - defaults to https://jazz.ibm.com:9443 which DOESN'T EXIST")
     parser.add_argument('-L', '--loglevel', default=None,help=f'Set logging to file and (by adding a "," and a second level) to console to one of DEBUG, TRACE, INFO, WARNING, ERROR, CRITICAL, OFF - default is {LOGLEVEL} - can be set by environment variable QUERY_LOGLEVEL')
-    parser.add_argument('-N', '--noprogressbar', action="store_false", help="Don't show progress bar during query")
+    parser.add_argument('-N', '--progressbar', action="store_false", help="Don't show progress bar during query")
     parser.add_argument("-P", "--password", default=PASSWORD, help=f"user password, default {PASSWORD} - Default can be set using environment variable QUERY_PASSWORD - set to PROMPT to be asked for password at runtime")
+    parser.add_argument('-Q', '--alwayscache', action="store_true", help="Always cache everything (useful to speed up testing)")
+    parser.add_argument('-S', '--schemafile', default=None, help='Name of file to save the schema to')
     parser.add_argument('-T', '--certs', action="store_true", help="Verify SSL certificates")
     parser.add_argument("-U", "--username", default=USER, help=f"user id, default {USER} - Default can be set using environment variable QUERY_USER")
     parser.add_argument('-V', '--verbose', action="store_true", help="Show verbose info")
-    parser.add_argument('-Z', '--proxyport', default=8888, type=int, help='Port for proxy, default is 8888 - used if found to be active - set to 0 to disable')
+    parser.add_argument('-W', '--cachecontrol', action='count', default=0, help="Used once -W erases cache then continues with caching enabled. Used twice -WW wipes cache and disables caching. Otherwise caching is continued from previous run(s).")
+    parser.add_argument('-X', '--xmloutputfile', default=None, help='Name of the file to save the complete XML results to')
+    parser.add_argument('-Z', '--proxyport', default=8888, type=int, help='Port for proxy default is 8888 - used if found to be active - set to 0 to disable')
+    
+    # other options
+    parser.add_argument('--cachedays', default=7,type=int, help="The number of days for caching received data, default 7. To disable caching use -WW. To keep using a non-default cache period you must specify this value every time" )
+    parser.add_argument('--cacheable', action="store_true", help="Query results can be cached - use when you know the data isn't changing and you need faster re-run")
 
     # saved credentials
     parser.add_argument('-0', '--savecreds', default=None, help="Save obfuscated credentials file for use with readcreds, then exit - this stores jazzurl, appstring, username and password")
@@ -85,20 +86,8 @@ def do_validate(inputargs=None):
     parser.add_argument('-3', '--secret', default="N0tSeCret-", help="SECRET used to encrypt and decrypt the obfuscated credentials (make this longer for greater security) - only affects if using -0 or -1" )
     parser.add_argument('-4', '--credspassword', action="store_true", help="Prompt user for a password to save/read obfuscated credentials (make this longer for greater security)" )
 
-    # sub parsers for the validate actions
-    parser_list = subparsers.add_parser('list', help='List feeds on this app' )
-    parser_validate = subparsers.add_parser('validate', help='Validate a feed on this app' )
-
-    parser_validate.add_argument( 'feedid', help='The feed id - this can be an integer corresponding to the number in the list of feeds, or a unique string (case-sensitive!) which matches part of or all of exactly one feed ID or name')
-    parser_validate.add_argument('-f', '--full', action="store_true", help="Same the web UI option. If true the entire TRS feed will be checked, which takes much longer. This may return more accurate results. This does not discard past validation results, so future validations can still be incremental. If this option consistently returns different results then you may need to also reset the incremental data")
-    parser_validate.add_argument('-i', '--resetIncrementalData', action="store_true", help="Same the web UI option. If true the system will discard past validation results and recheck the entire feed again. Otherwise, only changes since last time will be validated. This option is normally only needed if indicated so by IBM support.")
-    parser_validate.add_argument('-r', '--repair', action="store_true", help="Use to automatically resolve problems encountered in the feed. Ignored if not supported by the feed.")
-
     args = parser.parse_args(inputargs)
-    
-#    print( f"{args=}" )
 
-    # common code with oslcquery to do credentials etc.
     if args.erasecreds:
         # read the file to work out length
         contentlen = len(open(args.erasecreds,"rb").read())
@@ -145,8 +134,6 @@ def do_validate(inputargs=None):
 
     # do a basic check that the target server is in fact running, this way we can give a clear error message
     # to do this we have to get the host and port number from args.jazzurl
-
-    # first work out the hostname and port
     urlparts = urllib.parse.urlsplit(args.jazzurl)
     if ':' in urlparts.netloc:
         serverhost,serverport = urlparts.netloc.rsplit(":",1)
@@ -185,6 +172,11 @@ def do_validate(inputargs=None):
     if args.proxyport != 0:
         server.setupproxy(args.jazzurl,proxyport=args.proxyport)
 
+    if args.cachedays <1:
+        raise Exception( "--cachedays must be >=1" )
+    # monkey-patch the cache duration
+    server.CACHEDAYS = args.cachedays
+
     # approots has keys of the domain and values of the context root
     approots = {}
     allapps = {} #keyed by domain
@@ -201,80 +193,142 @@ def do_validate(inputargs=None):
     if 'jts' not in approots:
         approots['jts']='jts'
 
-    # create our "server"
-    theserver = server.JazzTeamServer(args.jazzurl, args.username, args.password, verifysslcerts=args.certs, jtsappstring=f"jts:{approots['jts']}" )
+    # setup for caching
+    cachefolder = ".web_cache"
 
-    # create all our apps (there will be a main app, the main reason for allowing more than one is when gc is needed)
+    # create our "server"
+    theserver = server.JazzTeamServer(args.jazzurl, args.username, args.password, verifysslcerts=args.certs, jtsappstring=f"jts:{approots['jts']}", cachingcontrol=args.cachecontrol, cachefolder=cachefolder, alwayscache=args.alwayscache )
+
+    # create all our apps (there will be a main app which is specified by the first appstrings value, the main reason for allowing more than one is when gc is needed)
     for appdom,approot in approots.items():
         allapps[appdom] = theserver.find_app( f"{appdom}:{approot}", ok_to_create=True )
 
     # get the main app - it's the one we're going to query - it was first in args.appstring
-    print( f"Working with the Validate API for {themaindomain}" )
     app = allapps[themaindomain]
     config = None
 
-    # now take whatever action
-    if args.subparser_name == 'list':
-        # https://jazz.net/rm/doc/scenario?id=GetTrsFeeds
-        jsonresults = app.listFeeds()
-#        print( f"{jsonresults=}" )
-        for i,feed in enumerate(jsonresults):
-#            print( f"{feed=}" )
-            print( f"{i} Id: '{feed['id']}' name: '{feed['name']}' Description: '{feed['description']}' URL: '{feed['url']}' Supports repair: '{feed['supportsRepair']}'" )
-        pass
-    elif args.subparser_name == 'validate':
-        # https://jazz.net/rm/doc/scenario?id=InitiateTrsValidation
+    if not app.supports_components:
+        raise Exception( f"App {app} doesn't support components!" )
         
-        # get the list of feeds from the validate API :-)
-        feeds = app.listFeeds()
+    # find the project
+    p = app.find_project(args.projectname)
+    if p is None:
+        print( f"Project '{args.projectname}' not found! Available projects are:" )
+        projlist = app.list_projects()
+        for p in projlist:
+            print( f"  '{p}'" )
+        raise Exception( f"Project '{args.projectname}' not found")
         
-        # work out what the feedid matches
-        # an integer is the number in the list (0-based)
-        if isintstring( args.feedid ):
-            feedid = int( args.feedid )
-            if feedid < 0 or feedid > len(feeds):
-                raise Exception( f"Invalid feed number {feedid}" )
-            theid = feeds[feedid]['id']
-            name = feeds[feedid]['name']
-            print( f"Using list entry {feedid} which has {theid=} and {name=}" )
-#            print( f"Validating feed '{theid}' '{feeds[feedid]['name']}'" )
-#            theid = feeds[id]['id']
-        # or try to match a string against the feed IDs or names - zero or >1 match is an error!
-        else:
-            matches = 0
-            firstid = -1
-            for id,f in enumerate( feeds ):
-                if args.feedid in f['id']:
-                    matches += 1
-                    firstid = id
-                if args.feedid in f['name']:
-                    matches += 1
-                    firstid = id
+    if not p.is_optin and not p.singlemode:
+        raise Exception( "Project must be opt-in!" )
+        
+    # assert default for the component name to be the same as the project name
+    # this might need to be done more intelligently, to handle e.g. when the default component has been archived
+    if args.component is None:
+        args.component = args.projectname
                     
-            # now check for 0 or >1 matches
-            if matches == 0:
-                raise Exception( f"No id or name contains '{args.feedid}'" )
-            if matches > 1:
-                raise Exception( f"id '{args.feedid}' matches more than one id or name" )
-            theid = feeds[firstid]['id']
-            print( f"Validating feed '{theid}' '{feeds[firstid]['name']}'" )
+    p.load_components_and_configurations()
         
-        result = app.validate( theid, repair=args.repair, resetIncrementalData=args.resetIncrementalData, full=args.full )
-#        print( f"{result=}" )
-        summary = result.get('summary',{})
-        additionalCount = summary.get('additionalCount',-1)
-        missingCount = summary.get('missingCount',-1)
-        repairCount = summary.get('repairCount',-1)
-        
-        print( f"Results: {additionalCount=} {missingCount=} {repairCount=}" )
+    if args.component:
+        c = p.find_local_component(args.component)
+        if not c:
+            print( f"Component '{args.component}' not found in project {args.projectname} - Available components are:" )
+            complist = p.list_components()
+            for c in complist:
+                print( f"  '{c}'" )
+            raise Exception( f"Component '{args.component}' not found in project {args.projectname}" )
     else:
-        raise Exception( f"Action {args.subparser_name} not recognized" )
+        raise Exception( "NO COMPONENT" )
 
-    return 0
+    ########################################################
+    # use the comparison API
+    # need to find the source and target urls, and the includeItems
+    
+    c.load_configs()
+
+    # find src and dest configs
+    config_s = c.get_local_config( args.config1 )
+    if not config_s:
+        raise Exception( f"Source config {args.config1} not found!" )
+        
+    config_d = c.get_local_config( args.config2 )
+    if not config_d:
+        raise Exception( f"Target config {args.config2} not found!" )
+        
+    if config_d == config_s:
+        raise Exception( "Both configurations are the same!" )
+
+    # call the compare API
+    # https://server.ip:9443/rdm/publish/diff?sourceConfigUri=XXX&targetConfigUri=YYYY
+    compurl = p.reluri( "publish/diff" )
+    params={'sourceConfigUri': config_s, 'targetConfigUri': config_d }
+    
+    # check the includeItems
+    includeItems = [ "changeSets", "types", "folders", "artifacts" ]
+    if args.include:
+        items = args.include.split( "," )
+        for item in items:
+            if item not in includeItems:
+                raise Exception( f"include value {item} isn't in {includeItems}" )
+        # add includeItems to the query parameters
+        params["includeItems"] = args.include
+        
+    allresults_x = None
+    nread = 0
+
+    if args.progressbar:
+        pbar =  tqdm.tqdm(total=100)
+        pbarcreated=True
+    else:
+        pbar = contextlib.nullcontext()
+        pbarcreated=False
+
+    with pbar:
+        # repeat until no more pages
+        while compurl:
+            results = p.execute_get_rdf_xml( compurl, params=params, headers=None, return_etag = False, return_headers=False)
+            # show the results
+            tree = results.getroot()
+            # get the link for the next page (if present)
+            if tree.get( "rel","" ) == "next":
+                compurl = tree.get("href",None)
+            else:
+                compurl = None
+            # and ensure we don't provide params when fetching the next page - everything necessary is included in the href
+            params = None
+            # find the total count
+            total = int(tree.get("{http://www.ibm.com/xmlns/rrm/1.0/}totalCount", 0 ))
+            if allresults_x is None:
+                allresults_x = tree
+                nread += total
+            else:
+                for child in tree:
+                    allresults_x.append( child )
+                    nread += 1
+                # update the totalcount
+                allresults_x.set( "{http://www.ibm.com/xmlns/rrm/1.0/}totalCount",str(nread) )
+            if pbarcreated is None:
+                pbar = tqdm.tqdm(initial=nread, total=total,smoothing=1,unit=" results",desc="Artifacts changed")
+                pbarcreated = True
+            else:
+                pbar.update(total)
+        if pbarcreated:
+            pbar.close()
+            
+    if args.xmloutputfile:
+        print( f"Saving results to {args.xmloutputfile}" )
+        open( args.xmloutputfile, "wb" ).write( ET.tostring( allresults_x ) )
+
+    if args.schemafile:
+        print( f"Retrieving schema to {args.schemafile}" )
+        # get the schema
+        schema_x = p.execute_get_rdf_xml( p.reluri( "publish/comparisons?metadata=schema"))
+        # save to file
+        open( args.schemafile, "wb" ).write( ET.tostring( schema_x ) )
 
 def main():
     runstarttime = time.perf_counter()
-    do_validate(sys.argv[1:])
+    do_compare(sys.argv[1:])
     elapsedsecs = time.perf_counter() - runstarttime
     print( f"Runtime was {int(elapsedsecs/60)}m {int(elapsedsecs%60):02d}s" )
 

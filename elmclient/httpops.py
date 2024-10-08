@@ -101,6 +101,23 @@ def getcookievalue( cookies, cookiename, defaultvalue=None):
     print( f"Not found {cookiename}" )
     return defaultvalue
 
+#######################################################################################
+# find a Link url from a page response Link header
+def findbasepagelink( linkheader, rel ):
+    if not linkheader:
+        return None
+    segs = linkheader.split( ", " )
+    for seg in segs:
+        if rel in seg:
+            linkseg = seg.split( "; " )[0]
+            if linkseg==rel:
+                return None
+            link = linkseg[1:-1]
+            if not link:
+                return None
+            return link
+    return None
+
 ##############################################################################################
 
 class _FormParser(html.parser.HTMLParser):
@@ -141,7 +158,8 @@ class HttpOperations_Mixin():
         return result
 
     # this can also return a tuple including the etag if you will need it to update the artifact
-    def execute_get_rdf_xml(self, reluri, *, params=None, headers=None, return_etag = False, **kwargs):
+    # handles response with a Link header to optionally accumulate the linked pages into one result, or to warn that there are Link headers
+    def execute_get_rdf_xml(self, reluri, *, params=None, headers=None, return_etag = False, return_headers=False, merge_linked_pages=False, warn_linked_pages=True, **kwargs):
         if params is None:
             params = {}
         reqheaders = {'Accept': 'application/rdf+xml', 'OSLC-Core-Version': '2.0'}
@@ -150,8 +168,35 @@ class HttpOperations_Mixin():
         request = self._get_get_request(reluri=reluri, params=params, headers=reqheaders)
         response = request.execute( **kwargs )
         result = ET.ElementTree(ET.fromstring(response.content))
+        result_x = result.getroot()
+        # check for Link header in response
+        nextpagelink = response.headers.get( "Link" )
+        if nextpagelink:
+            if not merge_linked_pages:
+                if warn_linked_pages:
+                    print( f"Warning unused Link header in response for {response.url} link is {nextpagelink}" )
+            else:
+                # loop picking up the linked pages
+                while True:
+                    nextpageurl = findbasepagelink( nextpagelink,'rel="next"' )
+#                    print( f"Getting linked page {nextpageurl}" )
+                    if not nextpageurl:
+#                        print( "Finished Links" )
+                        break
+                    nextpagerequest = self._get_get_request(reluri=nextpageurl, params=params, headers=reqheaders)
+                    nextpageresponse = nextpagerequest.execute( **kwargs )
+                    nextpageresult = ET.ElementTree(ET.fromstring(response.content))
+                    nextpageresult_x = nextpageresult.getroot()
+                    # merge these results into the main response
+                    result_x.extend( list( nextpageresult_x ) )
+                    nextpagelink = nextpageresponse.headers.get( "Link" )
+                    
+        if return_headers:
+            return (result,response.headers)
+            
         if return_etag:
             return (result,response.headers['ETag'])
+
         return result
 
     # assumes you included the If-Match: ETag header!
@@ -325,7 +370,6 @@ class HttpRequest():
             paramstring = f"?{urllib.parse.urlencode( params, quote_via=urllib.parse.quote, safe='/')}"
         else:
             paramstring = ""
-#        self._req = requests.Request( verb,uri, params=params, headers=headers, data=data )
         self._req = requests.Request( verb,uri+paramstring, headers=headers, data=data )
         self._session = session
 
@@ -339,7 +383,7 @@ class HttpRequest():
     def _execute_request( self, *, no_error_log=False, close=False, cacheable=True, **kwargs ):
         for wait_dur in [2, 5, 10, 0]:
             try:
-                if not cacheable:
+                if not self._session.alwayscache and not cacheable:
                     # add a header so the response isn't cached
                     self._req.headers['Cache-Control'] = "no-store, max-age=0"
                 result = self._execute_one_request_with_login( no_error_log=no_error_log, close=close, **kwargs)
@@ -505,7 +549,7 @@ class HttpRequest():
         if close:
             request.headers['Connection'] = 'close'
         else:
-            request.headers['Connection'] = 'keep-alive'
+            request.headers['Connection'] = 'Keep-Alive'
 
         # this is for generic API debugging to be able to remove any parameter before it's actually sent!
         if remove_parameters:
@@ -705,7 +749,7 @@ class HttpRequest():
     def _authorize(self, auth_url):
         username, password = self.get_user_password(auth_url)
         data = {'j_username': username, 'j_password': password}
-        headers = {'Content-Type': 'application/x-www-form-urlencoded', 'Connection': 'keep-alive', 'Referer': auth_url}
+        headers = {'Content-Type': 'application/x-www-form-urlencoded', 'Connection': 'Keep-Alive', 'Referer': auth_url}
         try:
             # JAS authentication uses a post
             request = requests.Request("POST",str(auth_url), headers=headers, data=data)

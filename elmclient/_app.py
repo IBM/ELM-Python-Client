@@ -104,6 +104,11 @@ class _App( httpops.HttpOperations_Mixin, _validate.Validate_Mixin ):
             return True
         return False
 
+    def is_server_uri( self, uri ):
+        if uri and uri.startswith(self.baseurl):
+            return True
+        return False        
+
     # return an absolute URL for a url relative to this app
     # NOTE if reluri has a leading / this will be relative to the serverhostname:port
     # i.e. the app context root will be removed.

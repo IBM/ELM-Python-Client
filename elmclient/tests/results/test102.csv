@@ -1,7 +1,7 @@
 ﻿$uri,Contributor,Created On,Creator,Identifier,Modified On,Primary Text,Title,http://jazz.net/ns/acp#accessControl,http://jazz.net/ns/rm/navigation#parent,http://open-services.net/ns/config#component,http://www.ibm.com/xmlns/rdm/rdf/module,http://www.ibm.com/xmlns/rdm/types/ArtifactFormat,oslc:instanceShape
-https://jazz.ibm.com:9443/rm/resources/TX_5pRGWZw5Ee63PvTfmprzHg,https://jazz.ibm.com:9443/jts/users/ibm,2023-12-16T17:38:23.417Z,https://jazz.ibm.com:9443/jts/users/ibm,3167,2023-12-16T17:38:23.417Z,"<div xmlns=""http://www.w3.org/1999/xhtml"">
-<p id=""_1389358123398"">	Hardware Limitations</p>
-</div>",Hardware Limitations,rp1:_5V2bEZw5Ee63PvTfmprzHg,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts,rp0:_5d6x8Zw5Ee63PvTfmprzHg,,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_5m4gx5w5Ee63PvTfmprzHg,https://jazz.ibm.com:9443/jts/users/ibm,2023-12-16T17:38:23.417Z,https://jazz.ibm.com:9443/jts/users/ibm,3167,2023-12-16T17:38:23.417Z,"<div xmlns=""http://www.w3.org/1999/xhtml"">
-<p id=""_1389358123398"">	Hardware Limitations</p>
-</div>",Hardware Limitations,rp1:_5V2bEZw5Ee63PvTfmprzHg,,rp0:_5d6x8Zw5Ee63PvTfmprzHg,2979,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/TX_pXVwoKACEe67KIG0GI4apw,https://jazz.ibm.com:9443/jts/users/ibm,2023-12-21T13:12:54.578Z,https://jazz.ibm.com:9443/jts/users/ibm,3167,2023-12-21T13:12:54.578Z,"<div xmlns=""http://www.w3.org/1999/xhtml"">
+<p id=""_1389357809938"">	Introduction</p>
+</div>",Introduction,rp1:_pOKmgKACEe67KIG0GI4apw,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,rp0:_pSLj0KACEe67KIG0GI4apw,,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_pZfFsaACEe67KIG0GI4apw,https://jazz.ibm.com:9443/jts/users/ibm,2023-12-21T13:12:54.578Z,https://jazz.ibm.com:9443/jts/users/ibm,3167,2023-12-21T13:12:54.578Z,"<div xmlns=""http://www.w3.org/1999/xhtml"">
+<p id=""_1389357809938"">	Introduction</p>
+</div>",Introduction,rp1:_pOKmgKACEe67KIG0GI4apw,,rp0:_pSLj0KACEe67KIG0GI4apw,2983,http://jazz.net/ns/rm#Text,Heading

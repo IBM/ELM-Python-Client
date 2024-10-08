@@ -127,7 +127,7 @@ def tcp_can_connect_to_url(host, port, timeout=5):
 # caching control =0 for full caching, 1 to wipe the cache then use caching, 2 to wipe cache and disable caching
 
 class JazzTeamServer( httpops.HttpOperations_Mixin ):
-    def __init__(self, serverhostport, user, password, jtsappstring='jts', verifysslcerts=True, appstring=None, cachingcontrol=0, cachefolder=CACHE_FOLDER):
+    def __init__(self, serverhostport, user, password, jtsappstring='jts', verifysslcerts=True, appstring=None, cachingcontrol=0, cachefolder=CACHE_FOLDER, alwayscache=False):
         logger.info( f"Creating server {appstring=} {jtsappstring=} {verifysslcerts=} {cachingcontrol=}" )
         self.verifysslcerts = verifysslcerts
         self.username = user
@@ -143,13 +143,15 @@ class JazzTeamServer( httpops.HttpOperations_Mixin ):
         self.apps = []
         self._session = None
         self._csrfid = 0
-
+        self.alwayscache = alwayscache
+        
         # setup the session
         self._session = JazzTeamServer.__get_client(user, password,cachingcontrol=cachingcontrol, cachefolder=self.cachefolder)
         self._session.verify = verifysslcerts
         self._session.auto_retry = self.auto_retry
         self._session.cachingcontrol = self.cachingcontrol # 0=caching, 1=wipe cache then cache, 2= no caching
-
+        self._session.alwayscache = self.alwayscache
+        
         if not hasattr(self._session,'is_authenticated'):
             self._session.is_authenticated = False
 

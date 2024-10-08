@@ -20,9 +20,13 @@ RDF_DEFAULT_PREFIX = {
     'dcterms':          'http://purl.org/dc/terms/',
     'dng_reqif':        'http://jazz.net/ns/rm/dng/reqif#',
     'dng_task':         'http://jazz.net/ns/rm/dng/task#',      # only for task tracker
+    'dng_trs':          "http://jazz.net/ns/rm/dng/trs#", # for trs
+    'dng_types':        'http://jazz.net/ns/rm/dng/types#',
+    "ds":               "http://jazz.net/xmlns/alm/rm/datasource/v0.1", # for reportable rest
     'foaf':             'http://xmlns.com/foaf/0.1/',
     'gc':               'http://jazz.net/ns/globalconfig#',
     'jazz_rm':          'http://jazz.net/ns/rm#',
+    'jazz_idp':         "http://jazz.net/ns/jazz/idp#", # for trs
     'jfs':              'http://jazz.net/xmlns/prod/jazz/jfs/1.0/',
     'jp':               'http://jazz.net/xmlns/prod/jazz/process/1.0/',
     'jp06':             'http://jazz.net/xmlns/prod/jazz/process/0.6/',
@@ -59,6 +63,8 @@ RDF_DEFAULT_PREFIX = {
     'rqm':              'http://jazz.net/xmlns/prod/jazz/rqm/qm/1.0/',
     'rrm':              'http://www.ibm.com/xmlns/rrm/1.0/', # For RR
     'rtc_cm':           "http://jazz.net/xmlns/prod/jazz/rtc/cm/1.0/",
+    'trs':              "http://open-services.net/ns/core/trs#", # for trs
+    'trspatch':         "http://open-services.net/ns/core/trspatch#", # for trs
     'xhtml':            'http://www.w3.org/1999/xhtml',
     'xml':              'http://www.w3.org/XML/1998/namespace',
     'xsd':              'http://www.w3.org/2001/XMLSchema#',
@@ -81,12 +87,15 @@ def addprefix(prefix,uri,prefix_map=RDF_DEFAULT_PREFIX):
 
 # find single element matching element_xpath, and checks them for any subelement matching condition_xpath and if condition_value is specified then also matching it
 # exception if more than 1 match!
-def xml_find_element(xml, element_xpath, condition_xpath=None, condition_value=None, strip=True, prefix_map=RDF_DEFAULT_PREFIX):
+def xml_find_element( xml, element_xpath, condition_xpath=None, condition_value=None, strip=True, prefix_map=RDF_DEFAULT_PREFIX, exceptionifnotfound=False ):
     results = xml_find_elements(xml, element_xpath, condition_xpath=condition_xpath, condition_value=condition_value, strip=strip, prefix_map=prefix_map)
     if len(results) > 0:
         if len(results) > 1:
             raise Exception(f"Multiple results when single result expected! {results}")
         return results[0]
+    # no result!
+    if exceptionifnotfound:
+        raise Exception( f"No result looking for {element_xpath} in {ET.tostring( xml )}" )
     return None
 
 # find all elements matching element_xpath, and checks them for any subelement matching condition_xpath and if condition_value is specified then also matching it
@@ -98,7 +107,7 @@ def xml_find_element(xml, element_xpath, condition_xpath=None, condition_value=N
 # or if no condition_value is specified then the element is added to results
 
 def xml_find_elements(xml, element_xpath, condition_xpath=None, condition_value=None, strip=True,
-                      prefix_map=RDF_DEFAULT_PREFIX):
+                      prefix_map=RDF_DEFAULT_PREFIX, exceptionifnotfound=False):
     elements = xml.findall(element_xpath, prefix_map)
     def eq(left, right):
         if strip and left and right:
@@ -148,11 +157,14 @@ def xml_find_elements(xml, element_xpath, condition_xpath=None, condition_value=
                         break
     else:
         results = list(elements)
-
+        
+    if not results and exceptionifnotfound:
+        raise Exception( f"No results looking for {element_xpath} in {ET.tostring( xml )}" )
+        
     return results
 
 # finds first element using xpath and returns (in order of preference) its rdf attrib, rdf:resource, rdf:about, or text
-def xmlrdf_get_resource_uri(xml, xpath=None, prefix_map=RDF_DEFAULT_PREFIX,attrib=None):
+def xmlrdf_get_resource_uri(xml, xpath=None, prefix_map=RDF_DEFAULT_PREFIX,attrib=None, exceptionifnotfound=False):
     if xml is None:
         return None
     r = xml.find(xpath, prefix_map) if xpath else xml
@@ -169,15 +181,19 @@ def xmlrdf_get_resource_uri(xml, xpath=None, prefix_map=RDF_DEFAULT_PREFIX,attri
         result = r.text
         if result:
             return result
+    if exceptionifnotfound:
+        raise Exception( f"xmlrdf_get_resource_uri no text found for {xpath}" )           
     return None
 
 
 # finds first element using xpath and return its text value
-def xmlrdf_get_resource_text(xml, xpath, prefix_map=RDF_DEFAULT_PREFIX):
+def xmlrdf_get_resource_text(xml, xpath, prefix_map=RDF_DEFAULT_PREFIX, exceptionifnotfound=False):
     r = xml.find(xpath, prefix_map)
     if r is not None:
         result = r.text
         return result
+    elif exceptionifnotfound:
+        raise Exception( f"xmlrdf_get_resource_text no text found for {xpath}" )
     return None
 
 

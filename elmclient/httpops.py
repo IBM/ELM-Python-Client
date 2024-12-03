@@ -722,17 +722,23 @@ class HttpRequest():
             auth_url_response = self._session.get(str(auth_url))  # Load up them cookies!
             self.log_redirection_history( auth_url_response, intent="JAS Authorize step 3",donotlogbody=True )
             if auth_url_response.status_code == 200:
-                login_url = auth_url_response.url  # Take the redirected URL and login action URL
-                logger.debug( f"1 {login_url=}" )
-                if auth_url != login_url:
-                    content_text = to_text(auth_url_response)
-                    #                 print content
-                    auth_form_parser = _FormParser()
-                    auth_form_parser.feed(content_text)
-                    if auth_form_parser.action:
-                        login_url = urllib.parse.urljoin(login_url, auth_form_parser.action)
-                        logger.debug( f"2 {login_url=}" )
-                self._authorize(login_url)
+                if True:
+                    # use basic auth - 3iii in https://jazz.net/wiki/bin/view/Main/NativeClientAuthentication
+                    username, password = self.get_user_password(auth_url)
+                    auth_url_response = self._session.get( str(auth_url), auth=(username, password) )  # Load up them cookies!
+                else:
+                    # use form auth
+                    login_url = auth_url_response.url  # Take the redirected URL and login action URL
+                    logger.debug( f"1 {login_url=}" )
+                    if auth_url != login_url:
+                        content_text = to_text(auth_url_response)
+                        #                 print content
+                        auth_form_parser = _FormParser()
+                        auth_form_parser.feed(content_text)
+                        if auth_form_parser.action:
+                            login_url = urllib.parse.urljoin(login_url, auth_form_parser.action)
+                            logger.debug( f"2 {login_url=}" )
+                    self._authorize(login_url)
         else:
             logger.error('''Something about JSA OIDC login has changed since this script was written. I can no longer determine where to authorize myself.''')
             raise Exception("Authorize not possible (1)")

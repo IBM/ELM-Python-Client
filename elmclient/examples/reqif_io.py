@@ -36,6 +36,9 @@ import elmclient.server as server
 import elmclient._app as _app
 import elmclient.utils as utils
 
+# disable caching completely
+cachecontrol=2
+
 ############################################################################
 
 def reqif_main():
@@ -71,7 +74,7 @@ def reqif_main():
     parser.add_argument("-P", "--password", default=PASSWORD, help=f"User password default '{PASSWORD}' - can be set using env variable OUERY_PASSWORD - set to PROMPT to be prompted at runtime")
     parser.add_argument('-T', '--certs', action="store_true", help="Verify SSL certificates")
     parser.add_argument("-U", "--username", default=USER, help="User id - can be set using environment variable QUERY_USER")
-    parser.add_argument('-W', '--cachecontrol', action='count', default=0, help="Used once -W erases cache then continues with caching enabled. Used twice -WW wipes cache and disables caching. Otherwise caching is continued from previous run(s).")
+#    parser.add_argument('-W', '--cachecontrol', action='count', default=0, help="Used once -W erases cache then continues with caching enabled. Used twice -WW wipes cache and disables caching. Otherwise caching is continued from previous run(s).")
     parser.add_argument('-Z', '--proxyport', default=8888, type=int, help='Port for proxy default is 8888 - used if found to be active - set to 0 to disable')
 
     # saved credentials
@@ -206,7 +209,7 @@ def reqif_main():
         approots['jts']='jts'
 
     # create our "server"
-    theserver = server.JazzTeamServer(args.jazzurl, args.username, args.password, verifysslcerts=args.certs,appstring=f"jts:{approots['jts']}",cachingcontrol=args.cachecontrol)
+    theserver = server.JazzTeamServer(args.jazzurl, args.username, args.password, verifysslcerts=args.certs,appstring=f"jts:{approots['jts']}",cachingcontrol=cachecontrol)
 
     # create all our apps
     for appdom,approot in approots.items():
@@ -440,7 +443,7 @@ def reqif_main():
 
             # execute post content
             logger.info('Uploading package {ifile}...')
-            response = queryon.execute_post_content(pkg_factory_u, data=body, headers={'Content-Type': content_type, 'userMimeType': 'application/zip', 'filename':os.path.basename(ifile),'Accept': '*/*','X-Requested-With': None,'Origin': 'https://jazz.ibm.com:9443', 'OSLC-Core-Version': None}, intent="Initiate reqif export " )
+            response = queryon.execute_post_content(pkg_factory_u, data=body, headers={'Content-Type': content_type, 'userMimeType': 'application/zip', 'filename':os.path.basename(ifile),'Accept': '*/*','X-Requested-With': None,'Origin': 'https://jazz.ibm.com:9443', 'OSLC-Core-Version': None}, intent="Initiate reqif import - upload the reqif file" )
 
             print( f"Triggering import for {os.path.basename(ifile)}" )
 
@@ -465,7 +468,7 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
 </rdf:RDF>"""
 
             logger.debug( f"{content=}" )
-            response = queryon.execute_post_rdf_xml( import_factory_u, data=content, cacheable=False, headers={'net.jazz.jfs.owning-context': queryon.project_uri, 'OSLC-Core-Version': None}, intent="Initiate reqif import" )
+            response = queryon.execute_post_rdf_xml( import_factory_u, data=content, cacheable=False, headers={'net.jazz.jfs.owning-context': queryon.project_uri, 'OSLC-Core-Version': None}, intent="Initiate reqif import of the uploaded file" )
             logger.debug( f" {response.status_code=} {response=}" )
             location = response.headers.get('Location')
             if response.status_code == 202 and location is not None:

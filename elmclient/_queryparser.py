@@ -244,7 +244,7 @@ class _ParseTreeToOSLCQuery(lark.visitors.Transformer):
 
     def term(self, s):
         # if RHS (or for in any of the items in RHS list) is a valueidentifier without a prefix, this uses the lhs to resolve the valueidentifier, i.e. as context for attribute value names
-        # or if RHS is an untyped literal then LHS is used to appy ^^type:name to it to make it a typedliteral
+        # or if RHS is an untyped literal then LHS is used to apply ^^type:name to it to make it a typedliteral
         # check if first elem is a property identifier, and if so see if value(s) are identifiers if so resolve them in context of the first identifier (e.g. for enum values)
         logger.info( f"Term {type(s)} {s}" )
         identifier, op, value = s
@@ -539,10 +539,11 @@ class _ParseTreeToOSLCQuery(lark.visitors.Transformer):
 
 # from https://tools.oasis-open.org/version-control/svn/oslc-core/trunk/specs/oslc-core.html#selectiveProperties
 # with slight tweaks to implement identifier
+# NOTE that for oslc.select NAME can be terminated by { or } to allow for nested properties
 _select_grammar  ="""
 select_terms    : properties
 properties      : property ("," property)*
-property        : dottedname | identifier | wildcard | nested_prop
+property        : dottedname | nested_prop | identifier | wildcard 
 dottedname      : NAME "." NAME
 nested_prop     : (identifier | wildcard) "{" properties "}"
 wildcard        : "*"
@@ -551,7 +552,7 @@ identifier     : ( ( URI_REF_ESC | NAME | "'" SPACYNAME "'" ) ":" )? NAME
                     | "'" SPACYNAME "'"
 
 URI_REF_ESC     : /<https?:.*>/
-NAME            : /[a-zA-Z0-9_][^, ]*/
+NAME            : /[a-zA-Z0-9_][^, {}]*/
 SPACYNAME           : /[a-zA-Z0-9_][^']*/
 """
 
@@ -583,13 +584,17 @@ class _ParseTreeToOSLCOrderBySelect(lark.visitors.Transformer):
         self.prefixes = {} # prefixes used (will have to be added to oslc.prefix) - NOTE the key is the uri, the value is the prefix!
 
     def select_terms(self,s):
+        logger.info( f"select_terms {s=} {s[0]=}" )
         return s[0]
 
     def select_term(self,s):
+        logger.info( f"select_term {s=} {s[0]=}" )
         return s
 
     def nested_prop( self,s):
+        logger.info( f"nested_prop {s=} {s[0]=}" )
         result = s[0]+"{"+",".join(s[1])+"}"
+        logger.info( f"nested_prop {result=}" )
         return result
 
     def wildcard(self,s):
@@ -623,15 +628,18 @@ class _ParseTreeToOSLCOrderBySelect(lark.visitors.Transformer):
         logger.info( f"identifier {s=} {s[0]=}" )
         if len(s) == 1:
             resultname = s[0].value
+            logger.info( f"{resultname=}" )
         elif len(s) > 1:
             # a prefixed name
             resultname = ":".join([s[0].value, s[1].value])
             if s[0].value in rdfxml.RDF_DEFAULT_PREFIX:
                 self.prefixes[rdfxml.RDF_DEFAULT_PREFIX[s[0].value]]=s[0].value
+                logger.info( f"Added prefix {s[0].value=}" )
             else:
                 raise Exception( f"Prefix in orderby '{s[0].value}' not found!" )
         # look it up and if necessary store to mapping
         if ":" not in resultname:
+            logger.info( "storing {resultname=}" )
             if self.resolverobject.resolve_property_name_to_uri is not None:
                 result1 = self.resolverobject.resolve_property_name_to_uri(resultname)
                 if result1 is None:
@@ -647,6 +655,7 @@ class _ParseTreeToOSLCOrderBySelect(lark.visitors.Transformer):
             # a prefixed name is assumed to be usable directly (the prefix has been added to prefixes)
             prefix = resultname.split( ":",1 )[0]
             self.prefixes[rdfxml.RDF_DEFAULT_PREFIX[prefix]] = prefix
+            logger.info( f"Added prefix {prefix=}" )
             result = resultname
         logger.info( f"identifier1 {result=}" )
         return result

@@ -8,10 +8,16 @@
  
  SPDX-License-Identifier: MIT
 
- version="0.26.2"
+ version="0.27.0"
 
 What's New?
 ===========
+
+02-Dec-2024
+* Added examples dncompare, validate, trsreader (this is VERY UNFINISHED!) - see the code in the examples folder
+* Fixed oslcquery working from a specific config using -F
+* Fixed oslcquery when trying to select a scoped attribute like `oslc:rm:uses{dcterms:identifier}` wasn't working - note that DN doesn't appear to support retreiving primary text of all artifacts in a module using `oslc:rm:uses{jazz_rm:primaryText}` - text isn't returned
+* Some (unfinished!) internal preparation for demonstrator of the new in 7.1 type query capability https://jazz.net/wiki/bin/view/Main/DNGTypeAPI
 
 11-Dec-2023
 * Added _validate.py to provide the Validate API, available on all apps (may need to restrict this to just ccm/gc/qm/rm?)
@@ -153,40 +159,29 @@ This code provides examples of using various ELM APIs:
 
 * DN
 
-** Process - `elmclient`
-
-** OSLC including OSLC Query - `oslcquery.py` for user use, internally `oslcqueryapi.py` implements OSLC Query parsing and querying
-
-** Module Structure - `dn_simple_modulestructure.py` - currently external to `elmclient`
-
-** ReqIF - `reqif_io.py` - currently reqif API is external to `elmclient`
-
-** Reportable REST (incomplete for qm and ccm) - `represt.py` for user use, internally for each application in `_rm.py`, `_ccm.py`, `_qm.py` 
-
+  * Process - `elmclient`
+  * OSLC including OSLC Query - `oslcquery.py` for user use, internally `oslcqueryapi.py` implements OSLC Query parsing and querying
+  * Module Structure - `dn_simple_modulestructure.py` - currently external to `elmclient`
+  * ReqIF - `reqif_io.py` - currently reqif API is external to `elmclient`
+  * Reportable REST (incomplete for qm and ccm) - `represt.py` for user use, internally for each application in `_rm.py`, `_ccm.py`, `_qm.py` 
 
 * ETM
 
-** Process - `elmclient`
-
-** OSLC including OSLC Query - `oslcquery.py` for user use, internally `oslcqueryapi.py` implements OSLC Query parsing and querying
-
-** Reportable REST (incomplete for qm and ccm) - `represt.py` for user use, internally for each application in `_rm.py`, `_ccm.py`, `_qm.py` 
-
+  * Process - `elmclient`
+  * OSLC including OSLC Query - `oslcquery.py` for user use, internally `oslcqueryapi.py` implements OSLC Query parsing and querying
+  * Reportable REST (incomplete for qm and ccm) - `represt.py` for user use, internally for each application in `_rm.py`, `_ccm.py`, `_qm.py` 
 
 * EWM
 
-** Process - `elmclient`
-
-** OSLC including OSLC Query - `oslcquery.py` for user use, internally `oslcqueryapi.py` implements OSLC Query parsing and querying
-
-** Reportable REST (incomplete for qm and ccm) - `represt.py` for user use, internally for each application in `_rm.py`, `_ccm.py`, `_qm.py` 
+  * Process - `elmclient`
+  * OSLC including OSLC Query - `oslcquery.py` for user use, internally `oslcqueryapi.py` implements OSLC Query parsing and querying
+  * Reportable REST (incomplete for qm and ccm) - `represt.py` for user use, internally for each application in `_rm.py`, `_ccm.py`, `_qm.py` 
 
 
 * GCM
 
-** Process - `elmclient`
-
-** OSLC including OSLC Query - `oslcquery.py` for user use, internally `oslcqueryapi.py` implements OSLC Query parsing and querying
+  * Process - `elmclient`
+  * OSLC including OSLC Query - `oslcquery.py` for user use, internally `oslcqueryapi.py` implements OSLC Query parsing and querying
 
 
 Reporting issues, and contributing

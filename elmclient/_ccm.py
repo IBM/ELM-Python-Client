@@ -252,6 +252,7 @@ class _CCMProject(_project._Project):
 
     def resolve_uri_to_name(self, uri, trytouseasid=False):
         logger.info( f"resolve_uri_to_name {uri=}" )
+#        return self.__super__.resolve_uri_to_name(self, uri, trytouseasid=True)
         if not uri:
             result = None
             return result

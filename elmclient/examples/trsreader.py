@@ -6,13 +6,17 @@
 #
 # Read and process TRS base and changelog pages
 #
-# NOTE: UNFINISHED WORK IN PROGRESS!
+#################################################
+#################################################
+# NOTE: VERY VERY UNFINISHED WORK IN PROGRESS!
+#################################################
+#################################################
 #
 # NOTE this requires that your user has the license trs_consumer assigned, which allows access to the TRS.
 #  __DON'T__ reassign a license from lqe_user to yourself because then LQE will stop working!
 #
 # If you have the trs license you can access all the content in the TRS,
-# BUT note that the TRS basically contains URLs pointing at e.g. DOORS Next resources, so there are no text of artifacts, etc., but you can say that a resource is in a certain configuration
+# BUT note that the TRS basically contains URLs pointing at e.g. DOORS Next resources, so there is no text of artifacts, etc., but you can say that a resource is in a certain configuration
 # AND note that retrieving the data from DOORS Next is constrained by the access right of your user
 #
 

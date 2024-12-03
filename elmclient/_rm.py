@@ -516,6 +516,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                     thisconfu = confmember.get("{%s}resource" % rdfxml.RDF_DEFAULT_PREFIX["rdf"])
                     self._confs_to_load.append(thisconfu)
 #                    print( f"   Adding {thisconfu=}" )
+#                    print( f"   Now {self._confs_to_load=}" )
 
             # maybe it's got configuration(s)
             confmembers_x = list( set( rdfxml.xml_find_elements(configs_xml, './/oslc_config:Configuration') + rdfxml.xml_find_elements(configs_xml, './/oslc_config:Stream') + rdfxml.xml_find_elements(configs_xml, './/oslc_config:Baseline') + rdfxml.xml_find_elements(configs_xml, './/oslc_config:ChangeSet') ) )
@@ -541,7 +542,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                 created = rdfxml.xmlrdf_get_resource_uri(confmember_x, './dcterms:created', exceptionifnotfound=True)
 #                print( f"{conftitle=}" )
 #                print( f"{created=}" )
-                if confmember_x.tag == '{http://open-services.net/ns/config#}Changeset':
+                if confmember_x.tag == '{http://open-services.net/ns/config#}ChangeSet':
                     conftype = "ChangeSet"
                     ischangeset=True
                 elif confmember_x.tag == '{http://open-services.net/ns/config#}Baseline':
@@ -624,6 +625,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
 
     def get_local_config(self, name_or_uri, global_config_uri=None):
         logger.info( f"GLC {self=} {name_or_uri=}" )
+#        print( f"GLC {self=} {name_or_uri=} {global_config_uri=}" )
         if global_config_uri:
             # gc and local config both specified - try to avoid loading all the local configs by using the gc tree to locate the local config
             gc_contribs = self.get_gc_contributions(global_config_uri)
@@ -650,12 +652,15 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                 filter="ChangeSet"
                 name_or_uri = name_or_uri[2:]
             for cu, cd in self._configurations.items():
+#                print( f"{cu=} {cd=}" )
                 if filter and cd['conftype'] != filter:
                     continue
                 if cu == name_or_uri or cd['name'] == name_or_uri:
                     if result:
                         raise Exception( f"Config {name_or_uri} isn't unique - you could try prefixing it with S: for stream, B: for baseline, or C: for changeset")
                     result = cu
+#        print( f"GLC {result} {self=} {name_or_uri=}" )
+                    
         return result
 
     def list_configs( self ):

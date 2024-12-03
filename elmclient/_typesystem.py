@@ -293,7 +293,7 @@ class Type_System_Mixin():
         for enum_uri in self.properties[property_uri]['enums']:
             if self.enums[enum_uri]['name']==enum_name:
                 result = self.enums[enum_uri]['id'] or enum_uri
-                result = enum_uri
+#                result = enum_uri # this makes ccm queries for e.g. rc:cm:type=Defect not work - ccm doens't like getting a URI - # unfortunately I can't remember why I added this line :-(
                 break
         logger.info( f"get_enum_id {enum_name=} {property_uri=} {result=}" )
         return result

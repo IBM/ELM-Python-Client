@@ -107,7 +107,7 @@ class _QMProject(_project._Project, _qmrestapi.QM_REST_API_Mixin):
 
             components_uri = rdfxml.xmlrdf_get_resource_uri(cmsp_xml, './/rdf:Description/rdf:type[@rdf:resource="http://open-services.net/ns/core#QueryCapability"]/../oslc:resourceType[@rdf:resource="http://open-services.net/ns/config#Component"]/../oslc:queryBase')
             logger.info( f"{components_uri=}" )
-            print( f"{components_uri=}" )
+#            print( f"{components_uri=}" )
             # get all components
             crx = self.execute_get_xml( components_uri, intent="Retrieve component definition" )
             logger.info( f"{crx=}" )

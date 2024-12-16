@@ -396,6 +396,7 @@ class HttpRequest():
                 passdetails = apass.split( ":", 1 )
                 if len( passdetails ) < 2:
                     # no : so give up
+                    break
                 if appcr.startswith( f"/{passdetails[0]}" ):
                     # found it!
                     return passdetails[1]

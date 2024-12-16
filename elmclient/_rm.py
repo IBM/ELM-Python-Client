@@ -25,8 +25,15 @@ from . import oslcqueryapi
 from . import rdfxml
 from . import server
 from . import utils
+from . import _newtypesystem
 
-
+# used for OSLC Query on types
+typeresources = {
+    'http://jazz.net/ns/rm/dng/types#ArtifactType':        ('ArtifactType'       ,'OT'),
+    'http://jazz.net/ns/rm/dng/types#AttributeDefinition': ('AttributeDefinition','AD'),
+    'http://jazz.net/ns/rm/dng/types#AttributeType':       ('AttributeType'      ,'AT'),
+    'http://jazz.net/ns/rm/dng/types#LinkType':            ('LinkType'           ,'LT'),
+}
 
 
 #################################################################################################
@@ -275,6 +282,15 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
 
     def delete_folder( self, name_or_uri ):
         raise Exception( "Folder delete not implemented! Left as an exercise for the user" )
+        
+    def _get_headers(self, headers=None):
+        logger.info( f"rmp gh {headers=}" )
+        result = super()._get_headers()
+#        result['net.jazz.jfs.owning-context'] = self.baseurl
+        if headers:
+            result.update(headers)
+        logger.info( f"rmp gh {result=}" )
+        return result
 
     def load_components_and_configurations(self,force=False, cacheable=True):
         if self._components and not force:
@@ -487,11 +503,11 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
         self._components[compu]['component'] = c
         return c
 
-    def load_configs(self, cacheable=True):
+    def load_configs(self, cacheable=True ):
         logger.debug( f"Loading configs {self._confs_to_load=}" )
         # load configurations
         # and build a tree with initial baseline as root, alternating baseline and stream nodes each with a list of children, so it can be walked if needed
-        self.configTree = anytree.AnyNode(name='theroot',textname='root', created=None, typesystem=None, ismutable=False, ischangeset=False )
+        self.configTree = anytree.AnyNode(name='theroot',title='root', created=None, typesystem=None, ismutable=False, ischangeset=False )
         confstoparent = []
         while True:
             if not self._confs_to_load:
@@ -545,6 +561,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                 if confmember_x.tag == '{http://open-services.net/ns/config#}ChangeSet':
                     conftype = "ChangeSet"
                     ischangeset=True
+                    ismutable=True
                 elif confmember_x.tag == '{http://open-services.net/ns/config#}Baseline':
                     conftype = "Baseline"
                 elif confmember_x.tag == '{http://open-services.net/ns/config#}Stream' or rdfxml.xmlrdf_get_resource_uri( confmember_x,'.//rdf:type[@rdf:resource="http://open-services.net/ns/config#Stream"]') is not None:
@@ -568,7 +585,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
 #                    print( f"Adding {conftitle}" )
                     self._configurations[thisconfu] = {
                                                         'name': conftitle
-                                                        , 'conftype': conftype
+                                                        ,'conftype': conftype
                                                         ,'confXml': confmember_x
                                                         ,'created': created
                                                     }
@@ -592,7 +609,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                 else:
                     # need to find the parent to attach to
                     # create the node - if we don't attach it now we'll attach it later - typesystem is set to None so if needed this can be filled in later.
-                    thisnode = anytree.AnyNode( None, name=thisconfu,textname=conftitle, created=created, typesystem=None ) #TypeSystem(conftitle, thisconfu), ismutable=ismutable, ischangeset=ischangeset )
+                    thisnode = anytree.AnyNode( None, name=thisconfu, title=conftitle, conftype=conftype, created=created, typesystem=_newtypesystem.TypeSystem(conftitle, thisconfu), ismutable=ismutable ) #TypeSystem(conftitle, thisconfu), ismutable=ismutable, ischangeset=ischangeset )
                     if parentnode is None:
                         # do this one later
                         confstoparent.append( ( thisnode, theparent_u ) )
@@ -619,8 +636,63 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                     newconfstoparent.append( (node,parent) )
             confstoparent = newconfstoparent
 
-#        # show the config tree
-#        print( f"tree= {anytree.RenderTree(self.configTree, style=anytree.AsciiStyle())}" )
+
+    def load_configtree( self, *, fromconfig_u=None, loadbaselines=False, followsubstreams=False, loadchangesets=False, alwayscaching=False ):
+        # show the config tree
+        print( f"tree= {anytree.RenderTree(self.configTree, style=anytree.AsciiStyle())}" )
+        print( f"{self.configTree=}" )
+        print( f"{self.configTree.children=}" )
+        if not fromconfig_u:
+            fromconfig_u = self.configTree.children[0].name
+            print( f"{fromconfig_u=}" )
+        startnode = anytree.search.find( self.configTree, filter_=lambda n: n.name==fromconfig_u )
+
+        for conf in anytree.iterators.preorderiter.PreOrderIter( startnode ):
+            # load the typesystem for this node
+            if conf is None or conf.name is None or not conf.name.startswith( 'http'):
+    #            print( f"Ignoring {conf}" )
+                continue
+            if conf.conftype == "Changeset" and not loadchangesets:
+                continue
+            if conf.conftype == "Baseline":
+                if not loadbaselines and not followsubstreams and conf.name != fromconfig_u:
+                    # remember the substreams and come back to load them
+                    continue
+                if not loadbaselines:
+                    continue
+                
+            print( f"------------------------------\n'{conf.title}' {conf.ismutable=} {conf.created} {conf.name}" )
+#            print( f"{conf.children=}" )
+            self.set_local_config(conf.name)
+    #        continue
+            # GET the typesystem - caching is determinded by ismutable
+    #typeresources = {
+    #    'http://jazz.net/ns/rm/dng/types#ArtifactType':        ('ArtifactType'       ,'OT'),        
+            for resourcetype,typedetails in typeresources.items():
+                # QUERY to get the types
+    #            print( f"Getting {typedetails[0]} {typedetails[1]=}" )
+#                print( f"{alwayscaching or not conf.ismutable=}" )
+                results = self.do_complex_query( resourcetype, querystring=None, select="*",show_progress=False,cacheable=alwayscaching or not conf.ismutable )
+    #            print( f"{results=}" )
+                for k,v in results.items():
+    #                print( f"  result {k=} {v=}" )
+                    if not self.app.is_server_uri( k ):
+                        # ignore non-local references
+#                        print( f"Ignoring non-local {typedetails[1]} {k}" )
+                        continue
+                    if typedetails[1]=='OT':
+                        # find the attributes and record them
+                        conf.typesystem.load_ot( self, k, iscacheable=alwayscaching or not conf.ismutable, isused=True )
+                    elif typedetails[1]=='AD':
+                        conf.typesystem.load_ad( self, k, iscacheable=alwayscaching or not conf.ismutable, isused=False )
+                    elif typedetails[1]=='AT':
+#                        print( f"Loading AT {k=}" )
+                        conf.typesystem.load_at( self, k, iscacheable=alwayscaching or not conf.ismutable, isused=False )
+                    elif typedetails[1]=='LT':
+#                        print( f"Loading LT {k=}" )
+                        conf.typesystem.load_lt( self, k, iscacheable=alwayscaching or not conf.ismutable, isused=False )
+                    else:
+                        raise Exception( f"Unkown type {typedetails[1]}" )
 
 
     def get_local_config(self, name_or_uri, global_config_uri=None):
@@ -863,7 +935,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                     # retrieve the definition
                     resource_xml = self.execute_get_rdf_xml(reluri=uri, intent="Retrieve type RDF to get its name")
                     # check for a rdf label (used for links, maybe other things)
-                    id = rdfxml.xmlrdf_get_resource_text(resource_xml,".//rdf:Property/rdfs:label") or rdfxml.xmlrdf_get_resource_text(resource_xml,".//oslc:ResourceShape/dcterms:title") or rdfxml.xmlrdf_get_resource_text(resource_xml,f'.//rdf:Description[@rdf:about="{uri}"]/rdfs:label')
+                    id = rdfxml.xmlrdf_get_resource_text(resource_xml,".//rdf:Property/rdfs:label") or rdfxml.xmlrdf_get_resource_text(resource_xml,".//oslc:ResourceShape/dcterms:title") or rdfxml.xmlrdf_get_resource_text(resource_xml,f'.//rdf:Description[@rdf:about="{uri}"]/rdfs:label') or rdfxml.xmlrdf_get_resource_text(resource_xml,f'.//dng_types:LinkType/rdfs:label')
                     if id is None:
                         id = f"STRANGE TYPE {uri}"
                         raise Exception( f"No type for {uri=}" )
@@ -1193,14 +1265,15 @@ class _RMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
         self.version = rdfxml.xmlrdf_get_resource_text(self.rootservices_xml,'.//oslc_rm_10:version')
         self.majorversion = rdfxml.xmlrdf_get_resource_text(self.rootservices_xml,'.//oslc_rm_10:majorVersion')
 #        self.reportablerestbase = 'publish'
-        self.default_query_resource = None # RM doesn't provide any app-level queries
+        self.rmcmServiceProviders = "oslc:details"
+        self.default_query_resource = 'http://open-services.net/ns/config#Configuration' # pre-7.1 RM didn't provide any app-level queries
 
         logger.info( f"Versions {self.majorversion} {self.version}" )
 
     def _get_headers(self, headers=None):
         logger.info( f"rm gh {headers=}" )
         result = super()._get_headers()
-        result['net.jazz.jfs.owning-context'] = self.baseurl
+#        result['net.jazz.jfs.owning-context'] = self.baseurl
         if headers:
             result.update(headers)
         logger.info( f"rmapp_gh {result}" )
@@ -1233,7 +1306,7 @@ class _RMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
         sx = self.retrieve_oslc_catalog_xml()
         if sx:
             shapes_to_load = rdfxml.xml_find_elements(sx, './/oslc:resourceShape')
-            print( f"{shapes_to_load=}" )
+#            print( f"{shapes_to_load=}" )
 
             pbar = tqdm.tqdm(initial=0, total=len(shapes_to_load),smoothing=1,unit=" results",desc="Loading ERM/DN shapes")
 
@@ -1247,6 +1320,62 @@ class _RMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
 
         self.typesystem_loaded = True
         return None
+
+    # RM has to find app-wide query capabilities differently from ETM/GCM - the XML with the QueryCapability is in the component RDF
+    # see https://jazz.net/wiki/bin/view/Main/DNGOSLCConfigurationQueryCapabilityOverview
+    def retrieve_rm_cm_service_provider_xml(self):
+        cm_service_provider_uri = rdfxml.xmlrdf_get_resource_uri( self.rootservices_xml, self.cmServiceProviders )
+        rdfcomponent = self.execute_get_rdf_xml( cm_service_provider_uri, intent="Retrieve application CM Service Provider" )
+        rm_cm_service_provider_uri = rdfxml.xmlrdf_get_resource_uri( rdfcomponent, f".//{self.rmcmServiceProviders}" )
+        rdf = self.execute_get_rdf_xml( rm_cm_service_provider_uri, intent="Retrieve RM CM Service Provider" )
+        return rdf
+
+    def get_query_capability_uri(self,resource_type=None,context=None):
+        context = context or self
+        resource_type = resource_type or context.default_query_resource
+        return self.get_query_capability_uri_from_xml( capabilitiesxml=context.retrieve_rm_cm_service_provider_xml(), resource_type=resource_type, context=context )
+
+    # given a type URI, return its name
+    def resolve_uri_to_name(self, uri, prefer_same_as=True, dontpreferhttprdfrui=True):
+        logger.info( f"resolve_uri_to_name {uri=}" )
+        if not uri:
+            result = None
+            return result
+        if not uri.startswith('http://') or not uri.startswith('https://'):
+        # try to remove prefix
+            uri1 = rdfxml.tag_to_uri(uri,noexception=True)
+            logger.debug(f"Trying to remove prefix {uri=} {uri1=}")
+            if uri1 is None:
+                return uri
+            if uri1 != uri:
+                logger.debug( f"Changed {uri} to {uri1}" )
+            else:
+                logger.debug( f"NOT Changed {uri} to {uri1}" )
+            # use the transformed URI
+            uri = uri1
+        if not uri.startswith(self.reluri()):
+            if self.server.jts.is_user_uri(uri):
+                result = self.server.jts.user_uritoname_resolver(uri)
+                logger.debug(f"returning user")
+                return result
+            uri1 = rdfxml.uri_to_prefixed_tag(uri,noexception=True)
+            logger.debug(f"No app base URL {self.reluri()=} {uri=} {uri1=}")
+            return uri1
+        elif not self.is_known_uri(uri):
+            if self.server.jts.is_user_uri(uri):
+                result = self.server.jts.user_uritoname_resolver(uri)
+            else:
+                if uri.startswith( "http://" ) or uri.startswith( "https://" ):
+                    uri1 = rdfxml.uri_to_prefixed_tag(uri)
+                    logger.debug( f"Returning the raw URI {uri} so changed it to prefixed {uri1}" )
+                    uri = uri1
+                result = uri
+            # ensure the result is in the types cache, in case it recurrs the result can be pulled from the cache
+            self.register_name(result,uri)
+        else:
+            result = self.get_uri_name(uri)
+        logger.info( f"Result {result=}" )
+        return result
 
     @classmethod
     def add_represt_arguments( cls, subparsers, common_args ):

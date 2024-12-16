@@ -21,6 +21,8 @@ from elmclient import rdfxml
 
 logger = logging.getLogger(__name__)
 
+# prefix on a password that indicates it's an application password structure
+AP_PREFIX  ="ap:"
 
 ##############################################################################################
 # utilities for text<>binary and encoding handling
@@ -376,6 +378,31 @@ class HttpRequest():
     def get_user_password(self, url=None):
         return ( self._session.username, self._session.password )
 
+    def get_app_password( self, url ):
+        '''
+        Get the application password relevant to the URL
+        '''
+        p = self._session.password
+        if p.startswith( AP_PREFIX ):
+            # might be using an AP - need to check for this URL whether to use an AP or normal password
+            # password is saved as: ap: followed by a comma-seperated list of [contextroot:pass,]+normalpass
+            # e.g. ap:rm:ap1,normalpass or ap:rm:rmap,gc:gcap or ap:rm:rmap,gc:gcap,normalpass
+            # need to beware that the normalpass could validly include a ,
+            # get the context root for this URL
+            urlsplits = urllib.parse.urlparse( url )
+            appcr = urlsplits.path
+            allpasses = p[len(AP_PREFIX):].split( "," )
+            for i,apass in enumerate( allpasses ):
+                passdetails = apass.split( ":", 1 )
+                if len( passdetails ) < 2:
+                    # no : so give up
+                if appcr.startswith( f"/{passdetails[0]}" ):
+                    # found it!
+                    return passdetails[1]
+            return None
+        else:
+            return None
+
     def execute( self, no_error_log=False, close=False, **kwargs ):
         return self._execute_request( no_error_log=no_error_log, close=close, **kwargs )
 
@@ -538,13 +565,15 @@ class HttpRequest():
         retry_after_login_needed = False
         logger.debug( f"{retry_get_after_login=}" )
         request = self._req
+        # additional header for app passwords
+        addhdr = " app-password-enabled" if self.get_app_password( request.url ) else ""
         # copy header Configuration-Context to oslc_config.context parameter so URL when cached is config-specific
         # see https://oslc-op.github.io/oslc-specs/specs/config/config-resources.html#configcontext
         if request.headers.get('Configuration-Context'):
             # if Configuration-Context is not None:
 #            print( f"Copied header Configuration-Context to parameter oslc_config.context" )
             request.params['oslc_config.context'] = request.headers['Configuration-Context']
-        
+            
         # ensure keep-alive/close
         if close:
             request.headers['Connection'] = 'close'
@@ -570,6 +599,10 @@ class HttpRequest():
         # actually (try to) do the request
         try:
             prepped = self._session.prepare_request( request )
+
+            # check for us using an appp password for this url (context root) and if so extend the User-Agent header 
+            prepped.headers['User-Agent'] += addhdr
+
             response = self._session.send( prepped )
                                                  
             self.log_redirection_history( response, intent=intent, action=action )
@@ -614,7 +647,8 @@ class HttpRequest():
 
                 self._session.is_authenticated = False
                 auth_url = e.response.headers['X-JSA-AUTHORIZATION-REDIRECT']
-                login_response = self._jsa_login(auth_url)
+                # X-JSA-APP-PASSWORD-REDIRECT: https://elm-oidc1.fyre.ibm.com/rm/jsa?appPassword=true&state=security_token1%3DY9xRt930rrs3SUbP5%2Fj2jsaCqVxkIHlnXv3%2BBhelYis%3D%26security_token2%3DVnINO650P6dYSHM9C8ySgDqpCGVrno9sl8HL1xy4oLk%3D%26return%3Dhttps%253A%252F%252Felm-oidc1.fyre.ibm.com%252Frm%252Fprocess%252Fproject-areas%26scope%3Dopenid%2Bgeneral%2Bprofile%2Bemail%2B%26impersonation%3Dtrue
+                login_response = self._jsa_login(auth_url, e.response.headers.get('X-JSA-APP-PASSWORD-REDIRECT'), prepped.url )
                 self._session.is_authenticated = True
                 if login_response:
                     logger.trace("WIRE: Response received after JAS login")
@@ -624,6 +658,9 @@ class HttpRequest():
                     logger.trace("WIRE: retrying after JAS login")
                     retry_after_login_needed = True
                     logger.trace( f"Auth completed (in theory) result - 3" )
+                retry_get_after_login = True
+                retry_after_login_needed = True
+                
             elif e.response.status_code in [410,406,404]:
                 raise
             else:
@@ -663,6 +700,7 @@ class HttpRequest():
                 # make sure this request isn't satisfied from cache!
                 request.headers.update({'Cache-Control': 'no-cache'})
                 prepped = self._session.prepare_request(request)
+                prepped.headers['User-Agent'] += addhdr
                 response = self._session.send(prepped)
                 self.log_redirection_history( response, intent="RETRY AFTER AUTHENTICATION "+intent, action=action )
                 response.raise_for_status()
@@ -704,52 +742,69 @@ class HttpRequest():
             logger.info( f"Failed to login to auth URL [{auth_url}] with exception [{e}]" )
             raise Exception("Login not possible(2)!")
 
-    def _jsa_login(self, auth_url):
+    def _jsa_login(self, auth_url, ap_redirect_url, url):
         # refer to https://jazz.net/wiki/bin/view/Main/NativeClientAuthentication#Open_ID_Connect_and_the_Jazz_Sec
-        # (tested against a localUserRegistry JAS and a simple LDAP JAS)
+        # and for Application Password flow refer to https://jazz.net/wiki/bin/view/Main/ApplicationPasswordsAdoption
+        # (tested against a localUserRegistry JAS and a simple LDAP JAS and for application password an OIDC-backed JAS)
+        addhdr = "" if not self.get_app_password( url ) else " app-password-enabled"
         if auth_url:
             # Access Auth URL
             # step 1 - GET on auth_url with &prompt=none added
-            auth_url_response = self._session.get(str(auth_url) + "&prompt=none")  # Load up them cookies!
+            auth_url_response = self._session.get( str(auth_url) + "&prompt=none", headers = { "User-Agent":f"Python{addhdr}" } )  # Load up them cookies!
             self.log_redirection_history( auth_url_response, intent="JAS Authorize step 1",donotlogbody=True )
             # step 2 - check for response indicating
-            if auth_url_response.status_code != 200 or 'X-JSA-LOGIN-REQUIRED' not in auth_url_response.headers:
+#            if auth_url_response.status_code != 200 or 'X-JSA-LOGIN-REQUIRED' not in auth_url_response.headers:
+                
+            if auth_url_response.status_code != 200 and not ap_redirect-Url:
                 return auth_url_response  # no more auth required
-            if auth_url_response.headers['X-JSA-LOGIN-REQUIRED'] != 'true':
-                raise Exception(
-                    "login required is not true it is '%s'" % (auth_url_response.headers['X-JSA-LOGIN-REQUIRED']))
-            # step 3 GET from auth_url (with nothing added)
-            auth_url_response = self._session.get(str(auth_url))  # Load up them cookies!
-            self.log_redirection_history( auth_url_response, intent="JAS Authorize step 3",donotlogbody=True )
-            if auth_url_response.status_code == 200:
-                if True:
+            if ap_redirect_url and auth_url_response.status_code==401:
+                if not authurl_response.headers.get( 'WWW-Authenticate',"" ).startswith( "Negotiate"):
+                    return auth_url_response  # no more auth required
+            if ap_redirect_url and 'X-JSA-LOGIN-REQUIRED' not in auth_url_response.headers:
+                # app password login
+                # decide if SAML or OIDC, or perhaps we are authenticated and there's nothing else to do!
+                # detect SAML/OIDC/Kerberos
+                # check for OIDC headers
+                if any( [c.name.startswith("WASOidcNonce") for c in list(auth_url_response.cookies)] ) and any([c.name.startswith("WASOidcState") for c in list(auth_url_response.cookies)]):
+                    pass
+                elif re.search( r"<\s*input\s+.*name\s*=\s*['\"]?SAMLRequest['\"]?", auth_url_response.text, re.DOTALL ):
+                    pass
+                elif authurl_response.headers.get( 'WWW-Authenticate',"" ).startswith( "Negotiate"): 
+                    pass
+                    # Kerberos not supported!
+                    raise Exception( "Kerberos/SPNEGO Authentication for application password not supported" )
+                else:
+                    return auth_url_response  # no more auth required
+                # do the login
+                username, password = self.get_user_password(auth_url)
+                appassword = self.get_app_password( url )
+                auth_url_response = self._session.get( str(ap_redirect_url), auth=(username, appassword), headers={ "User-Agent":"Python2 app-password-enabled" }, allow_redirects=False )  # Load up them cookies!
+
+                return None
+                
+            else:
+                if auth_url_response.headers.get('X-JSA-LOGIN-REQUIRED', "") != 'true':
+                    raise Exception( "login required is not true it is '%s'" % (auth_url_response.headers['X-JSA-LOGIN-REQUIRED']))
+                # step 3 GET from auth_url (with nothing added)
+                auth_url_response = self._session.get(str(auth_url))  # Load up them cookies!
+                self.log_redirection_history( auth_url_response, intent="JAS Authorize step 3",donotlogbody=True )
+                if auth_url_response.status_code == 200:
                     # use basic auth - 3iii in https://jazz.net/wiki/bin/view/Main/NativeClientAuthentication
                     username, password = self.get_user_password(auth_url)
                     auth_url_response = self._session.get( str(auth_url), auth=(username, password) )  # Load up them cookies!
-                else:
-                    # use form auth
-                    login_url = auth_url_response.url  # Take the redirected URL and login action URL
-                    logger.debug( f"1 {login_url=}" )
-                    if auth_url != login_url:
-                        content_text = to_text(auth_url_response)
-                        #                 print content
-                        auth_form_parser = _FormParser()
-                        auth_form_parser.feed(content_text)
-                        if auth_form_parser.action:
-                            login_url = urllib.parse.urljoin(login_url, auth_form_parser.action)
-                            logger.debug( f"2 {login_url=}" )
-                    self._authorize(login_url)
         else:
             logger.error('''Something about JSA OIDC login has changed since this script was written. I can no longer determine where to authorize myself.''')
             raise Exception("Authorize not possible (1)")
 
         try:
             # Now we should have the proper oauth cookies, so try again
-            response = self._session.get(auth_url)
+            response = self._session.get(auth_url, headers={"User-Agent":f"Python1{addhdr}" })
             response.text
+            
         except requests.exceptions.RequestException as e:
             logger.info( f"Failed to login to OIDC auth URL [{auth_url}] with exception [{e}]" )
             raise Exception("Authorize not possible (2)")
+#        print( f"RETURN None" )
 
     # general authorize
     def _authorize(self, auth_url):

@@ -703,7 +703,7 @@ def do_oslc_query(inputargs=None):
                 for k, v in results.items():
                     htmlfile.write( "<tr>" )
                     for fieldname in fieldnames:
-                        htmlfile.write( f"<td>{v.get( fieldname,"" )}</td>" )
+                        htmlfile.write( f"<td>{v.get( fieldname,'' )}</td>" )
                     htmlfile.write( "</tr>" )
                 htmlfile.write( "</table>" )
                 htmlfile.write( "</body></html>" )

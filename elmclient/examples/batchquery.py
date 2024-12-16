@@ -47,6 +47,7 @@ xlstoargs={
     ,'Value1':          '-v'
     ,'OutputFile':      '-O'
     ,'TypeSystemReport': '--typesystemreport'
+    ,'Browser':         '-B'
     ,'Creds0':          '-0'
     ,'Creds1':          '-1'
     ,'Creds2':          '-2'

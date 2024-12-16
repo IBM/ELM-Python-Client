@@ -317,8 +317,8 @@ https://jazz.ibm.com:9443/rm/resources/TX_0ZsyXZd9Ee-u9O23RJI2Og,3146,Wireless C
 https://jazz.ibm.com:9443/rm/resources/BI_0fEal5d9Ee-u9O23RJI2Og,3146,Wireless Communication,,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/TX_0ZsyXJd9Ee-u9O23RJI2Og,3147,Regulatory,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/BI_0e6ppJd9Ee-u9O23RJI2Og,3147,Regulatory,,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/TX_0ZsyWpd9Ee-u9O23RJI2Og,3148,Usability,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/BI_0e6pnJd9Ee-u9O23RJI2Og,3148,Usability,,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/TX_0ZsyWpd9Ee-u9O23RJI2Og,3148,Usability,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/TX_0ZsyXpd9Ee-u9O23RJI2Og,3149,2. The Meter Reader sends a command to retrieve the meter info from the Water Meter.,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts,http://jazz.net/ns/rm#Text,Information
 https://jazz.ibm.com:9443/rm/resources/BI_0exfpZd9Ee-u9O23RJI2Og,3149,2. The Meter Reader sends a command to retrieve the meter info from the Water Meter.,,http://jazz.net/ns/rm#Text,Information
 https://jazz.ibm.com:9443/rm/resources/TX_0ZsyWZd9Ee-u9O23RJI2Og,3150,Electrocution,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts,http://jazz.net/ns/rm#Text,Hazard and Risk
@@ -367,8 +367,8 @@ https://jazz.ibm.com:9443/rm/resources/TX_0Z_tQ5d9Ee-u9O23RJI2Og,3171,Scope,/Bas
 https://jazz.ibm.com:9443/rm/resources/BI_0fXVcZd9Ee-u9O23RJI2Og,3171,Scope,,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/TX_0Z_tRJd9Ee-u9O23RJI2Og,3172,Data Elements,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/BI_0ed9wJd9Ee-u9O23RJI2Og,3172,Data Elements,,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/TX_0Z_tQZd9Ee-u9O23RJI2Og,3173,Scope of the System,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/BI_0e6pjZd9Ee-u9O23RJI2Og,3173,Scope of the System,,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/TX_0Z_tQZd9Ee-u9O23RJI2Og,3173,Scope of the System,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/TX_0Z2jYpd9Ee-u9O23RJI2Og,3174,Main Flow,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/BI_0exfo5d9Ee-u9O23RJI2Og,3174,Main Flow,,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/TX_0Z_tQpd9Ee-u9O23RJI2Og,3175,External Weather,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts,http://jazz.net/ns/rm#Text,Heading
@@ -442,8 +442,8 @@ https://jazz.ibm.com:9443/rm/resources/TX_0aWSkpd9Ee-u9O23RJI2Og,3208,The system
 https://jazz.ibm.com:9443/rm/resources/BI_0e6plJd9Ee-u9O23RJI2Og,3208,The systems shall meet the following objectives:,,http://jazz.net/ns/rm#Text,Stakeholder Requirement
 https://jazz.ibm.com:9443/rm/resources/TX_0aWSlJd9Ee-u9O23RJI2Og,3209,"When connected to a fixed network, the meter interface unit shall 'wake up' and communicate for 4 seconds every 30 minutes, synchronizing all clocks and configuration information. Between these transmissions, the unit remains in a low power state, conservi",/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts,http://jazz.net/ns/rm#Text,System Requirement
 https://jazz.ibm.com:9443/rm/resources/BI_0fTrM5d9Ee-u9O23RJI2Og,3209,"When connected to a fixed network, the meter interface unit shall 'wake up' and communicate for 4 seconds every 30 minutes, synchronizing all clocks and configuration information. Between these transmissions, the unit remains in a low power state, conservi",,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/TX_0aWSkZd9Ee-u9O23RJI2Og,3210,A trained user shall be able to use all aspects of the system within no more than one minutes of system startup.,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,http://jazz.net/ns/rm#Text,Stakeholder Requirement
 https://jazz.ibm.com:9443/rm/resources/BI_0e6pnZd9Ee-u9O23RJI2Og,3210,A trained user shall be able to use all aspects of the system within no more than one minutes of system startup.,,http://jazz.net/ns/rm#Text,Stakeholder Requirement
+https://jazz.ibm.com:9443/rm/resources/TX_0aWSkZd9Ee-u9O23RJI2Og,3210,A trained user shall be able to use all aspects of the system within no more than one minutes of system startup.,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,http://jazz.net/ns/rm#Text,Stakeholder Requirement
 https://jazz.ibm.com:9443/rm/resources/TX_0aWSlZd9Ee-u9O23RJI2Og,3211,The meter interface shall detect water leaks and record leak status with the account data.,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts,http://jazz.net/ns/rm#Text,System Requirement
 https://jazz.ibm.com:9443/rm/resources/BI_0fTrNJd9Ee-u9O23RJI2Og,3211,The meter interface shall detect water leaks and record leak status with the account data.,,http://jazz.net/ns/rm#Text,System Requirement
 https://jazz.ibm.com:9443/rm/resources/TX_0adAQZd9Ee-u9O23RJI2Og,3212,Functional Requirements,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts,http://jazz.net/ns/rm#Text,Heading
@@ -679,8 +679,8 @@ https://jazz.ibm.com:9443/rm/resources/TX_0bxO45d9Ee-u9O23RJI2Og,3327,"Primary, 
 https://jazz.ibm.com:9443/rm/resources/BI_0exfn5d9Ee-u9O23RJI2Og,3327,"Primary, Secondary Actors",,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/TX_0bxO6Jd9Ee-u9O23RJI2Og,3328,The Meter Reader is unable to collect usage data from the Water Meter due to lack of connection or a fault.,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts,http://jazz.net/ns/rm#Text,Information
 https://jazz.ibm.com:9443/rm/resources/BI_0exfnpd9Ee-u9O23RJI2Og,3328,The Meter Reader is unable to collect usage data from the Water Meter due to lack of connection or a fault.,,http://jazz.net/ns/rm#Text,Information
-https://jazz.ibm.com:9443/rm/resources/BI_0ed9kpd9Ee-u9O23RJI2Og,3329,Introduction,,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/TX_0bxO6Zd9Ee-u9O23RJI2Og,3329,Introduction,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_0ed9kpd9Ee-u9O23RJI2Og,3329,Introduction,,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/BI_0eWo1Zd9Ee-u9O23RJI2Og,3330,Scope & Level,,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/TX_0bxO5Zd9Ee-u9O23RJI2Og,3330,Scope & Level,/Base Artifacts/Module Template/Use Case Template artifacts,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/TX_0bxO5Jd9Ee-u9O23RJI2Og,3331,Scope & Level,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts,http://jazz.net/ns/rm#Text,Heading

@@ -13,6 +13,9 @@
 What's New?
 ===========
 
+16-Dec-2024
+* Authentication using Application passwords now works - for OIDC and SAML-backed authentication providers (OP) - but note below how this has been implemented to perhaps work around the fact that application passwords only work with a single app, os if you want to talk to more than one app, e.g. rm and gc, you have to acquire and specify a password per app. Not extensively tested, please let me know if it works/doesn't work for you!.
+
 02-Dec-2024
 * Added examples dncompare, validate, trsreader (this is VERY UNFINISHED!) - see the code in the examples folder
 * Fixed oslcquery working from a specific config using -F
@@ -36,7 +39,7 @@ What's New?
 Introduction
 ============
 
-The aim of this code is to provide a Python client for the IBM Enterprise Lifecycle Management (ELM) applications.
+The aim of this code is to provide a Python client for the IBM Enterprise Lifecycle Management (ELM) applications, providing a demonstrator of using the APIs.
 
 IMPORTANT NOTES:
 * This code is not developed, delivered or supported in any way as part of the IBM ELM applications
@@ -56,7 +59,7 @@ Installation
 
 Either method of install described below installs the elmclient package and puts example commands (such as `oslcquery` into your path so a) they can be run simply by typing the command, e.g. `oslcquery` and b) as you edit the source code these commands automatically use the latest code.
 
-Requirements: Python 3.11/3.10/3.9 - NOTE I'm developing using Python 3.11.4 and compatibility with older versions is NOT checked.
+Requirements: Python 3.11/3.10/3.9 - NOTE I'm developing using Python 3.11.4 and compatibility with older versions is NOT checked. However I'm aiming to work back to 3.9 because that's embedded in e.g. RHEL 9.4.
 
 Overview
 --------
@@ -75,7 +78,7 @@ Step 2a - Quickest and easiest to just use elmclient
 
 This method is also easiest to update with new versions of elmclient.
 
-at a command prompt:
+At a command prompt:
 * for Windows type `pip install elmclient`
 * For *nix use `pip3 install elmclient`
 
@@ -122,6 +125,7 @@ Authentication (in httpops.py)
 The auth code works with:
 * form authentication using Liberty in local user registry
 * LDAP (using JTS setup for LDAP) and OIDC (Jazz Authorisation Server, which might be configured for LDAP)
+* Application passwords backed by SAML or OIDC OP
 
 Other authentication methods haven't been tested.
 
@@ -129,6 +133,11 @@ You'll have to provide a username and password; that username will determine the
 
 The examples `oslcquery` and `reqif_io` layer authentication enhancements on top of this to allow saving obfuscated credentials to a file so you don't have to provide these on the commandline every time. See the code for these examples.
 
+As of 16-Dec you can now use application passwords. These authenticate to a single app, but it's easy to imagine needed to talk to e.g. GC (on/gc) and RM (on /rm), so the support is implemented by encoding one or more application passwords in the "password".
+
+The password you use when using application passwords has a prefix ap: and then a comma-seperated list of one or more application passwords (specifying the contextroot:password) and then finally a non-application password. So for example if you want to use an application password AP1 with context root rm, your password would look like ap:rm:AP1. If you also want to talk to GC on /gc and to anything else using your non-ap password then use ap:rm:AP1,gc:AP2,mypassword
+
+This hasn't been extensively tested. Please let me know in the Issues if this works for you or has problems.
 
 Handling different context roots
 ================================
@@ -137,7 +146,7 @@ It's possible to install the ELM applications to run on non-standard context roo
 
 For example, if your DN is on /rm then just specify `rm`. Or, if it's on /rm23 then specify `rm:rm23`.
 
-If more than one application is needed then use a comma separate list (without spaces). The main application is specified first, but if jts is also on /jts1 then your APPSTRING could be `rm:rm1,jts:jts1`.
+If more than one application is needed then use a comma separate list (without spaces). The main application is specified first, and if jts is also needed on /jts1 then your APPSTRING could be `rm:rm1,jts:jts1`.
 
 
 Example code provided

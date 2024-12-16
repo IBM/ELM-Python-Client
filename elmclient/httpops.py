@@ -779,6 +779,10 @@ class HttpRequest():
                 # do the login
                 username, password = self.get_user_password(auth_url)
                 appassword = self.get_app_password( url )
+                
+                # if redirects are automatically followed on this call to authenticate with the OP, the GET of the original protected resource fails, and so the authentication fails.
+                # this may be because this GET doesn't have headers like OSLC-Core-Version.
+                # Solution is not to follow redirects and ensure that the original GET is repeated, i.e. with the correct headers :-)
                 auth_url_response = self._session.get( str(ap_redirect_url), auth=(username, appassword), headers={ "User-Agent":"Python2 app-password-enabled" }, allow_redirects=False )  # Load up them cookies!
 
                 return None

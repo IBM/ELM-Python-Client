@@ -207,7 +207,7 @@ def do_oslc_query(inputargs=None):
 
     utils.log_commandline( os.path.basename(sys.argv[0]),inputargs )
 
-    if args.password is None:
+    if args.password is None or args.password=="PROMPT":
         args.password = getpass.getpass(prompt=f'Password for user {args.username}: ')
 
     # request proxy config if appropriate

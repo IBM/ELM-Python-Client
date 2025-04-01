@@ -281,7 +281,7 @@ class _CCMProject(_project._Project):
                 result = self.server.jts.user_uritoname_resolver(uri)
             else:
                 if uri.startswith( "http://" ) or uri.startswith( "https://" ):
-                    uri1 = rdfxml.uri_to_prefixed_tag(uri)
+                    uri1 = rdfxml.uri_to_prefixed_tag(uri, oktocreate=False,noexception=True)
                     logger.debug( f"Returning the raw URI {uri} so changed it to prefixed {uri1}" )
                     uri = uri1
                 result = uri

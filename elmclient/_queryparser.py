@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 #
 # This enhanced OSLC Query grammar supports "||", "&&" and bracketed evaluation
-# This is based on the EBNF in OSLC Query 3.0 standard https://tools.oasis-open.org/version-control/browse/wsvn/oslc-core/trunk/specs/oslc-query.html
+# This is based on the EBNF in OSLC Query 3.0 standard https://docs.oasis-open-projects.org/oslc-op/query/v3.0/os/oslc-query.html
 # Differences/enhancements from the OSLC 3.0 definition:
 #  You can combine compound_terms using && and || - note when using these the compound_term MUST be in ( ) (which also makes reading the expression easier)
 #  also accepts just a single compound_term with no ( ) needed (i.e. this is basically the vanilla OSLC Query 3.0 syntax)

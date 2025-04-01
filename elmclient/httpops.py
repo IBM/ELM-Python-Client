@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: MIT
 ##
 
+
 import codecs
 import html.parser
 import http
@@ -558,7 +559,7 @@ class HttpRequest():
     #  1. if the response indicates login is required then login and try the request again
     #  2. if request is rejected for various reasons retry with the CSRF header applied
     # supports Jazz Form authorization and Jazz Authorization Server login
-    def _execute_one_request_with_login( self, *, no_error_log=False, close=False, donotlogbody=False, retry_get_after_login=True, remove_headers=None, remove_parameters=None, intent=None, action = None ):
+    def _execute_one_request_with_login( self, *, no_error_log=False, close=False, donotlogbody=False, retry_get_after_login=True, remove_headers=None, remove_parameters=None, intent=None, action = None, automaticlogin=True ):
 #        if intent is None:
 #            raise Exception( "No intent provided!" )
         intent = intent or ""
@@ -610,6 +611,13 @@ class HttpRequest():
 
             response.raise_for_status()
 
+            if not automaticlogin:
+#                print( f"No auto login {response}" )
+                return response
+            else:
+#                print( f"auto login allowed {response}" )
+                pass
+                
             # check for a non-error response which also indicates that authentication is needed using
             # a special header (in which case the response is not the data requested)
             if 'X-com-ibm-team-repository-web-auth-msg' in response.headers:
@@ -622,6 +630,9 @@ class HttpRequest():
                     retry_after_login_needed = True
 
         except requests.HTTPError as e:
+            if not automaticlogin:
+                # the only real reason to be here is due to needing auth!
+                raise
             if not no_error_log:
                 logger.trace( f"HTTPError {e}" )
             if e.response.status_code == 401 and 'X-jazz-web-oauth-url' in e.response.headers:
@@ -756,11 +767,12 @@ class HttpRequest():
             # step 2 - check for response indicating
 #            if auth_url_response.status_code != 200 or 'X-JSA-LOGIN-REQUIRED' not in auth_url_response.headers:
                 
-            if auth_url_response.status_code != 200 and not ap_redirect-Url:
+            if auth_url_response.status_code != 200 and not ap_redirect_url:
                 return auth_url_response  # no more auth required
             if ap_redirect_url and auth_url_response.status_code==401:
                 if not authurl_response.headers.get( 'WWW-Authenticate',"" ).startswith( "Negotiate"):
                     return auth_url_response  # no more auth required
+                    
             if ap_redirect_url and 'X-JSA-LOGIN-REQUIRED' not in auth_url_response.headers:
                 # app password login
                 # decide if SAML or OIDC, or perhaps we are authenticated and there's nothing else to do!
@@ -779,7 +791,7 @@ class HttpRequest():
                 # do the login
                 username, password = self.get_user_password(auth_url)
                 appassword = self.get_app_password( url )
-                
+#                print( f"{username=} {password=} {appassword=}" )
                 # if redirects are automatically followed on this call to authenticate with the OP, the GET of the original protected resource fails, and so the authentication fails.
                 # this may be because this GET doesn't have headers like OSLC-Core-Version.
                 # Solution is not to follow redirects and ensure that the original GET is repeated, i.e. with the correct headers :-)
@@ -796,6 +808,7 @@ class HttpRequest():
                 if auth_url_response.status_code == 200:
                     # use basic auth - 3iii in https://jazz.net/wiki/bin/view/Main/NativeClientAuthentication
                     username, password = self.get_user_password(auth_url)
+                    print( f"{username=} {password=}" )
                     auth_url_response = self._session.get( str(auth_url), auth=(username, password) )  # Load up them cookies!
         else:
             logger.error('''Something about JSA OIDC login has changed since this script was written. I can no longer determine where to authorize myself.''')

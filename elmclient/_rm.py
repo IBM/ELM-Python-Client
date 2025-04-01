@@ -358,7 +358,11 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
             configs = self.execute_get_xml(compuri+"/configurations", intent="Retrieve project/component's list of all configurations", cacheable=cacheable)
             for conf in rdfxml.xml_find_elements(configs,'.//rdfs:member'):
                 confu = rdfxml.xmlrdf_get_resource_uri(conf)
-                thisconfx = self.execute_get_xml(confu, intent="Retrieve a configuration definition", cacheable=cacheable)
+                try:
+                    thisconfx = self.execute_get_xml(confu, intent="Retrieve a configuration definition", cacheable=cacheable)
+                except:
+                    logger.info( f"Singlemode config ERROR probably archived {confu} !!!!!!!" )
+                    continue
                 conftitle= rdfxml.xmlrdf_get_resource_text(thisconfx,'.//dcterms:title')
                 created = rdfxml.xmlrdf_get_resource_uri(thisconfx, './/dcterms:created')
                 # e.g. http://open-services.net/ns/config#Stream
@@ -396,7 +400,11 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                     confs = configs["http://www.w3.org/2000/01/rdf-schema#member"]
                 for aconf in confs:
                     confu = aconf['@id']
-                    confx = self.execute_get_xml(confu, intent="Retrieve configuration definition RDF", cacheable=cacheable)
+                    try:
+                        confx = self.execute_get_xml(confu, intent="Retrieve configuration definition RDF", cacheable=cacheable)
+                    except:
+                        logger.info( f"Old optin config ERROR probably archived {confu} !!!!!!!" )
+                        continue
                     conftitle = rdfxml.xmlrdf_get_resource_text(confx,'.//dcterms:title')
                     conftype = 'Stream' if 'stream' in confu else 'Baseline'
                     created = rdfxml.xmlrdf_get_resource_uri(confx, './/dcterms:created')
@@ -522,7 +530,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
             try:
                 configs_xml = self.execute_get_rdf_xml(confu, intent="Retrieve a configuration definition", cacheable=cacheable)
             except:
-                logger.info( f"Config ERROR {thisconfu} !!!!!!!" )
+                logger.info( f"Config ERROR {thisconfu} ignored (the config was probably archived) !!!!!!!" )
                 continue
 
             confmemberx = rdfxml.xml_find_elements(configs_xml, './/rdfs:member[@rdf:resource]')

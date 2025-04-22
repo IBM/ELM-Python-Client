@@ -615,7 +615,7 @@ class _OSLCOperations_Mixin:
                 intent = f"Retrieve {utils.nth(page)} page of OSLC query results"
 
             # request this page
-            this_result_xml = self.execute_get_rdf_xml(query_url, params=params, headers=headers, cacheable=cacheable, intent=intent)
+            this_result_xml = self.execute_get_rdf_xml(query_url, params=params, headers=headers, cacheable=cacheable, intent=intent, showcurl=verbose)
             queryurls.append(query_url)
             
             if saverawresults:

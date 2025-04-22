@@ -11,7 +11,9 @@ import inspect
 import json
 import logging
 import lxml.etree as ET
+import platform
 import re
+import shlex
 import time
 import urllib
 
@@ -21,6 +23,66 @@ import tqdm
 from elmclient import rdfxml
 
 logger = logging.getLogger(__name__)
+
+is_windows = any(platform.win32_ver())
+
+
+def quote( s ):
+    if is_windows:
+        for c in s:
+            # only quote if there's a shell-unfriendly character!
+            if c not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._':
+                return f'"{s}"'
+        return s
+    else:
+        return shlex.quote(s)
+
+# curl login example (non-JAS):
+# curl -k -c cookies.txt "https://jazz.ibm.com:9443/jts/authenticated/identity"
+# curl -k -L -b cookies.txt -c cookies.txt -d j_username=ibm -d j_password=ibm "https://jazz.ibm.com:9443/jts/authenticated/j_security_check"
+
+# derived from https://github.com/ofw/curlify/blob/master/curlify.py but with quoting fixed so on Windows it generates Windows-friendly curl commands
+def to_curl(request, compressed=False, verify=True):
+    """
+    Returns string with curl command by provided request object
+
+    Parameters
+    ----------
+    compressed : bool
+        If `True` then `--compressed` argument will be added to result
+    """
+    parts = [
+        ('curl', None),
+        ('-X', request.method),
+        ('-b','cookies.txt'),
+        ('-c','cookies.txt'),
+    ]
+
+    for k, v in sorted(request.headers.items()):
+        parts += [('-H', '{0}: {1}'.format(k, v))]
+
+    if request.body:
+        body = request.body
+        if isinstance(body, bytes):
+            body = body.decode('utf-8')
+        parts += [('-d', body)]
+
+    if compressed:
+        parts += [('--compressed', None)]
+
+    if not verify:
+        parts += [('--insecure', None)]
+
+    parts += [(None, request.url)]
+
+    flat_parts = []
+    for k, v in parts:
+        if k:
+            flat_parts.append(quote(k))
+        if v:
+            flat_parts.append(quote(v))
+
+    return ' '.join(flat_parts)
 
 # prefix on a password that indicates it's an application password structure
 AP_PREFIX  ="ap:"
@@ -559,7 +621,7 @@ class HttpRequest():
     #  1. if the response indicates login is required then login and try the request again
     #  2. if request is rejected for various reasons retry with the CSRF header applied
     # supports Jazz Form authorization and Jazz Authorization Server login
-    def _execute_one_request_with_login( self, *, no_error_log=False, close=False, donotlogbody=False, retry_get_after_login=True, remove_headers=None, remove_parameters=None, intent=None, action = None, automaticlogin=True ):
+    def _execute_one_request_with_login( self, *, no_error_log=False, close=False, donotlogbody=False, retry_get_after_login=True, remove_headers=None, remove_parameters=None, intent=None, action = None, automaticlogin=True, showcurl=False ):
 #        if intent is None:
 #            raise Exception( "No intent provided!" )
         intent = intent or ""
@@ -575,6 +637,8 @@ class HttpRequest():
             # if Configuration-Context is not None:
 #            print( f"Copied header Configuration-Context to parameter oslc_config.context" )
             request.params['oslc_config.context'] = request.headers['Configuration-Context']
+#            del request.headers['Configuration-Context']
+#            print( f"Deleted C-C" )
             
         # ensure keep-alive/close
         if close:
@@ -591,6 +655,7 @@ class HttpRequest():
 
         # this is for generic API debugging to be able to remove any header before it's actually sent!
         if remove_headers:
+            print( f"{remove_headers=}" )
             for h in remove_headers:
 #                print( f"{request.headers=}" )
                 if h in request.headers:
@@ -602,6 +667,9 @@ class HttpRequest():
         try:
             prepped = self._session.prepare_request( request )
 
+            if showcurl:
+                print( f"Curl command (assuming auth cookies are in cookies.txt) is {to_curl(prepped)}" )
+
             # check for us using an appp password for this url (context root) and if so extend the User-Agent header 
             prepped.headers['User-Agent'] += addhdr
 
@@ -610,6 +678,8 @@ class HttpRequest():
             self.log_redirection_history( response, intent=intent, action=action )
 
             response.raise_for_status()
+
+            
 
             if not automaticlogin:
 #                print( f"No auto login {response}" )

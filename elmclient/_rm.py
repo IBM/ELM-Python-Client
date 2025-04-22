@@ -84,7 +84,8 @@ class _RMProject(_project._Project):
         self.default_query_resource = "oslc_rm:Requirement"
         self._iscomponent=False
         self._confs_to_load = []
-
+        self._confstoparent = []
+        
     # save a folder details, and return the new folder instance
     def _savefolder( self, parent, fname, folderuri ):
         ROOTNAME = "+-+root+-+"
@@ -511,13 +512,17 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
         self._components[compu]['component'] = c
         return c
 
-    def load_configs(self, cacheable=True ):
-        logger.debug( f"Loading configs {self._confs_to_load=}" )
+    # if given stopatnameoruri returns True if found, False if not (which means all configs have been loaded and it isn't there!)
+    def load_configs(self, cacheable=True, stopatnameoruri=None, verbose=False, incremental=False ):
+        logger.debug( f"Loading configs {self._confs_to_load=}, {stopatnameoruri=}" )
         # load configurations
         # and build a tree with initial baseline as root, alternating baseline and stream nodes each with a list of children, so it can be walked if needed
         self.configTree = anytree.AnyNode(name='theroot',title='root', created=None, typesystem=None, ismutable=False, ischangeset=False )
-        confstoparent = []
+        result = False
+            
         while True:
+            if verbose:
+                print( ".",end="" )
             if not self._confs_to_load:
                 break
             confu = self._confs_to_load.pop()
@@ -546,6 +551,8 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
             confmembers_x = list( set( rdfxml.xml_find_elements(configs_xml, './/oslc_config:Configuration') + rdfxml.xml_find_elements(configs_xml, './/oslc_config:Stream') + rdfxml.xml_find_elements(configs_xml, './/oslc_config:Baseline') + rdfxml.xml_find_elements(configs_xml, './/oslc_config:ChangeSet') ) )
 
             for confmember_x in confmembers_x:
+                if verbose:
+                    print( ">",end="",flush=True )
 #                print( f"========================\n{confmember_x=}" )
 #                print( f"{confmember_x.tag=}" )
 #                print( "XML=",ET.tostring( confmember_x ) )
@@ -563,6 +570,10 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                 ismutable = False
                 ischangeset = False
                 conftitle = rdfxml.xmlrdf_get_resource_text(confmember_x, './dcterms:title')
+                
+                if stopatnameoruri and ( conftitle==stopatnameoruri or thisconfu==stopatnameoruri ):
+                    result = True
+                    
                 created = rdfxml.xmlrdf_get_resource_uri(confmember_x, './dcterms:created', exceptionifnotfound=True)
 #                print( f"{conftitle=}" )
 #                print( f"{created=}" )
@@ -620,18 +631,21 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                     thisnode = anytree.AnyNode( None, name=thisconfu, title=conftitle, conftype=conftype, created=created, typesystem=_newtypesystem.TypeSystem(conftitle, thisconfu), ismutable=ismutable ) #TypeSystem(conftitle, thisconfu), ismutable=ismutable, ischangeset=ischangeset )
                     if parentnode is None:
                         # do this one later
-                        confstoparent.append( ( thisnode, theparent_u ) )
+                        self._confstoparent.append( ( thisnode, theparent_u ) )
 #                        print( f"Saved for later {confstoparent[-1]=}" )
                     else:
                         # parent is known so attach to it
                         thisnode.parent = parentnode
 #                        print( f"Config {conftitle} Added config {thisconfu} parent={parentnode}" )
+            # now check if stopatnameoururi is present and if so set result True
+            if result:
+                break
 
         # now iterate over the unparented nodes repeatedly finding their parents until there are none left because all have been parented
-        while confstoparent:
+        while self._confstoparent:
             # we're going to copy unparented node into this new list, then copy the new list into confstoparent
             newconfstoparent = []
-            for (i,nodedetails) in enumerate(confstoparent):
+            for (i,nodedetails) in enumerate(self._confstoparent):
                 (node,theparent_u) = nodedetails
                 # if we find the parent, attach it - if not found, add it to this list of those still needing parent
                 parentnode = anytree.search.find( self.configTree, filter_=lambda n: n.name==theparent_u )
@@ -640,10 +654,14 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                     thisnode.parent = parentnode
 #                    print( f"Parented {node}" )
                 else:
-                    # remember this still needs parenting
-                    newconfstoparent.append( (node,parent) )
-            confstoparent = newconfstoparent
-
+                    # remember this still needs parenting! Will be found on a later pass
+                    newconfstoparent.append( (node,theparent_u) )
+            self._confstoparent = newconfstoparent
+            
+        if verbose:
+            print( "" )
+            
+        return result
 
     def load_configtree( self, *, fromconfig_u=None, loadbaselines=False, followsubstreams=False, loadchangesets=False, alwayscaching=False ):
         # show the config tree
@@ -703,7 +721,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                         raise Exception( f"Unkown type {typedetails[1]}" )
 
 
-    def get_local_config(self, name_or_uri, global_config_uri=None):
+    def get_local_config(self, name_or_uri, global_config_uri=None, verbose=False, incremental=False ):
         logger.info( f"GLC {self=} {name_or_uri=}" )
 #        print( f"GLC {self=} {name_or_uri=} {global_config_uri=}" )
         if global_config_uri:
@@ -719,7 +737,6 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                 raise Exception( 'Cannot find configuration [%s] in project [%s]' % (name_or_uri, self.uri))
             result = config_uri
         else:
-            self.load_configs()
             result = None
             filter = None
             if name_or_uri.startswith("S:"):
@@ -731,14 +748,19 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
             elif name_or_uri.startswith("C:"):
                 filter="ChangeSet"
                 name_or_uri = name_or_uri[2:]
-            for cu, cd in self._configurations.items():
-#                print( f"{cu=} {cd=}" )
-                if filter and cd['conftype'] != filter:
-                    continue
-                if cu == name_or_uri or cd['name'] == name_or_uri:
-                    if result:
-                        raise Exception( f"Config {name_or_uri} isn't unique - you could try prefixing it with S: for stream, B: for baseline, or C: for changeset")
-                    result = cu
+
+            while result is None:
+                for cu, cd in self._configurations.items():
+    #                print( f"{cu=} {cd=}" )
+                    if filter and cd['conftype'] != filter:
+                        continue
+                    if cu == name_or_uri or cd['name'] == name_or_uri:
+                        if result:
+                            raise Exception( f"Config {name_or_uri} isn't unique - you could try prefixing it with S: for stream, B: for baseline, or C: for changeset")
+                        result = cu
+                if result is None:
+                    if not self.load_configs( stopatnameoruri=name_or_uri, verbose=verbose, incremental=incremental ):
+                        break
 #        print( f"GLC {result} {self=} {name_or_uri=}" )
                     
         return result

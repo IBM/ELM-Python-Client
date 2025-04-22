@@ -3,6 +3,10 @@
 # SPDX-License-Identifier: MIT
 ##
 
+#
+# app to exercise OSLC Query capabilities in  (relatively) human-friendly way - the key thing is to allow user to specify things by name and the app finds the corresponding URI
+# See OSLC Query 3.0 standard https://docs.oasis-open-projects.org/oslc-op/query/v3.0/os/oslc-query.html
+#
 
 import argparse
 import csv

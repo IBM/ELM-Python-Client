@@ -878,7 +878,7 @@ class HttpRequest():
                 if auth_url_response.status_code == 200:
                     # use basic auth - 3iii in https://jazz.net/wiki/bin/view/Main/NativeClientAuthentication
                     username, password = self.get_user_password(auth_url)
-                    print( f"{username=} {password=}" )
+#                    print( f"{username=} {password=}" )
                     auth_url_response = self._session.get( str(auth_url), auth=(username, password) )  # Load up them cookies!
         else:
             logger.error('''Something about JSA OIDC login has changed since this script was written. I can no longer determine where to authorize myself.''')

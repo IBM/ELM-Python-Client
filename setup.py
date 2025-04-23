@@ -16,7 +16,7 @@ README = (HERE / "README.md").read_text()
 # This call to setup() does all the work
 setup(
     name="elmclient",
-    version="0.30.0",
+    version="0.30.1",
     description="Python client for ELM with examples of OSLC Query, ReqIF import/export, Reportable REST, and more",
     long_description=README,
     long_description_content_type="text/markdown",

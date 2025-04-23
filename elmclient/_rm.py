@@ -643,6 +643,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
 
         # now iterate over the unparented nodes repeatedly finding their parents until there are none left because all have been parented
         while self._confstoparent:
+            foundparent = False
             # we're going to copy unparented node into this new list, then copy the new list into confstoparent
             newconfstoparent = []
             for (i,nodedetails) in enumerate(self._confstoparent):
@@ -651,12 +652,17 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                 parentnode = anytree.search.find( self.configTree, filter_=lambda n: n.name==theparent_u )
                 if parentnode:
                     # found!
-                    thisnode.parent = parentnode
+                    node.parent = parentnode
+                    foundparent = True
 #                    print( f"Parented {node}" )
                 else:
-                    # remember this still needs parenting! Will be found on a later pass
+                    # remember this still needs parenting! Will be found on a later pass UNLESS it's been tried a few times and always fails
+                    # in which case we'll print a message and ignore the config!
                     newconfstoparent.append( (node,theparent_u) )
             self._confstoparent = newconfstoparent
+            if not foundparent:
+                print( f"Postponing potentially unparentable configs {self._confstoparent}" )
+                break
             
         if verbose:
             print( "" )

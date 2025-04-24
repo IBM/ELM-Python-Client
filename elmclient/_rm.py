@@ -85,6 +85,7 @@ class _RMProject(_project._Project):
         self._iscomponent=False
         self._confs_to_load = []
         self._confstoparent = []
+        self.configTree = None
         
     # save a folder details, and return the new folder instance
     def _savefolder( self, parent, fname, folderuri ):
@@ -517,9 +518,11 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
         logger.debug( f"Loading configs {self._confs_to_load=}, {stopatnameoruri=}" )
         # load configurations
         # and build a tree with initial baseline as root, alternating baseline and stream nodes each with a list of children, so it can be walked if needed
-        self.configTree = anytree.AnyNode(name='theroot',title='root', created=None, typesystem=None, ismutable=False, ischangeset=False )
+        if not incremental or not self.configTree:
+            self.configTree = anytree.AnyNode(name='theroot',title='root', created=None, typesystem=None, ismutable=False, ischangeset=False )
         result = False
-            
+        
+        # now load configs
         while True:
             if verbose:
                 print( ".",end="" )
@@ -632,11 +635,11 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                     if parentnode is None:
                         # do this one later
                         self._confstoparent.append( ( thisnode, theparent_u ) )
-#                        print( f"Saved for later {confstoparent[-1]=}" )
+#                        print( f"\nSaved for later {self._confstoparent[-1]=}" )
                     else:
                         # parent is known so attach to it
                         thisnode.parent = parentnode
-#                        print( f"Config {conftitle} Added config {thisconfu} parent={parentnode}" )
+#                        print( f"\nConfig {conftitle} Added config {thisconfu} parent={parentnode}" )
             # now check if stopatnameoururi is present and if so set result True
             if result:
                 break
@@ -648,20 +651,26 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
             newconfstoparent = []
             for (i,nodedetails) in enumerate(self._confstoparent):
                 (node,theparent_u) = nodedetails
+#                print( f"\n{node=} {theparent_u=}" )
                 # if we find the parent, attach it - if not found, add it to this list of those still needing parent
                 parentnode = anytree.search.find( self.configTree, filter_=lambda n: n.name==theparent_u )
                 if parentnode:
                     # found!
                     node.parent = parentnode
                     foundparent = True
-#                    print( f"Parented {node}" )
+#                    print( f"\nParented {node=} {theparent_u}" )
                 else:
                     # remember this still needs parenting! Will be found on a later pass UNLESS it's been tried a few times and always fails
                     # in which case we'll print a message and ignore the config!
                     newconfstoparent.append( (node,theparent_u) )
+#                    print( f"\npostponing {node=} {theparent_u}" )
+#                    print( f"tree= {anytree.RenderTree(self.configTree, style=anytree.AsciiStyle())}" )
+                    
             self._confstoparent = newconfstoparent
+            # if no parent was found on this run through confstoparent, give up with the confs to parent preserved
             if not foundparent:
-                print( f"Postponing potentially unparentable configs {self._confstoparent}" )
+                if verbose:
+                    print( f"\nPostponing potentially unparentable configs {self._confstoparent}" )
                 break
             
         if verbose:
@@ -671,12 +680,12 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
 
     def load_configtree( self, *, fromconfig_u=None, loadbaselines=False, followsubstreams=False, loadchangesets=False, alwayscaching=False ):
         # show the config tree
-        print( f"tree= {anytree.RenderTree(self.configTree, style=anytree.AsciiStyle())}" )
-        print( f"{self.configTree=}" )
-        print( f"{self.configTree.children=}" )
+#        print( f"tree= {anytree.RenderTree(self.configTree, style=anytree.AsciiStyle())}" )
+#        print( f"{self.configTree=}" )
+#        print( f"{self.configTree.children=}" )
         if not fromconfig_u:
             fromconfig_u = self.configTree.children[0].name
-            print( f"{fromconfig_u=}" )
+#            print( f"{fromconfig_u=}" )
         startnode = anytree.search.find( self.configTree, filter_=lambda n: n.name==fromconfig_u )
 
         for conf in anytree.iterators.preorderiter.PreOrderIter( startnode ):
@@ -693,7 +702,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                 if not loadbaselines:
                     continue
                 
-            print( f"------------------------------\n'{conf.title}' {conf.ismutable=} {conf.created} {conf.name}" )
+#            print( f"------------------------------\n'{conf.title}' {conf.ismutable=} {conf.created} {conf.name}" )
 #            print( f"{conf.children=}" )
             self.set_local_config(conf.name)
     #        continue
@@ -766,6 +775,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                         result = cu
                 if result is None:
                     if not self.load_configs( stopatnameoruri=name_or_uri, verbose=verbose, incremental=incremental ):
+                        # config not found - give up (if found, this loops back to scan for the config again
                         break
 #        print( f"GLC {result} {self=} {name_or_uri=}" )
                     
@@ -1146,12 +1156,12 @@ class _RMComponent(_RMProject):
         # create the changeset - it's up to the caller to select it as current config
         # get the current stream
         stream_x = self.execute_get_rdf_xml( self.local_config )
-        print( f"{stream_x=}" )
+#        print( f"{stream_x=}" )
         # find the changesets URL
         cs_u = rdfxml.xmlrdf_get_resource_uri( stream_x, ".//rm_config:changesets" )
         comp_u = rdfxml.xmlrdf_get_resource_uri( stream_x, './/oslc_config:component' )
-        print( f"{cs_u=}" )
-        print( f"{comp_u=}" )
+#        print( f"{cs_u=}" )
+#        print( f"{comp_u=}" )
         # create a new CS by POST
         body = f"""<rdf:RDF
     xmlns:dcterms="http://purl.org/dc/terms/"
@@ -1197,12 +1207,12 @@ class _RMComponent(_RMProject):
         cs_x = self.execute_get_rdf_xml( self.local_config )
         stream_u = rdfxml.xmlrdf_get_resource_uri( cs_x, './/oslc_config:overrides' )
         csname = rdfxml.xmlrdf_get_resource_text( cs_x, './/dcterms:title' )
-        print( f"target {stream_u=}" )
-        print( f"cs name {csname=}" )
+#        print( f"target {stream_u=}" )
+#        print( f"cs name {csname=}" )
         # find the delivery session factory
         ds_f_u = self.get_factory_uri("rm_config:DeliverySession" )
-        print( f"{ds_f_u=}" )
-        print( f"{self.services_uri=}" )
+#        print( f"{ds_f_u=}" )
+#        print( f"{self.services_uri=}" )
         # create the content
         body=f"""<rdf:RDF
     xmlns:dcterms="http://purl.org/dc/terms/"
@@ -1228,31 +1238,31 @@ class _RMComponent(_RMProject):
             ds_u = location
         else:
             raise Exception( f"Unknown response {response.status_code}" )
-        print( f"{ds_u=}" )
+#        print( f"{ds_u=}" )
 
         # deliver it by first retrieving the delivery session then putting it back with a different state
         ds_x = self.execute_get_rdf_xml( ds_u )
         # set rm_config:deliverySessionState to rm_config:delivered
         state_x = rdfxml.xml_find_element( ds_x, ".//rm_config:deliverySessionState" )
-        print( f"{state_x=}" )
-        print( f"{state_x.items()=}" )
-        print( f'{rdfxml.tag_to_uri("rdf:resource")=}' )
-        print( f'{rdfxml.tag_to_uri( "rm_config:delivered" )=}' )
+#        print( f"{state_x=}" )
+#        print( f"{state_x.items()=}" )
+#        print( f'{rdfxml.tag_to_uri("rdf:resource")=}' )
+#        print( f'{rdfxml.tag_to_uri( "rm_config:delivered" )=}' )
         state_x.set(rdfxml.uri_to_tag("rdf:resource"), rdfxml.tag_to_uri( "rm_config:delivered" ) )
-        print( f"{state_x.items()=}" )
+#        print( f"{state_x.items()=}" )
         # PUT the new state to start delivery
         response = self.execute_post_rdf_xml( ds_u, data=ds_x,headers={'Content-Type': 'application/rdf+xml', 'OSLC-Core-Version':'2.0'}, intent="Start the delivery", put=True )
         location = response.headers.get('Location')
         if response.status_code == 200:
             state = rdfxml.xmlrdf_get_resource_uri( response, ".//rm_config:deliverySessionState" )
-            print( f"{state=}" )
+#            print( f"{state=}" )
         elif response.status_code == 202:
             # wait for the tracker to finished
             result = self.wait_for_tracker( location, interval=1.0, progressbar=True, msg=f"Waiting for changeset delivery to complete")
             if result is None:
                 raise Exception( f"No result from tracker!" )
-            print( f"{result=}" )
-            print( ET.tostring(result) )
+#            print( f"{result=}" )
+#            print( ET.tostring(result) )
             state = rdfxml.xmlrdf_get_resource_uri( result, './/oslc_auto:verdict ')
         else:
             raise Exception( f"Unknown response {response.status_code}" )

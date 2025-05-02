@@ -103,7 +103,7 @@ elmserver.setupproxy(jazzhost,proxyport=8888)
 theserver = elmserver.JazzTeamServer(jazzhost, username, password, verifysslcerts=False, jtsappstring=f"jts:{jtscontext}", appstring=qmappdomain, cachingcontrol=caching)
 
 #####################################################################################################
-# create the RM application interface
+# create the ETM application interface
 qmapp = theserver.find_app( qmappdomain, ok_to_create=True )
 if not qmapp:
     raise Exception( "Something serious went wrong" )

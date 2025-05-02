@@ -805,10 +805,35 @@ class HttpRequest():
             auth_url_response = self._session.get(auth_url)  # Load up them cookies!
             self.log_redirection_history( auth_url_response, intent="Login",donotlogbody=True )
 
-            if auth_url_response.headers.get('X-com-ibm-team-repository-web-auth-msg') != 'authrequired':
+            login_url = auth_url_response.url  # Take the redirected URL and login action URL
+
+           # Check for Basic auth
+            www_auth = auth_url_response.headers.get('www-authenticate', '').lower()
+            if "basic" in www_auth:
+                logger.debug("Basic Auth required by the server")
+                # Build basic auth header
+                username, password = self.get_user_password(login_url)
+                credentials = f"{username}:{password}"
+                import base64
+                token = base64.b64encode(credentials.encode('utf-8')).decode('ascii')
+                headers = {
+                    'Authorization': f"Basic {token}"
+                }
+                logger.debug("Sending Basic Auth header")
+
+                # Retry with basic auth
+                auth_response = self._session.get(auth_url, headers=headers)
+                if auth_response.status_code == 200:
+                    logger.debug("Basic Auth is successful")
+                else:
+                    logger.error(f"Basic Auth failed: {auth_response.status_code}")
+                    raise Exception("Login failed with Basic Auth")
+                return None # auth completed
+
+            elif auth_url_response.headers.get('X-com-ibm-team-repository-web-auth-msg') != 'authrequired':
                 logger.trace("headers show auth not required")
                 return None  # no more auth required
-            login_url = auth_url_response.url  # Take the redirected URL and login action URL
+
             self._authorize(login_url)
             
             logger.trace("authorized")

@@ -39,7 +39,7 @@ def callers():
 
 #################################################################################################
 
-class _CCMProject(_project._Project):
+class CCMProject(_project._Project):
     def __init__(self, name, project_uri, app, is_optin,singlemode):
         super().__init__(name, project_uri, app, is_optin,singlemode)
         self.default_query_resource = 'oslc_cm1:ChangeRequest'
@@ -295,9 +295,9 @@ class _CCMProject(_project._Project):
 #################################################################################################
 
 @utils.mixinomatic
-class _CCMApp(_app._App, _typesystem.No_Type_System_Mixin):
+class CCMApp(_app._App, _typesystem.No_Type_System_Mixin):
     domain = 'ccm'
-    project_class = _CCMProject
+    project_class = CCMProject
     supports_configs = False
     supports_components = False
     reportablerestbase='rpt/repository'
@@ -453,7 +453,7 @@ class _CCMApp(_app._App, _typesystem.No_Type_System_Mixin):
 
 #################################################################################################
 
-class _AMProject(_CCMProject):
+class AMProject(CCMProject):
     def __init__(self, name, project_uri, app, is_optin,singlemode):
         super().__init__(name, project_uri, app, is_optin,singlemode)
         self.default_query_resource = 'oslc_am:Resource'
@@ -461,9 +461,9 @@ class _AMProject(_CCMProject):
 #################################################################################################
 
 @utils.mixinomatic
-class _AMApp(_app._App, _typesystem.No_Type_System_Mixin):
+class AMApp(_app._App, _typesystem.No_Type_System_Mixin):
     domain = 'am'
-    project_class = _AMProject
+    project_class = AMProject
     supports_configs = False
     supports_components = False
     supports_reportable_rest = False

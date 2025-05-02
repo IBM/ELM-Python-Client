@@ -661,18 +661,18 @@ https://jazz.ibm.com:9443/rm/resources/TX_RsjKkbFXEe-j4_rM2KKkmw,3324,The handhe
 https://jazz.ibm.com:9443/rm/resources/BI_Rjbq9rFXEe-j4_rM2KKkmw,3324,The handheld unit shall have a mass no greater than 2.25kg.,,http://jazz.net/ns/rm#Text,System Requirement
 https://jazz.ibm.com:9443/rm/resources/TX_RsguULFXEe-j4_rM2KKkmw,3325,The handheld device shall allow the meter reader to enter information about meters relocated on a particular route.,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts,http://jazz.net/ns/rm#Text,System Requirement
 https://jazz.ibm.com:9443/rm/resources/BI_RjbD1LFXEe-j4_rM2KKkmw,3325,The handheld device shall allow the meter reader to enter information about meters relocated on a particular route.,,http://jazz.net/ns/rm#Text,System Requirement
-https://jazz.ibm.com:9443/rm/resources/TX_RshVYLFXEe-j4_rM2KKkmw,3326,Software Interfaces,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/BI_Ri0m4rFXEe-j4_rM2KKkmw,3326,Software Interfaces,,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/TX_RshVYLFXEe-j4_rM2KKkmw,3326,Software Interfaces,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/TX_RskYsLFXEe-j4_rM2KKkmw,3327,The handheld device shall be able to recharge using solar power.,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts,http://jazz.net/ns/rm#Text,System Requirement
 https://jazz.ibm.com:9443/rm/resources/BI_Rjbq0LFXEe-j4_rM2KKkmw,3327,The handheld device shall be able to recharge using solar power.,,http://jazz.net/ns/rm#Text,System Requirement
 https://jazz.ibm.com:9443/rm/resources/TX_RsoDELFXEe-j4_rM2KKkmw,3328,Scope & Level,/Base Artifacts/Module Template/Use Case Template artifacts,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/BI_RigdxrFXEe-j4_rM2KKkmw,3328,Scope & Level,,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/TX_Rslm0LFXEe-j4_rM2KKkmw,3329,General Constraints,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/BI_Ri0m27FXEe-j4_rM2KKkmw,3329,General Constraints,,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/TX_Rslm0LFXEe-j4_rM2KKkmw,3329,General Constraints,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/TX_Rsm08LFXEe-j4_rM2KKkmw,3330,detectLeak,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/BI_RinylbFXEe-j4_rM2KKkmw,3330,detectLeak,,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/TX_Rsm08bFXEe-j4_rM2KKkmw,3331,"Primary, Secondary Actors",/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/BI_Ri7UjbFXEe-j4_rM2KKkmw,3331,"Primary, Secondary Actors",,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/TX_Rsm08bFXEe-j4_rM2KKkmw,3331,"Primary, Secondary Actors",/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/TX_RsmN4LFXEe-j4_rM2KKkmw,3332,Control Computer and Related Hardware,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/BI_RjKlL7FXEe-j4_rM2KKkmw,3332,Control Computer and Related Hardware,,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/TX_Rsk_wLFXEe-j4_rM2KKkmw,3333,Other Requirements,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts,http://jazz.net/ns/rm#Text,Heading
@@ -683,8 +683,8 @@ https://jazz.ibm.com:9443/rm/resources/TX_RsoqILFXEe-j4_rM2KKkmw,3335,The meter 
 https://jazz.ibm.com:9443/rm/resources/BI_RinymLFXEe-j4_rM2KKkmw,3335,The meter interface unit shall compare instantaneous readings to the historical average for the hour of the day,,http://jazz.net/ns/rm#Text,System Requirement
 https://jazz.ibm.com:9443/rm/resources/TX_RsrGYbFXEe-j4_rM2KKkmw,3336,Assumptions and Dependencies,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/BI_RjJ-KLFXEe-j4_rM2KKkmw,3336,Assumptions and Dependencies,,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/TX_RsrGYLFXEe-j4_rM2KKkmw,3337,Overview,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/BI_Ri0m1rFXEe-j4_rM2KKkmw,3337,Overview,,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/TX_RsrGYLFXEe-j4_rM2KKkmw,3337,Overview,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/TX_Rsp4QbFXEe-j4_rM2KKkmw,3338,Identification,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/BI_RjeuIrFXEe-j4_rM2KKkmw,3338,Identification,,http://jazz.net/ns/rm#Text,Heading
 https://jazz.ibm.com:9443/rm/resources/TX_RspRMLFXEe-j4_rM2KKkmw,3339,Introduction,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts,http://jazz.net/ns/rm#Text,Heading

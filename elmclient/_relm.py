@@ -32,7 +32,7 @@ logger = logging.getLogger(__name__)
 
 #################################################################################################
 
-class _RELMProject(_project._Project):
+class RELMProject(_project._Project):
     def __init__(self, name, project_uri, app, is_optin=False, singlemode=False,defaultinit=False):
         super().__init__(name, project_uri, app, is_optin,singlemode, defaultinit=defaultinit)
         self.hooks = []
@@ -46,7 +46,7 @@ class _RELMProject(_project._Project):
 #@utils.mixinomatic
 class RELMApp(_app._App):
     domain = 'relm'
-    project_class = _RELMProject
+    project_class = RELMProject
     supports_configs = False
     supports_components = False
     supports_reportable_rest = False

@@ -30,7 +30,7 @@ logger = logging.getLogger(__name__)
 #################################################################################################
 
 
-class _QMProject(_project._Project, _qmrestapi.QM_REST_API_Mixin):
+class QMProject(_project._Project, _qmrestapi.QM_REST_API_Mixin):
     # A QM project
     def __init__(self, name, project_uri, app, is_optin=False, singlemode=False,defaultinit=True):
         super().__init__(name, project_uri, app, is_optin,singlemode,defaultinit=defaultinit)
@@ -313,7 +313,7 @@ class _QMProject(_project._Project, _qmrestapi.QM_REST_API_Mixin):
 
     def _create_component_api(self, component_prj_url, component_name):
         logger.info( f"CREATE QM COMPONENT {self=} {component_prj_url=} {component_name=} {self.app=} {self.is_optin=} {self.singlemode=}" )
-        result = _QMComponent(component_name, component_prj_url, self.app, self.is_optin, self.singlemode, defaultinit=False, project=self)
+        result = QMComponent(component_name, component_prj_url, self.app, self.is_optin, self.singlemode, defaultinit=False, project=self)
         return result
 
 
@@ -415,7 +415,7 @@ class _QMProject(_project._Project, _qmrestapi.QM_REST_API_Mixin):
 
 #################################################################################################
 
-class _QMComponent(_QMProject):
+class QMComponent(QMProject):
     def __init__(self, name, project_uri, app, is_optin=False, singlemode=False,defaultinit=True, project=None):
         if not project:
             raise Exception( "You mist provide a project instance when creating a component" )
@@ -426,9 +426,9 @@ class _QMComponent(_QMProject):
 #################################################################################################
 
 @utils.mixinomatic
-class _QMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixin):
+class QMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixin):
     domain = 'qm'
-    project_class = _QMProject
+    project_class = QMProject
     supports_configs = True
     supports_components = True
     supports_reportable_rest = True

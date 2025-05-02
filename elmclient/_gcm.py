@@ -48,7 +48,7 @@ def _hook_beforequery(querydetails):
 
 #################################################################################################
 
-class _GCMProject(_project._Project):
+class GCMProject(_project._Project):
     def __init__(self, name, project_uri, app, is_optin=False, singlemode=False,defaultinit=True):
         super().__init__(name, project_uri, app, is_optin,singlemode, defaultinit=False)
         self.hooks = [_hook_beforequery]
@@ -369,7 +369,7 @@ class _GCMProject(_project._Project):
 
 #################################################################################################
 
-class _GCMComponent(_GCMProject):
+class GCMComponent(GCMProject):
     pass
 
 #################################################################################################
@@ -377,7 +377,7 @@ class _GCMComponent(_GCMProject):
 @utils.mixinomatic
 class GCMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixin):
     domain = 'gc'
-    project_class = _GCMProject
+    project_class = GCMProject
     supports_configs = False
     supports_components = True
     supports_reportable_rest = False

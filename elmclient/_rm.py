@@ -65,7 +65,7 @@ if False:
         pass
 
 @utils.mixinomatic
-class _RMProject(_project._Project):
+class RMProject(_project._Project):
     # A project
     # NOTE there is a derived class RMComponent used for RM components - it doesn't offer any
     #   functionality, and is a separate class only so it's easier to see whether an instance is a component or the overall project
@@ -947,7 +947,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
 
     def _create_component_api(self, component_prj_url, component_name, confs_to_load):
         logger.info( f"CREATE RM COMPONENT {self=} {component_prj_url=} {component_name=} {self.app=} {self.is_optin=} {self.singlemode=}" )
-        result = _RMComponent(component_name, component_prj_url, self.app, self.is_optin, self.singlemode, defaultinit=False, project=self)
+        result = RMComponent(component_name, component_prj_url, self.app, self.is_optin, self.singlemode, defaultinit=False, project=self)
         result.confs_to_load = confs_to_load
         return result
 
@@ -1125,7 +1125,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
 
 #################################################################################################
 
-class _RMComponent(_RMProject):
+class RMComponent(RMProject):
     def __init__(self, name, project_uri, app, is_optin=False, singlemode=False,defaultinit=True, project=None):
         if not project:
             raise Exception( "You must provide a project instance when creating a component" )
@@ -1275,9 +1275,9 @@ class _RMComponent(_RMProject):
 #################################################################################################
 
 @utils.mixinomatic
-class _RMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixin):
+class RMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixin):
     domain = 'rm'
-    project_class = _RMProject
+    project_class = RMProject
     supports_configs = True
     supports_components = True
     supports_reportable_rest = True

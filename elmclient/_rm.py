@@ -26,6 +26,7 @@ from . import rdfxml
 from . import server
 from . import utils
 from . import _newtypesystem
+from . import resource
 
 # used for OSLC Query on types
 typeresources = {
@@ -65,7 +66,7 @@ if False:
         pass
 
 @utils.mixinomatic
-class RMProject(_project._Project):
+class RMProject(_project._Project, resource.Resources_Mixin ):
     # A project
     # NOTE there is a derived class RMComponent used for RM components - it doesn't offer any
     #   functionality, and is a separate class only so it's easier to see whether an instance is a component or the overall project
@@ -1275,7 +1276,7 @@ class RMComponent(RMProject):
 #################################################################################################
 
 @utils.mixinomatic
-class RMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixin):
+class RMApp (_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixin ):
     domain = 'rm'
     project_class = RMProject
     supports_configs = True

@@ -66,7 +66,7 @@ prefixedname        : ( URI_REF_ESC | NAME ) ":" NAME
 
 simpleidentifier    : ( NAME  | "'" SPACYNAME "'" )
 
-NAME                : /[a-zA-Z0-9_]\w*/
+NAME                : /[a-zA-Z0-9_][a-zA-Z0-9_-]*/
 
 value              : URI_REF_ESC
                     | boolean

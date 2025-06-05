@@ -68,7 +68,8 @@ RDF_DEFAULT_PREFIX = {
     'xhtml':            'http://www.w3.org/1999/xhtml',
     'xml':              'http://www.w3.org/XML/1998/namespace',
     'xsd':              'http://www.w3.org/2001/XMLSchema#',
-    'xs':              'http://www.w3.org/2001/XMLSchema'
+    'xs':              'http://www.w3.org/2001/XMLSchema',
+    'rt':               'https://jazz.ibm.com:9443/rm/types'
 }
 
 # Register prefixes to XML system

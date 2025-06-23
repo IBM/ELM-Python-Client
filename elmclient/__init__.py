@@ -18,6 +18,8 @@ from ._qm import *
 from ._relm import *
 from .__meta__ import *
 from .httpops import *
+from ._customScenarios import *
+from .utils import *
 
 __app__ = __meta__.app
 __version__ = __meta__.version

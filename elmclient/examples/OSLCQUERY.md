@@ -367,9 +367,9 @@ The first four rows of results might look like this, with the first column $uri 
 
 This `oslcquery` application enforces that results always include dcterms:identifier and rm_nav:parent (which if the artifact is a core artifact shows the folder path) and by default are sorted by increasing identifier - to disable sorting use the `-S` option.
 
-The first row of results doesn't have an identifier, because it's a Collection. If you want to see the format of a result row, add `rdm_types:ArtifactFormat` to the select open -s like this: `-s dcterms:title,rdm_types:ArtifactFormat` and you'll get results like this:
+The first row of results doesn't have an identifier, because it's a Collection. If you want to see the format of a result row, add `rdf:type` to the select open -s like this: `-s dcterms:title,rdf:type` and you'll get results like this:
 
-|$uri|dcterms:identifier|dcterms:title|rdm_types:ArtifactFormat|rm_nav:parent|
+|$uri|dcterms:identifier|dcterms:title|rdf:type|rm_nav:parent|
 |----|:----------------:|-------------|------------------------|-------------|
 |https://jazz.ibm.com:9443/rm/materializedviews/VW_CMPEA0B5Eeuh3Iiax2L3Ow||Gold Plating|jazz_rm:Collection||
 |https://jazz.ibm.com:9443/rm/resources/MD_COUvCkB5Eeuh3Iiax2L3Ow|912|AMR System Requirements Specification|jazz_rm:Module|/01 Requirements|
@@ -416,19 +416,19 @@ To find artifacts created by a specifc user: `-q "dcterms:creator=@""tanuj"""`
 
 To find artifacts with a specific title: `-q "dcterms:title=""Money that Matters"""`  NOTE DN doesn't appear to support wildcards in string comparisons - you could try using -f/--searchterms for approximate match.
 
-To find artifacts which are collections: `-q rdm_types:ArtifactFormat=jazz_rm:Collection`
+To find artifacts which are collections: `-q rdf:type=jazz_rm:Collection`
 
 To get all artifacts in a project/component: don't specify -q (use with care, can place a large load on your DN server)
 
-To find all modules: `-q rdm_types:ArtifactFormat=jazz_rm:Module`
+To find all modules: `-q rdf:type=jazz_rm:Module`
 
-To find all resources which are modules and also retrieve their RDF XML to file too, into an existing subdirectory 'modules' with file names starting 'mod_': `-q rdm_types:ArtifactFormat=jazz_rm:Module -X modules\mod` - NOTE the files are named for the identifier of the artifact.
+To find all resources which are modules and also retrieve their RDF XML to file too, into an existing subdirectory 'modules' with file names starting 'mod_': `-q rdf:type=jazz_rm:Module -X modules\mod` - NOTE the files are named for the identifier of the artifact.
 
-All Text format core artifacts: `-q rdm_types:ArtifactFormat=jazz_rm:Text -v rm_nav:parent`
+All Text format core artifacts: `-q rdf:type=jazz_rm:Text -v rm_nav:parent`
 
-All Text format artifacts (in modules): `-q rdm_types:ArtifactFormat=jazz_rm:Text -n rm_nav:parent`
+All Text format artifacts (in modules): `-q rdf:type=jazz_rm:Text -n rm_nav:parent`
 
-All wrapped resources: `-q rdm_types:ArtifactFormat=jazz_rm:WrapperResource`
+All wrapped resources: `-q rdf:type=jazz_rm:WrapperResource`
 
 To find artifacts modified after a specific date-time: '-q "'Modified On'>""2020-08-01T21:51:40.979Z""^^xsd:datetime"' - note that DN requires specifying the `^^xsd:datetime`, unlike EWM
 
@@ -460,7 +460,7 @@ To find all artifacts in project/component in a specific module id 3892 modified
 
 To find all artifacts in project/component in a specific module id 3892 modified before a specific date `-q rm:module=~3892 and dcterms:modified<"2020-08-01T21:51:40.979Z"^^xsd:dateTime` - NOTE this is using the enhanced OSLC Query sytnax for finding an artifact by id using ~
 
-To totalize a column which has multiple results replacing them with a count of the number of results, which might be useful for example to get a count of artifacts in each module, use a query for modules `rdm_types:ArtifactFormat=jazz_rm:Module` and select `oslc_rm:uses` then use the -I option. Because this doesn't need name resolution which can slow the query and post-processing down when processing many modules, also use -R and -Q - for results from components across a GC `/gc/configuration/26` in GCM project `gcproj` the query looks like: `-s oslc_rm:uses,dcterms:title -q rdm_types:ArtifactFormat=jazz_rm:Module -G 26 -E gcproj` - the result is a spreadsheet containing the module URI, the module name and identifier and a column with the count of artifacts in the module. You can improve performance (assuming you don't need friendly names, and counting artifacts/module doesn't really need friendly names) by suppressing the reading of the type system using `-Q` and `-R`, and because the results will be large you may consider carefully whether to suppress paging by using `--pagesize 0`.
+To totalize a column which has multiple results replacing them with a count of the number of results, which might be useful for example to get a count of artifacts in each module, use a query for modules `rdm_types:ArtifactFormat=jazz_rm:Module` and select `oslc_rm:uses` then use the -I option. Because this doesn't need name resolution which can slow the query and post-processing down when processing many modules, also use -R and -Q - for results from components across a GC `/gc/configuration/26` in GCM project `gcproj` the query looks like: `-s oslc_rm:uses,dcterms:title -q rdf:type=jazz_rm:Module -G 26 -E gcproj` - the result is a spreadsheet containing the module URI, the module name and identifier and a column with the count of artifacts in the module. You can improve performance (assuming you don't need friendly names, and counting artifacts/module doesn't really need friendly names) by suppressing the reading of the type system using `-Q` and `-R`, and because the results will be large you may consider carefully whether to suppress paging by using `--pagesize 0`.
 
 If you have a project with many components and/or configurations, you may observe that startup is slow - this is because by default if you don't specify a component then oslcquery reads all the components in the project and all the configurations in each component so that it can find the configuration which might be in any component. As of version 0.10.0 you can reduce this cost in a few ways: - most basic is to specify a component using -C, when you do this oslcquery only reads the configurations for that component. The next is to specify a component using `-C` and GC as well - using `-E` and `-G` -and also as a local configuration using `-F` - `oslcquery` will find the contribution to the GC for that component. If you only specify a GC configuration (usinging `-E` and `-G`) then oslcquery won't read RM components or configurations and the query will work on the project returning results from all contributing componenets in the project.
 

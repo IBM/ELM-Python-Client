@@ -4,6 +4,8 @@
 ##
 
 #
+# THIS IS VERYT INCOMPLETE AND EXPERIMENTAL - DO NOT USE!
+#
 # routines to encapsulate a generic ELM resource as an object with attributes
 #
 # Creates the object by retrieving the RDF and using the tags to create attributes
@@ -39,17 +41,19 @@ unmodifiables = [
 	'type',
 	]
 
-class BaseResource( collections.UserDict ):
+class BaseResource( object ):
     def __init__( self, projorcomp, resourceURL ):
-        super().__init__( self )
+        print( f"Init {self=}" )
+        print( f"Init {super()=}" )
+        self._force = True
+        super().__init__()
         self._url = resourceURL
         self._projorcomp = projorcomp
         # read the resource, save the ETag
         self._prefixes = {} # key is the property name, value is the prefix for that property - used to allow the full tag name to be reconstructed from just the property name
         self._modifieds = [] # the list of modified properties
         self._formats = {} # remember the format for a property so it can be updated correctly
-
-        self._force = True
+        print( f"Init {self=}" )
         
         # read the resource and create/return an object
         xml, etag = self._projorcomp.execute_get_rdf_xml( self._url, return_etag=True, intent="Retrieve the artifact" )
@@ -96,6 +100,117 @@ class BaseResource( collections.UserDict ):
             else:
                 # remember the prefix for this tag
                 self._prefixes[ tag ] = prefix
+                print( f"Saved prefix {tag} {prefix}" )
+                
+            print( f"Setting {tag=} {value=}" )
+            # put the value into the attribute, allowing that if multiple tags are present which become lists when the second entry is added
+            if hasattr( self, tag ):
+                # already got one value - may need to make or extend a list of values
+                existingvalue = getattr( self, tag )
+                if type( existingvalue ) != list:
+                    # make the existing single value into a list with the new value added
+                    setattr( self, tag, [existingvalue]+[value] )
+                else:
+                    # extend the existing list with the new value
+                    setattr( self, tag, existingvalue+[value] )
+            else:
+                setattr( self, tag, value )
+            newvalue = getattr( self, tag )
+            self.__setitem__( tag, newvalue )
+            
+        print( f"{self.__dict__=}" )
+        self._modifieds = []
+        self._force = False
+
+    def __getattribute__( self, name ):
+        print( f"getattribute {self=} {name=}" )
+        if name.startswith( "_" ) or name=="data":
+            print( f"1" )
+            return super().__getattribute__( name )
+        if not hasattr( self, "_prefixes" ) or ( not self._force and name not in self._prefixes ):
+            raise Exception( "No property {name}!" )
+        if self.hasattr( self, "_prefixes" ):
+            taggedname = f"{{{super()._prefixes[name]}}}:{name}"
+        else:
+            taggedname = None
+        if taggedname not in super().data:
+            raise Exception( "No property data for {name}!" )
+        return super().data.get(name)
+        
+    def __setattr__( self, name, value ):
+        print( f"setattr {self=} {name=} {value=}" )
+        if name.startswith( "_" ) or name=="data":
+            super().__setattr__( name, value )
+        else:
+            if not self._force and name in unmodifiables:
+                raise Exception( f"Attribute {name} is an unmodifiable system property!" )
+            if not self._force and name not in self._prefixes:
+                raise Exception( "No property {name}!" )
+            if hasattr( self, "_prefixes" ):
+                taggedname = f"{{{self._prefixes.get(name,"UNDEFINED")}}}:{name}"
+            else:
+                taggedname = f"{{NONE}}:{name}"
+                
+            object.data[taggedname] = value
+
+
+class OLDBaseResource( collections.UserDict ):
+    def __init__( self, projorcomp, resourceURL ):
+        self._force = True
+        super().__init__( self )
+        super()._url = resourceURL
+        super()._projorcomp = projorcomp
+        # read the resource, save the ETag
+        super()._prefixes = {} # key is the property name, value is the prefix for that property - used to allow the full tag name to be reconstructed from just the property name
+        super()._modifieds = [] # the list of modified properties
+        super()._formats = {} # remember the format for a property so it can be updated correctly
+        print( f"Init {self=}" )
+        
+        # read the resource and create/return an object
+        xml, etag = super()._projorcomp.execute_get_rdf_xml( super()._url, return_etag=True, intent="Retrieve the artifact" )
+#        print( f"{xml=}" )
+        super()._etag = etag
+        super()._xml = xml
+#        super().data = {}
+        
+        # scan the top-level tags and convert into properties
+        for child in xml.getroot()[0]:
+#            print( f"Child {child.tag} {child.text}" )
+            prefixedtag = child.tag
+            prefix,tag = prefixedtag.split( "}", 1 )
+            prefix = prefix[1:] # remove the leading {
+            
+            # work out what the value is
+            if len(child)>0 and rdfxml.xmlrdf_get_resource_uri( child, attrib="rdf:parseType" ) == "Literal":
+                # get the XML literal value by converting the whole child to a string and then strip off the start/end tags!
+                # (shouldn't there be a less hacky way of doing this?)
+                literal = ET.tostring(child).decode()
+                value = literal[literal.index('>')+1:literal.rindex('<')]
+                super()._formats[tag] = XMLLITERAL
+            elif child.text is None or not child.text.strip():
+                # no text, try the resource URI
+#                value = child.get("{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource")
+                value = rdfxml.xmlrdf_get_resource_uri( child )
+                if value is None:
+                    # no resource URI, use an empty string
+                    value = ""
+                # print( f"1 {value=}" )
+                super()._formats[tag] = RDFRESOURCE
+            else:
+                value = child.text,strip()
+                # print( f"2 {value=}" )
+                super()._formats[tag] = TEXT
+
+            # remember the prefix for this property name
+            if tag in super()._prefixes:
+                if super()._prefixes[ tag ] == prefix:
+                    # same tag/prefix already there - that's OK
+                    pass
+                else:
+                    raise Exception( "Different duplicated definition for {tag} - new one is {prefix} and original is {self._prefixes[tag]}!" )
+            else:
+                # remember the prefix for this tag
+                super()._prefixes[ tag ] = prefix
                 
             print( f"{tag=} {value=}" )
             # put the value into the attribute, allowing that if multiple tags are present which become lists when the second entry is added
@@ -114,12 +229,15 @@ class BaseResource( collections.UserDict ):
             self.__setitem__( tag, newvalue, force=True )
             
         print( f"{self.__dict__=}" )
-        self._modifieds = []
-        self._force = False
+        super()._modifieds = []
+        super()._force = False
 
-    def __repr__( self ):
-        lines = [f"{k}: {super().data[k]}" for k in sorted(super().data.keys())]
-        result = "\n".join( lines )
+    def my__repr__( self ):
+        if not self._force:
+            lines = [f"{k}: {super().data[k]}" for k in sorted(super().data.keys())]
+            result = "\n".join( lines )
+        else:
+            result="FORCE IS SET!"
         return result
         
 #    def __getitem__(self, key):
@@ -135,24 +253,32 @@ class BaseResource( collections.UserDict ):
 #            self._modifieds.append( key )
             
     def __getattribute__( self, name ):
-        if name.startswith( "_" ):
+        print( f"{self=} {name=}" )
+        if name.startswith( "_" ) or name=="data":
+            print( f"1" )
             return super().__getattribute__( name )
-        if name not in super()._prefixes:
-            raise Exception( "No property {name}!" )            
-        taggedname = f"{{{super()._prefixes[name]}}}:{name}"
+        if not self._force and name not in super()._prefixes:
+            raise Exception( "No property {name}!" )
+        if self.hasattr( self, "_prefixes" ):
+            taggedname = f"{{{super()._prefixes[name]}}}:{name}"
+        else:
+            taggedname = None
         if taggedname not in super().data:
             raise Exception( "No property data for {name}!" )
         return super().data.get(name)
         
     def __setattr__( self, name, value ):
-        if name.startswith( "_" ):
+#        print( f"setattr {self=} {name=} {value=}" )
+        if name.startswith( "_" ) or name=="data":
             super().__setattr__( name, value )
         else:
-            if not super()._force and name in unmodifiables:
+            if not self._force and name in unmodifiables:
                 raise Exception( f"Attribute {name} is an unmodifiable system property!" )
-            if not super()._force and name not in super()._prefixes:
+            if not self._force and name not in self._prefixes:
                 raise Exception( "No property {name}!" )
-            taggedname = f"{{{super()._prefixes[name]}}}:{name}"
+            if not self._force and name not in self._prefixes:
+                raise Eception( "Name {name} has no prefix registered!" )
+            taggedname = f"{{{self._prefixes[name]}}}:{name}"
             super().data[taggedname] = value
         
     def save( self ):

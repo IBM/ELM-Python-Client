@@ -114,7 +114,7 @@ if __name__=="__main__":
 
     print( f"Found core artifact {theartifact_u=}" )
 
-    art = c.loadResource( theartifact_u )
+    art = c.retrieveResource( theartifact_u )
     
     print( f"{art=}" )
     print( vars( art ) )

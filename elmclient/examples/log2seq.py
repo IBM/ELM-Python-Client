@@ -18,7 +18,8 @@ import os.path
 import re
 import urllib.parse
 import webbrowser
-import xml.etree.ElementTree as ET
+#import xml.etree.ElementTree as ET
+import lxml.etree as ET
 
 import jinja2
 
@@ -162,7 +163,22 @@ def sanitise( s, *, width=60, wrap=True, clip=None, maxlines=0 ):
                 slines = slines[:maxlines]
             
         results.extend(slines)
-    return html.escape("\\n".join(results))
+#    return html.escape("\\n".join(results))
+    result = "\\n".join(results)
+    if result.startswith( "<?xml" ) or result.startswith( "<rdf" ):
+        print( f"is xml {result[:4]}" )
+        len1 = len( result )
+        tree = ET.fromstring( result.encode() )
+        len3 = len( ET.tostring( tree ) )
+#        ET.indent( tree, space="           " )
+        result2 = ET.tostring( tree, pretty_print=True ).decode()
+        len2 = len( result2 )
+        print( f"{len1=} {len3=} {len2=}" )
+        result = "<pre>"+html.escape( ET.tostring( tree, pretty_print=True ).decode() )+"</pre>"
+    else:
+        print( f"not xml {result[:4]}" )
+        result = html.escape( result )
+    return result
 
 def addheaders(events,msgheaders,headerstoshow,direction):
     msgs = []

@@ -52,7 +52,7 @@ RDF_DEFAULT_PREFIX = {
     'qm_ns2':           "http://jazz.net/xmlns/alm/qm/v0.1/",
     'rdf':              'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
     'rdfs':             'http://www.w3.org/2000/01/rdf-schema#',
-    'rdm_types':        'http://www.ibm.com/xmlns/rdm/types/',
+# retired    'rdm_types':        'http://www.ibm.com/xmlns/rdm/types/',
     'rm':               'http://www.ibm.com/xmlns/rdm/rdf/',
     'rm_ds':            'http://jazz.net/xmlns/alm/rm/datasource/v0.1', # For RR
     'rm_modules':       'http://jazz.net/ns/rm/dng/module#',
@@ -165,7 +165,7 @@ def xml_find_elements(xml, element_xpath, condition_xpath=None, condition_value=
     return results
 
 # finds first element using xpath and returns (in order of preference) its rdf attrib, rdf:resource, rdf:about, or text
-def xmlrdf_get_resource_uri(xml, xpath=None, prefix_map=RDF_DEFAULT_PREFIX,attrib=None, exceptionifnotfound=False):
+def xmlrdf_get_resource_uri(xml, xpath=None, *, prefix_map=RDF_DEFAULT_PREFIX, attrib=None, exceptionifnotfound=False):
     if xml is None:
         return None
     r = xml.find(xpath, prefix_map) if xpath else xml
@@ -244,7 +244,7 @@ def tag_to_prefix(tag):
 # of if uri is already a prefixed tag, make sure prefix is put in uri_to_prefix_map
 # uri_to_prefix_map is updated with the new prefix (this is the project-specific prefixes)
 # default_map is also updated (this is all the application-wide prefixes)
-def uri_to_prefixed_tag(uri, uri_to_prefix_map=None, default_map=None,oktocreate=True,noexception=False):
+def uri_to_prefixed_tag( uri, uri_to_prefix_map=None, default_map=None, oktocreate=True, noexception=False):
     logger.debug( f"uri_to_prefixed_tag {uri=}" )
     if uri_to_prefix_map is None: # this allows caller to pass an empty dictionary which will be updated (the usual 'or' test doesn't allow returning!)
         uri_to_prefix_map = {}

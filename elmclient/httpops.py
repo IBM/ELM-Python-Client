@@ -276,7 +276,6 @@ class HttpOperations_Mixin():
         return response
 
     def execute_post_rdf_xml(self, reluri, *, data=None, params=None, headers=None, put=False, **kwargs):
-        print( f"EPRX {params=}" )
         reqheaders = {'Accept': 'application/xml', 'Content-Type': 'application/rdf+xml'}
         if headers is not None:
             reqheaders.update(headers)
@@ -315,6 +314,37 @@ class HttpOperations_Mixin():
         result = json.loads(response.content)
         if return_etag:
             return (result,response.headers['ETag'])
+        return result
+       
+    def execute_get_json_soap( self, reluri, *, params=None, headers=None, return_etag = False, **kwargs ):
+        reqheaders = {'Accept': 'application/json'}
+        if headers is not None:
+            reqheaders.update(headers)
+            
+        request = self._get_get_request(reluri=reluri, params=params, headers=reqheaders)
+        response = request.execute( **kwargs )
+
+        result = json.loads(response.content)
+
+        if 'soapenv:Body' in result:
+            rr_json = result['soapenv:Body']['response']['returnValue']
+            try:
+                if 'type' in rr_json and rr_json['type']=='NULL':
+                    result = None
+                elif 'values' in rr_json:
+                    result = rr_json['values']
+                elif 'value' in rr_json:
+                    result = rr_json['value']
+                else:
+                    result = None
+            except KeyError as e:
+                print(e)
+                print(rr_json)
+                raise e
+
+        if return_etag:
+            return ( result, response.headers.get('ETag') )
+
         return result
 
     def execute_get_binary( self, reluri, *, params=None, headers=None, **kwargs):
@@ -539,8 +569,19 @@ class HttpRequest():
                 rawtext = repr(request.body)[1:-1]
                 if len(rawtext) > 0:
                     if rawtext[0] == '<' or rawtext[0] == '{':
+#                    if rawtext[0] == '{' or ( rawtext[0]=='<' and not rawtext.startswith( '<?xml' ) and not rawtext.startswith( '<rdf' ) ):
                         rawtext = re.sub(r"\\n", "\n", rawtext)
-                        rawtext = re.sub(r"\\t", "    ", rawtext)
+                        rawtext = re.sub(r"\\t", "  ", rawtext)
+#                    elif rawtext.startswith( '<?xml' ) or rawtext.startswith( '<rdf' ):
+                    if rawtext.startswith( '<?xml' ) or rawtext.startswith( '<rdf' ):
+                        # assume XML
+#                        print( f"is xml {rawtext[0:4]}" )
+                        tree = ET.fromstring( rawtext )
+                        ET.indent(tree, space="       " )
+                        rawtext = ET.tostring( tree )
+                    else:
+#                        print( f"not xml {rawtext[0:4]}" )
+                        pass
             # the surroundings allow splitting out the request body when parsing the log
             logtext += "\n::::::::::=\n"
             logtext += "\n" + rawtext + "\n\n"
@@ -579,12 +620,29 @@ class HttpRequest():
             if len(response.content) > 1000000:
                 rawtext = "LONG LONG CONTENT..."
             else:
+#                rawtext = repr(response.content)[2:-1]
+#                if len(rawtext) > 0:
+#                    if rawtext[0] == '<' or rawtext[0] == '{':
+#                        rawtext = re.sub(r"\\r", "", rawtext)
+#                        rawtext = re.sub(r"\\n", "\n", rawtext)
+#                        rawtext = re.sub(r"\\t", "    ", rawtext)
                 rawtext = repr(response.content)[2:-1]
                 if len(rawtext) > 0:
                     if rawtext[0] == '<' or rawtext[0] == '{':
+#                    if rawtext[0] == '{' or ( rawtext[0]=='<' and not rawtext.startswith( '<?xml' ) and not rawtext.startswith( '<rdf' ) ):
                         rawtext = re.sub(r"\\r", "", rawtext)
                         rawtext = re.sub(r"\\n", "\n", rawtext)
-                        rawtext = re.sub(r"\\t", "    ", rawtext)
+                        rawtext = re.sub(r"\\t", "  ", rawtext)
+#                    elif rawtext.startswith( '<?xml' ) or rawtext.startswith( '<rdf' ):
+                    if rawtext.startswith( '<?xml' ) or rawtext.startswith( '<rdf' ):
+                        # assume XML
+#                        print( f"is xml {rawtext[0:4]}" )
+                        tree = ET.fromstring( rawtext.encode() )
+                        ET.indent(tree, space="  " )
+                        rawtext = ET.tostring( tree ).decode()
+                    else:
+#                        print( f"not xml {rawtext[0:4]}" )
+                        pass
             # the surroundings allow splitting out the response body when parsing the log
             logtext += "\n::::::::::@\n"
             logtext += rawtext 

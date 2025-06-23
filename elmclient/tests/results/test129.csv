@@ -1,13 +1,13 @@
-﻿$uri,Identifier,Title,http://jazz.net/ns/rm/navigation#parent,http://www.ibm.com/xmlns/rdm/types/ArtifactFormat,oslc:instanceShape
-https://jazz.ibm.com:9443/rm/resources/WR_Rss7kbFXEe-j4_rM2KKkmw,2988,Image 1,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts,http://jazz.net/ns/rm#WrapperResource,Information
-https://jazz.ibm.com:9443/rm/resources/BI_RjbDybFXEe-j4_rM2KKkmw,2988,Image 1,,http://jazz.net/ns/rm#WrapperResource,Information
-https://jazz.ibm.com:9443/rm/resources/WR_RqJW0LFXEe-j4_rM2KKkmw,2989,Image 0,/Base Artifacts/00 Admin/AMR Information Architecture artifacts,http://jazz.net/ns/rm#WrapperResource,Information
-https://jazz.ibm.com:9443/rm/resources/BI_RjLzM7FXEe-j4_rM2KKkmw,2989,Image 0,,http://jazz.net/ns/rm#WrapperResource,Information
-https://jazz.ibm.com:9443/rm/resources/WR_RsdD8LFXEe-j4_rM2KKkmw,2990,Image 3,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,http://jazz.net/ns/rm#WrapperResource,Information
-https://jazz.ibm.com:9443/rm/resources/BI_RjKlLbFXEe-j4_rM2KKkmw,2990,Image 3,,http://jazz.net/ns/rm#WrapperResource,Information
-https://jazz.ibm.com:9443/rm/resources/WR_RsKJALFXEe-j4_rM2KKkmw,2991,Image 4,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,http://jazz.net/ns/rm#WrapperResource,Information
-https://jazz.ibm.com:9443/rm/resources/BI_RjKlILFXEe-j4_rM2KKkmw,2991,Image 4,,http://jazz.net/ns/rm#WrapperResource,Information
-https://jazz.ibm.com:9443/rm/resources/WR_RpqOoLFXEe-j4_rM2KKkmw,2992,Image 6,/Base Artifacts/00 Admin/AMR Information Architecture artifacts,http://jazz.net/ns/rm#WrapperResource,Information
-https://jazz.ibm.com:9443/rm/resources/BI_RjLzMbFXEe-j4_rM2KKkmw,2992,Image 6,,http://jazz.net/ns/rm#WrapperResource,Information
-https://jazz.ibm.com:9443/rm/resources/WR_RsjxoLFXEe-j4_rM2KKkmw,2993,Image 5,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,http://jazz.net/ns/rm#WrapperResource,Information
-https://jazz.ibm.com:9443/rm/resources/BI_RjJ-LrFXEe-j4_rM2KKkmw,2993,Image 5,,http://jazz.net/ns/rm#WrapperResource,Information
+﻿$uri,Identifier,Title,http://jazz.net/ns/rm/navigation#parent,http://www.w3.org/1999/02/22-rdf-syntax-ns#typeWORKAROUND,oslc:instanceShape
+https://jazz.ibm.com:9443/rm/resources/WR_7mb6MLC1Ee-Oi4_TXlWUGQ,3343,Image 1,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts,http://jazz.net/ns/rm#WrapperResource,Information
+https://jazz.ibm.com:9443/rm/resources/BI_7nUD-bC1Ee-Oi4_TXlWUGQ,3343,Image 1,,http://jazz.net/ns/rm#WrapperResource,Information
+https://jazz.ibm.com:9443/rm/resources/WR_7mHKELC1Ee-Oi4_TXlWUGQ,3344,Image 3,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,http://jazz.net/ns/rm#WrapperResource,Information
+https://jazz.ibm.com:9443/rm/resources/BI_7nEzdrC1Ee-Oi4_TXlWUGQ,3344,Image 3,,http://jazz.net/ns/rm#WrapperResource,Information
+https://jazz.ibm.com:9443/rm/resources/BI_7nEzabC1Ee-Oi4_TXlWUGQ,3345,Image 4,,http://jazz.net/ns/rm#WrapperResource,Information
+https://jazz.ibm.com:9443/rm/resources/WR_7lzoELC1Ee-Oi4_TXlWUGQ,3345,Image 4,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,http://jazz.net/ns/rm#WrapperResource,Information
+https://jazz.ibm.com:9443/rm/resources/BI_7nGBhLC1Ee-Oi4_TXlWUGQ,3346,Image 0,,http://jazz.net/ns/rm#WrapperResource,Information
+https://jazz.ibm.com:9443/rm/resources/WR_7kTzQLC1Ee-Oi4_TXlWUGQ,3346,Image 0,/Base Artifacts/00 Admin/AMR Information Architecture artifacts,http://jazz.net/ns/rm#WrapperResource,Information
+https://jazz.ibm.com:9443/rm/resources/BI_7nEMfrC1Ee-Oi4_TXlWUGQ,3347,Image 5,,http://jazz.net/ns/rm#WrapperResource,Information
+https://jazz.ibm.com:9443/rm/resources/WR_7mPs8LC1Ee-Oi4_TXlWUGQ,3347,Image 5,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,http://jazz.net/ns/rm#WrapperResource,Information
+https://jazz.ibm.com:9443/rm/resources/WR_7jfT4LC1Ee-Oi4_TXlWUGQ,3348,Image 6,/Base Artifacts/00 Admin/AMR Information Architecture artifacts,http://jazz.net/ns/rm#WrapperResource,Information
+https://jazz.ibm.com:9443/rm/resources/BI_7nGBgrC1Ee-Oi4_TXlWUGQ,3348,Image 6,,http://jazz.net/ns/rm#WrapperResource,Information

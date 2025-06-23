@@ -393,7 +393,7 @@ class _OSLCOperations_Mixin:
         cas = self.find_core_artifacts(queryresults)
         if len(list(cas.keys()))>1:
             raise Exception( "More than one core artifact found when only one expected!" )
-        if len(list(cas.eys()))==0:
+        if len(list(cas.keys()))==0:
             raise Exception( "No core artifact found!" )
         return cas
 

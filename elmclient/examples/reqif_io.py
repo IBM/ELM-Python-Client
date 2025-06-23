@@ -604,9 +604,9 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
                 # retrieve all modules
                 allmodules = queryon.execute_oslc_query(
                         rmqbase
-                        ,whereterms=[['rdm_types:ArtifactFormat','=',f'<{rdfxml.RDF_DEFAULT_PREFIX["jazz_rm"]}Module>']]
+                        ,whereterms=[['rdf:type','=',f'<{rdfxml.RDF_DEFAULT_PREFIX["jazz_rm"]}Module>']]
                         ,select=['*']
-                        ,prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms',rdfxml.RDF_DEFAULT_PREFIX["rdm_types"]:'rdm_types'}
+                        ,prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms'}
                         ,intent="OSLC Query for all modules"
                     )
 
@@ -682,7 +682,7 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
                 # retrieve all the core artifacts (note this includes the artifact for each module)
                 allartifacts = queryon.execute_oslc_query(
                         rmqbase
-#                        ,whereterms=[['rdm_types:ArtifactFormat','=',f'<{rdfxml.RDF_DEFAULT_PREFIX["jazz_rm"]}Module>']]
+#                        ,whereterms=[['rdf:type','=',f'<{rdfxml.RDF_DEFAULT_PREFIX["jazz_rm"]}Module>']]
                         ,select=['dcterms:identifier', 'rm_nav:parent']
                         ,prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms',rdfxml.RDF_DEFAULT_PREFIX["rm_nav"]:'rm_nav'}
                         ,intent="Retrieve all core artifacts, including artifacts for modules)"
@@ -700,7 +700,7 @@ xmlns:dng_reqif="http://jazz.net/ns/rm/dng/reqif#">
                     allids=['*']
                     allartifacts = queryon.execute_oslc_query(
                             rmqbase
-                            ,whereterms=[['rdm_types:ArtifactFormat','!=',f'<{rdfxml.RDF_DEFAULT_PREFIX["jazz_rm"]}Module>']]
+                            ,whereterms=[['rdf:type','!=',f'<{rdfxml.RDF_DEFAULT_PREFIX["jazz_rm"]}Module>']]
                             ,select=['dcterms:identifier', 'rm_nav:parent']
                             ,prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms',rdfxml.RDF_DEFAULT_PREFIX["rm_nav"]:'rm_nav'}
                             ,intent="Retrieve all core artifacts excluding artifacts for modules"

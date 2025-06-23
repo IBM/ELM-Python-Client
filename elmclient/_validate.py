@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: MIT
 ##
 
-# This mixin implements the validate API (will be used on each app that supports validate)
+# This mixin implements the validate API (can be used on each app that supports validate)
 # ref https://jazz.net/rm/doc/scenarios
 
 import codecs
@@ -24,7 +24,6 @@ import tqdm
 from elmclient import rdfxml
 
 logger = logging.getLogger(__name__)
-
 
 class Validate_Mixin():
     def listFeeds( self ):

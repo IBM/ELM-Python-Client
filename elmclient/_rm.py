@@ -1058,7 +1058,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
     def resolve_modulename_to_uri( self, modulename ):
         # get the query capability base URL
         qcbase = self.get_query_capability_uri("oslc_rm:Requirement")
-        results = self.execute_oslc_query( qcbase, whereterms=[['and', ['dcterms:title','=',f'"{modulename}"'],['rdm_types:ArtifactFormat','=','jazz_rm:Module']]], prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms',rdfxml.RDF_DEFAULT_PREFIX["rdm_types"]:'rdm_types',rdfxml.RDF_DEFAULT_PREFIX["jazz_rm"]:'jazz_rm'})
+        results = self.execute_oslc_query( qcbase, whereterms=[['and', ['dcterms:title','=',f'"{modulename}"'],['rdf:type','=','jazz_rm:Module']]], prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms',rdfxml.RDF_DEFAULT_PREFIX["jazz_rm"]:'jazz_rm'})
         logger.debug( f"resolve_modulename_to_uri {results=}" )
         if len( results.keys() ) == 0:
             result = None
@@ -1074,7 +1074,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
         # for example (remove the')  'rm:rm23/rm_optin_p1/rm_optin_p1 comp2/rm_optin_p1 comp2 Initial Stream'
 #        # get the query capability base URL
 #        qcbase = self.get_query_capability_uri("oslc_rm:Requirement")
-#        results = self.execute_oslc_query( qcbase, whereterms=[['and', ['dcterms:title','=',f'"{modulename}"'],['rdm_types:ArtifactFormat','=','jazz_rm:Module']]], prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms',rdfxml.RDF_DEFAULT_PREFIX["rdm_types"]:'rdm_types',rdfxml.RDF_DEFAULT_PREFIX["jazz_rm"]:'jazz_rm'})
+#        results = self.execute_oslc_query( qcbase, whereterms=[['and', ['dcterms:title','=',f'"{modulename}"'],['rdf:type','=','jazz_rm:Module']]], prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms',rdfxml.RDF_DEFAULT_PREFIX["jazz_rm"]:'jazz_rm'})
 #        logger.debug( f"resolve_modulename_to_uri {results=}" )
 #        if len( results.keys() ) == 0:
 #            result = None
@@ -1126,7 +1126,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
 
 #################################################################################################
 
-class RMComponent(RMProject):
+class RMComponent( RMProject, resource.Resources_Mixin ):
     def __init__(self, name, project_uri, app, is_optin=False, singlemode=False,defaultinit=True, project=None):
         if not project:
             raise Exception( "You must provide a project instance when creating a component" )
@@ -1613,9 +1613,9 @@ class RMApp (_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
             # query for a title and for format=module
             modules = queryon.execute_oslc_query(
                 qcbase,
-                whereterms=[['dcterms:title','=',f'"{args.module}"'], ['rdm_types:ArtifactFormat','=','jazz_rm:Module']],
+                whereterms=[['dcterms:title','=',f'"{args.module}"'], ['rdf:type','=','jazz_rm:Module']],
                 select=['*'],
-                prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms',rdfxml.RDF_DEFAULT_PREFIX["rdm_types"]:'rdm_types',rdfxml.RDF_DEFAULT_PREFIX["jazz_rm"]:'jazz_rm'})
+                prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms',rdfxml.RDF_DEFAULT_PREFIX["jazz_rm"]:'jazz_rm'})
 
             if len(modules)==0:
                 raise Exception( f"No module '{args.module}' with that name in {args.project} {args.component}" )
@@ -1624,6 +1624,7 @@ class RMApp (_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
                     print( f'{k} {v.get("dcterms:title","")}' )
                 raise Exception( "More than one module with that name in {args.project} {args.component}" )
             moduleuuid = list(modules.keys())[0].rsplit("/",1)[1]
+#            print( f"Module is {list(modules.keys())[0]} {moduleuuid}" )
 #            queryparams['moduleUri'] = list(modules.keys())[0]
             queryparams['moduleUri'] = moduleuuid
 

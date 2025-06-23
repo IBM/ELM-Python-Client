@@ -1,7 +1,7 @@
 ﻿$uri,Contributor,Created On,Creator,Identifier,Modified On,Primary Text,Title,http://jazz.net/ns/acp#accessControl,http://jazz.net/ns/rm/navigation#parent,http://open-services.net/ns/config#component,http://www.ibm.com/xmlns/rdm/rdf/module,http://www.ibm.com/xmlns/rdm/types/ArtifactFormat,oslc:instanceShape
-https://jazz.ibm.com:9443/rm/resources/TX_RrFyALFXEe-j4_rM2KKkmw,https://jazz.ibm.com:9443/jts/users/ibm,2024-12-03T09:16:31.889Z,https://jazz.ibm.com:9443/jts/users/ibm,3167,2024-12-03T09:16:31.889Z,"<div xmlns=""http://www.w3.org/1999/xhtml"">
-<p id=""_1389358123398"">	Hardware Limitations</p>
-</div>",Hardware Limitations,rp1:_RW2nYLFXEe-j4_rM2KKkmw,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts,rp0:_RdKqwLFXEe-j4_rM2KKkmw,,http://jazz.net/ns/rm#Text,Heading
-https://jazz.ibm.com:9443/rm/resources/BI_Ri0m57FXEe-j4_rM2KKkmw,https://jazz.ibm.com:9443/jts/users/ibm,2024-12-03T09:16:31.889Z,https://jazz.ibm.com:9443/jts/users/ibm,3167,2024-12-03T09:16:31.889Z,"<div xmlns=""http://www.w3.org/1999/xhtml"">
-<p id=""_1389358123398"">	Hardware Limitations</p>
-</div>",Hardware Limitations,rp1:_RW2nYLFXEe-j4_rM2KKkmw,,rp0:_RdKqwLFXEe-j4_rM2KKkmw,2977,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/TX_7lEoQLC1Ee-Oi4_TXlWUGQ,https://jazz.ibm.com:9443/jts/users/ibm,2024-12-02T14:01:34.678Z,https://jazz.ibm.com:9443/jts/users/ibm,3167,2024-12-02T14:01:34.678Z,"<div xmlns=""http://www.w3.org/1999/xhtml"">
+<p id=""_1389358123383"">	External Interface Requirements</p>
+</div>",External Interface Requirements,rp1:_7WMewLC1Ee-Oi4_TXlWUGQ,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts,rp0:_7bywcLC1Ee-Oi4_TXlWUGQ,,http://jazz.net/ns/rm#Text,Heading
+https://jazz.ibm.com:9443/rm/resources/BI_7mzGn7C1Ee-Oi4_TXlWUGQ,https://jazz.ibm.com:9443/jts/users/ibm,2024-12-02T14:01:34.678Z,https://jazz.ibm.com:9443/jts/users/ibm,3167,2024-12-02T14:01:34.678Z,"<div xmlns=""http://www.w3.org/1999/xhtml"">
+<p id=""_1389358123383"">	External Interface Requirements</p>
+</div>",External Interface Requirements,rp1:_7WMewLC1Ee-Oi4_TXlWUGQ,,rp0:_7bywcLC1Ee-Oi4_TXlWUGQ,2982,http://jazz.net/ns/rm#Text,Heading

@@ -439,7 +439,10 @@ class _OSLCOperations_Mixin:
         else:
              query_params1 = query_params
 
-        results = self._execute_vanilla_oslc_query(querycapabilityuri,query_params1, select=select, prefixes=prefixes, show_progress=show_progress, verbose=verbose, maxresults=maxresults, delaybetweenpages=delaybetweenpages, pagesize=pagesize, intent=intent, saverawresults=saverawresults, cacheable=cacheable)
+        # crude way to keep the Configuration-Context header for a reqif query, because this header is required if GCM isn't installed!
+        isreqifquery = "reqif" in querycapabilityuri
+
+        results = self._execute_vanilla_oslc_query(querycapabilityuri,query_params1, select=select, prefixes=prefixes, show_progress=show_progress, verbose=verbose, maxresults=maxresults, delaybetweenpages=delaybetweenpages, pagesize=pagesize, intent=intent, saverawresults=saverawresults, cacheable=cacheable, isreqifquery=isreqifquery )
         return results
 
     # convert whereterms (which is a list of OSLC and terms) into a corresponding oslc.where string
@@ -546,7 +549,7 @@ class _OSLCOperations_Mixin:
     # select is used to build the returned dictionary containing only the selected values
     #
 
-    def _execute_vanilla_oslc_query(self, querycapabilityuri, query_params, orderby=None, searchterms=None, select=None, prefixes=None, show_progress=False, pagesize=200, verbose=False, maxresults=None, delaybetweenpages=0.0, intent=None,saverawresults=None, cacheable=False):
+    def _execute_vanilla_oslc_query(self, querycapabilityuri, query_params, orderby=None, searchterms=None, select=None, prefixes=None, show_progress=False, pagesize=200, verbose=False, maxresults=None, delaybetweenpages=0.0, intent=None,saverawresults=None, cacheable=False, isreqifquery=False ):
         select = select or []
         orderby = orderby or []
         searchterms = searchterms or []
@@ -590,7 +593,7 @@ class _OSLCOperations_Mixin:
             print( f"Full query URL is {fullurl}" )
             if self.local_config:
                 params1 = copy.copy( params )
-                params1['oslc_config.context'] = self.local_config
+                params1['vvc.configuration'] = self.local_config
                 fullurlparam = f"{query_url}?{urllib.parse.urlencode( params1, quote_via=urllib.parse.quote, safe='/')}"
                 print( f"FYI the query URL with local configuration is {fullurlparam}" )
             
@@ -615,7 +618,7 @@ class _OSLCOperations_Mixin:
                 intent = f"Retrieve {utils.nth(page)} page of OSLC query results"
 
             # request this page
-            this_result_xml = self.execute_get_rdf_xml(query_url, params=params, headers=headers, cacheable=cacheable, intent=intent, showcurl=verbose)
+            this_result_xml = self.execute_get_rdf_xml(query_url, params=params, headers=headers, cacheable=cacheable, intent=intent, showcurl=verbose, keepconfigurationcontextheader=isreqifquery)
             queryurls.append(query_url)
             
             if saverawresults:
@@ -698,7 +701,7 @@ class _OSLCOperations_Mixin:
                 time.sleep(delaybetweenpages)
             
             # after the first page suppress the Configuration-Context header because it seems that
-            # when that and param oslc_config.context are provided they both get added
+            # when that and param oslc_config.context/vvc.configuration are provided they both get added
             # to each nextpage URL which grows ever longer and eventually breaks
             # requests see https://github.com/IBM/ELM-Python-Client/discussions/44#discussioncomment-6151370
             headers = {'Configuration-Context': None}

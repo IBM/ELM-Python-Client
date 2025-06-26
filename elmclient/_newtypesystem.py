@@ -285,7 +285,7 @@ class TypeSystem(object):
             print( f"OT definition for {url} already present!" )
             return
         # get the URI and process all the attributes
-        content_x = serverconnection.execute_get_xml( url, params={'oslc_config.context':serverconnection.local_config},headers={'Configuration-Context': None},  cacheable=iscacheable )
+        content_x = serverconnection.execute_get_xml( url, params={'vvc.configuration':serverconnection.local_config},headers={'Configuration-Context': None},  cacheable=iscacheable )
         if content_x is None:
             burp
         modified = rdfxml.xmlrdf_get_resource_uri( content_x,'.//dcterms:modified', exceptionifnotfound=True )
@@ -313,7 +313,7 @@ class TypeSystem(object):
 #            print( f"AD definition for {url} already present!" )
             return
         # get the URI and process all the attributes
-        content_x = serverconnection.execute_get_xml( url, params={'oslc_config.context':serverconnection.local_config},headers={'Configuration-Context': None}, cacheable=iscacheable )
+        content_x = serverconnection.execute_get_xml( url, params={'vvc.configuration':serverconnection.local_config},headers={'Configuration-Context': None}, cacheable=iscacheable )
         if content_x is None:
             burp
         modified = rdfxml.xmlrdf_get_resource_uri( content_x,'.//dcterms:modified', exceptionifnotfound=True )
@@ -340,7 +340,7 @@ class TypeSystem(object):
         if not serverconnection.app.is_server_uri( url ):
 #            print( f"AT Ignoring non-server URL {url}" )
             return
-        content_x = serverconnection.execute_get_xml( url, params={'oslc_config.context':serverconnection.local_config},headers={'Configuration-Context': None}, cacheable=iscacheable )
+        content_x = serverconnection.execute_get_xml( url, params={'vvc.configuration':serverconnection.local_config},headers={'Configuration-Context': None}, cacheable=iscacheable )
         if content_x is None:
             burp
         modified = rdfxml.xmlrdf_get_resource_uri( content_x,'.//dcterms:modified', exceptionifnotfound=True )
@@ -386,7 +386,7 @@ class TypeSystem(object):
         if url in self.lts:
 #            print( f"LT definition for {url} already present!" )
             return
-        content_x = serverconnection.execute_get_xml( url, params={'oslc_config.context':serverconnection.local_config},headers={'Configuration-Context': None}, cacheable=iscacheable )
+        content_x = serverconnection.execute_get_xml( url, params={'vvc.configuration':serverconnection.local_config},headers={'Configuration-Context': None}, cacheable=iscacheable )
         if content_x is None:
             burp
         modified = rdfxml.xmlrdf_get_resource_uri( content_x,'.//dcterms:modified', exceptionifnotfound=True )

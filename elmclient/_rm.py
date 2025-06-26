@@ -1494,7 +1494,7 @@ class RMApp (_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
         gcconfiguri = None
         gcapp = allapps.get('gc',None)
         if not gcapp and args.globalconfiguration:
-            raise Exception( "gc app must be specified in APPSTRINGS/-A (after the rm app) to use a global configuration - for exmaple use -A rm,gc" )
+            raise Exception( "gc app must be specified in APPSTRINGS/-A, after the rm app, to use a global configuration - for exmaple use -A rm,gc" )
 
         # most queries need a project and configuration - projects queried without a config will return data from the default configuraiotn (the default component's initial stream)
         if args.all or args.collection or args.module or args.view or args.typename or args.resourceID or args.moduleResourceID or args.coreResourceID or args.schema or args.attributes or args.titles or args.linksOnly or args.history or args.artifact_format=='views':
@@ -1541,7 +1541,7 @@ class RMApp (_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
 
                         # get the query capability base URL
                         qcbase = gc_query_on.get_query_capability_uri("oslc_config:Configuration")
-                        # query for a configuration with title
+                        # query gcm for a configuration with title
                         print( f"querying for gc config {args.globalconfiguration}" )
                         conf = gc_query_on.execute_oslc_query( qcbase, whereterms=[['dcterms:title','=',f'"{args.globalconfiguration}"']], select=['*'], prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms'})
                         if len( conf.keys() ) == 0:
@@ -1551,7 +1551,7 @@ class RMApp (_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
                         gcconfiguri = list(conf.keys())[0]
                         logger.info( f"{gcconfiguri=}" )
                         logger.debug( f"{gcconfiguri=}" )
-                        queryparams['oslc_config.context'] = gcconfiguri
+                        queryparams['oslc_config.context'] = gcconfiguri # a GC configuration
 
                 # check the gc config uri exists - a GET from it shouldn't fail!
                 if not gcapp.check_valid_config_uri(gcconfiguri,raise_exception=False):
@@ -1597,15 +1597,23 @@ class RMApp (_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
                     queryparams['targetConfigUri'] = targetconfig
                     queryparams['sourceConfigUri'] = config
             else:
+                # opt-out
+                gcconfiguri = None
                 if not args.localconfiguration:
                     args.localconfiguration = f"{args.project} Initial Stream"
                 config = p.get_local_config(args.localconfiguration)
                 queryon=p
             queryon.set_local_config(config,gcconfiguri)
-            queryparams['oslc_config.context'] = config or gcconfiguri
+            if gcconfiguri:
+                queryparams['oslc_config.context'] = gcconfiguri
+            else:
+                queryparams['vvc.configuration'] = config
         if args.artifact_format=='comparison' and args.targetconfiguration:
+            # remove any configuration parameters!
             if 'oslc_config.context' in queryparams:
                 del queryparams['oslc_config.context']
+            if 'vvc.configuration' in queryparams:
+                del queryparams['vvc.configuration']
 
         if args.module:
             # get the query capability base URL for requirements

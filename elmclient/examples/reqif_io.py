@@ -232,7 +232,7 @@ def reqif_main():
         if theproj.is_optin:
             print( f"Warning - project '{args.projectname}' is opt-in but you didn't specify a component - using default component '{args.projectname}'" )
         args.component = args.projectname
-    print( f"{mainapp=}" )
+
     # not all apps support components, and even if the app does this project may not be opt-in
     if mainapp.supports_components:
         if not theproj.singlemode and not args.component:
@@ -270,7 +270,6 @@ def reqif_main():
                 raise Exception( f"Configuration '{args.configuration}' not found in component {args.component}" )
 
         thecomp.set_local_config(config)
-        print( f"{config=}" )
 
         queryon = thecomp
     else:
@@ -310,7 +309,7 @@ def reqif_main():
         defn_query_u = queryon.get_query_capability_uri("dng_reqif:ReqIFDefinition")
         queryon.record_action( "Use the Reqif query capability" )
         # query for the definitions
-        alldefs = queryon.execute_oslc_query( defn_query_u, select=['*'])
+        alldefs = queryon.execute_oslc_query( defn_query_u, select=['*'] )
         
 #        alldefs = queryon.do_complex_query( "dng_reqif:ReqIFDefinition", select='*' )
         

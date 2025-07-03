@@ -117,7 +117,6 @@ class BaseResource( object ):
                 setattr( self, tag, value )
             newvalue = getattr( self, tag )
             self.__setitem__( tag, newvalue )
-            # TBD handle the links!
             
         print( f"{self.__dict__=}" )
         self._modifieds = []

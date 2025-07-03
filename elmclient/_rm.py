@@ -87,6 +87,7 @@ class RMProject(_project._Project, resource.Resources_Mixin ):
         self._confs_to_load = []
         self._confstoparent = []
         self.configTree = None
+        self._types = None
         
     # save a folder details, and return the new folder instance
     def _savefolder( self, parent, fname, folderuri ):
@@ -522,7 +523,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
         if not incremental or not self.configTree:
             self.configTree = anytree.AnyNode(name='theroot',title='root', created=None, typesystem=None, ismutable=False, ischangeset=False )
         result = False
-        
+#        print("Loading configs", self._confs_to_load)
         # now load configs
         while True:
             if verbose:
@@ -548,7 +549,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                 for confmember in confmemberx:
                     thisconfu = confmember.get("{%s}resource" % rdfxml.RDF_DEFAULT_PREFIX["rdf"])
                     self._confs_to_load.append(thisconfu)
-#                    print( f"   Adding {thisconfu=}" )
+#                   print( f"   Adding {thisconfu=}" )
 #                    print( f"   Now {self._confs_to_load=}" )
 
             # maybe it's got configuration(s)
@@ -559,7 +560,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                     print( ">",end="",flush=True )
 #                print( f"========================\n{confmember_x=}" )
 #                print( f"{confmember_x.tag=}" )
-#                print( "XML=",ET.tostring( confmember_x ) )
+#               print( "XML=",ET.tostring( confmember_x ) )
                 thisconfu = rdfxml.xmlrdf_get_resource_uri( confmember_x )
 #                print( f"Member {thisconfu=}" )
                 # add baselines and changesets
@@ -644,7 +645,9 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
             # now check if stopatnameoururi is present and if so set result True
             if result:
                 break
-
+        
+        return result
+        
         # now iterate over the unparented nodes repeatedly finding their parents until there are none left because all have been parented
         while self._confstoparent:
             foundparent = False
@@ -681,9 +684,9 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
 
     def load_configtree( self, *, fromconfig_u=None, loadbaselines=False, followsubstreams=False, loadchangesets=False, alwayscaching=False ):
         # show the config tree
-#        print( f"tree= {anytree.RenderTree(self.configTree, style=anytree.AsciiStyle())}" )
-#        print( f"{self.configTree=}" )
-#        print( f"{self.configTree.children=}" )
+        print( f"tree= {anytree.RenderTree(self.configTree, style=anytree.AsciiStyle())}" )
+        print( f"{self.configTree=}" )
+        print( f"{self.configTree.children=}" )
         if not fromconfig_u:
             fromconfig_u = self.configTree.children[0].name
 #            print( f"{fromconfig_u=}" )
@@ -709,7 +712,8 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
     #        continue
             # GET the typesystem - caching is determinded by ismutable
     #typeresources = {
-    #    'http://jazz.net/ns/rm/dng/types#ArtifactType':        ('ArtifactType'       ,'OT'),        
+    #    'http://jazz.net/ns/rm/dng/types#ArtifactType':        ('ArtifactType'       ,'OT'), 
+            return
             for resourcetype,typedetails in typeresources.items():
                 # QUERY to get the types
     #            print( f"Getting {typedetails[0]} {typedetails[1]=}" )
@@ -786,13 +790,15 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
         configs = []
         self.load_configs()
         for cu, cd in self._configurations.items():
-            configs.append( cd['name'] )
+#            print(cd)
+            configs.append( cd )
 
         return configs
 
     # for RM, load the typesystem using the OSLC shape resources listed for the Requirements and Requirements Collection creation factories
     def _load_types(self,force=False):
         logger.debug( f"load type {self=} {force=}" )
+          
         # if already loaded, try to avoid reloading
         if self.typesystem_loaded and not force:
             return
@@ -807,7 +813,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
             sx = self.get_services_xml(force=True)
         if sx:
             shapes_to_load = rdfxml.xml_find_elements(sx, './/oslc:resourceShape' )
-
+            
             pbar = tqdm.tqdm(initial=0, total=len(shapes_to_load),smoothing=1,unit=" results",desc="Loading DN shapes")
 
             for el in shapes_to_load:
@@ -827,6 +833,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
     def _load_type_from_resource_shape(self, el, supershape=None):
         uri = el.get("{%s}resource" % rdfxml.RDF_DEFAULT_PREFIX["rdf"])
         logger.info( f"Loading shape URI {uri}" )
+#        print( f"Loading shape URI {uri}")
         try:
             if not self.is_known_shape_uri(uri):
                 logger.info( f"Starting shape {uri} =======================================" )
@@ -842,6 +849,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                 self.register_shape( name, uri )
                 logger.info( f"Opening shape {name} {uri}" )
             else:
+ 
                 return
         except requests.exceptions.HTTPError as e:
             if e.response.status_code == 404:
@@ -930,12 +938,15 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
         return results
 
 
-    def find_local_component(self, name_or_uri):
+    def find_local_component(self, name_or_uri, oneshot=True):
+        comps = list()
         self.load_components_and_configurations()
         for compuri, compdetail in self._components.items():
-            if compuri == name_or_uri or compdetail['name'] == name_or_uri:
+            #print(compuri, compdetail)
+            if (compuri == name_or_uri or compdetail['name'] == name_or_uri) and oneshot is True:
                 return compdetail['component']
-        return None
+            comps.append(compdetail)
+        return comps
 
     def list_components( self ):
         # list all the component names
@@ -1494,7 +1505,7 @@ class RMApp (_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
         gcconfiguri = None
         gcapp = allapps.get('gc',None)
         if not gcapp and args.globalconfiguration:
-            raise Exception( "gc app must be specified in APPSTRINGS/-A, after the rm app, to use a global configuration - for exmaple use -A rm,gc" )
+            raise Exception( "gc app must be specified in APPSTRINGS/-A (after the rm app) to use a global configuration - for exmaple use -A rm,gc" )
 
         # most queries need a project and configuration - projects queried without a config will return data from the default configuraiotn (the default component's initial stream)
         if args.all or args.collection or args.module or args.view or args.typename or args.resourceID or args.moduleResourceID or args.coreResourceID or args.schema or args.attributes or args.titles or args.linksOnly or args.history or args.artifact_format=='views':
@@ -1541,7 +1552,7 @@ class RMApp (_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
 
                         # get the query capability base URL
                         qcbase = gc_query_on.get_query_capability_uri("oslc_config:Configuration")
-                        # query gcm for a configuration with title
+                        # query for a configuration with title
                         print( f"querying for gc config {args.globalconfiguration}" )
                         conf = gc_query_on.execute_oslc_query( qcbase, whereterms=[['dcterms:title','=',f'"{args.globalconfiguration}"']], select=['*'], prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms'})
                         if len( conf.keys() ) == 0:
@@ -1551,7 +1562,7 @@ class RMApp (_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
                         gcconfiguri = list(conf.keys())[0]
                         logger.info( f"{gcconfiguri=}" )
                         logger.debug( f"{gcconfiguri=}" )
-                        queryparams['oslc_config.context'] = gcconfiguri # a GC configuration
+                        queryparams['oslc_config.context'] = gcconfiguri
 
                 # check the gc config uri exists - a GET from it shouldn't fail!
                 if not gcapp.check_valid_config_uri(gcconfiguri,raise_exception=False):
@@ -1597,23 +1608,15 @@ class RMApp (_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
                     queryparams['targetConfigUri'] = targetconfig
                     queryparams['sourceConfigUri'] = config
             else:
-                # opt-out
-                gcconfiguri = None
                 if not args.localconfiguration:
                     args.localconfiguration = f"{args.project} Initial Stream"
                 config = p.get_local_config(args.localconfiguration)
                 queryon=p
             queryon.set_local_config(config,gcconfiguri)
-            if gcconfiguri:
-                queryparams['oslc_config.context'] = gcconfiguri
-            else:
-                queryparams['vvc.configuration'] = config
+            queryparams['oslc_config.context'] = config or gcconfiguri
         if args.artifact_format=='comparison' and args.targetconfiguration:
-            # remove any configuration parameters!
             if 'oslc_config.context' in queryparams:
                 del queryparams['oslc_config.context']
-            if 'vvc.configuration' in queryparams:
-                del queryparams['vvc.configuration']
 
         if args.module:
             # get the query capability base URL for requirements

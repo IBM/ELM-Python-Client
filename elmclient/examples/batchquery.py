@@ -214,7 +214,7 @@ def do_tests(inputargs=None):
                         print( f"Stopping after first failure, {rep} repetitions" )
                         return
             else:
-                print( f"Test {testnumber} passed! (Failed={nfailed})" )
+                print( f"Test {testnumber} passed!" )
                 npassed += 1
 
     if not args.dryrun:

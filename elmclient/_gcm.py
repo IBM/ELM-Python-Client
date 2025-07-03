@@ -54,6 +54,7 @@ class GCMProject(_project._Project):
         self.hooks = [_hook_beforequery]
         self._components = None  # will become a dict keyed on component uri
         self._configurations = None # keyed on the config name
+        self._streams = None
         self.default_query_resource = 'oslc_config:Configuration'
 
         # nonstandard initialisation - difference is in finding the services XML for the project - for
@@ -95,30 +96,131 @@ class GCMProject(_project._Project):
                 components.append( compdetail.get('name') )
         return components
             
+    def load_streams(self, force=False):
+        """
+        Carica tutte le configurazioni di tipo Stream del progetto GC corrente.
+        
+        Popola self._streams come:
+            {
+                stream_uri: {
+                    "title": "...",
+                    "component_uri": "...",
+                    "component_name": "..."
+                }
+            }
+        """
+        if hasattr(self, "_streams") and self._streams is not None and not force:
+            return
+
+        self._streams = {}
+        nstreams = 0
+
+        # Carica tutte le configurazioni
+        configs = self.do_complex_query(
+            "http://open-services.net/ns/config#Configuration",
+            querystring=None,
+            select='dcterms:title,oslc_config:component,rdf:type',
+            show_progress=False,
+            verbose=False
+        )
+
+        # Costruisce mappa ID brevi → URI componenti (se non già presente)
+        if not hasattr(self, "_components") or self._components is None:
+            self.load_components_and_configurations()
+
+        shortid_to_name = {
+            uri.split("/")[-1]: data["name"]
+            for uri, data in self._components.items()
+        }
+        
+        #print(configs.items())
+        
+        # Estrai solo le configurazioni che sono Stream
+        for conf_uri, data in configs.items():
+            title = data.get('dcterms:title', '(senza titolo)')
+            comp_ref = data.get('oslc_config:component')  # es: "component:13"
+            types = data.get('rdf:type', [])
+            types = types if isinstance(types, list) else [types]
+
+            if "oslc_config:Stream" in types and "config_ext:SharedStream" in types:
+                comp_uri = None
+                comp_name = None
+
+                # Risolvi URI completo e nome componente
+                if comp_ref:
+                    short_id = comp_ref.split(":")[-1]
+                    for full_uri in self._components:
+                        if full_uri.endswith(f"/{short_id}"):
+                            comp_uri = full_uri
+                            comp_name = self._components[full_uri].get("name", "<sconosciuto>")
+                            break
+
+                self._streams[conf_uri] = {
+                    "title": title,
+                    "component_uri": comp_uri,
+                    "component_name": comp_name
+                }
+                nstreams += 1
+
+        return self._streams
+
+            
+            
     def load_components_and_configurations(self,force=False):
         if self._components is not None and self._configurations is not None and not force:
             return
+
         self._components = {}
         self._configurations = {}
         ncomps = 0
         nconfs = 0
-        # retrieve components and configurations for this project
-        # use OSLC query to get all components in this project
-        comps = self.do_complex_query( "http://open-services.net/ns/config#Component", querystring=None, select='dcterms:title', show_progress=False, verbose=False )
 
-        logger.debug( f"{comps=}" )
+        # Carica componenti
+        comps = self.do_complex_query(
+            "http://open-services.net/ns/config#Component",
+            querystring=None,
+            select='dcterms:title',
+            show_progress=False,
+            verbose=False
+        )
 
-        for compu,v in comps.items():
-            self._components[compu] = {'name': v['dcterms:title'], 'configurations': {}}
-            logger.debug( f"{self._components[compu]=}" )
+        # Mappa per risolvere 'component:XX' -> URI reale
+        shortid_to_uri = {}
 
-        # now create the "components"
-        for cu, cd in self._components.items():
-            logger.debug( f"{cu=} {cd=}" )
-            cname = cd['name']
-            c = self
-            c._configurations = self._components[cu]['configurations']
-            self._components[cu]['component'] = c
+        for comp_uri, data in comps.items():
+            title = data.get('dcterms:title', '(senza titolo)')
+            self._components[comp_uri] = {'name': title, 'configurations': {}}
+            # Estrai short ID (es. 'component:10')
+            short_id = comp_uri.split('/')[-1]  # prende solo l'ID finale
+            shortid_to_uri[f"component:{short_id}"] = comp_uri
+            ncomps += 1
+
+        # Carica configurazioni
+        configs = self.do_complex_query(
+            "http://open-services.net/ns/config#Configuration",
+            querystring=None,
+            select='dcterms:title,oslc_config:component',
+            show_progress=False,
+            verbose=False
+        )
+
+        for conf_uri, data in configs.items():
+            title = data.get('dcterms:title', '(senza titolo)')
+            comp_ref = data.get('oslc_config:component')
+            
+            # Risolvi l'URI completo del componente
+            comp_uri = shortid_to_uri.get(comp_ref)
+            
+#            print(title, comp_ref, comp_uri)
+
+            if comp_uri and (not comp_uri in self._configurations.keys()):
+                self._configurations[comp_uri] = set()
+
+            if comp_uri and comp_uri in self._components:
+                self._components[comp_uri]['configurations'][title] = conf_uri
+                self._configurations[comp_uri].add(title)
+                nconfs += 1
+
         return (ncomps, nconfs)
 
     # load the typesystem using the OSLC shape resources

@@ -217,7 +217,7 @@ class HttpOperations_Mixin():
         reqheaders = {'Accept': 'application/xml'}
         if headers is not None:
             reqheaders.update(headers)
-        request = self._get_get_request(reluri=reluri, params=params, headers=reqheaders )
+        request = self._get_get_request(reluri=reluri, params=params, headers=reqheaders)
         response = request.execute( **kwargs )
         result = ET.ElementTree(ET.fromstring(response.content))
         return result
@@ -457,12 +457,6 @@ class HttpOperations_Mixin():
     def _get_delete_request(self, reluri='', *, params=None, headers=None ):
         return self._get_request('DELETE', reluri, params=params, headers=headers)
 
-def chooseconfigheader( configurl ):
-    # for rm if its a local config must use vvc.configuration because when GCM isn't installed using oslc_config.context throws an error that GCM isn't installed
-    # this is very crude test for RM-style config URL - not sure how to do it better (can't rely on the context root being /rm/, it could be /rm23/ or /rrm/)
-    if "/cm/stream/" in configurl or "/cm/baseline/" in configurl or "/cm/changeset/" in configurl:
-        return "vvc.configuration"
-    return "oslc_config.context"
 
 class HttpRequest():
     def __init__(self, session, verb, uri, *, params=None, headers=None, data=None):
@@ -685,7 +679,7 @@ class HttpRequest():
     #  1. if the response indicates login is required then login and try the request again
     #  2. if request is rejected for various reasons retry with the CSRF header applied
     # supports Jazz Form authorization and Jazz Authorization Server login
-    def _execute_one_request_with_login( self, *, no_error_log=False, close=False, donotlogbody=False, retry_get_after_login=True, remove_headers=None, remove_parameters=None, intent=None, action = None, automaticlogin=True, showcurl=False, keepconfigurationcontextheader=False ):
+    def _execute_one_request_with_login( self, *, no_error_log=False, close=False, donotlogbody=False, retry_get_after_login=True, remove_headers=None, remove_parameters=None, intent=None, action = None, automaticlogin=True, showcurl=False ):
 #        if intent is None:
 #            raise Exception( "No intent provided!" )
         intent = intent or ""
@@ -695,18 +689,15 @@ class HttpRequest():
         request = self._req
         # additional header for app passwords
         addhdr = " app-password-enabled" if self.get_app_password( request.url ) else ""
-        
-        # copy header Configuration-Context to oslc_config.context/vvc.configuration parameter so URL when cached is config-specific
+        # copy header Configuration-Context to oslc_config.context parameter so URL when cached is config-specific
         # see https://oslc-op.github.io/oslc-specs/specs/config/config-resources.html#configcontext
-        # ALSO note that for RM OSLC Query if GCM isn't installed (so the config must be local) must use the vvc.configuration parameter and have Configuration-Context not present! 
-        # EXCEPT for the reqif OSLC Query which requires the Configuraiton-Context header!
         if request.headers.get('Configuration-Context'):
             # if Configuration-Context is not None:
 #            print( f"Copied header Configuration-Context to parameter oslc_config.context" )
-            request.params[chooseconfigheader(request.headers['Configuration-Context'])] = request.headers['Configuration-Context']
-            if not keepconfigurationcontextheader:
-                del request.headers['Configuration-Context']
-
+            request.params['oslc_config.context'] = request.headers['Configuration-Context']
+#            del request.headers['Configuration-Context']
+#            print( f"Deleted C-C" )
+            
         # ensure keep-alive/close
         if close:
             request.headers['Connection'] = 'close'

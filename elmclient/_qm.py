@@ -77,6 +77,7 @@ class QMProject(_project._Project, _qmrestapi.QM_REST_API_Mixin):
             compuri = rdfxml.xmlrdf_get_resource_uri(sx, ".//oslc:details")
             assert compuri is not None, "compuri is None"
             ncomps += 1
+            print(compuri)
             self._components[compuri] = {'name': self.name, 'configurations': {}, 'confs_to_load': []}
             configs = self.execute_get_xml( compuri+"/configurations", intent="Retrieve all project/component configurations (singlemode)" )
             for conf in rdfxml.xml_find_elements(configs,'.//rdfs:member'):
@@ -97,6 +98,10 @@ class QMProject(_project._Project, _qmrestapi.QM_REST_API_Mixin):
             logger.debug( f"full optin" )
             cmsp_xml = self.app.retrieve_cm_service_provider_xml()
             logger.info( f"cmsp=",ET.tostring(cmsp_xml) )
+            
+            print(ET.tostring(cmsp_xml))
+            
+            
 #  <rdf:Description rdf:nodeID="A4">
 #    <oslc:resourceType rdf:resource="http://open-services.net/ns/config#Component"/>
 #    <oslc:queryBase rdf:resource="https://jazz.ibm.com:9443/qm/oslc_config/resources/com.ibm.team.vvc.Component"/>
@@ -106,11 +111,16 @@ class QMProject(_project._Project, _qmrestapi.QM_REST_API_Mixin):
 #  </rdf:Description>
 
             components_uri = rdfxml.xmlrdf_get_resource_uri(cmsp_xml, './/rdf:Description/rdf:type[@rdf:resource="http://open-services.net/ns/core#QueryCapability"]/../oslc:resourceType[@rdf:resource="http://open-services.net/ns/config#Component"]/../oslc:queryBase')
+            print(components_uri)
+            
+            
             logger.info( f"{components_uri=}" )
 #            print( f"{components_uri=}" )
             # get all components
             crx = self.execute_get_xml( components_uri, intent="Retrieve component definition" )
             logger.info( f"{crx=}" )
+            print(crx)
+            
 #      <oslc_config:Component rdf:about="https://jazz.ibm.com:9443/qm/oslc_config/resources/com.ibm.team.vvc.Component/_iw4s4EB3Eeus6Zk4qsm_Cw">
 #        <dcterms:title rdf:parseType="Literal">SGC Agile</dcterms:title>
 #        <oslc:instanceShape rdf:resource="https://jazz.ibm.com:9443/qm/oslc_config/resourceShapes/com.ibm.team.vvc.Component"/>
@@ -175,7 +185,7 @@ class QMProject(_project._Project, _qmrestapi.QM_REST_API_Mixin):
                 if config['componentUri'] == self.project_uri:
                     config_uri = config['configurationUri']
             if not config_uri:
-                raise Exception( 'Cannot find configuration [%s] in project [%s]' % (name_or_uri, self.uri))
+                raise Exception( 'Cannot find configuration [%s] in project [%s]' % (name_or_uri, self.project_uri))
             return config_uri
         else:
             for cu, cd in self._configurations.items():
@@ -186,8 +196,12 @@ class QMProject(_project._Project, _qmrestapi.QM_REST_API_Mixin):
 
     def load_configs(self):
         # load configurations
+        
+        print("Hello")
+        
         while self._confs_to_load:
             confu = self._confs_to_load.pop()
+            print(confu)
             if not confu:
                 # skip None in list
                 continue

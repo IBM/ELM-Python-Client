@@ -134,6 +134,7 @@ class _Project(oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixin
                 logger.info( f"{self.services_uri=}" )
             elif self.component_project:
                 logger.debug( f"component sx not retrieved - need a config" )
+                print(f"component sx not retrieved - need a config")
             else:
                 raise Exception("No services URI")
         return self.services_xml
@@ -220,17 +221,20 @@ class _Project(oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixin
 #        print( f"{result=}" )
         return result
     
+    def get_full_contribution_object(self, gcuri):
+        return self.get_gc_contributions(gcuri)
+    
     # get contributions and component details for just this app
     def get_our_contributions(self, gcuri):
         gc_contribs = self.get_gc_contributions(gcuri)
+        
         results = []
         for contrib in gc_contribs['configurations']:
-            if contrib['configurationUri'].startswith(self.reluri()):
-                results.append( [contrib['configurationUri'],contrib['componentUri'] ] )
+            print(contrib)
+            
+            results.append( [contrib['configurationUri'],contrib['componentUri'] ] )
 #                print( f"Included {contrib['configurationUri']}" )
-            else:
-#                print( f"Skipped {contrib['configurationUri']}" )
-                pass
+            
 #        print( f"{results=}" )
         return results
         
@@ -240,15 +244,18 @@ class _Project(oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixin
                 config_uri = self._do_find_config_by_name(name_or_uri)
             else:
                 # gc and local config both specified - try to avoid loading all the local configs by using the gc tree to locate the local config
-                gc_contribs = self.get_gc_contributions(global_config_uri)
+                gc_contribs = self.get_full_contribution_object(name_or_uri)
+                print(gc_contribs)
+                
                 # find the contribution for this component
                 config_uri = None
                 for config in gc_contribs['configurations']:
-#                    print( f"Checking {config=} for {self.project_uri=}" )
-                    if config['componentUri'] == self.project_uri:
+                    print( f"Checking {config=} for {self.project_uri=}" )
+#                    if config['componentUri'] == self.project_uri:
+                    if config['componentUri'] == "https://vhofodng01.vh.lan:9443/qm/oslc_config/resources/com.ibm.team.vvc.Component/_JndagG9aEe65RrtddbwTgg":
                         config_uri = config['configurationUri']
             if not config_uri:
-                raise Exception( 'Cannot find configuration [%s] in project [%s]' % (name_or_uri, self.uri))
+                raise Exception( 'Cannot find configuration [%s] in project [%s]' % (name_or_uri, self.project_uri))
         else:
             config_uri = None
 

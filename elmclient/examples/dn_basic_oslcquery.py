@@ -29,8 +29,6 @@ import urllib.parse
 import socket
 import codecs
 
-from elmclient import httpops
-
 # Disable the InsecureRequestWarning so we can quietly control SSL certificate validation
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -303,7 +301,7 @@ print( f"Found configuration {thisconf_u} which is a {configtype}" )
 thisconf_x = aconf_x
 
 # setup headers/params for the rest of the operations - these are all config-specific
-params[httpops.chooseconfigheader(thisconf_u)] = thisconf_u
+params['oslc_config.context'] = thisconf_u
 headers[ 'Configuration.context'] = thisconf_u
 
 # retrieve the services.xml for the config

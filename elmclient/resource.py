@@ -147,7 +147,7 @@ class BaseResource( object ):
             if not self._force and name not in self._prefixes:
                 raise Exception( "No property {name}!" )
             if hasattr( self, "_prefixes" ):
-                taggedname = f"{{{self._prefixes.get(name,"UNDEFINED")}}}:{name}"
+                taggedname = f"{{{self._prefixes.get(name,'UNDEFINED')}}}:{name}"
             else:
                 taggedname = f"{{NONE}}:{name}"
                 

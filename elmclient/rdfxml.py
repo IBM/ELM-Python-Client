@@ -48,7 +48,7 @@ RDF_DEFAULT_PREFIX = {
     'process':          'http://jazz.net/ns/process#',
     'public_rm_10':     'http://www.ibm.com/xmlns/rm/public/1.0/',
     'prov':             'http://www.w3.org/ns/prov#',  # added for GCM
-    'qm_rqm':           "http://jazz.net/ns/qm/rqm#",
+#   'qm_rqm':           "http://jazz.net/ns/qm/rqm#",
     'qm_ns2':           "http://jazz.net/xmlns/alm/qm/v0.1/",
     'rdf':              'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
     'rdfs':             'http://www.w3.org/2000/01/rdf-schema#',
@@ -61,6 +61,7 @@ RDF_DEFAULT_PREFIX = {
     'rm_text':          'http://jazz.net/xmlns/alm/rm/text/v0.1', # for RR
     'rm_view':          'http://jazz.net/ns/rm/dng/view#',
     'rqm':              'http://jazz.net/xmlns/prod/jazz/rqm/qm/1.0/',
+    'rqm_qm':           'http://jazz.net/ns/qm/rqm#',
     'rrm':              'http://www.ibm.com/xmlns/rrm/1.0/', # For RR
     'rtc_cm':           "http://jazz.net/xmlns/prod/jazz/rtc/cm/1.0/",
     'trs':              "http://open-services.net/ns/core/trs#", # for trs

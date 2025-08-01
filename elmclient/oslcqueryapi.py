@@ -799,7 +799,7 @@ class _OSLCOperations_Mixin:
             elif gcmode:
                 rdfs_member_es = rdfxml.xml_find_elements( result_xml, './/ldp:contains')
             elif qmmode:
-                rdfs_member_es = rdfxml.xml_find_elements( result_xml, './/rdf:Description[@rdf:about]/qm_rqm:orderIndex/..')
+                rdfs_member_es = rdfxml.xml_find_elements( result_xml, './/rdf:Description[@rdf:about]/rqm_qm:orderIndex/..')
 #                print( f"1 {rdfs_member_es=}" )
                 if len(rdfs_member_es)==0:
                     rdfs_member_es = rdfxml.xml_find_elements( result_xml, './/rdf:Description[@rdf:about]/dcterms:title/..')

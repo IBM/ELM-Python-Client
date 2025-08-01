@@ -13,6 +13,12 @@
 What's New?
 ===========
 
+01-Aug-2025 0.34
+* New - first attempt at support for resources - for DN only at the moment. The aim is to simplify accessing and modifying properties of an artifact: you can get a python object for an artifact and access its properties as attributes of the object, e.g. req.Identifier. See dn_resource_test.py. Print the resource to see the modifiable and unmodifiable attributes. If you modify an (modifiable) attribute you can put() the resource to update it in DOORS Next. Modules can be resources but no possibility to modify the structure. You can add (DN->DN) links. You can see and modify the folder a core artifact is in.
+* New query methods (see resource.py) to simplify querying and get resources back.
+* Also fixed smaller bugs like the one introduced by Python 13 accepting quotes inside f-strings, which only showed up if you used Python <13
+* An attribute name can now be used in the oslcquery -s option, like -s "'Child Of'" (Windows) which used to give an error
+
 16-Dec-2024
 * Authentication using Application passwords now works - for OIDC and SAML-backed authentication providers (OP) - but note below how this has been implemented to perhaps work around the fact that application passwords only work with a single app, os if you want to talk to more than one app, e.g. rm and gc, you have to acquire and specify a password per app. Not extensively tested, please let me know if it works/doesn't work for you!.
 

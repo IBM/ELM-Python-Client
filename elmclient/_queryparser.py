@@ -300,7 +300,6 @@ class _ParseTreeToOSLCQuery(lark.visitors.Transformer):
 
     def prefixedname(self,s):
         logger.info( f"prefixedname {s=}" )
-        logger.info( f"prefixedname {s=}" )
         result = s[0]+":"+s[1]
         logger.info( f"prefixedname {result=}" )
         return result

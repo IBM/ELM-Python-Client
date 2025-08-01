@@ -75,7 +75,7 @@ ignore_headers = [
 ]
 
 # make this an empty string to supppress saving/reloading cookies
-COOKIE_SAVE_FILE = ".cookies"
+COOKIE_SAVE_FILE = ".cookies_discovery"
 
 jazzhost = 'https://jazz.ibm.com:9443'
 username = 'ibm'

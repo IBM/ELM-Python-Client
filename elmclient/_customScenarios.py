@@ -128,7 +128,7 @@ if __name__ == "__main__":
     LOGLEVEL    = os.environ.get("QUERY_LOGLEVEL"   ,None )
 
     # setup arghandler
-    parser = argparse.ArgumentParser(description="Perform OSLC query on a Jazz application, with results output to CSV (and other) formats - use -h to get some basic help")
+    parser = argparse.ArgumentParser(description="Test harness for CusgtomScenarios")
 
     parser.add_argument('action', choices=['start','stop','status'], help=f'start/stop/status')
     parser.add_argument('name', default=None, nargs='?', help=f'The anme of the scenario - only relevant for the start and stop actions')

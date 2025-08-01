@@ -10,17 +10,22 @@ import http
 import inspect
 import json
 import logging
-import lxml.etree as ET
+import os
+import pickle
 import platform
 import re
 import shlex
 import time
 import urllib
 
+import lxml.etree as ET
 import requests
 import tqdm
 
 from elmclient import rdfxml
+
+# make this an empty string to disable cookie saving
+COOKIE_SAVE_FILE = ".cookies"
 
 logger = logging.getLogger(__name__)
 
@@ -306,7 +311,7 @@ class HttpOperations_Mixin():
         return response
 
     def execute_get_json(self, reluri, *, params=None, headers=None, return_etag = False, **kwargs):
-        reqheaders = {'Accept': 'application/json'}
+        reqheaders = {'Accept': 'text/json'}
         if headers is not None:
             reqheaders.update(headers)
         request = self._get_get_request(reluri=reluri, params=params, headers=reqheaders)
@@ -317,7 +322,7 @@ class HttpOperations_Mixin():
         return result
        
     def execute_get_json_soap( self, reluri, *, params=None, headers=None, return_etag = False, **kwargs ):
-        reqheaders = {'Accept': 'application/json'}
+        reqheaders = {'Accept': 'text/json'}
         if headers is not None:
             reqheaders.update(headers)
             
@@ -590,6 +595,9 @@ class HttpRequest():
                         pass
             # the surroundings allow splitting out the request body when parsing the log
             logtext += "\n::::::::::=\n"
+            # for at least a POST of binary data (as used by reqif import, for example) rawtext can be bytes - ensure it's a str
+            if type(rawtext)!=str:
+                rawtext = rawtext.decode()
             logtext += "\n" + rawtext + "\n\n"
             logtext += "\n----------=\n"
             
@@ -695,6 +703,17 @@ class HttpRequest():
         request = self._req
         # additional header for app passwords
         addhdr = " app-password-enabled" if self.get_app_password( request.url ) else ""
+
+        # try to load previous cookies - helps avoid authentication when previous cookies already authenticatded us
+        if COOKIE_SAVE_FILE:
+            if os.path.isfile( COOKIE_SAVE_FILE ):
+                try:
+                    with open( COOKIE_SAVE_FILE, 'rb') as f:
+                        self._session.cookies.update( pickle.load( f ) )
+                except:
+                    print( "Warning cookie file {COOKIE_SAVE_FILE} not valid - removing it!" )
+                    os.remove( COOKIE_SAVE_FILE )
+                    
         
         # copy header Configuration-Context to oslc_config.context/vvc.configuration parameter so URL when cached is config-specific
         # see https://oslc-op.github.io/oslc-specs/specs/config/config-resources.html#configcontext
@@ -722,7 +741,7 @@ class HttpRequest():
 
         # this is for generic API debugging to be able to remove any header before it's actually sent!
         if remove_headers:
-            print( f"{remove_headers=}" )
+#            print( f"{remove_headers=}" )
             for h in remove_headers:
 #                print( f"{request.headers=}" )
                 if h in request.headers:
@@ -746,25 +765,17 @@ class HttpRequest():
 
             response.raise_for_status()
 
-            
-
-            if not automaticlogin:
-#                print( f"No auto login {response}" )
-                return response
-            else:
-#                print( f"auto login allowed {response}" )
-                pass
-                
-            # check for a non-error response which also indicates that authentication is needed using
-            # a special header (in which case the response is not the data requested)
-            if 'X-com-ibm-team-repository-web-auth-msg' in response.headers:
-                if response.headers['X-com-ibm-team-repository-web-auth-msg'] == 'authrequired':
-                    logger.trace("WIRE: auth required")
-                    self._session.is_authenticated = False
-                    response = self._jazz_form_authorize(request.url, request, response)
-                    self._session.is_authenticated = True
-                    logger.trace("WIRE: auth done - retrying")
-                    retry_after_login_needed = True
+            if automaticlogin:
+                # check for a non-error response which also indicates that authentication is needed using
+                # a special header (in which case the response is not the data requested)
+                if 'X-com-ibm-team-repository-web-auth-msg' in response.headers:
+                    if response.headers['X-com-ibm-team-repository-web-auth-msg'] == 'authrequired':
+                        logger.trace("WIRE: auth required")
+                        self._session.is_authenticated = False
+                        response = self._jazz_form_authorize(request.url, request, response)
+                        self._session.is_authenticated = True
+                        logger.trace("WIRE: auth done - retrying")
+                        retry_after_login_needed = True
 
         except requests.HTTPError as e:
             if not automaticlogin:
@@ -861,6 +872,13 @@ class HttpRequest():
             logger.error( f"Authorization Failure. Check user ID {username} and password for URL [{request.url}]" )
             raise Exception(
                 'Authorization Failure in JazzClient with credentials [%s/%s].' % (username, '*' * len(password)))
+
+        # save cookies
+        if COOKIE_SAVE_FILE:
+            with open( COOKIE_SAVE_FILE, 'wb') as f:
+                pickle.dump( self._session.cookies, f )
+
+
         return response
 
     def _login(self, auth_url):

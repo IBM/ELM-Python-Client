@@ -78,7 +78,14 @@ class _OSLCOperations_Mixin:
     def __init__(self,*args,**kwargs):
         super().__init__()
 
-    # Do an OSLC query using basic or enhanced OSLC query syntax with human-friendly references
+    # a simplified query API - note this defaults to caching results!
+    # accepts the enhanced OSLC Query syntax :-)
+    def simple_query( self, *, queryresource=None, querystring=None, searchterms=None, select=None, orderby=None, isnulls=None, isnotnulls=None, cacheable=True ):
+        queryresource = queryresource or self.default_query_resource
+        result = self.do_complex_query( queryresource=queryresource, querystring=querystring, searchterms=searchterms, select=select, orderby=orderby, isnulls=isnulls, isnotnulls=isnotnulls, cacheable=cacheable )
+        return result
+        
+    # Do an OSLC query using basic or enhanced OSLC query syntax with human-friendly references - defaults to not caching results!
     #
     # isnull/isnotnull are a list of artifact attributes. These will be applied as an 'AND' on the results: isnull will only allow values
     #   which have null for all the attributes in the list to be kept, isnotnull will keep all entries where the named attribute isn't null
@@ -92,7 +99,7 @@ class _OSLCOperations_Mixin:
     #
     # sortby is a list of attribute URIs (e.g. dcterms:identifier
     # sortorder default is + for ascending alphabetic sort, use'-' to get descending alphabetic sorting - use '>' to get increasing numeric sorting of the first item in sortby, or < to get decreasing numeric sort (if any value doesn't convert to integer it is assumed to be 0 so will sort first/last)
-    def do_complex_query(self,queryresource, *, querystring='', searchterms=None, select='', orderby='', properties=None, isnulls=None
+    def do_complex_query(self,queryresource, *, querystring=None, searchterms=None, select=None, orderby=None, properties=None, isnulls=None
                         ,isnotnulls=None, enhanced=True, show_progress=True
                         ,show_info=False, verbose=False, maxresults=None, delaybetweenpages=0.0
                         ,pagesize=200
@@ -102,6 +109,9 @@ class _OSLCOperations_Mixin:
                         ,addcolumns=None
                         ,cacheable=False
                      ):
+        querystring = querystring or ''
+        select = select or ''
+        orderby = orderby or ''
         addcolumns = addcolumns or {}
         if searchterms and querystring:
             logger.info( f"{searchterms=}" )
@@ -158,6 +168,7 @@ class _OSLCOperations_Mixin:
                 raise Exception( "Error parsing query" )
             logger.info( f"{querysteps=}" )
             logger.info( f"{uri_to_name_mapping=}" )
+#            print( f"{uri_to_name_mapping=}" )
 
         if verbose:
             if querysteps:
@@ -205,6 +216,7 @@ class _OSLCOperations_Mixin:
         # convert uris to human-friendly names
         for kuri, v in originalresults.items():
             logger.info( f"post-processing result {kuri} {v}" )
+#            print( f"post-processing result {kuri} {v}" )
             v1 = {}
             for kattr, vattr in v.items():
                 logger.info( f"{kattr=} {vattr=}" )
@@ -249,6 +261,7 @@ class _OSLCOperations_Mixin:
                     else:
                         v1[kattr] = remappedvalue
             logger.info( f"> produced {kuri} {v1}" )
+#            print( f"> produced {kuri} {v1}" )
             mappedresult[kuri] = v1
 
             if show_progress:

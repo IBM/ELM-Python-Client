@@ -37,6 +37,144 @@ typeresources = {
 }
 
 
+class CoreResource( resource.Resource ):
+    name = "Core"
+    
+class BindingResource( resource.Resource):
+    name = "Binding"
+    
+class ModuleResource( resource.Resource ):
+    name = "Module"
+    
+    def getModuleBindings( self ):
+        raise Exception( "Save not implemented yet" )
+        pass
+
+class ModuleStructureResource( resource.Resource ):
+    name = "ModuleStructure"
+
+
+class UnknownResource( resource.Resource ):
+    name = "Unknown"
+    pass
+
+
+class RMLinkCodec( resource.Codec ):
+    def encode( self, targetid ):
+#        print( f"{targetid=}" )
+        # encode id to the target URL
+        # use query to look up the artifact
+        target_u = self.projorcomp.queryCoreArtifactByID( targetid )
+        if target_u is None:
+            raise Exception( f"target id '{targetid}' not found" )
+        thetag=rdfxml.uri_to_tag( self.prop_u )
+        result_x = ET.Element( thetag, { self.rdf_resource_tag: target_u } )
+#        print( f"Encode {targetid=} {result_x=} {ET.tostring( result_x )=}" )
+        return result_x
+        
+    def decode( self, linkurl_x ):
+        linkurl = rdfxml.xmlrdf_get_resource_uri( linkurl_x )
+#        print( f"Decode {linkurl=}" )
+        # decode to the target id
+        # GET the reqt
+        art_x = self.projorcomp.execute_get_rdf_xml( linkurl, cacheable=True )
+        # find dcterms.identifier
+        pythonvalue = rdfxml.xmlrdf_get_resource_text( art_x, './/dcterms:identifier')
+#        print( f"Decode {linkurl} {pythonvalue=}" )
+        return pythonvalue
+
+class FolderCodec( resource.Codec ):
+    def encode( self, foldername ):
+#        print( f"Encode folder {foldername=}" )
+        folder = self.projorcomp.find_folder( foldername )
+        if folder is None:
+            raise Exception( f"foldername '{foldername}' not found" )
+        folder_u = folder.folderuri
+#        print( f"Encode folder {foldername=} {folder_u=}" )
+        
+        thetag=rdfxml.uri_to_tag( self.prop_u )
+#        print( f"{thetag=}" )
+        result_x = ET.Element( thetag, { self.rdf_resource_tag: folder_u } )
+#        print( f"Encode folder {foldername=} {result_x=} {ET.tostring( result_x )=}" )
+        return result_x
+        
+    def decode( self, folder_x ):
+        folder_u = rdfxml.xmlrdf_get_resource_uri( folder_x )
+#        print( f"Decode folder {folder_u=}" )
+        folder = self.projorcomp.find_folder( folder_u )
+#        print( f"{folder=} {folder.name=}" )
+        pythonvalue = folder.pathname
+#        print( f"Decode folder {folder_u} {pythonvalue=}" )
+        return pythonvalue
+
+    def checkonassignment( self, foldername ):
+        folder = self.projorcomp.find_folder( foldername )
+        if folder is None:
+            raise Exception( "Folder {foldername} not valid!" )
+
+
+class RDFURICodec( resource.Codec ):
+    def encode( self, pythonvalue ):
+        raise Exception( f"This property {self._prop_u} should never be encoded {pythonvalue}" )
+        
+    def decode( self, rdftype_x ):
+        rdftype_u = rdfxml.xmlrdf_get_resource_uri( rdftype_x )
+#        print( f"Decode {rdftype_u=}" )
+        if '#' in rdftype_u:
+            result = rdftype_u.rsplit( '#',1 )[1]
+        elif '/' in rdftype_u:
+            result = rdftype_u.rsplit( '/',1 )[1]
+        else:
+            raise Exception( f"No # or / in {rdftype_u} - failed" )
+#        print( f"Decode {rdftype_u} {result=}" )
+        return result
+    
+class EnumCodec( resource.Codec ):
+    def encode( self, pythonvalue ):
+        # decode an enumeration name to the corresponding URL
+        # scan the enum urls in this property
+        enumvalue_u = None
+        for enum_u in self.properties[self.prop_u]['enums']:
+            if self.enumers[enum_u]['name']==pythonvalue:
+                enumvalue_u = enum_u
+        if enumvalue_u is None:
+            burp
+        thetag=rdfxml.uri_to_tag( self.prop_u )
+        result_x = ET.Element( thetag, { self.rdf_resource_tag: enumvalue_u } )
+#        print( f"Encode {pythonvalue=} {result_x=} {ET.tostring( result_x )=}" )
+        return result_x
+
+    def decode( self, rdfvalue_x ):
+#        print( f"{rdfvalue_x=} {ET.tostring( rdfvalue_x )}" )
+        enumvalue_u = rdfxml.xmlrdf_get_resource_uri(rdfvalue_x)
+#        print( f"{enumvalue_u=}" )
+        enumdef = self.projorcomp.enums[enumvalue_u]
+        result = enumdef['name']
+        # default decoding is string
+#        print( f"Decode {rdfvalue_x=} {result=}" )
+        return result
+
+
+#
+# range types:
+#
+valueTypeToCodec = {
+        # oslc:valueType
+        'http://www.w3.org/2001/XMLSchema#boolean':  resource.BooleanCodec,
+        'http://www.w3.org/2001/XMLSchema#dateTime': resource.DateTimeCodec,
+        'http://www.w3.org/2001/XMLSchema#integer':  resource.IntegerCodec,
+        'http://www.w3.org/2001/XMLSchema#string':   resource.StringCodec,
+        # oslc:range
+        'http://xmlns.com/foaf/0.1/Person':                     resource.UserCodec,
+        'http://jazz.net/ns/process#projectArea':               resource.ProjectAreaCodec,
+        'http://jazz.net/ns/process/shapes/ProjectArea':        resource.ProjectAreaCodec,
+        'http://open-services.net/ns/config#Component':         resource.ComponentCodec,
+        'http://open-services.net/ns/core#Resource':            RMLinkCodec,
+        'http://open-services.net/ns/rm#Requirement':           RMLinkCodec,
+        'http://open-services.net/ns/rm#RequirementCollection': RMLinkCodec,
+}
+
+
 #################################################################################################
 
 logger = logging.getLogger(__name__)
@@ -49,6 +187,7 @@ class _Folder(anytree.NodeMixin):
         self.name = name
         self.folderuri = folderuri
         self.parent = parent
+
 
 #################################################################################################
 
@@ -87,7 +226,21 @@ class RMProject(_project._Project, resource.Resources_Mixin ):
         self._confs_to_load = []
         self._confstoparent = []
         self.configTree = None
-        
+        # unmodifiable (system) properties
+        self.unmodifiables = [
+            'accessControl',
+            'component',
+            'Contributor',
+            'Created_On',
+            'Creator',
+            'Identifier',
+            'Modified_On',
+            'oslc_instanceShape',
+            'process_projectArea',
+            'acp_serviceProvider',
+            'rdf_type',
+            'uses',
+        ]
     # save a folder details, and return the new folder instance
     def _savefolder( self, parent, fname, folderuri ):
         ROOTNAME = "+-+root+-+"
@@ -185,8 +338,8 @@ class RMProject(_project._Project, resource.Resources_Mixin ):
             parent = self._folders.get(queryuri) # parent is None for the first query for the root folder
 
             logger.info( f"Retrieving {queryuri=} parent {self._folders.get(queryuri)}" )
-            # get these with caching disabled because folder changes are more frequent than typesystem (probably?)
-            folderxml = self.execute_get_xml(queryuri, cacheable=False, intent="Retrieve folder definition").getroot()
+            # get these with caching enabled
+            folderxml = self.execute_get_xml( queryuri, cacheable=True, intent="Retrieve folder definition" ).getroot()
 
             # find the contained folders
             folderels = rdfxml.xml_find_elements(folderxml,'.//rm_nav:folder')
@@ -464,7 +617,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                                 elif rdfxml.xmlrdf_get_resource_uri( confmember,'.//rdf:type[@rdf:resource="http://open-services.net/ns/config#Configuration"]') is not None:
                                     conftype = "Stream"
                                 else:
-                                    print( ET.tostring(confmember) )
+#                                    print( ET.tostring(confmember) )
                                     raise Exception( f"Unrecognized configuration type" )
                                 created = rdfxml.xmlrdf_get_resource_uri(confmember, './/dcterms:created')
                                 if thisconfu not in self._components[compu]['configurations']:
@@ -602,7 +755,6 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                 if thisconfu in self._configurations:
                     logger.debug( f"Skipping {thisconfu} because already defined" )
 #                    print( f"Skipping {thisconfu} because already defined" )
-#                    burp
                 else:
                     logger.debug( f"Adding {conftitle}" )
 #                    print( f"Adding {conftitle}" )
@@ -734,7 +886,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
 #                        print( f"Loading LT {k=}" )
                         conf.typesystem.load_lt( self, k, iscacheable=alwayscaching or not conf.ismutable, isused=False )
                     else:
-                        raise Exception( f"Unkown type {typedetails[1]}" )
+                        raise Exception( f"Unknown type {typedetails[1]}" )
 
 
     def get_local_config(self, name_or_uri, global_config_uri=None, verbose=False, incremental=False ):
@@ -839,8 +991,11 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                 name = nameel.text
                 rdfuri = rdfxml.xmlrdf_get_resource_uri( shapedef, ".//owl:sameAs" )
 #                print( f"Registering shape {name=} {uri=} {rdfuri=}" )
-                self.register_shape( name, uri )
+                shape_formats = sorted([f.split('#',1)[1] for f in rdfxml.xmlrdf_get_resource_uris( shapedef, './/oslc:describes' )])
+                self.register_shape( name, uri, rdfuri=rdfuri, shape_formats=shape_formats )
                 logger.info( f"Opening shape {name} {uri}" )
+#                print( f"Shape {name}" )
+                
             else:
                 return
         except requests.exceptions.HTTPError as e:
@@ -853,30 +1008,61 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
             else:
                 raise
 
-        # register this shape as an oslc_instanceShape enum
+        # register this shape as an oslc_instanceShape enum - this is an enumeration of all the defined types
         # ensure the oslc:instanceShape property is defined (but don't overwrite existing definition)
-        self.register_property( 'oslc:instanceShape', 'oslc:instanceShape', do_not_overwrite=True )
+        self.register_property( 'oslc:instanceShape', 'oslc:instanceShape', do_not_overwrite=True, typeCodec=resource.InstanceShapeCodec, shape_uri=uri )
+        self.register_property( 'acp:accessControl', 'acp:accessControl', do_not_overwrite=True, typeCodec=resource.AccessControlCodec , shape_uri=uri)
+        self.register_property( 'process:projectArea', 'process:projectArea', do_not_overwrite=True, typeCodec=resource.ProjectAreaCodec , shape_uri=uri)
+        self.register_property( 'oslc:serviceProvider', 'oslc:serviceProvider', do_not_overwrite=True, typeCodec=resource.ServiceProviderCodec, shape_uri=uri )
         # add the shape to it using the shape's URI as an enum URI
         self.register_enum( name, uri, 'oslc:instanceShape')
 
         n = 0
         # scan the attributes/properties
-        for el in rdfxml.xml_find_elements(shapedef, './/oslc:Property/dcterms:title/..'):
-            property_title = rdfxml.xml_find_element(el, 'dcterms:title').text
-            propuri = rdfxml.xml_find_element(el, 'oslc:propertyDefinition').get( "{%s}resource" % rdfxml.RDF_DEFAULT_PREFIX["rdf"])
-            proptype = rdfxml.xmlrdf_get_resource_uri(el,'oslc:valueType' )
+        for el in rdfxml.xml_find_elements(shapedef, './/oslc:Property/dcterms:title/..') + rdfxml.xml_find_elements(shapedef, './/oslc:Property/oslc:name/..'):
+#            print( f"{el=}" )
+#            print( f"{rdfxml.xmlrdf_get_resource_uri( el,'rdf:resource' )=}" )
+#            print( ET.tostring( el ) )
+            property_title_x = rdfxml.xml_find_element(el, 'dcterms:title')
+            if property_title_x is None:
+                property_title_x = rdfxml.xml_find_element(el, 'oslc:name')
+            if property_title_x is None:
+                burp
+            property_title = property_title_x.text
+#            print( f"Loading {property_title}" )
+#            propuri = rdfxml.xml_find_element( el, 'oslc:propertyDefinition').get( "{%s}resource" % rdfxml.RDF_DEFAULT_PREFIX["rdf"])
+            propuri = rdfxml.xmlrdf_get_resource_uri( el, 'oslc:propertyDefinition')
+#            print( f"{propuri=}" )
+            # prefer range over valueType (doesn't nmatter for rm but does for qm which has both in a property definition)
+            proptype = rdfxml.xmlrdf_get_resource_uri( el,'oslc:range' )
+            if proptype is None:
+                proptype = rdfxml.xmlrdf_get_resource_uri(el,'oslc:valueType' ) 
+#            print( f"{proptype=}" )
+            # lookup the codec, if there is one
+            propcodec = valueTypeToCodec.get( proptype )
+#            print( f"{propcodec=}" )
 
             if self.is_known_property_uri( propuri ):
                 logger.debug( f"ALREADY KNOWN" )
+#                print( f"ALREADY KNOWN" )
                 continue
-
+                
+            # work out if multivalued
+            mvtext_x = rdfxml.xmlrdf_get_resource_uri( el, "oslc:occurs" )            
+            isMultiValued = mvtext_x=="http://open-services.net/ns/core#Zero-or-many"
+#            print( f"{property_title} {isMultiValued=} {mvtext_x=}" )
+            
             # get the property definition
-            # a link has a Reference oslc:representation
-            if rdfxml.xml_find_element( el, "oslc:representation[@rdf:resource='http://open-services.net/ns/core#Reference']") is not None:
+            # all links have a Reference oslc:representation
+            # true links have         <oslc:range rdf:resource="http://open-services.net/ns/core#Resource"/>
+            if rdfxml.xml_find_element( el, "oslc:representation[@rdf:resource='http://open-services.net/ns/core#Reference']") is not None and ( rdfxml.xml_find_element( el, "oslc:range[@rdf:resource='http://open-services.net/ns/core#Resource']" ) is not None or rdfxml.xml_find_element( el, "oslc:valueType[@rdf:resource='http://open-services.net/ns/core#Resource']" ) is not None):
+#                print( f"Ref {propuri=}" )
                 if propuri is not None:
+#                    print( f"Ref1 {propuri=}" )
+                    if propcodec is None: # don't override if the codec is already set!
+                        propcodec = RMLinkCodec
                 # this could be a link type or an attribute datatype reference
                 # confirm this is a link type by checking for oslc:representation rdf:resource="http://open-services.net/ns/core#Reference"
-
                     # record the link type in the typesystem
                     if propuri.startswith( self.reluri() ):
                         linktype_x = self._get_typeuri_rdf(propuri)
@@ -888,40 +1074,84 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                         rdfuri = propuri
                         label = property_title
                         inverselabel = None
-
-                    self.register_linktype( property_title, propuri, label, inverselabel=inverselabel, rdfuri=rdfuri, shape_uri=uri )
-            logger.info( f"Defining property {name}.{property_title} {propuri=} +++++++++++++++++++++++++++++++++++++++" )
-#            print( f"Defining property {name}.{property_title} {propuri=} {uri=} +++++++++++++++++++++++++++++++++++++++" )
+#                    print( f"Defining linktype {name}.{property_title} {propuri=} {uri=} +++++++++++++++++++++++++++++++++++++++" )
+                    self.register_linktype( property_title, propuri, label, inverselabel=inverselabel, rdfuri=rdfuri, typeCodec=propcodec, isMultiValued=isMultiValued )
+            if True:
+                logger.info( f"Defining property {name}.{property_title} {propuri=} +++++++++++++++++++++++++++++++++++++++" )
+#                print( f"Defining property {name}.{property_title} {propuri=} {uri=} +++++++++++++++++++++++++++++++++++++++" )
 #            self.register_property(property_title,propuri, shape_uri=uri)
-            self.register_property(property_title,propuri)
-            # load the attribute definitions
-            n += 1
-            for range_el in rdfxml.xml_find_elements(el, 'oslc:range'):
-                range_uri = range_el.get("{%s}resource" % rdfxml.RDF_DEFAULT_PREFIX["rdf"])
 
-                if not range_uri.startswith( self.app.baseurl):
-                    logger.info( f"EXTERNAL {range_uri=}" )
+#            if property_title=="Residual POHS":
+#                print( ET.tostring( el ) )
+                # need to work out the codec
+                
+                self.register_property( property_title, propuri, isMultiValued=isMultiValued, shape_uri=uri )
+                # load the attribute definitions
+                n += 1
+                for range_el in rdfxml.xml_find_elements(el, 'oslc:range'):
+                    range_uri = rdfxml.xmlrdf_get_resource_uri( range_el )
 
-                if True or range_uri.startswith(self.app.baseurl):
-                    # retrieve all the enum value definitions
-                    try:
-                        range_xml = self._get_typeuri_rdf(range_uri)
-                        if range_xml is not None:
-                            # now process any enumeration values
-                            for enum_el in rdfxml.xml_find_elements(range_xml, './/rdf:Description/rdfs:label/..'):
-                                enum_uri = enum_el.get("{%s}about" % rdfxml.RDF_DEFAULT_PREFIX["rdf"])
-                                enum_value_name = rdfxml.xml_find_element(enum_el, 'rdfs:label').text
-                                enum_value_el = rdfxml.xml_find_element(enum_el, 'rdf:value')
-
-                                if enum_value_el is not None:
-                                    enum_value = enum_value_el.text
-
-                                    logger.info( f"defining enum value {enum_value_name=} {enum_uri=}" )
-                                    self.register_enum( enum_value_name, enum_uri, property_uri=propuri )
-                    except requests.exceptions.HTTPError as e:
-                        pass
+                    if not range_uri.startswith( self.app.baseurl):
+                        logger.info( f"EXTERNAL {range_uri=}" )
+                    else:
+                        # retrieve all the enum value definitions
+                        try:
+                            # retrieve the definition of the range
+#                            print( f"Retrieving range rdf '{range_uri}'" )
+                            range_xml = self._get_typeuri_rdf(range_uri)
+#                            print( f"{range_xml=} {ET.tostring(range_xml)}" )
+                            if range_xml:
+                                enum_els = rdfxml.xml_find_elements(range_xml, './/rdf:Description/rdf:value/..')
+#                                print( f"{enum_els=}" )
+                                # now process any enumeration values
+                                for enum_el in enum_els:
+                                    propcodec = EnumCodec
+                                   
+                                    enum_uri = rdfxml.xmlrdf_get_resource_uri( enum_el )
+#                                    print( f"{enum_uri=}" )
+                                    enum_value_name = rdfxml.xml_find_element(enum_el, 'rdfs:label').text
+#                                    print( f"{enum_value_name=}" )
+                                    enum_value_el = rdfxml.xml_find_element(enum_el, 'rdf:value')
+#                                    print( f"+++{enum_value_el=}" )
+                                    if enum_value_el is not None:
+                                        enum_value = enum_value_el.text
+#
+#                                        print( f"defining enum value {enum_value_name=} {enum_uri=}" )
+                                        logger.info( f"defining enum value {enum_value_name=} {enum_uri=}" )
+                                        # register the enumeration value against this property
+                                        self.register_enum( enum_value_name, enum_uri, property_uri=propuri )
+                                    else:
+                                        burp
+                        except requests.exceptions.HTTPError as e:
+                            pass
+                self.register_property_codec( property_title, propuri, propcodec )
         return n
-
+        
+    # this is called by resource when a property is found in the rdf which doesn't have a definition in the typesystem.
+    # if not implemented here those would be ignored
+    def mapUnknownProperty( self, property_name, property_uri, shape_uri ):
+        if property_uri in self.properties:
+            raise Exception( f"Should never happen!" )
+        if property_uri == "http://open-services.net/ns/rm#uses":
+            # add property to shape
+            self.shapes[shape_uri]['properties'].append( property_uri )
+            # add type to properties
+            self.register_property( property_name, property_uri, typeCodec=RMLinkCodec, isMultiValued=True, shape_uri=shape_uri )
+            return True
+        elif property_uri=="http://jazz.net/ns/rm/navigation#parent":
+            # add property to shape
+            self.shapes[shape_uri]['properties'].append( property_uri )
+            # add type to properties
+            self.register_property( property_name, property_uri, typeCodec=FolderCodec, isMultiValued=False, shape_uri=shape_uri )
+            return True
+        elif property_uri=="http://www.w3.org/1999/02/22-rdf-syntax-ns#type":
+            # add property to shape
+            self.shapes[shape_uri]['properties'].append( property_uri )
+            # add type to properties
+            self.register_property( property_name, property_uri, typeCodec=RDFURICodec, isMultiValued=True, shape_uri=shape_uri )
+            return True
+        return False
+        
     # return a dictionary with all local component uri as key and name as value (so two components could have the same name?)
     def get_local_component_details(self):
         results = {}
@@ -955,14 +1185,18 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
     # for OSLC query, given a type URI, return its name
     # rm-specific resolution
     def app_resolve_uri_to_name(self, uri):
+#        print( f"arutn {uri=}" )
         if self.is_folder_uri(uri):
             result = self.folder_uritoname_resolver(uri)
         elif self.is_resource_uri(uri):
             result = self.resource_id_from_uri(uri)
         elif self.is_type_uri(uri):
             result = self.type_name_from_uri(uri)
+        elif self.is_known_linktype_uri( uri ):
+            result = self.get_linktype_name( uri )
         else:
             result = None
+#        print( f"arutn {result=}" )
         return result
 
     def is_type_uri(self, uri):
@@ -1008,7 +1242,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
             except requests.HTTPError as e:
                 if e.response.status_code==410:
                     logger.info( f"Type {uri} doesn't exist!" )
-                    print( f"Error retrieving URI, probably a reference outside the component, i.e. it's in a different (unknown) configuration - ignored {uri}" )
+#                    print( f"Error retrieving URI, probably a reference outside the component, i.e. it's in a different (unknown) configuration - ignored {uri}" )
                     return None
                 else:
                     raise
@@ -1118,11 +1352,95 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
 
     def get_default_stream_name( self ):
         if self.is_optin and not self.singlemode:
-            raise Exception( "Not allowed if compontn is not singlemode!" )
+            raise Exception( "Not allowed if component is not singlemode!" )
         for configuri,configdetails in self._configurations.items():
             if configdetails['conftype'] == 'Stream':
                 return configuri
         raise Exception( "No stream found!" )
+
+    # potential issues - not all things have a clear slug identifier, in particular upgraded artifacts *don't*
+    # this might make it difficult/impossible for a factory to create the correct type of object
+        
+    def resourcetypediscriminator( self, resource_x ):
+        # find all instances of rdf:type (there can be more than one! it's valid RDF)
+        # check for known types in a specific order so the correct type is identified!
+        # once a concrete type is identified, return a resource of that type
+        result = UnknownResource()
+        rdftypes = rdfxml.xmlrdf_get_resource_uris( resource_x, './/rdf:type' )
+        if 'http://jazz.net/ns/rm#WrapperResource' in rdftypes:
+            result =  WrapperResource()
+    #        print( "C" )
+        elif 'http://jazz.net/ns/rm#Module' in rdftypes:
+            result =  ModuleResource()
+    #        print( "D" )
+        if 'http://open-services.net/ns/rm#Requirement' in rdftypes:
+            if rdfxml.xml_find_elements( resource_x, ".//rm_nav:parent" ):
+            # if contains rm_nav:parent it's a core artifact
+                result =  CoreResource()
+    #            print( "A" )
+            else:
+                # if wrappedresource
+                # else Binding
+                result = BindingResource()
+    #            print( "B" )
+    #    print( f"{result=}" )
+        return result
+
+    # common RM queries:
+    # (all can be modified by before/after a specific datetime): dcterms:modified>="2024-08-01T21:51:40.979Z"^^xsd:dateTime
+    # all artifacts by type: oslc:instanceShape='Stakeholder Requirement'
+    # By identifier(s) Identifier=1773 or Identifier in [1773,1774]
+    # artifacts In a module by module name: rm:module=^"AMR Stakeholder Requirements Specification" and oslc:instanceShape='Stakeholder Requirement'
+    # artifacts in a module by module identifier: oslc_rm:uses{dcterms:identifier in ["123","345"]}
+    # artifacts in a module by module type and artifact type: 
+    # artifacts by type with outgoing link - (requires postprocessing)
+    # All artifacts created by a pecific users (tanuj) dcterms:creator=@"tanuj"
+    
+    def queryResourcesByIDs( self, identifiers, *, returnCoreResources=True, returnBindings=True, returnModules=True, filterFunction=None, modifiedBefore=None, modifiedAfter=None, createdAfter=None ):
+        # identifiers is a single id or a list of ids
+        if type(identifiers) != list:
+            # make identifiers a list
+            identifiers = [ identifiers ]
+#        print( f"{identifiers=}" )
+        # check all the identifiers are integer strings
+        identifiers = [str(i) for i in identifiers]
+#        print( f"{identifiers=}" )
+        for i in identifiers:
+#            print( f"{i=}" )
+            if not utils.isint( str(i) ):
+                raise Exception( "value '{i}' is not an integer!" )
+                        
+        # use OSLC Query then if necessary post-processes the results
+        # return Resources!
+        # query
+            # get the query capability base URL for requirements
+        qcbase = self.get_query_capability_uri("oslc_rm:Requirement")
+        
+        # query for the identifiers
+        artifacts = self.execute_oslc_query(
+            qcbase,
+            whereterms=[['dcterms:identifier','in',identifiers]],
+#            select=['*'],
+            select=[],
+            prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms'} # note this is reversed - url to prefix
+            )
+        results = []
+#        print( f"{artifacts=}" )
+        for art in artifacts:
+            artres = self.resourceFactory( art, self )
+            keep = False
+            keep = keep or ( returnCoreResources and type( artres ) == CoreResource )
+            keep = keep or ( returnBindings and type( artres ) == BindingResource )
+            keep = keep or ( returnModules and type( artres ) == ModuleResource )
+            if keep and filterFunction:
+                keep = filterFunction( artres )
+            if keep: results.append( artres )
+            pass
+            
+        return results
+
+
+
 
 #################################################################################################
 
@@ -1267,7 +1585,7 @@ class RMComponent( RMProject, resource.Resources_Mixin ):
             state = rdfxml.xmlrdf_get_resource_uri( result, './/oslc_auto:verdict ')
         else:
             raise Exception( f"Unknown response {response.status_code}" )
-        print( f"tracker result {state=}" )
+#        print( f"tracker result {state=}" )
 
         self.local_config = None
         # TODO: how to remove the delivered changeset from known configs?
@@ -1407,6 +1725,7 @@ class RMApp (_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
                 return result
             uri1 = rdfxml.uri_to_prefixed_tag(uri,noexception=True)
             logger.debug(f"No app base URL {self.reluri()=} {uri=} {uri1=}")
+#            print(f"No app base URL {self.reluri()=} {uri=} {uri1=}")
             return uri1
         elif not self.is_known_uri(uri):
             if self.server.jts.is_user_uri(uri):
@@ -1417,7 +1736,7 @@ class RMApp (_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
                     logger.debug( f"Returning the raw URI {uri} so changed it to prefixed {uri1}" )
                     uri = uri1
                 result = uri
-            # ensure the result is in the types cache, in case it recurrs the result can be pulled from the cache
+            # ensure the result is in the types cache, in case it recurs the result can be pulled from the cache
             self.register_name(result,uri)
         else:
             result = self.get_uri_name(uri)

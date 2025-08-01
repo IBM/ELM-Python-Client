@@ -287,7 +287,8 @@ class TypeSystem(object):
         # get the URI and process all the attributes
         content_x = serverconnection.execute_get_xml( url, params={'vvc.configuration':serverconnection.local_config},headers={'Configuration-Context': None},  cacheable=iscacheable )
         if content_x is None:
-            burp
+            raise Exception( "No XML!" )
+
         modified = rdfxml.xmlrdf_get_resource_uri( content_x,'.//dcterms:modified', exceptionifnotfound=True )
         modifiedBy = rdfxml.xmlrdf_get_resource_uri( content_x,'.//dcterms:contributor', exceptionifnotfound=True )
 #        component = rdfxml.xmlrdf_get_resource_uri( content_x,'.//oslc_config:component', exceptionifnotfound=True )
@@ -315,7 +316,8 @@ class TypeSystem(object):
         # get the URI and process all the attributes
         content_x = serverconnection.execute_get_xml( url, params={'vvc.configuration':serverconnection.local_config},headers={'Configuration-Context': None}, cacheable=iscacheable )
         if content_x is None:
-            burp
+            raise Exception( "No XML!" )
+
         modified = rdfxml.xmlrdf_get_resource_uri( content_x,'.//dcterms:modified', exceptionifnotfound=True )
         modifiedBy = rdfxml.xmlrdf_get_resource_uri( content_x,'.//dcterms:contributor', exceptionifnotfound=True )
 #        component = rdfxml.xmlrdf_get_resource_uri( content_x,'.//oslc_config:component', exceptionifnotfound=True )
@@ -342,7 +344,7 @@ class TypeSystem(object):
             return
         content_x = serverconnection.execute_get_xml( url, params={'vvc.configuration':serverconnection.local_config},headers={'Configuration-Context': None}, cacheable=iscacheable )
         if content_x is None:
-            burp
+            raise Exception( "No XML!" )
         modified = rdfxml.xmlrdf_get_resource_uri( content_x,'.//dcterms:modified', exceptionifnotfound=True )
         modifiedBy = rdfxml.xmlrdf_get_resource_uri( content_x,'.//dcterms:contributor', exceptionifnotfound=True )
 #        component = rdfxml.xmlrdf_get_resource_uri( content_x,'.//oslc_config:component', exceptionifnotfound=True )
@@ -388,7 +390,7 @@ class TypeSystem(object):
             return
         content_x = serverconnection.execute_get_xml( url, params={'vvc.configuration':serverconnection.local_config},headers={'Configuration-Context': None}, cacheable=iscacheable )
         if content_x is None:
-            burp
+            raise Exception( "No XML!" )
         modified = rdfxml.xmlrdf_get_resource_uri( content_x,'.//dcterms:modified', exceptionifnotfound=True )
         modifiedBy = rdfxml.xmlrdf_get_resource_uri( content_x,'.//dcterms:contributor', exceptionifnotfound=True )
 #        component = rdfxml.xmlrdf_get_resource_uri( content_x,'.//oslc_config:component', exceptionifnotfound=True )

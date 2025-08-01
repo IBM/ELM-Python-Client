@@ -120,7 +120,7 @@ caching = 2
 ##################################################################################
 if __name__=="__main__":
     if len(sys.argv) != 4:
-        raise Exception( 'You must provide: a from identifier, a string for the link type name (enclose in "if it has spaces) and ato identifier' )
+        raise Exception( 'You must provide: a from identifier, a string for the link type name (enclose in "if it has spaces) and a to identifier' )
 
     fromid = sys.argv[1]
     linktypename = sys.argv[2]

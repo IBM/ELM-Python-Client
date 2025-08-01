@@ -610,7 +610,7 @@ class GCMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
 
                 if pd_u is not None:
                     if not pd_u.startswith( self.baseurl ):
-                        self.register_property(property_title,pd_u, shape_uri=uri, altname=altname)
+                        self.register_property(property_title,pd_u, altname=altname, shape_uri=uri)
                         logger.debug( f"+++++++Skipping non-local Property Definition {pd_u}" )
                         continue
                 else:
@@ -620,7 +620,7 @@ class GCMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
                     logger.debug( f"ALREADY KNOWN2" )
                     continue
                 logger.info( f"Defining property {title}.{property_title} {altname=} {pd_u=} +++++++++++++++++++++++++++++++++++++++" )
-                self.register_property(property_title,pd_u, shape_uri=uri, altname=altname)
+                self.register_property(property_title,pd_u, altname=altname, shape_uri=uri)
                 # check for any allowed value
                 allowedvalueu = rdfxml.xmlrdf_get_resource_uri(real_propel, ".//oslc:allowedValue" )
                 if allowedvalueu is not None:
@@ -707,8 +707,8 @@ class GCMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
         
     # for OSLC query, given an attribute (property) name return its type URI
     # the context is the shape definition - can be None, needed to be specified ultimately by the user when property names aren't unique
-    def resolve_property_name_to_uri(self, name, shapeuri=None, exception_if_not_found=True):
-        logger.info( f"resolve_property_name_to_uri {name=} {shapeuri=}" )
-        result = self.get_property_uri(name,shape_uri=shapeuri)
-        logger.info( f"resolve_property_name_to_uri {name=} {shapeuri=} {result=}" )
+    def resolve_property_name_to_uri(self, name, exception_if_not_found=True):
+        logger.info( f"resolve_property_name_to_uri {name=} " )
+        result = self.get_property_uri(name)
+        logger.info( f"resolve_property_name_to_uri {name=} {result=}" )
         return result

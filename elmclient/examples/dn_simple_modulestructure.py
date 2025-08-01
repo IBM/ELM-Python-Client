@@ -174,7 +174,7 @@ if __name__=="__main__":
         qcbase,
         whereterms=[['dcterms:title','=',f'"{mod}"'], ['rdf:type','=','<http://jazz.net/ns/rm#Module>']],
         select=['*'],
-        prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms'} # note this is referest - url to prefix
+        prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms'} # note this is reversed - url to prefix
         )
         
     if len(modules)==0:
@@ -187,7 +187,7 @@ if __name__=="__main__":
     # we've found the module, it's the only entry in the modules dictionary, keyed by URL
     themodule_u = list(modules.keys())[0]
     print( f"{themodule_u=}" )
-
+    
     mod_x = c.execute_get_rdf_xml(themodule_u, cacheable=False,  headers={'vvc.configuration': config_u,'DoorsRP-Request-Type':'public 2.0', 'Referer': None, 'OSLC-Core-Version': None, 'Configuration-Context': None}, intent="Retrieve the module RDF-XML to get the structure URI" ) # have to remove the OSLC-Core-Version and Configuration-Context headers, and provide vvc.configuration header
 
     print( f"{mod_x=}" )

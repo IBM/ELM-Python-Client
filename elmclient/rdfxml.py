@@ -52,7 +52,7 @@ RDF_DEFAULT_PREFIX = {
     'qm_ns2':           "http://jazz.net/xmlns/alm/qm/v0.1/",
     'rdf':              'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
     'rdfs':             'http://www.w3.org/2000/01/rdf-schema#',
-# retired    'rdm_types':        'http://www.ibm.com/xmlns/rdm/types/',
+    'rdm_types':        'http://www.ibm.com/xmlns/rdm/types/',
     'rm':               'http://www.ibm.com/xmlns/rdm/rdf/',
     'rm_ds':            'http://jazz.net/xmlns/alm/rm/datasource/v0.1', # For RR
     'rm_modules':       'http://jazz.net/ns/rm/dng/module#',
@@ -187,6 +187,8 @@ def xmlrdf_get_resource_uri(xml, xpath=None, *, prefix_map=RDF_DEFAULT_PREFIX, a
         raise Exception( f"xmlrdf_get_resource_uri no text found for {xpath}" )           
     return None
 
+def xmlrdf_get_resource_uris(xml, xpath=None, *, prefix_map=RDF_DEFAULT_PREFIX, attrib=None, exceptionifnotfound=True):
+    return [ xmlrdf_get_resource_uri( rdftype, exceptionifnotfound=exceptionifnotfound) for rdftype in xml_find_elements( xml, xpath, exceptionifnotfound=exceptionifnotfound ) ]
 
 # finds first element using xpath and return its text value
 def xmlrdf_get_resource_text(xml, xpath, prefix_map=RDF_DEFAULT_PREFIX, exceptionifnotfound=False):

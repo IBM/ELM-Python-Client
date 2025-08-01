@@ -30,7 +30,7 @@ import importlib, os, inspect, glob
 
 # scan for extensions to import and extend the specified class
 # extensions are .py file with a name like <classname>-something.py e.g RMApp-extension.py
-# the classes in the file are added as base classes to the extended class
+# the classes in the file are added as base classes (i.e. additional mixins) to the extended class
 # so it's dynamic mixins :-)
 # A mixin may override existing methods but the main aim is to add new methods for that class
 def load_extensions( *, path=None, folder=None ):
@@ -65,8 +65,9 @@ def load_extensions( *, path=None, folder=None ):
                 # add them to the extended class so they precede (i.e. may override) the previous base classes
                 for n,c in extenderclasses.items():
                     # add to bases
+                    print( f"Extending {extendedclass} with {c}" )
                     extendedclass.__bases__ = (c,)+extendedclass.__bases__
 
 ## load any local extensions
-#load_extensions()
+load_extensions()
 

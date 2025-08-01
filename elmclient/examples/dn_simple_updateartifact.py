@@ -84,7 +84,7 @@ if __name__=="__main__":
     # get the query capability base URL for requirements
     qcbase = c.get_query_capability_uri("oslc_rm:Requirement")
 
-    # query for a title and for format=module
+    # query for a title
     artifacts = c.execute_oslc_query(
         qcbase,
         whereterms=[['dcterms:identifier','=',f'"{sys.argv[1]}"']],

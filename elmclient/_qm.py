@@ -22,6 +22,7 @@ from . import rdfxml
 from . import server
 from . import utils
 from . import _qmrestapi
+from . import resource
 
 #################################################################################################
 
@@ -30,7 +31,51 @@ logger = logging.getLogger(__name__)
 #################################################################################################
 
 
-class QMProject(_project._Project, _qmrestapi.QM_REST_API_Mixin):
+class BuildDefinitionResource         (resource.Resource):
+    pass
+class BuildRecordResource(resource.Resource):
+    pass
+class KeywordResource                 (resource.Resource):
+    pass
+class TestDataResource                (resource.Resource):
+    pass
+class TestPhaseResource            (resource.Resource):
+    pass
+class TestSuiteResource             (resource.Resource):
+    pass
+class TestSuiteExecutionRecordResource(resource.Resource):
+    pass
+class TestSuiteResultResource         (resource.Resource):
+    pass
+class TestCaseResource                (resource.Resource):
+    pass
+class TestExecutionRecordResource     (resource.Resource):
+    pass
+class TestPlanResource                (resource.Resource):
+    pass
+class TestResultResource                (resource.Resource):
+    pass
+class TestScriptResource             (resource.Resource):
+    pass
+
+valuetypetoresource = {
+    'http://jazz.net/ns/qm/rqm#BuildDefinition':             BuildDefinitionResource ,
+    'http://jazz.net/ns/qm/rqm#BuildRecord':                 BuildRecordResource ,
+    'http://jazz.net/ns/qm/rqm#Keyword':                     KeywordResource,
+    'http://jazz.net/ns/qm/rqm#TestData':                    TestDataResource ,
+    'http://jazz.net/ns/qm/rqm#TestPhase':                   TestPhaseResource ,
+    'http://jazz.net/ns/qm/rqm#TestSuite':                   TestSuiteResource ,
+    'http://jazz.net/ns/qm/rqm#TestSuiteExecutionRecord':    TestSuiteExecutionRecordResource ,
+    'http://jazz.net/ns/qm/rqm#TestSuiteResult':             TestSuiteResultResource ,
+    'http://open-services.net/ns/qm#TestCase':               TestCaseResource ,
+    'http://open-services.net/ns/qm#TestExecutionRecord':    TestExecutionRecordResource ,
+    'http://open-services.net/ns/qm#TestPlan':               TestPlanResource ,
+    'http://open-services.net/ns/qm#TestResult':             TestResultResource ,
+    'http://open-services.net/ns/qm#TestScript':             TestScriptResource ,
+}
+
+
+class QMProject( _project._Project, _qmrestapi.QM_REST_API_Mixin, resource.Resources_Mixin ):
     # A QM project
     def __init__(self, name, project_uri, app, is_optin=False, singlemode=False,defaultinit=True):
         super().__init__(name, project_uri, app, is_optin,singlemode,defaultinit=defaultinit)
@@ -42,6 +87,23 @@ class QMProject(_project._Project, _qmrestapi.QM_REST_API_Mixin):
         self.gcconfiguri = None
         self.default_query_resource = "oslc_qm:TestCaseQuery"
         self._confs_to_load = []
+        self.unmodifiables = [
+            'Access_Context',
+            'Access_Control',
+            'component',
+            'Contributor',
+            'Created',
+            'creator',
+            'Identifier',
+            'Modified',
+            'Relation',
+            'Short_ID',
+            'Short_Identifier',
+            'Type',
+            'projectArea',
+            'serviceProvider',
+            'type',
+        ]
 
     def load_components_and_configurations(self,force=False):
         if self._components is not None and self._configurations is not None and not force:
@@ -55,7 +117,7 @@ class QMProject(_project._Project, _qmrestapi.QM_REST_API_Mixin):
             # for QM, no configs to load!
             return
         elif self.singlemode:
-            
+
             # xmlns:ns3="http://open-services.net/ns/core#
             # <ns3:details ns4:resource="https://jazz.ibm.com:9443/qm/process/project-areas/_AzVy8LOJEe6f6NR46ab0Iw"/>
             logger.debug( f"{self.singlemode=}" )
@@ -131,7 +193,7 @@ class QMProject(_project._Project, _qmrestapi.QM_REST_API_Mixin):
                 ncomps += 1
                 confu = rdfxml.xmlrdf_get_resource_uri(component_el, './/oslc_config:configurations')
                 self._components[compu] = {'name': comptitle, 'configurations': {}, 'confs_to_load': [confu]}
-                
+
                 configs_xml = self.execute_get_rdf_xml( confu, intent="Retrieve all project/component configuration definitions" )
                 # Each config:     <ldp:contains rdf:resource="https://jazz.ibm.com:9443/qm/oslc_config/resources/com.ibm.team.vvc.Configuration/_qT1EcEB4Eeus6Zk4qsm_Cw"/>
 
@@ -205,8 +267,8 @@ class QMProject(_project._Project, _qmrestapi.QM_REST_API_Mixin):
                     self._confs_to_load.append(thisconfu)
             # maybe it's got configuration(s)
             confmemberx = rdfxml.xml_find_elements(configs_xml, './/oslc_config:Configuration') + rdfxml.xml_find_elements(configs_xml, './/oslc_config:Stream') + rdfxml.xml_find_elements(configs_xml, './/oslc_config:Baseline') + rdfxml.xml_find_elements(configs_xml, './/oslc_config:ChangeSet')
-            
-            for confmember in confmemberx:  
+
+            for confmember in confmemberx:
                 thisconfu = rdfxml.xmlrdf_get_resource_uri( confmember )
                 logger.debug( f"{thisconfu=}" )
                 conftitle = rdfxml.xmlrdf_get_resource_text(confmember, './/dcterms:title')
@@ -244,7 +306,7 @@ class QMProject(_project._Project, _qmrestapi.QM_REST_API_Mixin):
         self.load_configs()
         for cu, cd in self._configurations.items():
             configs.append( cd['name'] )
-        
+
         return configs
 
     # load the typesystem using the OSLC shape resources
@@ -413,6 +475,56 @@ class QMProject(_project._Project, _qmrestapi.QM_REST_API_Mixin):
                 return configuri
         raise Exception( "No stream found!" )
 
+    def resourcetypediscriminator( self, resource_x ):
+        # find all instances of rdf:type (there can be more than one! it's valid RDF)
+        # check for known types in a specific order so the correct type is identified!
+        # once a concrete type is identified, return a resource of that type
+#        print( f"rtd {ET.tostring(resource_x)}" )
+#        result = UnknownResource()
+        rdftypes = rdfxml.xmlrdf_get_resource_uris( resource_x, './/rdf:type' )
+        if len( rdftypes ) > 1:
+            burp
+        result = valuetypetoresource[rdftypes[0]]()
+        return result
+    
+    def queryResourcesByIDs( self, identifiers, *, querytype=None, filterFunction=None, modifiedBefore=None, modifiedAfter=None, createdAfter=None ):
+        # identifiers is a single id or a list of ids
+        if type(identifiers) != list:
+            # make identifiers a list
+            identifiers = [ identifiers ]
+        querytype = querytype or self.default_query_resource
+#        print( f"{identifiers=}" )
+        # check all the identifiers are integer strings
+        identifiers = [str(i) for i in identifiers]
+#        print( f"{identifiers=}" )
+        for i in identifiers:
+            print( f"{i=}" )
+            if not utils.isint( str(i) ):
+                raise Exception( "value '{i}' is not an integer!" )
+                        
+        # use OSLC Query then if necessary post-processes the results
+        # return Resources!
+        # query
+            # get the query capability base URL for requirements
+        qcbase = self.get_query_capability_uri(querytype)
+        
+        # query for the identifiers
+        artifacts = self.execute_oslc_query(
+            qcbase,
+            whereterms=[['oslc:shortId','in',identifiers]],
+#            select=['*'],
+            select=[],
+            prefixes={rdfxml.RDF_DEFAULT_PREFIX["oslc"]:'oslc'} # note this is reversed - url to prefix
+            )
+        results = []
+#        print( f"{artifacts=}" )
+        for art in artifacts:
+            artres = self.resourceFactory( art, self )
+            results.append( artres )
+            
+        return results
+
+
 #################################################################################################
 
 class QMComponent(QMProject):
@@ -455,7 +567,7 @@ class QMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Syst
             ,'views'
         ]
     identifier_name = 'Short ID'
-    identifier_uri = 'Identifier'
+    identifier_uri = 'oslc:shortId'
 
     def __init__(self, server, contextroot, jts=None):
         super().__init__(server, contextroot, jts=jts)
@@ -591,7 +703,7 @@ class QMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Syst
         NOTE this is called on the class (i.e. is a class method) because at this point don't know which app with be queried
         '''
         parser_qm = subparsers.add_parser('qm', help='ETM Reportable REST actions', parents=[common_args])
-        
+
         parser_qm.add_argument('artifact_format', choices=cls.artifact_formats, default=None, help=f'CCM artifact format - possible values are {", ".join(cls.artifact_formats)}')
 
         # SCOPE settings
@@ -606,18 +718,18 @@ class QMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Syst
 #        rmex1.add_argument('-v', '--view', default=None, help='Sub-scope: RM: Name of view - you need to provide the project and local/global config')
 #        rmex1.add_argument('-r', '--resourceIDs', default=None, help='Sub-scope: RM: Comma-separated IDs of resources - you need to provide the project and local/global config')
 #        rmex1.add_argument('-t', '--typename', default=None, help='Sub-scope: RM: Name of type - you need to provide the project and local/global config')
-        
+
 #        # Output FILTER settings - only use one of these at once
 #        parser_qm.add_argument('-a', '--all', action="store_true", help="Filter: Report all resources")
 #        parser_qm.add_argument('-d', '--modifiedsince', default=None, help='Filter: only return items modified since this date in format 2021-01-31T12:34:26Z')
         parser_qm.add_argument('-f', '--fields', default=None, help="Filter using xpath")
 #        parser_qm.add_argument('-x', '--expandEmbeddedArtifacts', action="store_true", help="Filter: Expand embedded artifacts")
-        
+
 #        # various options
 #    #    parser_qm.add_argument('--forever', action='store_true', help="TESTING UNFINISHED: save web data forever (used for regression testing against stored data, may not need the target server if no requests fail)" )
 #        parser_qm.add_argument('--nresults', default=-1, type=int, help="TESTING UNFINISHED: Number of results expected (used for regression testing against stored data, doesn't need the target server - use -1 to disable checking")
-#        parser_qm.add_argument('--pagesize', default=100, type=int, help="Page size for results paging (default 100)")    
-        
+#        parser_qm.add_argument('--pagesize', default=100, type=int, help="Page size for results paging (default 100)")
+
 #        # Output controls - only use one of these at once!
         rmex2 = parser_qm.add_mutually_exclusive_group()
 #        rmex2.add_argument('--attributes', default=None, help="Output: Comma separated list of attribute names to report (requires specifying project and configuration)")
@@ -632,19 +744,19 @@ class QMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Syst
     def process_represt_arguments( self, args, allapps ):
         '''
         Process above arguments, returning a dictionayt of parameters to add to the represt base URL
-        NOTE this does have some dependency on thje overall 
-        
+        NOTE this does have some dependency on thje overall
+
         NOTE this is called on an instance (i.e. not a class method) because by now we know which app is being queried
         '''
         queryparams = {}
         queryurl = ""
         queryheaders={}
-        
+
         if args.schema:
             queryparams['metadata'] = 'schema'
-            
+
         queryurl = self.reluri(self.reportablerestbase) + "/"+ args.artifact_format
-            
+
         if args.report:
             typestodo = []
             # get the schema, walk it building the tree of fields
@@ -675,18 +787,18 @@ class QMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Syst
                             typestr = ""
                             if subeltype.startswith( "xs:"):
 #                                print( f"Type {typetofind} Found endpoint {subelname} {subeltype}" )
-                                typestr = " "+subeltype                            
+                                typestr = " "+subeltype
                                 fieldpath = "/".join(knowntypes[type_name]+[subelname]) + typestr
                                 if fieldpath not in fieldlist:
 #                                    print( f"Adding {fieldpath}" )
                                     fieldlist.append(fieldpath)
-                                
+
                             elif subeltype not in knowntypes:
-                                typestodo.append(subeltype) 
+                                typestodo.append(subeltype)
 #                                print( f"Type {typetofind} Queued {subelname=} {subeltype=}" )
                                 knowntypes[subeltype] = knowntypes[type_name]+[subelname]
     #                        print( f'{"/".join(knowntypes[subeltype]+[subelname])}' )
-                                
+
                     else:
                         raise Exception( f"xs:sequence not found in schema for type {typetofind}" )
             print( "\n".join(sorted(fieldlist) ) )

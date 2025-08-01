@@ -276,7 +276,7 @@ def represt_main():
             timer_start = time.perf_counter()
             
             # call the REST API
-            result = mainapp.execute_get_xml(reluri=queryurl, headers=headers, cacheable=False, intent=f"Retrieve Reportable REST content page {npages+1}"  )
+            result = mainapp.execute_get_xml(reluri=queryurl, headers=headers, cacheable=False, intent=f"Retrieve Reportable REST content page {npages+1}" )
             
             # calculate and record the duration
             duration = time.perf_counter()-timer_start

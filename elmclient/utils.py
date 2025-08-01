@@ -177,6 +177,7 @@ def getcontentrow( node, remove_ns=True ):
 
 def getacontentrow( node, thisrowdict, allcolumns, level, path, remove_ns=True, merge_duplicates=False ):
     logger.debug( f"2 {node=} {allcolumns=} {thisrowdict=}" )
+#    print( f"2 {node=} {allcolumns=} {thisrowdict=} {level=} {path=}" )
     children = list(node)
 
     # ensure path is unique
@@ -187,11 +188,13 @@ def getacontentrow( node, thisrowdict, allcolumns, level, path, remove_ns=True, 
                 break
         path = f"{path}{i}"
         logger.debug( f"unique1 ============================= {path=}" )
+#        print( f"unique1 ============================= {path=}" )
         
     if path not in allcolumns:
         allcolumns.append(path)
         
     logger.debug( f"{path=}" )
+#    print( f"{path=}" )
     # record attributes of node
     for k in node.keys():
         # work out the path to this attribute
@@ -232,6 +235,7 @@ def getacontentrow( node, thisrowdict, allcolumns, level, path, remove_ns=True, 
         # remember paths that have a value stored
     elif len(children)>0:
         # recurse into the children
+#        print( f"{children=}" )
         for child in children:
             if remove_ns and '}' in child.tag:
                 thistag = child.tag.split('}',1)[1]
@@ -244,6 +248,8 @@ def getacontentrow( node, thisrowdict, allcolumns, level, path, remove_ns=True, 
         # empty tag
         pass
 
+#    print( f"{thisrowdict=}" )
+#    print( f"{allcolumns=}" )
     return (thisrowdict,allcolumns)
 
 #####################################################################################

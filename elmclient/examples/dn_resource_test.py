@@ -43,7 +43,7 @@ jtscontext = 'jts'
 rmcontext  = 'rm'
 
 # the project+compontent+config that will be updated
-proj = "rm_optin_p1"
+proj = "rm_optin_p2"
 comp = proj
 conf =  f"{comp} Initial Stream"
 
@@ -79,6 +79,37 @@ if __name__=="__main__":
     print( f"{config_u=}" )
     c.set_local_config(config_u)
 
+#    mores = c.queryResourcesByIDs( [2691,2854 ] )
+    mores = c.queryResourcesByIDs( [2606] )
+    print( f"{mores=}" )
+    print( mores[0].Identifier )
+    print( mores[0].Title )
+    mores[0].Title += ' Analysis'
+    if mores[0].parent=="/01 Requirements":
+        mores[0].parent = "/02 Reference"
+    else:
+        mores[0].parent = "/01 Requirements"
+        
+    print( f"{mores[0]=}" )
+    mores[0].put()
+    burp
+    print( f"{mores[0]=}" )
+    mores[0].Title = mores[0].Title+"1"
+    print( f"{mores[0]=}" )
+    mores[0].addCoreArtifactLink( "Satisfies", 2854 )
+    print( f"After add link {mores[0]=}" )
+    mores[0].to_etree()
+    mores[0].put()
+    burp
+
+    mores[0].Identifier = 23
+    mores[0].Priority = "prime"
+    
+    
+    burp
+
+
+
     # find the artifact - using OSLC Query
 
     # get the query capability base URL for requirements
@@ -99,7 +130,7 @@ if __name__=="__main__":
     elif len(artifacts)>2:
         for k,v in artifacts.items():
             print( f'{k} ID {v.get("dcterms:identifier","???")} Title {v.get("dcterms:title","")}' )
-        raise Exception( "More than one artifcact with that id in project {proj} component {comp} configuraition {conf}" )
+        raise Exception( "More than one artifcact with that id in project {proj} component {comp} configuraiton {conf}" )
     
     # find the core artifact - it has a value for rm_nav:parent
     theartifact_u = None
@@ -115,10 +146,22 @@ if __name__=="__main__":
     print( f"Found core artifact {theartifact_u=}" )
 
     art = c.retrieveResource( theartifact_u )
-    
     print( f"{art=}" )
-    print( vars( art ) )
+    art.Title = "Hello, World"
+    art.to_etree()
     
+    print( f"{art.Identifier=}" )
+#    burp
+    print( "\n=====\n",vars( art ),"\n-----\n" )
+    art.Title = "Hello, world"
+    print( f"{art.Title=}" )
+
+
+    mores = c.findResourcesByIDs( [1734,1733] )
+    print( f"{mores=}" )
+
+
+    art.put()
     burp
     # now get the artifact content and its etag
     theartifact_x, etag = c.execute_get_rdf_xml( theartifact_u, return_etag=True, intent="Retrieve the artifact" )

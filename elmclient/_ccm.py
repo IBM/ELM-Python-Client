@@ -18,6 +18,7 @@ from . import oslcqueryapi
 from . import rdfxml
 from . import server
 from . import utils
+from . import resource
 
 #################################################################################################
 
@@ -39,7 +40,7 @@ def callers():
 
 #################################################################################################
 
-class CCMProject(_project._Project):
+class CCMProject( _project._Project , resource.Resources_Mixin):
     def __init__(self, name, project_uri, app, is_optin,singlemode):
         super().__init__(name, project_uri, app, is_optin,singlemode)
         self.default_query_resource = 'oslc_cm1:ChangeRequest'
@@ -130,7 +131,7 @@ class CCMProject(_project._Project):
                 altname = None
 
             logger.info( f"Defining property {title}.{property_title} {altname=} {propuri=} +++++++++++++++++++++++++++++++++++++++" )
-            self.register_property(property_title,propuri, shape_uri=uri, altname=altname,property_definition_uri=property_definition_uri)
+            self.register_property(property_title,propuri, altname=altname,property_definition_uri=property_definition_uri, shape_uri=uri)
 
             allowedvaluesu = rdfxml.xmlrdf_get_resource_uri(real_propel, ".//oslc:allowedValues" )
             if allowedvaluesu is not None:
@@ -175,7 +176,7 @@ class CCMProject(_project._Project):
                             # register this shape as an rtc_cm:type enum
                             logger.info( f"Defining category rtc_cm:type {enum_value_name} {enum_id} {category} {enum_uri}" )
                             # ensure the rtc_cm:type property is defined (but don't overwrite existing definition)
-                            self.register_property( 'rtc_cm:type', 'rtc_cm:type', do_not_overwrite=True )
+                            self.register_property( 'rtc_cm:type', 'rtc_cm:type', do_not_overwrite=True, shape_uri=uri )
                             # add the shape to it using the shape's URI as an enum URI
                             # NOTE the use of the id - this id is used when comparing values with rtc_cm_type to see workaround https://jazz.net/forum/questions/86619/oslc-20-query-with-oslcwhere-parameter-dctermstype-returns-400-unknown-attribute-id
                             self.register_enum( enum_value_name, enum_uri, 'rtc_cm:type',id=enum_id )

@@ -75,7 +75,7 @@ ignore_headers = [
 ]
 
 # make this an empty string to supppress saving/reloading cookies
-COOKIE_SAVE_FILE = ".cookies"
+COOKIE_SAVE_FILE = ".cookies_discovery"
 
 jazzhost = 'https://jazz.ibm.com:9443'
 username = 'ibm'
@@ -607,7 +607,7 @@ thisconf_x = aconf_x
 loghtml( "",anchorid="Discovery7", anchortext="Discovery step #7", minorbreak=True )
 
 # setup headers/params for the rest of the operations - these are all config-specific
-params['oslc_config.context'] = thisconf_u
+params[httpops.chooseconfigheader(thisconf_u)] = thisconf_u
 headers[ 'Configuration.context'] = thisconf_u
 
 # retrieve the services.xml for the config

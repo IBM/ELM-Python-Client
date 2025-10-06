@@ -353,23 +353,15 @@ class _Project( oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixi
 #            print( f"2 {uri=} {result=}")
             
             if result is None:
-                if '#' in uri:
-                    result = uri.rsplit( "#",1)[1]
-                elif "/" in uri:
-                    result = uri.rsplit( "/",1)[1]
+                if uri.startswith( self.reluri("/") ) or rdfxml.startswith_known_prefix( uri ):
+                    if '#' in uri:
+                        result = uri.rsplit( "#",1)[1]
+                    elif "/" in uri:
+                        result = uri.rsplit( "/",1)[1]
+                    else:
+                        result = rdfxml.uri_to_default_prefixed_tag( uri )
                 else:
-                    result = rdfxml.uri_to_default_prefixed_tag( uri )
-#            print( f"3 {uri=} {result=}")
-#            # this is tentative code to allow another app to resolve the URI
-#            # the challenge is how to get the config (maybe only do this if GC was specified)
-#            # and how to get a project-like context to provide headers
-#            if result is None:
-#                # try to find another app that might resolve this
-#                otherapp = self.server.find_app_for_uri( uri )
-#                if otherapp is not None:
-#                    # check with the other app to get the name
-#                    result = otherapp.app_resolve_uri_to_name( uri )
-#                    print( f"rutn {result=}" )
+                    result = uri
         logger.debug( f"rutn {uri=} {result=}" )
         return result
 

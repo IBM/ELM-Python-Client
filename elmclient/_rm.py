@@ -668,7 +668,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
         return c
 
     # if given stopatnameoruri returns True if found, False if not (which means all configs have been loaded and it isn't there!)
-    def load_configs(self, cacheable=True, stopatnameoruri=None, verbose=False, incremental=False ):
+    def load_configs(self, cacheable=True, stopatnameoruri=None, verbose=False, incremental=False, load_changesets=True ):
         logger.debug( f"Loading configs {self._confs_to_load=}, {stopatnameoruri=}" )
         # load configurations
         # and build a tree with initial baseline as root, alternating baseline and stream nodes each with a list of children, so it can be walked if needed
@@ -710,17 +710,19 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
             for confmember_x in confmembers_x:
                 if verbose:
                     print( ">",end="",flush=True )
-#                print( f"========================\n{confmember_x=}" )
+                logger.info( f"========================\n{confmember_x=}" )
+                logger.info( f"tree= {anytree.RenderTree(self.configTree, style=anytree.AsciiStyle())}" )
 #                print( f"{confmember_x.tag=}" )
 #                print( "XML=",ET.tostring( confmember_x ) )
                 thisconfu = rdfxml.xmlrdf_get_resource_uri( confmember_x )
-#                print( f"Member {thisconfu=}" )
+                logger.info( f"Member {thisconfu=}" )
                 # add baselines and changesets
                 self._confs_to_load=list(set(self._confs_to_load))
 #                print( f"1 {len(self._confs_to_load)} {self._confs_to_load=}" )
                 self._confs_to_load.append( rdfxml.xmlrdf_get_resource_uri(confmember_x, './oslc_config:streams') )
                 self._confs_to_load.append( rdfxml.xmlrdf_get_resource_uri(confmember_x, './oslc_config:baselines') )
-                self._confs_to_load.append( rdfxml.xmlrdf_get_resource_uri(confmember_x, './rm_config:changesets') )
+                if load_changesets:
+                    self._confs_to_load.append( rdfxml.xmlrdf_get_resource_uri(confmember_x, './rm_config:changesets') )
                 self._confs_to_load=list(set(self._confs_to_load))
 #                print( f"2 {len(self._confs_to_load)} {self._confs_to_load=}" )
                 logger.debug( f"{thisconfu=}" )
@@ -771,59 +773,88 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                 if not theparent_u:
                     # this is the initial stream
                     parentnode = self.configTree
-#                    print( f"Config {conftitle} used theroot {parentnode=}" )
+                    logger.info( f"Config {conftitle} used theroot {parentnode=}" )
                 else:
                     parentnode = anytree.search.find( self.configTree, filter_=lambda n: n.name==theparent_u )
-#                    print( f"Config {conftitle} found {parentnode=}" )
+                    logger.info( f"Config {conftitle} found {parentnode=}" )
 
                 # try to find this config url to see if it's already known
                 if anytree.search.find( self.configTree, filter_=lambda n: n.name==thisconfu ):
                     # already in the tree!
-#                    print( f"Config {conftitle} Config has parent in configtree {thisconfu} parent={parentnode}" )
+                    logger.info( f"Config {conftitle} Config has parent in configtree {thisconfu} parent={parentnode}" )
                     pass
                 else:
+                    logger.info( f"Not already in tree {thisconfu=}" )
                     # need to find the parent to attach to
                     # create the node - if we don't attach it now we'll attach it later - typesystem is set to None so if needed this can be filled in later.
                     thisnode = anytree.AnyNode( None, name=thisconfu, title=conftitle, conftype=conftype, created=created, typesystem=_newtypesystem.TypeSystem(conftitle, thisconfu), ismutable=ismutable ) #TypeSystem(conftitle, thisconfu), ismutable=ismutable, ischangeset=ischangeset )
+                    logger.info( f"New node {id(thisnode)=} {thisnode=}" )
                     if parentnode is None:
                         # do this one later
                         self._confstoparent.append( ( thisnode, theparent_u ) )
-#                        print( f"\nSaved for later {self._confstoparent[-1]=}" )
+                        logger.info( f"\nSaved for later {id(thisnode)=} {self._confstoparent[-1]=}" )
                     else:
                         # parent is known so attach to it
                         thisnode.parent = parentnode
-#                        print( f"\nConfig {conftitle} Added config {thisconfu} parent={parentnode}" )
+                        logger.info( f"\nConfig {conftitle} Added config {thisconfu} {id(parentnode)=} parent={parentnode}" )
             # now check if stopatnameoururi is present and if so set result True
             if result:
                 break
 
         # now iterate over the unparented nodes repeatedly finding their parents until there are none left because all have been parented
         while self._confstoparent:
+            logger.info( f"\n\n=======\n\n" )
+            logger.info( f"Parenting urls {self._confstoparent=}" )
+            logger.info( f"tree= {anytree.RenderTree(self.configTree, style=anytree.AsciiStyle())}" )
             foundparent = False
+
             # we're going to copy unparented node into this new list, then copy the new list into confstoparent
             newconfstoparent = []
             for (i,nodedetails) in enumerate(self._confstoparent):
-                (node,theparent_u) = nodedetails
-#                print( f"\n{node=} {theparent_u=}" )
+                (node,toparent_u) = nodedetails
+                logger.info( f"\n\n-------------- {toparent_u=}\n\n" )
+                logger.info( f"\n{id(node)=} {node=} {toparent_u=} {node.parent=}" )
+                logger.info( f"tree= {anytree.RenderTree(self.configTree, style=anytree.AsciiStyle())}" )
+                # check it isn't already in the tree
+                
+                # try to find this config url to see if it's already known
+                if anytree.search.find( self.configTree, filter_=lambda n: n.name==toparent_u ):
+                    # already in the tree!
+                    logger.info( f"Config {toparent_u} already in the tree!" )
+                    continue                
+                
+                if node.parent is not None:
+                    logger.info( f"Already parented {toparent_u=} {node=}" )
+                    continue
                 # if we find the parent, attach it - if not found, add it to this list of those still needing parent
-                parentnode = anytree.search.find( self.configTree, filter_=lambda n: n.name==theparent_u )
+                parentnodes = anytree.search.findall( self.configTree, filter_=lambda n: n.name==toparent_u )
+                if len( parentnodes ) >1:
+                    logger.info( f"parentnodes for {toparent_u} {parentnodes=}" )
+                    raise Exception( "Can't have more than one parent for {toparent_u} {parentnodes=}" )
+                if len( parentnodes ) <1:
+                    logger.info( f"no parentnodes for {toparent_u}!" )
+                    parentnode=None
+                else:
+                    parentnode = parentnodes[0]
+                    logger.info( f"no parentnodes for {toparent_u}!" )
+                    logger.info( f"parentnode for {toparent_u} {parentnode}" )
                 if parentnode:
                     # found!
                     node.parent = parentnode
                     foundparent = True
-#                    print( f"\nParented {node=} {theparent_u}" )
+                    logger.info( f"\nParented {node=} {toparent_u}" )
                 else:
                     # remember this still needs parenting! Will be found on a later pass UNLESS it's been tried a few times and always fails
                     # in which case we'll print a message and ignore the config!
-                    newconfstoparent.append( (node,theparent_u) )
-#                    print( f"\npostponing {node=} {theparent_u}" )
+                    newconfstoparent.append( (node,toparent_u) )
+                    logger.info( f"\npostponing {node=} {toparent_u}" )
 #                    print( f"tree= {anytree.RenderTree(self.configTree, style=anytree.AsciiStyle())}" )
                     
             self._confstoparent = newconfstoparent
             # if no parent was found on this run through confstoparent, give up with the confs to parent preserved
             if not foundparent:
                 if verbose:
-                    print( f"\nPostponing potentially unparentable configs {self._confstoparent}" )
+                    logger.info( f"\nPostponing potentially unparentable configs {self._confstoparent}" )
                 break
             
         if verbose:
@@ -889,7 +920,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                         raise Exception( f"Unknown type {typedetails[1]}" )
 
 
-    def get_local_config(self, name_or_uri, global_config_uri=None, verbose=False, incremental=False ):
+    def get_local_config(self, name_or_uri, global_config_uri=None, verbose=False ):
         logger.info( f"GLC {self=} {name_or_uri=}" )
 #        print( f"GLC {self=} {name_or_uri=} {global_config_uri=}" )
         if global_config_uri:
@@ -927,7 +958,8 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                             raise Exception( f"Config {name_or_uri} isn't unique - you could try prefixing it with S: for stream, B: for baseline, or C: for changeset")
                         result = cu
                 if result is None:
-                    if not self.load_configs( stopatnameoruri=name_or_uri, verbose=verbose, incremental=incremental ):
+#                    if not self.load_configs( stopatnameoruri=name_or_uri, verbose=verbose, incremental=incremental ):
+                    if not self.load_configs( stopatnameoruri=name_or_uri, verbose=verbose, incremental=True ):
                         # config not found - give up (if found, this loops back to scan for the config again
                         break
 #        print( f"GLC {result} {self=} {name_or_uri=}" )
@@ -1101,7 +1133,8 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                             range_xml = self._get_typeuri_rdf(range_uri)
 #                            print( f"{range_xml=} {ET.tostring(range_xml)}" )
                             if range_xml:
-                                enum_els = rdfxml.xml_find_elements(range_xml, './/rdf:Description/rdf:value/..')
+#                                enum_els = rdfxml.xml_find_elements(range_xml, './/rdf:Description/rdf:value/..')
+                                enum_els = rdfxml.xml_find_elements(range_xml, './/dng_types:EnumEntry/rdf:value/..')
 #                                print( f"{enum_els=}" )
                                 # now process any enumeration values
                                 for enum_el in enum_els:

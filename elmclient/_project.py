@@ -213,15 +213,15 @@ class _Project( oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixi
     def reluri(self, reluri=''):
         return self.app.reluri(reluri)
 
-    def find_config(self, name, nowarning=False):
-        return self._do_find_config_by_name(name, nowarning)
+    def find_config(self, name_or_uri, nowarning=False):
+        return self._do_find_config_by_name(name_or_uri, nowarning)
 
     def _do_find_config_by_name(self, name_or_uri, nowarning=False, allow_workspace=True, allow_snapshot=True, allow_changeset=False):
         raise Exception( 'Subclass must implement this method.' )
         
     def get_gc_contributions(self,gcuri):
         result = self.execute_get_json(self.reluri("gcsdk-api/flatListOfContributionsForGcHierarchy"), params={'configurationUri':gcuri,'include':'*'} )
-#        print( f"{result=}" )
+        print( f"{result=}" )
         return result
     
     # get contributions and component details for just this app
@@ -271,7 +271,7 @@ class _Project( oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixi
     def discard_changeset( self ):
         raise Exception( "Can't discard a changeset on a project!" )
         
-    def deliver_changeset( self ):
+    def deliver( self ):
         raise Exception( "Can't deliver a changeset on a project!" )
         
     def _load_types(self,force=False):
@@ -297,13 +297,16 @@ class _Project( oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixi
     # the context is the attribute definition - needed to be specified ultimately by the user when enumeration value names aren't unique
     def resolve_enum_name_to_uri(self, name, propertyuri=None, exception_if_not_found=True):
         logger.info( f"resolve_enum_name_to_uri {name=} {propertyuri=}" )
+        print( f"resolve_enum_name_to_uri {name=} {propertyuri=}" )
         result = self.get_enum_id(name,propertyuri)
         logger.info( f"resolve_enum_name_to_uri {name=} {propertyuri=} {result=}" )
+        print( f"resolve_enum_name_to_uri {name=} {propertyuri=} {result=}" )
         return result
 
     # for OSLC query, given a type URI, return its name
     def resolve_uri_to_name(self, uri, trytouseasid=False):
         logger.debug( f"rutn {uri}" )
+        print( f"rutn {uri}" )
         if not uri:
             result = None
             return result
@@ -350,15 +353,24 @@ class _Project( oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixi
             result = self.get_uri_name(uri)
 #            print( f"1 {uri=} {self.get_uri_name(uri)}")
 #            result = rdfxml.uri_to_default_prefixed_tag( uri )
-#            print( f"2 {uri=} {result=}")
-            
+            print( f"2 {uri=} {result=}")
+            # if starts with a known prefix, shorten it
             if result is None:
-                if '#' in uri:
-                    result = uri.rsplit( "#",1)[1]
-                elif "/" in uri:
-                    result = uri.rsplit( "/",1)[1]
+#                print( f"testing {uri=} {self.reluri()}" )
+#                print( f"{self.reluri()=}" )
+#                print( f"{self.reluri("/")=}" )
+#                print( f"{self.app.server.baseurl=}" )
+                if uri.startswith( self.reluri("/") ) or rdfxml.startswith_known_prefix( uri ):
+                    if '#' in uri:
+                        result = uri.rsplit( "#",1)[1]
+                    elif "/" in uri:
+                        result = uri.rsplit( "/",1)[1]
+                    else:
+                        result = rdfxml.uri_to_default_prefixed_tag( uri )
+                    print( f"3 {uri=} {result=}")
                 else:
-                    result = rdfxml.uri_to_default_prefixed_tag( uri )
+                    result = uri
+                    print( f"4 {uri=} {result=}")
 #            print( f"3 {uri=} {result=}")
 #            # this is tentative code to allow another app to resolve the URI
 #            # the challenge is how to get the config (maybe only do this if GC was specified)
@@ -371,6 +383,7 @@ class _Project( oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixi
 #                    result = otherapp.app_resolve_uri_to_name( uri )
 #                    print( f"rutn {result=}" )
         logger.debug( f"rutn {uri=} {result=}" )
+#        print( f"rutn {uri=} {result=}" )
         return result
 
     def get_missing_uri_title( self,uri):
@@ -416,198 +429,3 @@ class _Project( oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixi
     def resolve_project_nametouri(self, name, raiseifinvalid=True):
         return self.app.resolve_project_nametouri( name, raiseifinvalid=raiseifinvalid)
 
-    def _generic_load_type_from_resource_shape(self, el, supershape=None):
-        logger.debug( "Starting a shape")
-        uri = rdfxml.xmlrdf_get_resource_uri(el)
-        logger.info( f"Starting resource {uri}" )
-        try:
-            if not self.is_known_shape_uri(uri):
-#                if '/shape/resource/' in uri:
-#                    burp
-#                if not '/shape/resource/' in uri:
-#                    print( f"Skipping {uri}" )
-#                    return
-                logger.info( f"Starting shape {uri} =======================================" )
-                logger.debug( f"Getting {uri}" )
-                shapedef_x = self._get_typeuri_rdf(uri)
-                # find the title
-                name_el = rdfxml.xml_find_element(shapedef_x, f'.//rdf:Description[@rdf:about="{uri}"]/dcterms:title[@xml:lang="en"]')
-                if name_el is None:
-                    name_el = rdfxml.xml_find_element(shapedef_x, f'.//rdf:Description[@rdf:about="{uri}"]/dcterms:title[@rdf:datatype]')
-                if name_el is None:
-                    logger.info( f"{uri=}" )
-                    if '#' in uri:
-                        name = uri.rsplit('#',1)[1]
-                    else:
-                        logger.info( f"No #! {uri}" )
-                        name = uri.rsplit('.',1)[1]
-                    logger.info( f"MADE UP NAME {name}" )
-                else:
-#                    print( "NO NAME",ET.tostring(shapedef_x) )
-#                    raise Exception( "No name element!" )
-                    name = name_el.text
-                if '/shape/resource/' not in uri:
-                    name += "_"+str(len(uri))       
-                # this is so that the variant type URIs don't overwrite the /shape/resource one
-                self.register_shape( name, uri )
-#                else:
-#                    print( f"Ignored 1 non-resource {uri}" )
-                logger.info( f"Opening shape {name} {uri}" )
-            else:
-                return
-        except requests.exceptions.HTTPError as e:
-            if e.response.status_code == 404:
-                logger.info( f"Failed because type not found 404 - ignoring! {e}")
-                return
-            elif e.response.status_code == 410:
-                logger.info( f"Failed because type not found 410 - ignoring! {e}")
-                return
-            else:
-                raise
-
-        for enumdef in rdfxml.xml_find_elements( shapedef_x, './/rdf:Description/owl:sameAs/..' ):
-            # register enumdefs
-            pass
-        n = 0
-        # find the list of attributes on this shape
-        thisshapedefs_x = rdfxml.xml_find_elements( shapedef_x,f'.//rdf:Description[@rdf:about="{uri}"]' )
-        if thisshapedefs_x is None:
-            raise Exception( f"Shape definition for {uri} not found!" )
-        if len(thisshapedefs_x)==0 or len(thisshapedefs_x)>1:
-            raise Exception ( f"Too few/many results {len(thisshapedefs_x)}" )
-        thisshapedef_x = thisshapedefs_x[0]
-#        print( f"thisshapedef_x=",ET.tostring(thisshapedef_x) )
-        title = rdfxml.xmlrdf_get_resource_text(thisshapedef_x,'./dcterms:title[@xml:lang="en"]')
-        if title is None:
-            title = rdfxml.xmlrdf_get_resource_text(thisshapedef_x,'./dcterms:title')
-        logger.info( f"{title=}" )
-#        logger.info( f"shape {title} xml={ET.tostring(thisshapedef_x)}" )
-        # scan the attributes
-        logger.info( f"{ET.tostring(thisshapedef_x)=}" )
-        for propel in rdfxml.xml_find_elements( thisshapedef_x, './oslc:property' ):
-            logger.info( "Starting a property")
-            propnodeid = rdfxml.xmlrdf_get_resource_uri( propel, attrib="rdf:nodeID" )
-            logger.info( f"{propnodeid=}" )
-            logger.info( f"{propnodeid=}" )
-            real_propel_x = rdfxml.xml_find_element( shapedef_x, f'.//rdf:Description[@rdf:nodeID="{propnodeid}"]' )
-            logger.info( f"{real_propel_x=}" )
-            logger.info( f"{real_propel_x=}" )
-#            print( "XML==",ET.tostring(real_propel_x) )
-            # dcterms:title xml:lang="en"
-            property_title_el = rdfxml.xml_find_element( real_propel_x, './dcterms:title[@xml:lang="en"]')
-            logger.info( f"1 {property_title_el=}" )
-            if property_title_el is None:
-                property_title_el = rdfxml.xml_find_element(real_propel_x, './dcterms:title[@rdf:datatype]' )
-                logger.info( f"2 {property_title_el=}" )
-            if property_title_el is None:
-                property_title_el = rdfxml.xml_find_element( real_propel_x, './oslc:name')
-                logger.info( f"3 {property_title_el=}" )
-            logger.info( f"{property_title_el=}" )
-            logger.info( f"{property_title_el=}" )
-            if property_title_el is None:
-                logger.info( "Skipping shape with no title!" )
-                logger.info( "Skipping shape with no title!" )
-                burp
-                continue
-            property_title = property_title_el.text
-            logger.info( f"{property_title=}" )
-            logger.info( f"{property_title=}" )
-            if rdfxml.xmlrdf_get_resource_text(real_propel_x,"oslc:hidden") == "true":
-                logger.info( f"Skipping hidden property {property_title}" )
-                logger.info( f"Skipping hidden property {property_title}" )
-                continue
-            valueshape_uri = rdfxml.xmlrdf_get_resource_uri( real_propel_x,'./oslc:valueShape' )
-            logger.info( f"{valueshape_uri=}" )
-            if valueshape_uri is not None:
-                logger.info( f"vs {valueshape_uri}" )
-                # register this property with a fake URI using the node id
-                propu = f"{uri}#{propnodeid}"
-                if '/shape/resource/' in uri:
-                    self.register_property( property_title, propu, shape_uri=uri )
-                else:
-                    logger.info( f"Ignored 2 non-resource {uri}" )
-                    
-                if valueshape_uri.startswith( self.app.baseurl ) and valueshape_uri != uri:
-                    # this shape references another shape - need to load this!
-                    vs_xml = self._get_typeuri_rdf(valueshape_uri)
-                    subshape_x = rdfxml.xml_find_element( vs_xml,f'.//rdf:Description[@rdf:about="{valueshape_uri}"]' )
-                    if subshape_x is None:
-                        logger.info( f"SubShape definition for {valueshape_uri} not found!" )
-                        continue
-                    # recurse to load this shape!
-                    logger.info( f"SUBSHAPE_X={valueshape_uri}" )
-                    self._load_type_from_resource_shape( subshape_x, supershape=(property_title,propu))
-                else:
-                    logger.info( f"SKIPPED external shape {valueshape_uri=}" )
-            else:
-#                logger.debug( f"{valueshape_uri=}" )
-#                if not valueshape_uri.startswith( self.app.baseurl):
-#                    logger.info( f"Shape definition isn't local to the app {self.app.baseurl=} {uri=}" )
-#                    continue
-                pd_u = rdfxml.xmlrdf_get_resource_uri( real_propel_x, 'oslc:propertyDefinition' )
-
-                # In case of repeated identical property titles on a shape, let's create an alternative name that can (perhaps) be used to disambiguate
-                # (at least these don't have duplicates AFAICT)
-                altname  = pd_u[pd_u.rfind("/")+1:]
-                if '#' in altname:
-                    altname  = pd_u[pd_u.rfind("#")+1:]
-
-                if pd_u is not None:
-                    if not pd_u.startswith( self.app.baseurl ):
-                        if '/shape/resource/' in uri:
-                            self.register_property(property_title,pd_u, altname=altname, shape_uri=uri )
-                        else:
-                            logger.info( f"Ignored 3 non-resource {uri}" )
-                        logger.debug( f"+++++++Skipping non-local Property Definition {pd_u}" )
-#                        continue
-                else:
-                    logger.debug( f"~~~~~~~Ignoring non-local Property Definition {pd_u}" )
-
-                if self.is_known_property_uri( pd_u, raiseifnotfound=False ):
-                    logger.debug( f"ALREADY KNOWN2" )
-                    continue
-
-                logger.info( f"Defining property {title}.{property_title} {altname=} {pd_u=} +++++++++++++++++++++++++++++++++++++++" )
-                if '/shape/resource/' in uri:
-                    self.register_property( property_title, pd_u, altname=altname, shape_uri=uri)
-                else:
-                    logger.info( f"Ignored 4 non-resource {uri}" )
-                # check for any allowed value
-                allowedvalueu = rdfxml.xmlrdf_get_resource_uri(real_propel_x, ".//oslc:allowedValue" )
-                logger.info( f"{uri=} {allowedvalueu=}" )
-                if allowedvalueu is not None:
-                    logger.info( "FOUND ENUM" )
-                    # this has enumerations - find them and record them
-                    # retrieve each definition
-                    nvals = 0
-                    for allowedvaluex in rdfxml.xml_find_elements( real_propel_x,'.//oslc:allowedValue'):
-                        allowedvalueu = rdfxml.xmlrdf_get_resource_uri(allowedvaluex )
-                        if allowedvalueu.startswith( 'http:' ) or allowedvalueu.startswith( 'https:' ):
-                            # a URL
-                            thisenumx = rdfxml.xml_find_element( shapedef_x,f'.//rdf:Description[@rdf:about="{allowedvalueu}"]' )
-
-                            enum_uri = allowedvalueu
-                            logger.info( f"{enum_uri=}" )
-                            nvals += 1
-                            if not self.is_known_enum_uri( enum_uri ):
-                                # retrieve it and save the enumeration name and uri in types cache
-                                enum_value_name = rdfxml.xmlrdf_get_resource_text(thisenumx, 'rdfs:label')
-                                enum_id = enum_value_name
-                                if enum_value_name is None:
-                                    logger.debug( "enum xml=",ET.tostring(thisenumx) )
-                                    logger.debug( f"{enum_id=} no name" )
-                                    raise Exception( "Enum name not present!" )
-
-                                logger.info( f"defining enum value {enum_value_name=} {enum_id=} {enum_uri=}" )
-                                self.register_enum( enum_value_name, enum_uri, property_uri=pd_u, id=None )
-                        else:
-                            # an enum name (not sure why QM does this)
-                            logger.info( f"ENUM NAME {allowedvalueu}" )
-                            nvals += 1
-                            self.register_enum( allowedvalueu, allowedvalueu, property_uri=pd_u, id=None )
-                            
-                            pass
-                    if nvals==0:
-                        raise Exception( f"Enumeration {valueshape_uri} with no values loaded" )
-        logger.debug( "Finished loading typesystem")
-        return n

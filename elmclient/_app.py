@@ -118,11 +118,13 @@ class _App( httpops.HttpOperations_Mixin, _validate.Validate_Mixin, _customScena
         return urllib.parse.urljoin(self.baseurl,reluri)
 
     # load the projects from the project areas XML - doesn't create any project classes, this is done later when finding a project to open
-    def _load_projects(self,include_archived=False,force=False):
+    # callbackfn has parameters ( completed, total, after=True ) - it's called before the update and after
+    def _load_projects(self,include_archived=False,force=False, callbackfn=None):
         if self.project_class is None:
             raise Exception(f"projectClass has not been set on {self}!")
         if self._projects is not None and not force:
             return
+        nprojects = 0
         logger.info( "Loading projects")
         self._projects = {}
         uri = rdfxml.xmlrdf_get_resource_uri(self.rootservices_xml, 'jp06:projectAreas')
@@ -131,7 +133,12 @@ class _App( httpops.HttpOperations_Mixin, _validate.Validate_Mixin, _customScena
             params['includeArchived'] = 'true'
         self.project_areas_xml = self.execute_get_xml(uri, params=params, intent="Retrieve all project area definitions" )
         logger.debug( f"{self.project_areas_xml=}" )
-        for projectel in rdfxml.xml_find_elements(self.project_areas_xml,".//jp06:project-area" ):
+        allprojects = rdfxml.xml_find_elements(self.project_areas_xml,".//jp06:project-area" )
+        nprojects = len( allprojects )
+        ndone=0
+        for projectel in allprojects:
+            if callbackfn:
+                callbackfn( ndone, nprojects, after=False ) 
             logger.debug( f"{projectel=}" )
             projectu = rdfxml.xmlrdf_get_resource_text(projectel,".//jp06:url")
             projectname = rdfxml.xmlrdf_get_resource_uri(projectel,attrib='jp06:name')
@@ -146,6 +153,9 @@ class _App( httpops.HttpOperations_Mixin, _validate.Validate_Mixin, _customScena
 
             self._projects[projectu] = {'name':projectname, 'project': None, 'projectu': projectu, 'is_optin': is_optin, 'singlemode': singlemode }
             self._projects[projectname] = projectu
+            ndone += 1
+            if callbackfn:
+                callbackfn( ndone, nprojects, after=True ) 
 
     # get an instance for a specific project
     def find_project(self, projectname_or_uri, include_archived=False):

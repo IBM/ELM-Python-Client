@@ -1,0 +1,1733 @@
+<HTML><BODY>
+<H1>Type system report</H1>
+<H2>Application Queryable Resource Types, short name and URI</H2>
+<TABLE><THEADING>
+<TH>Short Name</TH><TH>URI</TH><TH>Query Capability URI</TH></THEADING>
+</TABLE>
+<H2>Project Queryable Resource Types, short name and URI</H2>
+<TABLE><THEADING>
+<TH>Short Name</TH><TH>URI</TH><TH>Query Capability URI</TH></THEADING>
+  <TR>    <TD>ReqIFDefinition</TD>
+    <TD>http://jazz.net/ns/rm/dng/reqif#ReqIFDefinition</TD>
+    <TD>https://jazz.ibm.com:9443/rm/reqif_oslc/definitions/query?componentURI=https%3A%2F%2Fjazz.ibm.com%3A9443%2Frm%2Fcm%2Fcomponent%2F_nCtnaHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD>ArtifactType</TD>
+    <TD>http://jazz.net/ns/rm/dng/types#ArtifactType</TD>
+    <TD>https://jazz.ibm.com:9443/rm/artifactTypeQuery</TD>
+  </TR>
+  <TR>    <TD>AttributeDefinition</TD>
+    <TD>http://jazz.net/ns/rm/dng/types#AttributeDefinition</TD>
+    <TD>https://jazz.ibm.com:9443/rm/attributeDefinitionQuery</TD>
+  </TR>
+  <TR>    <TD>AttributeType</TD>
+    <TD>http://jazz.net/ns/rm/dng/types#AttributeType</TD>
+    <TD>https://jazz.ibm.com:9443/rm/attributeTypeQuery</TD>
+  </TR>
+  <TR>    <TD>LinkType</TD>
+    <TD>http://jazz.net/ns/rm/dng/types#LinkType</TD>
+    <TD>https://jazz.ibm.com:9443/rm/linkTypeQuery</TD>
+  </TR>
+  <TR>    <TD>View</TD>
+    <TD>http://jazz.net/ns/rm/dng/view#View</TD>
+    <TD>https://jazz.ibm.com:9443/rm/views_oslc/query?componentURI=https%3A%2F%2Fjazz.ibm.com%3A9443%2Frm%2Fcm%2Fcomponent%2F_nCtnaHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD>folder</TD>
+    <TD>http://jazz.net/ns/rm/navigation#folder</TD>
+    <TD>https://jazz.ibm.com:9443/rm/folders?oslc.where=public_rm:parent=https%3A%2F%2Fjazz.ibm.com%3A9443%2Frm%2Fprocess%2Fproject-areas%2F_m7u1oXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD>Requirement (default)</TD>
+    <TD>http://open-services.net/ns/rm#Requirement</TD>
+    <TD>https://jazz.ibm.com:9443/rm/views?oslc.query=true&projectURL=https%3A%2F%2Fjazz.ibm.com%3A9443%2Frm%2Fprocess%2Fproject-areas%2F_m7u1oXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD>RequirementCollection</TD>
+    <TD>http://open-services.net/ns/rm#RequirementCollection</TD>
+    <TD>https://jazz.ibm.com:9443/rm/views?oslc.query=true&projectURL=https%3A%2F%2Fjazz.ibm.com%3A9443%2Frm%2Fprocess%2Fproject-areas%2F_m7u1oXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+</TABLE>
+<H2>Project Factory Resource Types, short name and URI</H2>
+<TABLE><THEADING>
+<TH>Short Name</TH><TH>URI</TH><TH>Query Capability URI</TH></THEADING>
+  <TR>    <TD>DeliverySession</TD>
+    <TD>http://jazz.net/ns/rm/dng/config#DeliverySession</TD>
+    <TD>https://jazz.ibm.com:9443/rm/delivery-sessions</TD>
+  </TR>
+  <TR>    <TD>ReqIFDefinition</TD>
+    <TD>http://jazz.net/ns/rm/dng/reqif#ReqIFDefinition</TD>
+    <TD>https://jazz.ibm.com:9443/rm/reqif_oslc/definitions?componentURI=https%3A%2F%2Fjazz.ibm.com%3A9443%2Frm%2Fcm%2Fcomponent%2F_nCtnaHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD>ReqIFExport</TD>
+    <TD>http://jazz.net/ns/rm/dng/reqif#ReqIFExport</TD>
+    <TD>https://jazz.ibm.com:9443/rm/reqif_oslc/export?componentURI=https%3A%2F%2Fjazz.ibm.com%3A9443%2Frm%2Fcm%2Fcomponent%2F_nCtnaHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD>ReqIFImport</TD>
+    <TD>http://jazz.net/ns/rm/dng/reqif#ReqIFImport</TD>
+    <TD>https://jazz.ibm.com:9443/rm/reqif_oslc/import?componentURI=https%3A%2F%2Fjazz.ibm.com%3A9443%2Frm%2Fcm%2Fcomponent%2F_nCtnaHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD>ReqIFPackage</TD>
+    <TD>http://jazz.net/ns/rm/dng/reqif#ReqIFPackage</TD>
+    <TD>https://jazz.ibm.com:9443/rm/reqif_oslc/import?componentURI=https%3A%2F%2Fjazz.ibm.com%3A9443%2Frm%2Fcm%2Fcomponent%2F_nCtnaHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD>ArtifactType</TD>
+    <TD>http://jazz.net/ns/rm/dng/types#ArtifactType</TD>
+    <TD>https://jazz.ibm.com:9443/rm/artifactTypeFactory</TD>
+  </TR>
+  <TR>    <TD>AttributeDefinition</TD>
+    <TD>http://jazz.net/ns/rm/dng/types#AttributeDefinition</TD>
+    <TD>https://jazz.ibm.com:9443/rm/attributeDefinitionFactory</TD>
+  </TR>
+  <TR>    <TD>AttributeType</TD>
+    <TD>http://jazz.net/ns/rm/dng/types#AttributeType</TD>
+    <TD>https://jazz.ibm.com:9443/rm/attributeTypeFactory</TD>
+  </TR>
+  <TR>    <TD>LinkType</TD>
+    <TD>http://jazz.net/ns/rm/dng/types#LinkType</TD>
+    <TD>https://jazz.ibm.com:9443/rm/linkTypeFactory</TD>
+  </TR>
+  <TR>    <TD>Requirement (default)</TD>
+    <TD>http://open-services.net/ns/rm#Requirement</TD>
+    <TD>https://jazz.ibm.com:9443/rm/requirementFactory?projectURL=https%3A%2F%2Fjazz.ibm.com%3A9443%2Frm%2Fprocess%2Fproject-areas%2F_m7u1oXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD>RequirementCollection</TD>
+    <TD>http://open-services.net/ns/rm#RequirementCollection</TD>
+    <TD>https://jazz.ibm.com:9443/rm/requirementFactory?projectURL=https%3A%2F%2Fjazz.ibm.com%3A9443%2Frm%2Fprocess%2Fproject-areas%2F_m7u1oXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD>http://www.ibm.com/xmlns/rdm/types/TypeImportSession</TD>
+    <TD>http://www.ibm.com/xmlns/rdm/types/TypeImportSession</TD>
+    <TD>https://jazz.ibm.com:9443/rm/type-import-sessions</TD>
+  </TR>
+</TABLE>
+<h2>Shapes<h2>
+
+<TABLE><THEADING>
+<TH>Shape</TH><TH>Property Name</TH><TH>Property label</TH><TH>URI</TH><TH></TH></THEADING>
+  <TR>    <TD>Actor                    </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Diagrams and sketches'  </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Hardware Requirement'   </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Hardware Specification' </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>acp:accessControl</TD>
+    <TD></TD>
+    <TD>acp:accessControl</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Affected By'</TD>
+    <TD></TD>
+    <TD>oslc_rm:affectedBy</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Approved By'</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCdDnaKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Approver Position'</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCc8XaKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Child Of'</TD>
+    <TD></TD>
+    <TD>rdm_types:Decomposition</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>component</TD>
+    <TD></TD>
+    <TD>oslc_config:component</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Contributor</TD>
+    <TD></TD>
+    <TD>dcterms:contributor</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Created On'</TD>
+    <TD></TD>
+    <TD>dcterms:created</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Creator</TD>
+    <TD></TD>
+    <TD>dcterms:creator</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Derives Architecture Element'</TD>
+    <TD></TD>
+    <TD>http://jazz.net/ns/dm/linktypes#derives</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Description</TD>
+    <TD></TD>
+    <TD>dcterms:description</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Elaborated By'</TD>
+    <TD></TD>
+    <TD>oslc_rm:elaboratedBy</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Elaborates</TD>
+    <TD></TD>
+    <TD>oslc_rm:elaborates</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Embeds</TD>
+    <TD></TD>
+    <TD>rdm_types:Embedding</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Extracted</TD>
+    <TD></TD>
+    <TD>rdm_types:Extraction</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Identifier</TD>
+    <TD></TD>
+    <TD>dcterms:identifier</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Implemented By'</TD>
+    <TD></TD>
+    <TD>oslc_rm:implementedBy</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Link To'</TD>
+    <TD></TD>
+    <TD>rdm_types:Link</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Mitigates</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/LT_nO6QV3aKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Modified On'</TD>
+    <TD></TD>
+    <TD>dcterms:modified</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>oslc:instanceShape</TD>
+    <TD></TD>
+    <TD>oslc:instanceShape</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Actor</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdGXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdGXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Diagrams and sketches'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdIHaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdIHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Hardware Requirement'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdJHaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdJHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Hardware Specification'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdE3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdE3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Hazard and Risk'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdInaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdInaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Hazard and Risk Register'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdI3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdI3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Heading</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdJ3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdJ3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Information</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdH3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdH3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Personal Collection'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdIXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdIXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Release Collection'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdGnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdGnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Requirements Specification'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdJnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdJnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Software Requirement'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdF3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdF3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Software Specification'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdHXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdHXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Stakeholder Requirement'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdFHaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdFHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Stakeholder Specification'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdHHaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdHHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'System Requirement'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdHnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdHnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'System Specification'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdFnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdFnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Term</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdG3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdG3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Use Case Module'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdFXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdFXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Vision Statement'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdGHaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdGHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Vison document'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdJXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/OT_nLCdJXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>oslc:serviceProvider</TD>
+    <TD></TD>
+    <TD>oslc:serviceProvider</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Primary Text'</TD>
+    <TD></TD>
+    <TD>jazz_rm:primaryText</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>process:projectArea</TD>
+    <TD></TD>
+    <TD>process:projectArea</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>References</TD>
+    <TD></TD>
+    <TD>dcterms:references</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'References Term'</TD>
+    <TD></TD>
+    <TD>rdm_types:ArtifactTermReferenceLink</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Refined By Architecture Element'</TD>
+    <TD></TD>
+    <TD>http://jazz.net/ns/dm/linktypes#refine</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Satisfied By Architecture Element'</TD>
+    <TD></TD>
+    <TD>http://jazz.net/ns/dm/linktypes#satisfy</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Satisfies</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/LT_nO6QWHaKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Specified By'</TD>
+    <TD></TD>
+    <TD>oslc_rm:specifiedBy</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Specifies</TD>
+    <TD></TD>
+    <TD>oslc_rm:specifies</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Synonym</TD>
+    <TD></TD>
+    <TD>rdm_types:SynonymLink</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Title</TD>
+    <TD></TD>
+    <TD>dcterms:title</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Traced By Architecture Element'</TD>
+    <TD></TD>
+    <TD>http://jazz.net/ns/dm/linktypes#trace</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Tracked By'</TD>
+    <TD></TD>
+    <TD>oslc_rm:trackedBy</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Validated By'</TD>
+    <TD></TD>
+    <TD>oslc_rm:validatedBy</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Hazard and Risk'        </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Initial PHSLH'</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCc9XaKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>--</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGh3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGh3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Certain</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGgHaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGgHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Extremely Unlikely'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGhnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGhnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Likely</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGgXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGgXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Somewhat Likely'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGg3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGg3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Unlikely</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGhHaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGhHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Very Likely'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGgnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGgnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Very Unlikely'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGhXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGhXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Initial POHS'</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCdAXaKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>--</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVqXaKEfCeB7Wej8YFgg#_nLHVr3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVqXaKEfCeB7Wej8YFgg#_nLHVr3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Infrequent</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVqXaKEfCeB7Wej8YFgg#_nLHVrHaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVqXaKEfCeB7Wej8YFgg#_nLHVrHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Intermittent</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVqXaKEfCeB7Wej8YFgg#_nLHVq3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVqXaKEfCeB7Wej8YFgg#_nLHVq3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Rare</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVqXaKEfCeB7Wej8YFgg#_nLHVrXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVqXaKEfCeB7Wej8YFgg#_nLHVrXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Reoccuring</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVqXaKEfCeB7Wej8YFgg#_nLHVqnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVqXaKEfCeB7Wej8YFgg#_nLHVqnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Unanticipated</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVqXaKEfCeB7Wej8YFgg#_nLHVrnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVqXaKEfCeB7Wej8YFgg#_nLHVrnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Initial POOH'</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCc9naKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>--</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVmXaKEfCeB7Wej8YFgg#_nLHVn3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVmXaKEfCeB7Wej8YFgg#_nLHVn3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Frequent</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVmXaKEfCeB7Wej8YFgg#_nLHVmnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVmXaKEfCeB7Wej8YFgg#_nLHVmnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Negligible</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVmXaKEfCeB7Wej8YFgg#_nLHVnnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVmXaKEfCeB7Wej8YFgg#_nLHVnnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Occasional</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVmXaKEfCeB7Wej8YFgg#_nLHVnHaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVmXaKEfCeB7Wej8YFgg#_nLHVnHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Probable</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVmXaKEfCeB7Wej8YFgg#_nLHVm3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVmXaKEfCeB7Wej8YFgg#_nLHVm3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Remote</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVmXaKEfCeB7Wej8YFgg#_nLHVnXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVmXaKEfCeB7Wej8YFgg#_nLHVnXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Initial Risk'</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCdA3aKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>--</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVsHaKEfCeB7Wej8YFgg#_nLHVtnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVsHaKEfCeB7Wej8YFgg#_nLHVtnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Acceptable</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVsHaKEfCeB7Wej8YFgg#_nLHVsXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVsHaKEfCeB7Wej8YFgg#_nLHVsXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>ALARP</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVsHaKEfCeB7Wej8YFgg#_nLHVtXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVsHaKEfCeB7Wej8YFgg#_nLHVtXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Broadly Acceptable'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVsHaKEfCeB7Wej8YFgg#_nLHVtHaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVsHaKEfCeB7Wej8YFgg#_nLHVtHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Marginally Acceptable'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVsHaKEfCeB7Wej8YFgg#_nLHVs3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVsHaKEfCeB7Wej8YFgg#_nLHVs3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Unacceptable</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVsHaKEfCeB7Wej8YFgg#_nLHVsnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVsHaKEfCeB7Wej8YFgg#_nLHVsnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Initial Severity'</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCdB3aKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>--</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVfHaKEfCeB7Wej8YFgg#_nLHVgnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVfHaKEfCeB7Wej8YFgg#_nLHVgnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Catastrophic</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVfHaKEfCeB7Wej8YFgg#_nLHVfXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVfHaKEfCeB7Wej8YFgg#_nLHVfXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Critical</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVfHaKEfCeB7Wej8YFgg#_nLHVfnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVfHaKEfCeB7Wej8YFgg#_nLHVfnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Minor</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVfHaKEfCeB7Wej8YFgg#_nLHVgHaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVfHaKEfCeB7Wej8YFgg#_nLHVgHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Negligible</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVfHaKEfCeB7Wej8YFgg#_nLHVgXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVfHaKEfCeB7Wej8YFgg#_nLHVgXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Severe</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVfHaKEfCeB7Wej8YFgg#_nLHVf3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVfHaKEfCeB7Wej8YFgg#_nLHVf3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Product</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCdDXaKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>--</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVjnaKEfCeB7Wej8YFgg#_nLHVk3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVjnaKEfCeB7Wej8YFgg#_nLHVk3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'AMR System'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVjnaKEfCeB7Wej8YFgg#_nLHVj3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVjnaKEfCeB7Wej8YFgg#_nLHVj3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Central Control'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVjnaKEfCeB7Wej8YFgg#_nLHVkXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVjnaKEfCeB7Wej8YFgg#_nLHVkXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Handheld</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVjnaKEfCeB7Wej8YFgg#_nLHVkHaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVjnaKEfCeB7Wej8YFgg#_nLHVkHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Meter</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVjnaKEfCeB7Wej8YFgg#_nLHVknaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVjnaKEfCeB7Wej8YFgg#_nLHVknaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Req. Ref.'</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCdDHaKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Residual PHSLH'</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCc83aKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>--</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGh3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGh3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Certain</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGgHaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGgHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Extremely Unlikely'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGhnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGhnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Likely</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGgXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGgXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Somewhat Likely'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGg3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGg3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Unlikely</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGhHaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGhHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Very Likely'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGgnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGgnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Very Unlikely'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGhXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGf3aKEfCeB7Wej8YFgg#_nLRGhXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Residual POHO'</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCc93aKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>--</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVmXaKEfCeB7Wej8YFgg#_nLHVn3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVmXaKEfCeB7Wej8YFgg#_nLHVn3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Frequent</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVmXaKEfCeB7Wej8YFgg#_nLHVmnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVmXaKEfCeB7Wej8YFgg#_nLHVmnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Negligible</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVmXaKEfCeB7Wej8YFgg#_nLHVnnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVmXaKEfCeB7Wej8YFgg#_nLHVnnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Occasional</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVmXaKEfCeB7Wej8YFgg#_nLHVnHaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVmXaKEfCeB7Wej8YFgg#_nLHVnHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Probable</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVmXaKEfCeB7Wej8YFgg#_nLHVm3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVmXaKEfCeB7Wej8YFgg#_nLHVm3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Remote</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVmXaKEfCeB7Wej8YFgg#_nLHVnXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVmXaKEfCeB7Wej8YFgg#_nLHVnXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Residual POHS'</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCdCXaKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>--</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVqXaKEfCeB7Wej8YFgg#_nLHVr3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVqXaKEfCeB7Wej8YFgg#_nLHVr3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Infrequent</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVqXaKEfCeB7Wej8YFgg#_nLHVrHaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVqXaKEfCeB7Wej8YFgg#_nLHVrHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Intermittent</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVqXaKEfCeB7Wej8YFgg#_nLHVq3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVqXaKEfCeB7Wej8YFgg#_nLHVq3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Rare</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVqXaKEfCeB7Wej8YFgg#_nLHVrXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVqXaKEfCeB7Wej8YFgg#_nLHVrXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Reoccuring</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVqXaKEfCeB7Wej8YFgg#_nLHVqnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVqXaKEfCeB7Wej8YFgg#_nLHVqnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Unanticipated</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVqXaKEfCeB7Wej8YFgg#_nLHVrnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVqXaKEfCeB7Wej8YFgg#_nLHVrnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Residual Risk'</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCc8naKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>--</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVsHaKEfCeB7Wej8YFgg#_nLHVtnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVsHaKEfCeB7Wej8YFgg#_nLHVtnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Acceptable</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVsHaKEfCeB7Wej8YFgg#_nLHVsXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVsHaKEfCeB7Wej8YFgg#_nLHVsXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>ALARP</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVsHaKEfCeB7Wej8YFgg#_nLHVtXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVsHaKEfCeB7Wej8YFgg#_nLHVtXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Broadly Acceptable'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVsHaKEfCeB7Wej8YFgg#_nLHVtHaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVsHaKEfCeB7Wej8YFgg#_nLHVtHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Marginally Acceptable'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVsHaKEfCeB7Wej8YFgg#_nLHVs3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVsHaKEfCeB7Wej8YFgg#_nLHVs3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Unacceptable</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVsHaKEfCeB7Wej8YFgg#_nLHVsnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVsHaKEfCeB7Wej8YFgg#_nLHVsnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Residual Severity'</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCc9HaKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>--</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVfHaKEfCeB7Wej8YFgg#_nLHVgnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVfHaKEfCeB7Wej8YFgg#_nLHVgnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Catastrophic</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVfHaKEfCeB7Wej8YFgg#_nLHVfXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVfHaKEfCeB7Wej8YFgg#_nLHVfXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Critical</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVfHaKEfCeB7Wej8YFgg#_nLHVfnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVfHaKEfCeB7Wej8YFgg#_nLHVfnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Minor</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVfHaKEfCeB7Wej8YFgg#_nLHVgHaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVfHaKEfCeB7Wej8YFgg#_nLHVgHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Negligible</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVfHaKEfCeB7Wej8YFgg#_nLHVgXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVfHaKEfCeB7Wej8YFgg#_nLHVgXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Severe</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVfHaKEfCeB7Wej8YFgg#_nLHVf3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVfHaKEfCeB7Wej8YFgg#_nLHVf3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Risk Status'</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCdEHaKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>--</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVg3aKEfCeB7Wej8YFgg#_nLHVhnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVg3aKEfCeB7Wej8YFgg#_nLHVhnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Closed</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVg3aKEfCeB7Wej8YFgg#_nLHVhXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVg3aKEfCeB7Wej8YFgg#_nLHVhXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Open</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVg3aKEfCeB7Wej8YFgg#_nLHVhHaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVg3aKEfCeB7Wej8YFgg#_nLHVhHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD>'Hazard and Risk Register'</TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>Heading                  </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>Information              </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Personal Collection'    </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Release Collection'     </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Release</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCc-3aKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>REL-1</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVpnaKEfCeB7Wej8YFgg#_nLHVp3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVpnaKEfCeB7Wej8YFgg#_nLHVp3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>REL-2</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVpnaKEfCeB7Wej8YFgg#_nLHVqHaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVpnaKEfCeB7Wej8YFgg#_nLHVqHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD>'Requirements Specification'</TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Software Requirement'   </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Software Specification' </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Stakeholder Requirement'</TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Accepted</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCdBXaKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Clarity</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCdC3aKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>High</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVt3aKEfCeB7Wej8YFgg#_nLRGcnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVt3aKEfCeB7Wej8YFgg#_nLRGcnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Low</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVt3aKEfCeB7Wej8YFgg#_nLRGcHaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVt3aKEfCeB7Wej8YFgg#_nLRGcHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Medium</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVt3aKEfCeB7Wej8YFgg#_nLRGcXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVt3aKEfCeB7Wej8YFgg#_nLRGcXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Need</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCdEXaKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Desirable</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVlHaKEfCeB7Wej8YFgg#_nLHVl3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVlHaKEfCeB7Wej8YFgg#_nLHVl3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Luxury</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVlHaKEfCeB7Wej8YFgg#_nLHVmHaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVlHaKEfCeB7Wej8YFgg#_nLHVmHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Mandatory</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVlHaKEfCeB7Wej8YFgg#_nLHVlXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVlHaKEfCeB7Wej8YFgg#_nLHVlXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Very Desirable'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVlHaKEfCeB7Wej8YFgg#_nLHVlnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVlHaKEfCeB7Wej8YFgg#_nLHVlnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Priority</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCdAnaKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>High</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVt3aKEfCeB7Wej8YFgg#_nLRGcnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVt3aKEfCeB7Wej8YFgg#_nLRGcnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Low</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVt3aKEfCeB7Wej8YFgg#_nLRGcHaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVt3aKEfCeB7Wej8YFgg#_nLRGcHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Medium</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVt3aKEfCeB7Wej8YFgg#_nLRGcXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVt3aKEfCeB7Wej8YFgg#_nLRGcXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Questions</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCdBnaKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Schedule</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCc_HaKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Beyond Version 2'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGiHaKEfCeB7Wej8YFgg#_nLRGi3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGiHaKEfCeB7Wej8YFgg#_nLRGi3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Version 1'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGiHaKEfCeB7Wej8YFgg#_nLRGiXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGiHaKEfCeB7Wej8YFgg#_nLRGiXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Version 2'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGiHaKEfCeB7Wej8YFgg#_nLRGinaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGiHaKEfCeB7Wej8YFgg#_nLRGinaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Source</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCdD3aKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Stability</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCc-naKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>High</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVt3aKEfCeB7Wej8YFgg#_nLRGcnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVt3aKEfCeB7Wej8YFgg#_nLRGcnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Low</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVt3aKEfCeB7Wej8YFgg#_nLRGcHaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVt3aKEfCeB7Wej8YFgg#_nLRGcHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Medium</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVt3aKEfCeB7Wej8YFgg#_nLRGcXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVt3aKEfCeB7Wej8YFgg#_nLRGcXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Status</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCdCHaKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Approved</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVh3aKEfCeB7Wej8YFgg#_nLHVinaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVh3aKEfCeB7Wej8YFgg#_nLHVinaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'In Process'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVh3aKEfCeB7Wej8YFgg#_nLHViXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVh3aKEfCeB7Wej8YFgg#_nLHViXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Obsolete</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVh3aKEfCeB7Wej8YFgg#_nLHVjXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVh3aKEfCeB7Wej8YFgg#_nLHVjXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Postponed</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVh3aKEfCeB7Wej8YFgg#_nLHVjHaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVh3aKEfCeB7Wej8YFgg#_nLHVjHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Prelimanry</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVh3aKEfCeB7Wej8YFgg#_nLHViHaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVh3aKEfCeB7Wej8YFgg#_nLHViHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Rejected</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVh3aKEfCeB7Wej8YFgg#_nLHVi3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVh3aKEfCeB7Wej8YFgg#_nLHVi3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>Verifiability</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCc-XaKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Verification Method'</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCdAHaKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Analysis</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGd3aKEfCeB7Wej8YFgg#_nLRGeXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGd3aKEfCeB7Wej8YFgg#_nLRGeXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Comparison</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGd3aKEfCeB7Wej8YFgg#_nLRGenaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGd3aKEfCeB7Wej8YFgg#_nLRGenaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Demonstration</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGd3aKEfCeB7Wej8YFgg#_nLRGfHaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGd3aKEfCeB7Wej8YFgg#_nLRGfHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Inspection</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGd3aKEfCeB7Wej8YFgg#_nLRGe3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGd3aKEfCeB7Wej8YFgg#_nLRGe3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>N/A</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGd3aKEfCeB7Wej8YFgg#_nLRGeHaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGd3aKEfCeB7Wej8YFgg#_nLRGeHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Not Set'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGd3aKEfCeB7Wej8YFgg#_nLRGfnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGd3aKEfCeB7Wej8YFgg#_nLRGfnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Test</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGd3aKEfCeB7Wej8YFgg#_nLRGfXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGd3aKEfCeB7Wej8YFgg#_nLRGfXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD>'Stakeholder Specification'</TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'System Requirement'     </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>cmint_applied_RCR_numbers</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCdCnaKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Requirement Type'</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCc_3aKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Functional</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGjHaKEfCeB7Wej8YFgg#_nLRGjXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGjHaKEfCeB7Wej8YFgg#_nLRGjXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>N/A</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGjHaKEfCeB7Wej8YFgg#_nLRGj3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGjHaKEfCeB7Wej8YFgg#_nLRGj3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Non-Functional</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGjHaKEfCeB7Wej8YFgg#_nLRGjnaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLRGjHaKEfCeB7Wej8YFgg#_nLRGjnaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Test Criteria'</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCc8HaKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Test Status'</TD>
+    <TD></TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AD_nLCc_naKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Fail</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVoHaKEfCeB7Wej8YFgg#_nLHVpXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVoHaKEfCeB7Wej8YFgg#_nLHVpXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Not finished'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVoHaKEfCeB7Wej8YFgg#_nLHVo3aKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVoHaKEfCeB7Wej8YFgg#_nLHVo3aKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Not started'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVoHaKEfCeB7Wej8YFgg#_nLHVoXaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVoHaKEfCeB7Wej8YFgg#_nLHVoXaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>'Not to be tested'</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVoHaKEfCeB7Wej8YFgg#_nLHVonaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVoHaKEfCeB7Wej8YFgg#_nLHVonaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD></TD>
+    <TD>Pass</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVoHaKEfCeB7Wej8YFgg#_nLHVpHaKEfCeB7Wej8YFgg</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/AT_nLHVoHaKEfCeB7Wej8YFgg#_nLHVpHaKEfCeB7Wej8YFgg</TD>
+  </TR>
+  <TR>    <TD>'System Specification'   </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>Term                     </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD></TD>
+    <TD>'Alternative Spelling'</TD>
+    <TD></TD>
+    <TD>rdm_types:AlternateSpelling</TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Use Case Module'        </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Vision Statement'       </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+  <TR>    <TD>'Vison document'         </TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+    <TD></TD>
+  </TR>
+</TABLE>
+<h2>Link Types</h2>
+
+<TABLE><THEADING>
+<TH>Name</TH><TH>URI</TH><TH>RDF URI</TH><TH>Label</TH><TH>Inverse Label</TH></THEADING>
+  <TR>    <TD>'Affected By'</TD>
+    <TD>oslc_rm:affectedBy</TD>
+    <TD>oslc_rm:affectedBy</TD>
+    <TD>Affected By</TD>
+    <TD>None</TD>
+  </TR>
+  <TR>    <TD>'Child Of'</TD>
+    <TD>rdm_types:Decomposition</TD>
+    <TD>rdm_types:Decomposition</TD>
+    <TD>Child Of</TD>
+    <TD>None</TD>
+  </TR>
+  <TR>    <TD>component</TD>
+    <TD>oslc_config:component</TD>
+    <TD>oslc_config:component</TD>
+    <TD>component</TD>
+    <TD>None</TD>
+  </TR>
+  <TR>    <TD>'Derives Architecture Element'</TD>
+    <TD>http://jazz.net/ns/dm/linktypes#derives</TD>
+    <TD>http://jazz.net/ns/dm/linktypes#derives</TD>
+    <TD>Derives Architecture Element</TD>
+    <TD>None</TD>
+  </TR>
+  <TR>    <TD>'Elaborated By'</TD>
+    <TD>oslc_rm:elaboratedBy</TD>
+    <TD>oslc_rm:elaboratedBy</TD>
+    <TD>Elaborated By</TD>
+    <TD>None</TD>
+  </TR>
+  <TR>    <TD>Elaborates</TD>
+    <TD>oslc_rm:elaborates</TD>
+    <TD>oslc_rm:elaborates</TD>
+    <TD>Elaborates</TD>
+    <TD>None</TD>
+  </TR>
+  <TR>    <TD>Embeds</TD>
+    <TD>rdm_types:Embedding</TD>
+    <TD>rdm_types:Embedding</TD>
+    <TD>Embeds</TD>
+    <TD>None</TD>
+  </TR>
+  <TR>    <TD>Extracted</TD>
+    <TD>rdm_types:Extraction</TD>
+    <TD>rdm_types:Extraction</TD>
+    <TD>Extracted</TD>
+    <TD>None</TD>
+  </TR>
+  <TR>    <TD>'Implemented By'</TD>
+    <TD>oslc_rm:implementedBy</TD>
+    <TD>oslc_rm:implementedBy</TD>
+    <TD>Implemented By</TD>
+    <TD>None</TD>
+  </TR>
+  <TR>    <TD>'Link To'</TD>
+    <TD>rdm_types:Link</TD>
+    <TD>rdm_types:Link</TD>
+    <TD>Link To</TD>
+    <TD>None</TD>
+  </TR>
+  <TR>    <TD>Mitigates</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/LT_nO6QV3aKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+    <TD>Mitigates</TD>
+    <TD>None</TD>
+  </TR>
+  <TR>    <TD>References</TD>
+    <TD>dcterms:references</TD>
+    <TD>dcterms:references</TD>
+    <TD>References</TD>
+    <TD>None</TD>
+  </TR>
+  <TR>    <TD>'References Term'</TD>
+    <TD>rdm_types:ArtifactTermReferenceLink</TD>
+    <TD>rdm_types:ArtifactTermReferenceLink</TD>
+    <TD>References Term</TD>
+    <TD>None</TD>
+  </TR>
+  <TR>    <TD>'Refined By Architecture Element'</TD>
+    <TD>http://jazz.net/ns/dm/linktypes#refine</TD>
+    <TD>http://jazz.net/ns/dm/linktypes#refine</TD>
+    <TD>Refined By Architecture Element</TD>
+    <TD>None</TD>
+  </TR>
+  <TR>    <TD>'Satisfied By Architecture Element'</TD>
+    <TD>http://jazz.net/ns/dm/linktypes#satisfy</TD>
+    <TD>http://jazz.net/ns/dm/linktypes#satisfy</TD>
+    <TD>Satisfied By Architecture Element</TD>
+    <TD>None</TD>
+  </TR>
+  <TR>    <TD>Satisfies</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types/LT_nO6QWHaKEfCeB7Wej8YFgg</TD>
+    <TD></TD>
+    <TD>Satisfies</TD>
+    <TD>None</TD>
+  </TR>
+  <TR>    <TD>'Specified By'</TD>
+    <TD>oslc_rm:specifiedBy</TD>
+    <TD>oslc_rm:specifiedBy</TD>
+    <TD>Specified By</TD>
+    <TD>None</TD>
+  </TR>
+  <TR>    <TD>Specifies</TD>
+    <TD>oslc_rm:specifies</TD>
+    <TD>oslc_rm:specifies</TD>
+    <TD>Specifies</TD>
+    <TD>None</TD>
+  </TR>
+  <TR>    <TD>Synonym</TD>
+    <TD>rdm_types:SynonymLink</TD>
+    <TD>rdm_types:SynonymLink</TD>
+    <TD>Synonym</TD>
+    <TD>None</TD>
+  </TR>
+  <TR>    <TD>'Traced By Architecture Element'</TD>
+    <TD>http://jazz.net/ns/dm/linktypes#trace</TD>
+    <TD>http://jazz.net/ns/dm/linktypes#trace</TD>
+    <TD>Traced By Architecture Element</TD>
+    <TD>None</TD>
+  </TR>
+  <TR>    <TD>'Tracked By'</TD>
+    <TD>oslc_rm:trackedBy</TD>
+    <TD>oslc_rm:trackedBy</TD>
+    <TD>Tracked By</TD>
+    <TD>None</TD>
+  </TR>
+  <TR>    <TD>'Validated By'</TD>
+    <TD>oslc_rm:validatedBy</TD>
+    <TD>oslc_rm:validatedBy</TD>
+    <TD>Validated By</TD>
+    <TD>None</TD>
+  </TR>
+</TABLE>
+<H2>Prefixes</H2>
+<TABLE><THEADING>
+<TH>Prefix</TH><TH>URI</TH></THEADING>
+  <TR>    <TD>acc</TD>
+    <TD>http://open-services.net/ns/core/acc#</TD>
+  </TR>
+  <TR>    <TD>acp</TD>
+    <TD>http://jazz.net/ns/acp#</TD>
+  </TR>
+  <TR>    <TD>atom</TD>
+    <TD>http://www.w3.org/2005/Atom</TD>
+  </TR>
+  <TR>    <TD>config_ext</TD>
+    <TD>http://jazz.net/ns/config_ext#</TD>
+  </TR>
+  <TR>    <TD>dc</TD>
+    <TD>http://purl.org/dc/elements/1.1/</TD>
+  </TR>
+  <TR>    <TD>dcterms</TD>
+    <TD>http://purl.org/dc/terms/</TD>
+  </TR>
+  <TR>    <TD>dng_reqif</TD>
+    <TD>http://jazz.net/ns/rm/dng/reqif#</TD>
+  </TR>
+  <TR>    <TD>dng_task</TD>
+    <TD>http://jazz.net/ns/rm/dng/task#</TD>
+  </TR>
+  <TR>    <TD>dng_trs</TD>
+    <TD>http://jazz.net/ns/rm/dng/trs#</TD>
+  </TR>
+  <TR>    <TD>dng_types</TD>
+    <TD>http://jazz.net/ns/rm/dng/types#</TD>
+  </TR>
+  <TR>    <TD>ds</TD>
+    <TD>http://jazz.net/xmlns/alm/rm/datasource/v0.1</TD>
+  </TR>
+  <TR>    <TD>foaf</TD>
+    <TD>http://xmlns.com/foaf/0.1/</TD>
+  </TR>
+  <TR>    <TD>gc</TD>
+    <TD>http://jazz.net/ns/globalconfig#</TD>
+  </TR>
+  <TR>    <TD>jazz_idp</TD>
+    <TD>http://jazz.net/ns/jazz/idp#</TD>
+  </TR>
+  <TR>    <TD>jazz_rm</TD>
+    <TD>http://jazz.net/ns/rm#</TD>
+  </TR>
+  <TR>    <TD>jfs</TD>
+    <TD>http://jazz.net/xmlns/prod/jazz/jfs/1.0/</TD>
+  </TR>
+  <TR>    <TD>jp</TD>
+    <TD>http://jazz.net/xmlns/prod/jazz/process/1.0/</TD>
+  </TR>
+  <TR>    <TD>jp06</TD>
+    <TD>http://jazz.net/xmlns/prod/jazz/process/0.6/</TD>
+  </TR>
+  <TR>    <TD>ldp</TD>
+    <TD>http://www.w3.org/ns/ldp#</TD>
+  </TR>
+  <TR>    <TD>ns</TD>
+    <TD>http://com.ibm.rdm/navigation#</TD>
+  </TR>
+  <TR>    <TD>oslc</TD>
+    <TD>http://open-services.net/ns/core#</TD>
+  </TR>
+  <TR>    <TD>oslc_am</TD>
+    <TD>http://open-services.net/ns/am#</TD>
+  </TR>
+  <TR>    <TD>oslc_auto</TD>
+    <TD>http://open-services.net/ns/auto#</TD>
+  </TR>
+  <TR>    <TD>oslc_cm</TD>
+    <TD>http://open-services.net/xmlns/cm/1.0/</TD>
+  </TR>
+  <TR>    <TD>oslc_cm1</TD>
+    <TD>http://open-services.net/ns/cm#</TD>
+  </TR>
+  <TR>    <TD>oslc_cm_10</TD>
+    <TD>http://open-services.net/xmlns/cm/1.0/cm#</TD>
+  </TR>
+  <TR>    <TD>oslc_config</TD>
+    <TD>http://open-services.net/ns/config#</TD>
+  </TR>
+  <TR>    <TD>oslc_config_ext</TD>
+    <TD>http://jazz.net/ns/config_ext#</TD>
+  </TR>
+  <TR>    <TD>oslc_qm</TD>
+    <TD>http://open-services.net/ns/qm#</TD>
+  </TR>
+  <TR>    <TD>oslc_qm_10</TD>
+    <TD>http://open-services.net/xmlns/qm/1.0/</TD>
+  </TR>
+  <TR>    <TD>oslc_rm</TD>
+    <TD>http://open-services.net/ns/rm#</TD>
+  </TR>
+  <TR>    <TD>oslc_rm_10</TD>
+    <TD>http://open-services.net/xmlns/rm/1.0/</TD>
+  </TR>
+  <TR>    <TD>owl</TD>
+    <TD>http://www.w3.org/2002/07/owl#</TD>
+  </TR>
+  <TR>    <TD>process</TD>
+    <TD>http://jazz.net/ns/process#</TD>
+  </TR>
+  <TR>    <TD>prov</TD>
+    <TD>http://www.w3.org/ns/prov#</TD>
+  </TR>
+  <TR>    <TD>public_rm_10</TD>
+    <TD>http://www.ibm.com/xmlns/rm/public/1.0/</TD>
+  </TR>
+  <TR>    <TD>qm_ns2</TD>
+    <TD>http://jazz.net/xmlns/alm/qm/v0.1/</TD>
+  </TR>
+  <TR>    <TD>rdf</TD>
+    <TD>http://www.w3.org/1999/02/22-rdf-syntax-ns#</TD>
+  </TR>
+  <TR>    <TD>rdfs</TD>
+    <TD>http://www.w3.org/2000/01/rdf-schema#</TD>
+  </TR>
+  <TR>    <TD>rdm_types</TD>
+    <TD>http://www.ibm.com/xmlns/rdm/types/</TD>
+  </TR>
+  <TR>    <TD>rm</TD>
+    <TD>http://www.ibm.com/xmlns/rdm/rdf/</TD>
+  </TR>
+  <TR>    <TD>rm_config</TD>
+    <TD>http://jazz.net/ns/rm/dng/config#</TD>
+  </TR>
+  <TR>    <TD>rm_ds</TD>
+    <TD>http://jazz.net/xmlns/alm/rm/datasource/v0.1</TD>
+  </TR>
+  <TR>    <TD>rm_modules</TD>
+    <TD>http://jazz.net/ns/rm/dng/module#</TD>
+  </TR>
+  <TR>    <TD>rm_nav</TD>
+    <TD>http://jazz.net/ns/rm/navigation#</TD>
+  </TR>
+  <TR>    <TD>rm_text</TD>
+    <TD>http://jazz.net/xmlns/alm/rm/text/v0.1</TD>
+  </TR>
+  <TR>    <TD>rm_view</TD>
+    <TD>http://jazz.net/ns/rm/dng/view#</TD>
+  </TR>
+  <TR>    <TD>rqm</TD>
+    <TD>http://jazz.net/xmlns/prod/jazz/rqm/qm/1.0/</TD>
+  </TR>
+  <TR>    <TD>rqm_qm</TD>
+    <TD>http://jazz.net/ns/qm/rqm#</TD>
+  </TR>
+  <TR>    <TD>rrm</TD>
+    <TD>http://www.ibm.com/xmlns/rrm/1.0/</TD>
+  </TR>
+  <TR>    <TD>rt</TD>
+    <TD>https://jazz.ibm.com:9443/rm/types</TD>
+  </TR>
+  <TR>    <TD>rtc_cm</TD>
+    <TD>http://jazz.net/xmlns/prod/jazz/rtc/cm/1.0/</TD>
+  </TR>
+  <TR>    <TD>trs</TD>
+    <TD>http://open-services.net/ns/core/trs#</TD>
+  </TR>
+  <TR>    <TD>trspatch</TD>
+    <TD>http://open-services.net/ns/core/trspatch#</TD>
+  </TR>
+  <TR>    <TD>xhtml</TD>
+    <TD>http://www.w3.org/1999/xhtml</TD>
+  </TR>
+  <TR>    <TD>xml</TD>
+    <TD>http://www.w3.org/XML/1998/namespace</TD>
+  </TR>
+  <TR>    <TD>xs</TD>
+    <TD>http://www.w3.org/2001/XMLSchema</TD>
+  </TR>
+  <TR>    <TD>xsd</TD>
+    <TD>http://www.w3.org/2001/XMLSchema#</TD>
+  </TR>
+</TABLE>
+</BODY></HTML>

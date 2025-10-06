@@ -499,6 +499,7 @@ def do_oslc_query(inputargs=None):
         os.remove(args.outputfile)
 
     if args.percontribution:
+        # multi-threading to do a query on each contribution - speeds things up quite a lot for GC queryies
         results = {}
         futureresults = []
         workers = 4 if args.threading else 1
@@ -678,7 +679,7 @@ def do_oslc_query(inputargs=None):
                     sk1 = actualheadings[sk]
                 if sk!=sk1:
                     logger.debug(f"renaming {sk=} {sk1=}" )
-                    # if ernaming need to merge column content!
+                    # if renaming need to merge column content!
                     existing = v[sk]
                     otherexisting = v.get(sk1)
                     del v[sk]
@@ -718,7 +719,7 @@ def do_oslc_query(inputargs=None):
         if args.saveprocessedresults:
             open(args.saveprocessedresults+"_after.json","wt").write(json.dumps(results))
 
-        if args.compareresults:
+        if args.compareresults: # UNTESTED!
             # a simple test by comparing the received results with a saved CSV from a previous run
             # load the saved CSV
             with open(args.compareresults, newline='', encoding='utf-8-sig') as csvfile:

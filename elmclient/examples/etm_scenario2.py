@@ -49,7 +49,11 @@ qmappdomain  = 'qm'
 
 # the project+component+config that will be queried
 proj = "SGC Quality Management"
-comp = "SGC MTM"
+comp = "SGC MTMa"
+conf = "SGC MTM Production stream" #conf="" if project is optout
+
+proj = "qm_optout"
+comp = "qm_optout"
 conf = "SGC MTM Production stream" #conf="" if project is optout
 
 

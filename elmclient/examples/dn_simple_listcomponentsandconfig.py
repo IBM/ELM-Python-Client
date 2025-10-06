@@ -14,6 +14,9 @@ import sys
 import time
 
 import lxml.etree as ET
+import pprint
+
+pp = pprint.PrettyPrinter(indent=4)
 
 import elmclient.server as elmserver
 import elmclient.utils as utils
@@ -43,7 +46,7 @@ jtscontext = 'jts'
 rmcontext  = 'rm'
 
 # the project+compontent+config that will be updated
-proj = "rm_optin_p2"
+proj = "rm_optin_p1"
 comp = proj
 conf =  f"{comp} Initial Stream"
 
@@ -51,12 +54,10 @@ conf =  f"{comp} Initial Stream"
 # 0=fully cached (but code below specifies queries aren't cached) - if you need to clear the cache, delet efolder .web_cache
 # 1=clear cache initially then continue with cache enabled
 # 2=clear cache and disable caching
-caching = 0
+caching = 2
 
 ##################################################################################
 if __name__=="__main__":
-    if len(sys.argv) != 3:
-        raise Exception( 'You must provide an identifier and a string (surrounded by " if including spaces)' )
 
     # create our "server" which is how we connect to DOORS Next
     # first enable the proxy so if a proxy is running it can monitor the communication with server (this is ignored if proxy isn't running)
@@ -68,9 +69,41 @@ if __name__=="__main__":
 
     # open the project
     p = dnapp.find_project(proj)
+    
+    if False:
+        p.load_components_and_configurations(force=True)
+        comps = p.report_components_and_configurations()
+        for comp,compdetails in comps.items():
+            print( f"{comp=} {compdetails=}" )
+            compdetails['component'].load_configs()
+            
+        pp.pprint( comps )
 
+        burp
+
+    # open the project
+    p = dnapp.find_project(proj)
+    
     # find the component
     c = p.find_local_component(comp)
+    
+    c.load_configs()
+    
+    print( f"{c=}" )
+    
+    print( f"{c._configurations=}" )
+
+    burp
+    
+    for comp,compdetails in comps.items():
+        print( f"{comp=} {compdetails=}" )
+        compdetails['component'].load_configs()
+        
+    pp.pprint( comps )
+
+    burp
+    
+    
     comp_u = c.project_uri
     print( f"{comp_u=}" )
 
@@ -79,43 +112,12 @@ if __name__=="__main__":
     print( f"{config_u=}" )
     c.set_local_config(config_u)
 
-#    mores = c.queryResourcesByIDs( [2691,2854 ] )
-    mores = c.queryResourcesByIDs( [2605] )
-    print( f"{mores=}" )
-    print( mores[0].Identifier )
-    print( mores[0].Title )
-    mores[0].Title += ' Analysis'
-    if mores[0].parent=="/01 Requirements":
-        mores[0].parent = "/02 Reference"
-    else:
-        mores[0].parent = "/01 Requirements"
-        
-    print( f"{mores[0]=}" )
-    mores[0].put()
-    burp
-    print( f"{mores[0]=}" )
-    mores[0].Title = mores[0].Title+"1"
-    print( f"{mores[0]=}" )
-    mores[0].addCoreArtifactLink( "Satisfies", 2854 )
-    print( f"After add link {mores[0]=}" )
-    mores[0].to_etree()
-    mores[0].put()
-    burp
-
-    mores[0].Identifier = 23
-    mores[0].Priority = "prime"
-    
-    
-    burp
-
-
-
     # find the artifact - using OSLC Query
 
     # get the query capability base URL for requirements
     qcbase = c.get_query_capability_uri("oslc_rm:Requirement")
 
-    # query for a title and for format=module
+    # query for a title
     artifacts = c.execute_oslc_query(
         qcbase,
         whereterms=[['dcterms:identifier','=',f'"{sys.argv[1]}"']],
@@ -130,7 +132,7 @@ if __name__=="__main__":
     elif len(artifacts)>2:
         for k,v in artifacts.items():
             print( f'{k} ID {v.get("dcterms:identifier","???")} Title {v.get("dcterms:title","")}' )
-        raise Exception( "More than one artifcact with that id in project {proj} component {comp} configuraiton {conf}" )
+        raise Exception( "More than one artifcact with that id in project {proj} component {comp} configuraition {conf}" )
     
     # find the core artifact - it has a value for rm_nav:parent
     theartifact_u = None
@@ -145,24 +147,6 @@ if __name__=="__main__":
 
     print( f"Found core artifact {theartifact_u=}" )
 
-    art = c.retrieveResource( theartifact_u )
-    print( f"{art=}" )
-    art.Title = "Hello, World"
-    art.to_etree()
-    
-    print( f"{art.Identifier=}" )
-#    burp
-    print( "\n=====\n",vars( art ),"\n-----\n" )
-    art.Title = "Hello, world"
-    print( f"{art.Title=}" )
-
-
-    mores = c.findResourcesByIDs( [1734,1733] )
-    print( f"{mores=}" )
-
-
-    art.put()
-    burp
     # now get the artifact content and its etag
     theartifact_x, etag = c.execute_get_rdf_xml( theartifact_u, return_etag=True, intent="Retrieve the artifact" )
     print( f"{ET.tostring(theartifact_x)=}\n" )

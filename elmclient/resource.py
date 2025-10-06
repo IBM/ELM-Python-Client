@@ -106,11 +106,13 @@ class StringLiteralCodec( Codec ):
     
 class RDFResourceCodec( Codec ):
     def encode( self, pythonvalue ):
+        print( f"RDFResource encode {pythonvalue=}" )
         thetag=rdfxml.uri_to_tag( self.prop_u )
         newel_x = ET.Element( thetag, { self.rdf_resource_tag: pythonvalue } )
 #        print( f"{newel_x=} {ET.tostring( newel_x )}" )
         return newel_x
     def decode( self, rdfvalue_x ):
+        print( f"RDFResource decode {rdfvalue_x=}" )
         value_u = rdfxml.xmlrdf_get_resource_uri(rdfvalue_x)
         return value_u
         
@@ -463,11 +465,12 @@ class Resources_Mixin:
         pass
     def executeQuery( self, query ):
         pass
-    # this builds itself from rdf-xml containing the properties
+        
+    # this builds or updates a resource from rdf-xml containing the properties
     # the properties are turned into attributes with the human-friendly name
     def resourceFactory( self, resourceURL, projorcomp, existingresource=None ):
         # read the resource and create/return an object
-        xml, etag = projorcomp.execute_get_rdf_xml( resourceURL, return_etag=True, intent="Retrieve the artifact" )
+        xml, etag = projorcomp.execute_get_rdf_xml( resourceURL, return_etag=True, intent="Retrieve the artifact", cacheable=False )
 #        print( f"\n\n{resourceURL=}" )
         # the type discriminator hopefully knows how to decide what type of resource this thing is
         if existingresource is None:
@@ -495,24 +498,24 @@ class Resources_Mixin:
         # extract the shape for this object
         shapeurl = rdfxml.xmlrdf_get_resource_uri( xml, './/oslc:instanceShape' )
         res._shape_u = shapeurl
-#        print( f"{shapeurl=}" )
+        print( f"{shapeurl=}" )
         
         # look up the shape in typesystem
         shape = projorcomp.is_known_shape_uri( shapeurl )
-#        print( f"{shape=}" )
+        print( f"{shape=}" )
         shapename = shape['name']
-#        print( f"{shapename=}" )
+        print( f"{shapename=}" )
 
         maintag = rdfxml.xml_find_element( xml.getroot(), ".//rdf:Description[@rdf:about]" )
         if maintag is None:
             burp
         # scan the top-level tags and convert into attributes on res
         for child in maintag:
-#            print( f"Child {child.tag} {child.text}" )
-#            print( f"{ET.tostring( child )=}" )
+            print( f"Child {child.tag} {child.text}" )
+            print( f"{ET.tostring( child )=}" )
             prefixedtag = child.tag
             taguri = rdfxml.tag_to_uri( child.tag )
-#            print( f"{taguri=} {child.tag=}" )
+            print( f"{taguri=} {child.tag=}" )
             prefix,tag = prefixedtag.split( "}", 1 )
             prefix = prefix[1:] # remove the leading {
 #            if tag in ['type','accessControl','parent','serviceProvider']:
@@ -555,7 +558,7 @@ class Resources_Mixin:
             # use the codec to decode the value
             thecodec = propdef['typeCodec']
             if thecodec is None:
-                burp
+                raise Exception( f"No codec for {propdef['name']} {taguri}!" )
             else:
                 thiscodec = thecodec( projorcomp, shapeurl, taguri )
 #            print( f"{thiscodec=}" )

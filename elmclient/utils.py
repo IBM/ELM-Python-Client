@@ -9,6 +9,7 @@ import datetime
 import inspect
 import base64
 import logging
+import time
 import xml.etree.ElementTree as ET
 
 from . import rdfxml
@@ -21,17 +22,20 @@ import cryptography.hazmat.primitives.kdf.pbkdf2
 ############################################################################
 # setup logging
 
-# from https://stackoverflow.com/a/55276759/2318649
-
 import logging
 import functools
+
+# from https://stackoverflow.com/a/67821131/2318649
+def formatTime_RFC3339( self, record, datefmt=None ):
+    return ( datetime.datetime.fromtimestamp(record.created).astimezone().isoformat(timespec="milliseconds") )
+
+logging.Formatter.formatTime = formatTime_RFC3339
 
 # the TRACE level is between warning and info so the httpops can just log communication with the server without getting all the other info/debug logged
 logging.TRACE = 25
 logging.addLevelName(logging.TRACE, 'TRACE')
 logging.Logger.trace = functools.partialmethod(logging.Logger.log, logging.TRACE)
 logging.trace = functools.partial(logging.log, logging.TRACE)
-
 #
 
 logger = logging.getLogger(__name__)
@@ -300,6 +304,11 @@ def print_in_html( rows,headings=None ):
     result += "</TABLE>\n"
     return result
 
+# return a unique string
+def uniquestr():
+    return str( time.time_ns() )
+    
+    
 #####################################################################################
 # decorator for users of mixin classes - ensures all their __init__ gets called
 # based on https://stackoverflow.com/a/6100595/2318649

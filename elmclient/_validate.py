@@ -26,7 +26,7 @@ from elmclient import rdfxml
 logger = logging.getLogger(__name__)
 
 class Validate_Mixin():
-    def listFeeds( self ):
+    def listTRSFeeds( self ):
         valuri = self.reluri( 'trs_feed_validation/feeds' )
 #        print( f"{valuri=}" )
         results = self.execute_get_json( valuri, headers={'Accept': 'application/json' } )
@@ -34,7 +34,7 @@ class Validate_Mixin():
 #        print( f"{results=}" )
         return results
         
-    def validate( self, feedid, *,  repair=False, resetIncrementalData=False, full=False ):
+    def validateTRSFeed( self, feedid, *,  repair=False, resetIncrementalData=False, full=False ):
         valuri = self.reluri( 'trs_feed_validation/validate' )
         rep = 'true' if repair else 'false'
         res = 'true' if resetIncrementalData else 'false'

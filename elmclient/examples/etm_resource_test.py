@@ -40,10 +40,10 @@ username = 'ibm'
 password = 'ibm'
 
 jtscontext = 'jts'
-rmcontext  = 'rm'
+qmcontext  = 'qm'
 
 # the project+compontent+config that will be updated
-proj = "rm_optin_p2"
+proj = "qm_gc_p1"
 comp = proj
 conf =  f"{comp} Initial Stream"
 
@@ -61,13 +61,13 @@ if __name__=="__main__":
     # create our "server" which is how we connect to DOORS Next
     # first enable the proxy so if a proxy is running it can monitor the communication with server (this is ignored if proxy isn't running)
     elmserver.setupproxy(jazzhost,proxyport=8888)
-    theserver = elmserver.JazzTeamServer(jazzhost, username, password, verifysslcerts=False, jtsappstring=f"jts:{jtscontext}", appstring='rm', cachingcontrol=caching)
+    theserver = elmserver.JazzTeamServer(jazzhost, username, password, verifysslcerts=False, jtsappstring=f"jts:{jtscontext}", appstring='qm', cachingcontrol=caching)
 
     # create the RM application interface
-    dnapp = theserver.find_app( f"rm:{rmcontext}", ok_to_create=True )
+    etmapp = theserver.find_app( f"qm:{qmcontext}", ok_to_create=True )
 
     # open the project
-    p = dnapp.find_project(proj)
+    p = etmapp.find_project(proj)
 
     # find the component
     c = p.find_local_component(comp)
@@ -78,9 +78,9 @@ if __name__=="__main__":
     config_u = c.get_local_config(conf)
     print( f"{config_u=}" )
     c.set_local_config(config_u)
-
+    c.load_types()
 #    mores = c.queryResourcesByIDs( [2691,2854 ] )
-    mores = c.queryResourcesByIDs( [2605] )
+    mores = c.queryResourcesByIDs( [1] )
     print( f"{mores=}" )
     print( mores[0].Identifier )
     print( mores[0].Title )

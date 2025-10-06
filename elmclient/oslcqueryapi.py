@@ -213,13 +213,15 @@ class _OSLCOperations_Mixin:
             total = len(originalresults.items())
             pbar = tqdm.tqdm(initial=0, total=total,smoothing=1,unit=" results",desc="Processing       ")
         listcolumns = []
+        
         # convert uris to human-friendly names
         for kuri, v in originalresults.items():
             logger.info( f"post-processing result {kuri} {v}" )
-#            print( f"post-processing result {kuri} {v}" )
+            print( f"post-processing result {kuri} {v}" )
             v1 = {}
             for kattr, vattr in v.items():
                 logger.info( f"{kattr=} {vattr=}" )
+                print( f"{kattr=} {vattr=}" )
                 # first try to convert the value to a name
                 if isinstance(vattr, list):
                     # detect list column
@@ -261,6 +263,7 @@ class _OSLCOperations_Mixin:
                     else:
                         v1[kattr] = remappedvalue
             logger.info( f"> produced {kuri} {v1}" )
+            print( f"> produced {kuri} {v1}" )
 #            print( f"> produced {kuri} {v1}" )
             mappedresult[kuri] = v1
 

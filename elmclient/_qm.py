@@ -58,6 +58,86 @@ class TestResultResource                (resource.Resource):
 class TestScriptResource             (resource.Resource):
     pass
 
+class QMEnumCodec( resource.Codec ):
+    def encode( self, pythonvalue ):
+        # decode an enumeration name to the corresponding URL
+        # scan the enum urls in this property
+        enumvalue_u = None
+        for enum_u in self.properties[self.prop_u]['enums']:
+            if self.enums[enum_u]['name']==pythonvalue:
+                enumvalue_u = enum_u
+        if enumvalue_u is None:
+            burp
+        thetag=rdfxml.uri_to_tag( self.prop_u )
+        result_x = ET.Element( thetag, { self.rdf_resource_tag: enumvalue_u } )
+#        print( f"Encode {pythonvalue=} {result_x=} {ET.tostring( result_x )=}" )
+        return result_x
+
+    def decode( self, rdfvalue_x ):
+        print( f"{rdfvalue_x=} {ET.tostring( rdfvalue_x )}" )
+        enumvalue_u = rdfxml.xmlrdf_get_resource_uri(rdfvalue_x)
+        print( f"{enumvalue_u=}" )
+        enumdef = self.projorcomp.enums[self.projorcomp.sameas.get(enumvalue_u,enumvalue_u)]
+        result = enumdef['name']
+        # default decoding is string
+        print( f"Decode {rdfvalue_x=} {result=}" )
+        return result
+
+class QMResourceCodec( resource.Codec ):
+    def encode( self, targetid ):
+        print( f"QMResourceCodec {targetid=}" )
+        # encode id to the target URL
+        # use query to look up the artifact
+        target_u = self.projorcomp.queryCoreArtifactByID( targetid )
+        if target_u is None:
+            raise Exception( f"target id '{targetid}' not found" )
+        thetag=rdfxml.uri_to_tag( self.prop_u )
+        result_x = ET.Element( thetag, { self.rdf_resource_tag: target_u } )
+#        print( f"Encode {targetid=} {result_x=} {ET.tostring( result_x )=}" )
+        return result_x
+        
+    def decode( self, linkurl_x ):
+        linkurl = rdfxml.xmlrdf_get_resource_uri( linkurl_x )
+        print( f"QMResourceCodec Decode {linkurl=}" )
+        # decode to the target id
+        # GET the reqt
+        try:
+            art_x = self.projorcomp.execute_get_rdf_xml( linkurl, cacheable=True )
+            # find dcterms.identifier
+            pythonvalue = rdfxml.xmlrdf_get_resource_text( art_x, './/dcterms:identifier')
+        except:
+            pythonvalue = linkurl
+#        print( f"Decode {linkurl} {pythonvalue=}" )
+        return pythonvalue
+
+class QMLinkCodec( resource.Codec ):
+    def encode( self, targetid ):
+        print( f"QMLinkCodec {targetid=}" )
+        # encode id to the target URL
+        # use query to look up the artifact
+        target_u = self.projorcomp.queryCoreArtifactByID( targetid )
+        if target_u is None:
+            raise Exception( f"target id '{targetid}' not found" )
+        thetag=rdfxml.uri_to_tag( self.prop_u )
+        result_x = ET.Element( thetag, { self.rdf_resource_tag: target_u } )
+#        print( f"Encode {targetid=} {result_x=} {ET.tostring( result_x )=}" )
+        return result_x
+        
+    def decode( self, linkurl_x ):
+        linkurl = rdfxml.xmlrdf_get_resource_uri( linkurl_x )
+        print( f"QMLinkCodec Decode {linkurl=}" )
+        # decode to the target id
+        # GET the reqt
+        try:
+            art_x = self.projorcomp.execute_get_rdf_xml( linkurl, cacheable=True )
+            # find dcterms.identifier
+            pythonvalue = rdfxml.xmlrdf_get_resource_text( art_x, './/dcterms:identifier')
+        except:
+            pythonvalue = linkurl
+#        print( f"Decode {linkurl} {pythonvalue=}" )
+        return pythonvalue
+
+
 valuetypetoresource = {
     'http://jazz.net/ns/qm/rqm#BuildDefinition':             BuildDefinitionResource ,
     'http://jazz.net/ns/qm/rqm#BuildRecord':                 BuildRecordResource ,
@@ -73,6 +153,51 @@ valuetypetoresource = {
     'http://open-services.net/ns/qm#TestResult':             TestResultResource ,
     'http://open-services.net/ns/qm#TestScript':             TestScriptResource ,
 }
+
+valueTypeToCodec = {
+        # oslc:valueType
+        'http://www.w3.org/2001/XMLSchema#boolean':                 resource.BooleanCodec,
+        'http://www.w3.org/2001/XMLSchema#dateTime':                resource.DateTimeCodec,
+        'http://www.w3.org/2001/XMLSchema#integer':                 resource.IntegerCodec,
+        'http://www.w3.org/2001/XMLSchema#string':                  resource.StringCodec,
+        'http://www.w3.org/2001/XMLSchema#float':                   resource.FloatCodec,          
+        'http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral':    resource.XMLLiteralCodec,             
+        # oslc:range
+        'http://xmlns.com/foaf/0.1/Person':                     resource.UserCodec,
+        'http://open-services.net/ns/core#Resource':            QMResourceCodec,
+        'http://open-services.net/ns/rm#Requirement':           QMResourceCodec,
+        'http://open-services.net/ns/rm#RequirementCollection': QMResourceCodec,
+        'http://open-services.net/ns/core#AnyResource':       QMResourceCodec,       
+        
+        'http://jazz.net/ns/qm/rqm#scriptStepCount':    resource.IntegerCodec,
+        'http://www.w3.org/2001/XMLSchema#long':        resource.IntegerCodec,
+}
+
+class RMLinkCodec( resource.Codec ):
+    def encode( self, targetid ):
+#        print( f"{targetid=}" )
+        # encode id to the target URL
+        # use query to look up the artifact
+        target_u = self.projorcomp.queryCoreArtifactByID( targetid )
+        if target_u is None:
+            raise Exception( f"target id '{targetid}' not found" )
+        thetag=rdfxml.uri_to_tag( self.prop_u )
+        result_x = ET.Element( thetag, { self.rdf_resource_tag: target_u } )
+#        print( f"Encode {targetid=} {result_x=} {ET.tostring( result_x )=}" )
+        return result_x
+        
+    def decode( self, linkurl_x ):
+        linkurl = rdfxml.xmlrdf_get_resource_uri( linkurl_x )
+#        print( f"Decode {linkurl=}" )
+        # decode to the target id
+        # GET the reqt
+        art_x = self.projorcomp.execute_get_rdf_xml( linkurl, cacheable=True )
+        # find dcterms.identifier
+        pythonvalue = rdfxml.xmlrdf_get_resource_text( art_x, './/dcterms:identifier')
+#        print( f"Decode {linkurl} {pythonvalue=}" )
+        return pythonvalue
+
+
 
 
 class QMProject( _project._Project, _qmrestapi.QM_REST_API_Mixin, resource.Resources_Mixin ):
@@ -309,10 +434,36 @@ class QMProject( _project._Project, _qmrestapi.QM_REST_API_Mixin, resource.Resou
 
         return configs
 
+    # this is called by resource when a property is found in the rdf which doesn't have a definition in the typesystem.
+    # if not implemented here those would be ignored
+    def mapUnknownProperty( self, property_name, property_uri, shape_uri ):
+#        print( f"mup {property_name=} {property_uri=} {shape_uri=}" ) 
+        if property_uri in self.properties:
+            raise Exception( f"Should never happen!" )
+        if property_uri == "http://open-services.net/ns/rm#uses":
+            # add property to shape
+            self.shapes[shape_uri]['properties'].append( property_uri )
+            # add type to properties
+            self.register_property( property_name, property_uri, typeCodec=RMLinkCodec, isMultiValued=True, shape_uri=shape_uri )
+            return True
+        elif property_uri=="http://jazz.net/ns/rm/navigation#parent":
+            # add property to shape
+            self.shapes[shape_uri]['properties'].append( property_uri )
+            # add type to properties
+            self.register_property( property_name, property_uri, typeCodec=FolderCodec, isMultiValued=False, shape_uri=shape_uri )
+            return True
+        elif property_uri=="http://www.w3.org/1999/02/22-rdf-syntax-ns#type":
+            # add property to shape
+            self.shapes[shape_uri]['properties'].append( property_uri )
+            # add type to properties
+            self.register_property( property_name, property_uri, typeCodec=RDFURICodec, isMultiValued=True, shape_uri=shape_uri )
+            return True
+        return False
+
     # load the typesystem using the OSLC shape resources
     def _load_types(self,force=False):
         logger.debug( f"load type {self=} {force=}" )
-
+        print( f"load type {self=} {force=}" )
         # if already loaded, try to avoid reloading
         if self.typesystem_loaded and not force:
             return
@@ -331,7 +482,11 @@ class QMProject( _project._Project, _qmrestapi.QM_REST_API_Mixin, resource.Resou
             pbar = tqdm.tqdm(initial=0, total=len(shapes_to_load),smoothing=1,unit=" results",desc="Loading ETM shapes")
 
             for el in shapes_to_load:
+                # get the typesystem
+                print( f"1 {el=}" )
                 self._load_type_from_resource_shape(el)
+                print( f"2 {el=}" )
+                
                 pbar.update(1)
 
             pbar.close()
@@ -339,13 +494,372 @@ class QMProject( _project._Project, _qmrestapi.QM_REST_API_Mixin, resource.Resou
             raise Exception( "services xml not found!" )
 
         self.typesystem_loaded = True
+
+        print( "\n+++" )
+        for i,p_u in enumerate( self.shapes.keys() ):
+            print( f"shapes {i} {p_u} {self.shapes[p_u]}" )
+        
+        print( "\n---" )
+        for i,p_u in enumerate( self.properties.keys() ):
+            print( f"props {i} {p_u} {self.properties[p_u]}" )
+
+        print( "\n===" )
+        for i,p_u in enumerate( self.enums.keys() ):
+            print( f"enums {i} {p_u} {self.enums[p_u]}" )
+
+        print( "\n^^^" )
+        for i,p_u in enumerate( self.sameas.keys() ):
+            print( f"sameas {i} {p_u} {self.sameas[p_u]}" )
+
+        print( "\n\n" )
         return None
 
     # pick all the attributes from a resource shape definition
     # and for enumerated attributes get all the enumeration values
     def _load_type_from_resource_shape(self, el, supershape=None):
-        return self._generic_load_type_from_resource_shape(el, supershape=None)
+        logger.debug( "Starting a shape")
+        uri = rdfxml.xmlrdf_get_resource_uri(el)
+        logger.info( f"Starting resource {uri}" )
+        try:
+            if not self.is_known_shape_uri(uri):
+#                if '/shape/resource/' in uri:
+#                    burp
+#                if not '/shape/resource/' in uri:
+#                    print( f"Skipping {uri}" )
+#                    return
+                logger.info( f"Starting shape {uri} =======================================" )
+                logger.debug( f"Getting {uri}" )
+                shapedef_x = self._get_typeuri_rdf(uri)
+                
+                
+                # find the title
+                name_el = rdfxml.xml_find_element(shapedef_x, f'.//rdf:Description[@rdf:about="{uri}"]/dcterms:title[@xml:lang="en"]')
+                if name_el is None:
+                    name_el = rdfxml.xml_find_element(shapedef_x, f'.//rdf:Description[@rdf:about="{uri}"]/dcterms:title[@rdf:datatype]')
+                if name_el is None:
+                    logger.info( f"{uri=}" )
+                    if '#' in uri:
+                        name = uri.rsplit('#',1)[1]
+                    else:
+                        logger.info( f"No #! {uri}" )
+                        name = uri.rsplit('.',1)[1]
+                    logger.info( f"MADE UP NAME {name}" )
+                else:
+#                    print( "NO NAME",ET.tostring(shapedef_x) )
+#                    raise Exception( "No name element!" )
+                    name = name_el.text
+#                if '/shape/resource/' not in uri:
+#                    name += "_"+str(len(uri))       
+                # this is so that the variant type URIs don't overwrite the /shape/resource one
+                print( f"{name=} {uri=}" )
+                self.register_shape( name, uri )
+#                else:
+#                    print( f"Ignored 1 non-resource {uri}" )
+                logger.info( f"Opening shape {name} {uri}" )
+            else:
+                # nothing to do!
+                return
+        except requests.exceptions.HTTPError as e:
+            if e.response.status_code == 404:
+                logger.info( f"Failed because type not found 404 - ignoring! {e}")
+                return
+            elif e.response.status_code == 410:
+                logger.info( f"Failed because type not found 410 - ignoring! {e}")
+                return
+            else:
+                raise
 
+        n = 0
+
+        # find the list of attributes on this shape
+        thisshapedefs_x = rdfxml.xml_find_elements( shapedef_x,f'.//rdf:Description[@rdf:about="{uri}"]' )
+        if thisshapedefs_x is None:
+            raise Exception( f"Shape definition for {uri} not found!" )
+        if len(thisshapedefs_x)==0 or len(thisshapedefs_x)>1:
+            raise Exception ( f"Too few/many results {len(thisshapedefs_x)}" )
+        thisshapedef_x = thisshapedefs_x[0]
+#        print( f"thisshapedef_x=",ET.tostring(thisshapedef_x) )
+        title = rdfxml.xmlrdf_get_resource_text(thisshapedef_x,'./dcterms:title[@xml:lang="en"]')
+        if title is None:
+            title = rdfxml.xmlrdf_get_resource_text(thisshapedef_x,'./dcterms:title')
+        logger.info( f"{title=}" )
+#        logger.info( f"shape {title} xml={ET.tostring(thisshapedef_x)}" )
+
+        # give this shape some basic props that aren't in the shape definitions
+#        self.register_property( 'oslc:instanceShape', 'oslc:instanceShape', do_not_overwrite=True, typeCodec=resource.InstanceShapeCodec, shape_uri=uri )
+#        self.register_property( 'acp:accessControl', 'acp:accessControl', do_not_overwrite=True, typeCodec=resource.AccessControlCodec , shape_uri=uri)
+#        self.register_property( 'acp:accessContext', 'acp:accessContext', do_not_overwrite=True, typeCodec=resource.AccessControlCodec , shape_uri=uri)
+#        self.register_property( 'process:projectArea', 'process:projectArea', do_not_overwrite=True, typeCodec=resource.ProjectAreaCodec , shape_uri=uri)
+#        self.register_property( 'oslc:serviceProvider', 'oslc:serviceProvider', do_not_overwrite=True, typeCodec=resource.ServiceProviderCodec, shape_uri=uri )
+        if not self.is_known_property_uri( "http://open-services.net/ns/config#component" ):
+            self.register_property( 'Component', 'http://open-services.net/ns/config#component', do_not_overwrite=True, typeCodec=resource.ComponentCodec, shape_uri=uri )
+#        self.register_property( 'category', 'http://jazz.net/ns/qm/rqm#category', do_not_overwrite=True, typeCodec=QMEnumCodec, shape_uri=uri )
+#        self.register_property( 'script Type', 'http://jazz.net/ns/qm/rqm#scriptType', do_not_overwrite=True, typeCodec=QMEnumCodec, shape_uri=uri )
+
+
+        # scan the attributes
+        logger.info( f"{ET.tostring(thisshapedef_x,pretty_print=True)=}" )
+        print( f"{ET.tostring(thisshapedef_x)=}"  )
+        for propel in rdfxml.xml_find_elements( thisshapedef_x, './oslc:property' ):
+            logger.info( "Starting a property")
+            print( f"Starting a property {propel}")
+            propnodeid = rdfxml.xmlrdf_get_resource_uri( propel, attrib="rdf:nodeID" )
+            logger.info( f"{propnodeid=}" )
+            print( f"{propnodeid=}" )
+            real_propel_x = rdfxml.xml_find_element( shapedef_x, f'.//rdf:Description[@rdf:nodeID="{propnodeid}"]' )
+            logger.info( f"{real_propel_x=}" )
+            print( f"{real_propel_x=}" )
+#            print( "XML==",ET.tostring(real_propel_x) )
+            # dcterms:title xml:lang="en"
+            property_title_el = rdfxml.xml_find_element( real_propel_x, './dcterms:title[@xml:lang="en"]')
+            logger.info( f"1 {property_title_el=}" )
+            print( f"1 {property_title_el=}" )
+            if property_title_el is None:
+                property_title_el = rdfxml.xml_find_element(real_propel_x, './dcterms:title[@rdf:datatype]' )
+                logger.info( f"2 {property_title_el=}" )
+                print( f"2 {property_title_el=}" )
+            if property_title_el is None:
+                property_title_el = rdfxml.xml_find_element( real_propel_x, './oslc:name')
+                logger.info( f"3 {property_title_el=}" )
+                print( f"3 {property_title_el=}" )
+            logger.info( f"{property_title_el=}" )
+            print( f"{property_title_el=}" )
+            if property_title_el is None:
+                logger.info( "Skipping shape with no title!" )
+                print( "Skipping shape with no title!" )
+                burp
+                continue
+            property_title = property_title_el.text
+            logger.info( f"{property_title=}" )
+            print( f"{property_title=}" )
+#            if rdfxml.xmlrdf_get_resource_text(real_propel_x,"oslc:hidden") == "true":
+#                logger.info( f"Skipping hidden property {property_title}" )
+#                print( f"Skipping hidden property {property_title}" )
+#                continue
+            valueshape_uri = rdfxml.xmlrdf_get_resource_uri( real_propel_x,'oslc:valueShape' )
+            logger.info( f"{valueshape_uri=}" )
+            print( f"{valueshape_uri=}" )
+            
+            pd_u = rdfxml.xmlrdf_get_resource_uri( real_propel_x, 'oslc:propertyDefinition' )
+            if pd_u is None:
+                pd_u = valueshape_uri
+            else:
+                # if pd is different from vs, create a sameas mapping pd=>vs
+                if valueshape_uri and pd_u != valueshape_uri:
+                    # this ensures that for aexample an instance tag using the pd hasWorkflowState maps to property using the vs WorkflowState
+                    self.sameas[pd_u]=valueshape_uri
+                    print( f"Creating sameas for {pd_u} to {valueshape_uri}" )
+                    
+            print( f"{pd_u=}" )
+            
+            propcodec = None
+            proprange = rdfxml.xmlrdf_get_resource_uri(real_propel_x,'oslc:range' ) 
+            proptype = rdfxml.xmlrdf_get_resource_uri( real_propel_x,'oslc:valueType' )
+            if proptype is None:
+                proptype = proprange
+            print( f"valuetype {pd_u} {proprange=} {proptype=}" )
+            print( f"{proprange=}" )
+#                propcodec = valueTypeToCodec.get( pd_u )
+            propcodec = valueTypeToCodec.get( proptype )
+            print( f"#1 {pd_u=} {proprange=} {propcodec=}" )
+
+            if valueshape_uri is not None:
+                logger.info( f"vs {valueshape_uri}" )
+                print( f"vs {valueshape_uri}" )
+                # register this property with the valueshape URI
+#                propu = f"{uri}#{propnodeid}"
+#                if '/shape/resource/' in uri:
+#                    print( f"a register_prop {property_title} {valueshape_uri} {uri}" )
+#                    self.register_property( property_title, valueshape_uri, shape_uri=uri )
+#                else:
+#                    logger.info( f"Ignored 2 non-resource {uri}" )
+#                    print( f"Ignored 2 non-resource {uri}" 
+#                propcodec = propcodec
+#                print( f"#2 {pd_u=} {propcodec=}" )
+                if not self.is_known_property_uri( pd_u ):
+                    self.register_property( property_title, pd_u, shape_uri=uri, typeCodec=propcodec )
+                    
+                if valueshape_uri.startswith( self.app.baseurl ) and valueshape_uri != uri:
+                    # this shape references another shape - need to load this!
+                    vs_xml = self._get_typeuri_rdf(valueshape_uri)
+                    subshape_x = rdfxml.xml_find_element( vs_xml,f'.//rdf:Description[@rdf:about="{valueshape_uri}"]' )
+                    if subshape_x is None:
+                        logger.info( f"SubShape definition for {valueshape_uri} not found!" )
+                        print( f"SubShape definition for {valueshape_uri} not found!" )
+                        print( f"{ET.tostring(vs_xml)=}" )
+#                        burp
+                        continue
+                    # recurse to load this shape!
+                    logger.info( f"SUBSHAPE_X={valueshape_uri}" )
+                    print( f"SUBSHAPE_X={valueshape_uri}" )
+                    self._load_type_from_resource_shape( subshape_x, supershape=( property_title, valueshape_uri ) )
+                    print( f"DONE SUBSHAPE_X={valueshape_uri}" )
+                else:
+                    logger.info( f"SKIPPED external shape {valueshape_uri=}" )
+#                logger.debug( f"{valueshape_uri=}" )
+#                if not valueshape_uri.startswith( self.app.baseurl):
+#                    logger.info( f"Shape definition isn't local to the app {self.app.baseurl=} {uri=}" )
+#                    continue
+
+#                propuri = rdfxml.xmlrdf_get_resource_uri( real_propel_x, 'oslc:propertyDefinition')
+        #            print( f"{pd_u=}" )
+            # prefer range over valueType (doesn't nmatter for rm but does for qm which has both in a property definition)
+            # lookup the codec, if there is one
+            print( f"{pd_u} {proptype=} {propcodec=}" )
+
+            if self.is_known_property_uri( pd_u ):
+                logger.debug( f"ALREADY KNOWN {pd_u}" )
+                print( f"ALREADY KNOWN {property_title} {pd_u} {propcodec}" )
+                # register it again only so it gets added the shape's list of properties
+                self.register_prop_to_shape( pd_u, uri )
+                
+                continue
+                
+            # work out if multivalued
+            mvtext_x = rdfxml.xmlrdf_get_resource_uri( real_propel_x, "oslc:occurs" )            
+            isMultiValued = mvtext_x=="http://open-services.net/ns/core#Zero-or-many"
+
+
+
+
+
+
+            # In case of repeated identical property titles on a shape, let's create an alternative name that can (perhaps) be used to disambiguate
+            # (at least these don't have duplicates AFAICT)
+            altname  = pd_u[pd_u.rfind("/")+1:]
+            if '#' in altname:
+                altname  = pd_u[pd_u.rfind("#")+1:]
+
+            if pd_u is not None:
+                if not pd_u.startswith( self.app.baseurl ):
+                    if '/shape/resource/' in uri:
+                        print( f"c register_prop {property_title} {pd_u} {uri} {propcodec=}" )
+                        if not self.is_known_property_uri( pd_u ):
+                            self.register_property( property_title, pd_u, altname=altname, shape_uri=uri, typeCodec=propcodec )
+                    else:
+                        logger.info( f"Ignored 3 non-resource {uri}" )
+                        print( f"Ignored 3 non-resource {uri}" )
+                else:
+                    if not self.is_known_property_uri( pd_u ):
+                        self.register_property( property_title, pd_u, altname=altname, shape_uri=uri, typeCodec=propcodec )
+                        
+                    logger.debug( f"+++++++NOT Skipping non-local Property Definition {pd_u}" )
+#                        continue
+            else:
+                logger.debug( f"~~~~~~~Ignoring non-local Property Definition {pd_u}" )
+
+#                if self.is_known_property_uri( pd_u, raiseifnotfound=False ):
+#                    logger.debug( f"ALREADY KNOWN2 {pd_u}" )
+#                    print( f"ALREADY KNOWN2 {pd_u}" )
+#                    continue
+            logger.info( f"Defining property {title}.{property_title} {altname=} {pd_u=} +++++++++++++++++++++++++++++++++++++++" )
+            if '/shape/resource/' in uri:
+                print( f"b register_prop {property_title} {pd_u} {uri} {propcodec=}" )
+                if not self.is_known_property_uri( pd_u ):
+                    self.register_property( property_title, pd_u, altname=altname, shape_uri=uri, typeCodec=propcodec )
+            else:
+                logger.info( f"Ignored 4 non-resource {uri}" )
+                print( f"c ignored 4 non-/shape/resource property {property_title} {pd_u} {uri} {propcodec=}" )
+            # check for any allowed value
+            allowedvalueu = rdfxml.xmlrdf_get_resource_uri(real_propel_x, "oslc:allowedValue" )
+            logger.info( f"{uri=} {allowedvalueu=}" )
+            print( f"{uri=} {allowedvalueu=}" )
+            if allowedvalueu is not None:
+                logger.info( "FOUND ENUM" )
+                print( f"FOUND ENUM {allowedvalueu=}" )
+                propcodec = QMEnumCodec
+                # this has enumerations - find them and record them
+                # retrieve each definition
+                nvals = 0
+                for allowedvaluex in rdfxml.xml_find_elements( real_propel_x, 'oslc:allowedValue' ):
+                    allowedvalueu = rdfxml.xmlrdf_get_resource_uri( allowedvaluex )
+                    # retrieve it and register the enumeration name and uri in typesystem
+                    # a URL
+                    thisenumx = rdfxml.xml_find_element( shapedef_x,f'.//rdf:Description[@rdf:about="{allowedvalueu}"]' )
+                    print( f"{allowedvalueu=} {thisenumx=}" )
+                    if thisenumx is not None:
+                        enum_value_name = rdfxml.xmlrdf_get_resource_text( thisenumx, 'rdfs:label') or rdfxml.xmlrdf_get_resource_text( thisenumx, 'dcterms:title')
+                        enum_id = enum_value_name
+                        print( f"{allowedvalueu=} {enum_value_name=}" )
+                    if allowedvalueu.startswith( 'http:' ) or allowedvalueu.startswith( 'https:' ):
+                        if thisenumx is not None:
+                            enum_uri = allowedvalueu
+                            logger.info( f"{enum_uri=}" )
+                            print( f"{enum_uri=}" )
+                            nvals += 1
+                            if not self.is_known_enum_uri( enum_uri ):
+                                if enum_value_name is None:
+                                    logger.debug( "enum xml=",ET.tostring(thisenumx) )
+                                    print( f"{enum_id=} no name" )
+                                    raise Exception( "Enum name not present!" )
+                                logger.info( f"defining1 enum value {enum_value_name=} {enum_id=} {enum_uri=}" )
+                                print( f"defining1 enum value {enum_value_name=} {enum_id=} {enum_uri=} {pd_u=}" )
+                                self.register_enum( enum_value_name, enum_uri, property_uri=pd_u, id=None )
+                        else:
+                            enum_value_name = allowedvalueu.rsplit( '#', 1 )[1] if '#' in allowedvalueu else allowedvalueu.rsplit( '/', 1 )[1]
+                            enum_id = enum_value_name
+                            enum_uri = allowedvalueu
+                            print( f"Asserting {enum_value_name=} {enum_uri=} {enum_uri=}" )
+                            logger.info( f"defining enum value {enum_value_name=} {enum_id=} {enum_uri=}" )
+                            print( f"defining enum value {enum_value_name=} {enum_id=} {enum_uri=} {pd_u=}" )
+                            nvals += 1
+                            self.register_enum( enum_value_name, enum_uri, property_uri=pd_u, id=None )
+                    else:
+                        # an enum name (not sure why QM does this)
+                        logger.info( f"ENUM NAME {allowedvalueu}" )
+                        print( f"ENUM NAME {allowedvalueu}" )
+                        nvals += 1
+                        print( f"1 defining enum value {allowedvalueu=} {pd_u=}" )
+                        if not self.is_known_property_uri( pd_u ):
+                            self.register_property( property_title, pd_u, shape_uri=uri )
+                            
+                        self.register_enum( allowedvalueu, allowedvalueu, property_uri=pd_u, id=None )
+                        
+                        pass
+                if nvals==0:
+                    raise Exception( f"Enumeration {valueshape_uri} with no values loaded" )
+            else:
+                print( f"Default register_property {property_title=} {pd_u=} {uri=} {propcodec=}" )
+                if not self.is_known_property_uri( pd_u ):
+                    self.register_property( property_title, pd_u, shape_uri=uri )
+                
+            print( f"rpc {property_title=} {pd_u=} {propcodec=}" )
+            self.register_property_codec( property_title, pd_u, propcodec )
+
+        # look for sameas
+        print( f"REGISTERING SameAs" )
+        # register enumdefs
+        for enumdef in rdfxml.xml_find_elements( shapedef_x, './/rdf:Description/owl:sameAs/..' ):
+            print( f"{enumdef=}" )
+            value_uri = rdfxml.xmlrdf_get_resource_uri( enumdef, attrib="rdf:about" )
+            sameas_uri = rdfxml.xmlrdf_get_resource_uri( enumdef, xpath='./owl:sameAs', attrib="rdf:resource" )
+            print( f"{value_uri=} {sameas_uri=}" )
+            self.sameas[value_uri] = sameas_uri
+            
+            # now create enums
+            rdftype_u = rdfxml.xmlrdf_get_resource_uri( enumdef, xpath='./rdf:type', attrib="rdf:resource" )
+            enumtitle = rdfxml.xmlrdf_get_resource_text( enumdef, xpath='./dcterms:title' )
+            print( f"{rdftype_u=} {enumtitle=}" )
+            if rdftype_u is not None:
+                if not self.is_known_property_uri( rdftype_u ):
+                    # make a property name from the type uri
+                    propname = rdftype_u.rsplit( "#",1 )[1] if '#' in rdftype_u else rdftype_u.rsplit( "/",1 )[1]
+                    self.register_property( propname, rdftype_u, shape_uri=uri, typeCodec=QMEnumCodec )
+                # register this as an enum value for property of rdftype_u
+                self.register_enum( enumtitle, sameas_uri, rdftype_u )
+                print( f"rdf1 {enumtitle=} {sameas_uri=} {rdftype_u=}" )
+            else:
+                # register this as a floating enum vlaue (not associated to any property)
+                self.register_enum( enumtitle, sameas_uri )
+                print( f"rdf2 {enumtitle=} {sameas_uri=}" )
+            
+            print( f"SAMEAS {value_uri=} {sameas_uri=}" )
+        print( f"FINISHED REGISTERING SameAs" )
+
+        logger.debug( "Finished loading typesystem")
+        return n
+     
+        
     # return a dictionary with all local component uri as key and name as value (so two components could have the same name?)
     def get_local_component_details(self):
         results = {}

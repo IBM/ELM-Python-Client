@@ -334,3 +334,12 @@ def remove_tag(s):
         s = s[s.find('}') + 1:]
     return s
 
+def startswith_known_prefix( uri, default_map=RDF_DEFAULT_PREFIX):
+    for prefix, prefixurl in default_map.items():
+        print( f"{uri=} {prefix=} {prefixurl=}" )
+        if uri.startswith( prefixurl ):
+            print( f"skp {uri=} True" )
+            return True
+    print( f"skp {uri=} False" )
+    return False
+    

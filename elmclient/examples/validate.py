@@ -89,8 +89,8 @@ def do_validate(inputargs=None):
     parser_list = subparsers.add_parser('list', help='List feeds on this app' )
     parser_validate = subparsers.add_parser('validate', help='Validate a feed on this app' )
 
-    parser_validate.add_argument( 'feedid', help='The feed id - this can be an integer corresponding to the number in the list of feeds, or a unique string (case-sensitive!) which matches part of or all of exactly one feed ID or name')
-    parser_validate.add_argument('-f', '--full', action="store_true", help="Same the web UI option. If true the entire TRS feed will be checked, which takes much longer. This may return more accurate results. This does not discard past validation results, so future validations can still be incremental. If this option consistently returns different results then you may need to also reset the incremental data")
+    parser_validate.add_argument( 'feedid', help='The feed id - this can be an integer corresponding to the index in the list of feeds, or a unique string (case-sensitive!) which matches part of or all of exactly one feed ID or name')
+    parser_validate.add_argument('-f', '--full', action="store_true", help="Same as the web UI option. If true the entire TRS feed will be checked, which takes much longer. This may return more accurate results. This does not discard past validation results, so future validations can still be incremental. If this option consistently returns different results then you may need to also reset the incremental data")
     parser_validate.add_argument('-i', '--resetIncrementalData', action="store_true", help="Same the web UI option. If true the system will discard past validation results and recheck the entire feed again. Otherwise, only changes since last time will be validated. This option is normally only needed if indicated so by IBM support.")
     parser_validate.add_argument('-r', '--repair', action="store_true", help="Use to automatically resolve problems encountered in the feed. Ignored if not supported by the feed.")
 
@@ -216,17 +216,17 @@ def do_validate(inputargs=None):
     # now take whatever action
     if args.subparser_name == 'list':
         # https://jazz.net/rm/doc/scenario?id=GetTrsFeeds
-        jsonresults = app.listFeeds()
+        jsonresults = app.listTRSFeeds()
 #        print( f"{jsonresults=}" )
         for i,feed in enumerate(jsonresults):
 #            print( f"{feed=}" )
-            print( f"{i} Id: '{feed['id']}' name: '{feed['name']}' Description: '{feed['description']}' URL: '{feed['url']}' Supports repair: '{feed['supportsRepair']}'" )
+            print( f"Feed index {i} Id: '{feed['id']}' name: '{feed['name']}' Description: '{feed['description']}' URL: '{feed['url']}' Supports repair: '{feed['supportsRepair']}'" )
         pass
     elif args.subparser_name == 'validate':
         # https://jazz.net/rm/doc/scenario?id=InitiateTrsValidation
         
         # get the list of feeds from the validate API :-)
-        feeds = app.listFeeds()
+        feeds = app.listTRSFeeds()
         
         # work out what the feedid matches
         # an integer is the number in the list (0-based)
@@ -259,7 +259,7 @@ def do_validate(inputargs=None):
             theid = feeds[firstid]['id']
             print( f"Validating feed '{theid}' '{feeds[firstid]['name']}'" )
         
-        result = app.validate( theid, repair=args.repair, resetIncrementalData=args.resetIncrementalData, full=args.full )
+        result = app.validateTRSFeed( theid, repair=args.repair, resetIncrementalData=args.resetIncrementalData, full=args.full )
 #        print( f"{result=}" )
         summary = result.get('summary',{})
         additionalCount = summary.get('additionalCount',-1)

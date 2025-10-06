@@ -32,6 +32,7 @@ class Type_System_Mixin():
         self.typesystem_loaded = False
         self._gettypecache = {}
         self.enumdefs = {}
+        self.sameas = {} # maps a value to it's owl:sameAs
 
     def textreport(self):
 
@@ -157,33 +158,36 @@ class Type_System_Mixin():
             result = uri
         return result
         
-    def register_enumsameas( self, enumname, enumuri, enumtitle, enumid, enumsameas ):
-        if enumuri in self.enumders:
-            return
-        self.enumdefs[enumuri] = { 'name':enumname, 'title':enumtitle, 'id':enumid, 'sameas': enumsameas }
-        return
+#    def register_enumsameas( self, enumname, enumuri, enumtitle, enumid, enumsameas ):
+#        if enumuri in self.enumders:
+#            return
+#        
+#        self.enumdefs[enumuri] = { 'name':enumname, 'title':enumtitle, 'id':enumid, 'sameas': enumsameas }
+#        return
         
     def is_known_shape_uri(self,shape_uri ):
         logger.info( f"is_known_shape_uri {shape_uri=}" )
-        shape_uri = self.normalise_uri( shape_uri )
-        result = self.shapes.get(shape_uri)
+        shape_uri = self.tosameas( self.normalise_uri( shape_uri ) )
+        result = self.shapes.get( self.sameas.get( shape_uri, shape_uri ) )
         logger.info( f"is_known_shape_uri {shape_uri=} returning {result=}" )
         return result
 
     def is_known_linktype_uri( self, uri ):
         logger.info( f"is_known_linktype_uri {uri=}" )
-        uri = self.normalise_uri( uri )
+        uri = self.tosameas( self.normalise_uri( uri ) )
         result = self.linktypes.get(uri)
         logger.info( f"is_known_linktype_uri {uri=} returning {result=}" )
         return result
 
     def register_shape( self, shape_name, shape_uri, *, rdfuri=None, shape_formats=None ):
         logger.info( f"register_shape {shape_name=} {shape_uri=}" )
-        shape_uri = self.normalise_uri( shape_uri)
+#        print( f"register_shape {shape_name=} {shape_uri=}" )
+        shape_uri = self.tosameas( self.normalise_uri( shape_uri) )
         if shape_uri in self.shapes:
             raise Exception( f"Shape {shape_uri} already defined!" )
         # add the URI as the main registration for the shape
         self.shapes[shape_uri] = {'name':shape_name,'shape':shape_uri, 'sameas': rdfuri, 'shape_formats': shape_formats, 'properties':[], 'linktypes':[]}
+#        print( f"\nSSSS\n{self.shapes}\n\n" )
 
     def get_shape_uri( self, shape_name ):
         logger.info( f"get_shape_uri {shape_name=}" )
@@ -196,15 +200,20 @@ class Type_System_Mixin():
         return result
 
     def get_shape_name( self, shape_uri ):
-        shape_uri = self.normalise_uri( shape_uri)
+        shape_uri = self.tosameas( self.normalise_uri( shape_uri) )
         result = self.shapes.get(shape_uri)
         return result
 
 #    def is_known_property_uri( self, property_uri, *, shape_uri=None, raiseifnotfound=True ):
     def is_known_property_uri( self, property_uri, *, raiseifnotfound=True ):
         logger.info( f"is_known_property_uri {property_uri=}" )
-        property_uri = self.normalise_uri( property_uri )
-        result = property_uri in self.properties
+        property_uri = self.tosameas( self.normalise_uri( property_uri ) )
+        uri1 = self.sameas.get( property_uri, property_uri )
+#        print( f"*** {property_uri=} {uri1=} {property_uri==uri1}" )
+#        print( f"{uri1=} {self.properties.get(uri1)=}" )
+#        print( f"{self.properties=}" )
+        result = self.properties.get( self.sameas.get( property_uri, property_uri ) ) is not None
+#        print( f"{self.properties.get( uri1 )=}" )
 #        shape_uri = self.normalise_uri( shape_uri )
 #        if shape_uri is None and property_uri in self.properties:
 #            if self.properties[property_uri]['shape']==shape_uri:
@@ -216,31 +225,56 @@ class Type_System_Mixin():
 #        else:
 #            result = False
         logger.info( f"is_known_property_uri {property_uri=} returning {result=}" )
+#        print( f"is_known_property_uri {self=} {property_uri=} returning {result=}" )
         return result
 
+    def tosameas( self, uri ):
+        return self.sameas.get( uri, uri )
+
+    def register_prop_to_shape( self, property_uri, shape_uri ):
+        property_uri = self.tosameas( self.normalise_uri( property_uri ) )
+        shape_uri = self.tosameas( self.normalise_uri( shape_uri ) )
+        if shape_uri not in self.shapes:
+            burp
+        if property_uri not in self.properties:
+            burp
+        if property_uri not in self.shapes[shape_uri]['properties']:
+            self.shapes[shape_uri]['properties'].append( property_uri )
+                
 #    def register_property( self, property_name, property_uri, *, property_value_type=None, shape_uri=None, altname = None, do_not_overwrite=True, property_definition_uri=None, isMultiValued=False, typeCodec=None ):
     def register_property( self, property_name, property_uri, *, shape_uri=None, property_value_type=None, altname = None, do_not_overwrite=True, property_definition_uri=None, isMultiValued=False, typeCodec=None ):
-        logger.info( f"register_property {property_name=} {property_uri=} {isMultiValued=} {typeCodec=}" )
-#        print( f"register_property {property_name=} {property_uri=} {isMultiValued=} {typeCodec=}" )
+        logger.info( f"register_property {self=} {property_name=} {property_uri=} {shape_uri=} {isMultiValued=} {typeCodec=}" )
+#        print( f"register_property {self=} {property_name=} {property_uri=} {shape_uri=} {isMultiValued=} {typeCodec=}" )
+        property_uri = self.tosameas( self.normalise_uri( property_uri ) )
+        shape_uri = self.tosameas( self.normalise_uri( shape_uri ) )
         if property_uri in self.properties:
-#            print( f"Already defined {self.properties[property_uri]=}" )
-#            burp
+#            print( f"Property {property_uri} already defined {self.properties[property_uri]=}" )
+            burp
             pass
-        property_uri = self.normalise_uri( property_uri )
-#        shape_uri = self.normalise_uri( shape_uri )
+        if property_uri is None:
+            burp
+        if property_uri in self.properties and typeCodec and type(typeCodec) != type(self.properties[property_uri]['typeCodec']):
+#            print( f"{self.properties[property_uri]=}" )
+            raise Exception( f"Codec for {property_name} {property_uri} already set to {self.properties[property_uri]['typeCodec']} so can't set again to {codec}!" )
+
         if not do_not_overwrite or property_uri not in self.properties:
 #            self.properties[property_uri] = {'name': property_name, 'shape': shape_uri, 'enums': [], 'value_type': property_value_type, 'altname':altname, 'isMultiValued':isMultiValued, 'typeCodec': typeCodec }
             self.properties[property_uri] = {'name': property_name, 'enums': [], 'value_type': property_value_type, 'altname':altname, 'isMultiValued':isMultiValued, 'typeCodec': typeCodec }
+#        else:
+#            burp
         if altname and property_definition_uri and ( not do_not_overwrite or property_definition_uri not in self.properties):
             self.properties[property_definition_uri] = {'name': altname, 'enums': [], 'value_type': property_value_type, 'altname':None, 'isMultiValued':isMultiValued, 'typeCodec': typeCodec }
             self.properties[rdfxml.uri_to_default_prefixed_tag(property_definition_uri)] = {'name': altname, 'enums': [], 'value_type': property_value_type, 'altname':None, 'isMultiValued':isMultiValued, 'typeCode': typeCodec }
         if shape_uri is not None and property_uri not in self.shapes[shape_uri]['properties']:
             self.shapes[shape_uri]['properties'].append(property_uri)
+            
+#        print( f"\nPPPP\n{self.properties}\nSSSSS\n{self.shapes[shape_uri]}\n\n" )
 
 #    def register_property_codec( self, property_name, property_uri, codec, shape_uri=None ):
     def register_property_codec( self, property_name, property_uri, codec ):
 #        print( f"rpc {property_name=} {property_uri=} {codec=}" )
         if property_uri not in self.properties:
+#            print( f"{self.properties=}" )
             raise Exception()
         if self.properties[property_uri].get('typeCodec'):
             if type(codec) != type(self.properties[property_uri]['typeCodec']):
@@ -251,7 +285,7 @@ class Type_System_Mixin():
 #    def register_linktype( self, linktype_name, linktype_uri, label, *, inverselabel=None, rdfuri=None, shape_uri=None, isMultiValued=False, typeCodec=None ):
     def register_linktype( self, linktype_name, linktype_uri, label, *, inverselabel=None, rdfuri=None, isMultiValued=False, typeCodec=None ):
         logger.info( f"register_linktype {linktype_name=} {linktype_uri=} {label=} {inverselabel=} {rdfuri=} {typeCodec=}" )
-        linktype_uri = self.normalise_uri( linktype_uri )
+        linktype_uri = self.tosameas( self.normalise_uri( linktype_uri ) )
 #        shape_uri = self.normalise_uri( shape_uri )
         if linktype_uri not in self.linktypes:
 #            self.linktypes[linktype_uri] = {'name': label, 'inverselabel': inverselabel, 'shape': shape_uri, 'rdfuri': rdfuri }
@@ -261,6 +295,7 @@ class Type_System_Mixin():
         
     def get_linktype_name( self, uri ):
 #        print( f"gln {uri=}" )
+        uri = self.tosameas( self.normalise_uri( uri ) )
         if uri in self['linktypes']:
 #            print( f"{self['linktypes'][uri]['name']=}" )
             return self['linktypes'][uri]['name']
@@ -274,6 +309,7 @@ class Type_System_Mixin():
 #        shape_uri = self.normalise_uri( shape_uri )
 #        properties = [k for k,v in self.properties.items() if v['name']==property_name and v['shape']==shape_uri]
         if shape_uri:
+            shape_uri = self.tosameas( self.normalise_uri( shape_uri ) )
             properties = [k for k,v in self.properties.items() if v['name']==property_name and k in self.shapes[shape_uri]['properties']]
 #            print( f"0{self.shapes[shape_uri]['properties']=}" )
 #            print( f"1 {properties=}" )
@@ -306,35 +342,39 @@ class Type_System_Mixin():
 
     def get_property_name( self, property_uri, shape_uri=None ):
         logger.info( f"get_property_name {property_uri=} {shape_uri=}" )
-        property_uri = self.normalise_uri( property_uri )
+        property_uri = self.tosameas( self.normalise_uri( property_uri ) )
         result = self.properties.get(property_uri)
         return result
         
-    def get_enum_names( self, propuri ):
-        result = [self.enums[e]['name'] for e in self.properties[propuri]['enums']]
-#        print( f"Enum names {propuri=} = {result=}" )
+    def get_enum_names( self, property_uri ):
+        property_uri = self.tosameas( self.normalise_uri( property_uri ) )
+        result = [self.enums[e]['name'] for e in self.properties[property_uri]['enums']]
+#        print( f"Enum names {property_uri=} = {result=}" )
         return result
             
         
     def is_known_enum_uri( self, enum_uri ):
-        enum_uri = self.normalise_uri( enum_uri )
-        result = self.enums.get(enum_uri)
+        enum_uri = self.tosameas( self.normalise_uri( enum_uri ) )
+        result = self.enums.get( self.sameas.get( enum_uri, enum_uri ) )
         logger.info( f"is_known_enum_uri {enum_uri=} returning {result=}" )
         return result
 
-    def register_enum( self, enum_name, enum_uri, property_uri, *, id=None ):
+    def register_enum( self, enum_name, enum_uri, property_uri=None, *, id=None ):
         logger.info( f"register_enum {enum_name=} {enum_uri=} {property_uri=} {id=}" )
+#        print( f"register_enum {enum_name=} {enum_uri=} {property_uri=} {id=}" )
         # add the enum  to the property
-        enum_uri = self.normalise_uri( enum_uri )
-        property_uri = self.normalise_uri( property_uri )
+        enum_uri = self.tosameas( self.normalise_uri( enum_uri ) )
+        if property_uri is not None:
+            property_uri = self.tosameas( self.normalise_uri( property_uri ) )
         self.enums[enum_uri] = {'name': enum_name, 'id':id, 'property': property_uri}
         if id:
             self.enums[id] = {'name': enum_name, 'id':id, 'property': property_uri}
-        if enum_uri not in self.properties[property_uri]['enums']:
+        if property_uri and enum_uri not in self.properties[property_uri]['enums']:
             self.properties[property_uri]['enums'].append(enum_uri)
+#        print( f"\nEEEE\n{self.properties[property_uri]['enums']}\n{self.properties[property_uri]}\n\n" )
 
     def get_enum_uri(self, enum_name, property_uri):
-        property_uri = self.normalise_uri( property_uri )
+        property_uri = self.tosameas( self.normalise_uri( property_uri ) )
         result = None
         for enumuri in self.properties[property_uri]['enums']:
             if self.enums[enumuri]['name']==enum_name:
@@ -343,15 +383,18 @@ class Type_System_Mixin():
         return result
 
     def get_enum_name( self, enum_uri ):
-        property_uri = self.normalise_uri( property_uri )
+        property_uri = self.tosameas( self.normalise_uri( property_uri ) )
         return self.enums[enum_uri]['name']
 
     def get_enum_id( self, enum_name, property_uri ):
         logger.info( f"get_enum_id {enum_name=} {property_uri=}" )
-        property_uri = self.normalise_uri( property_uri )
+        print( f"get_enum_id {enum_name=} {property_uri=}" )
+        property_uri = self.tosameas( self.normalise_uri( property_uri ) )
         result = None
         logger.info( f"{self.properties[property_uri]=}" )
+        print( f"{self.properties[property_uri]=}" )
         logger.info( f"{self.properties[property_uri]['enums']=}" )
+        print( f"{self.properties[property_uri]['enums']=}" )
         for enum_uri in self.properties[property_uri]['enums']:
             if self.enums[enum_uri]['name']==enum_name:
                 result = self.enums[enum_uri]['id'] or enum_uri
@@ -364,21 +407,22 @@ class Type_System_Mixin():
 
     def is_known_uri( self, uri ):
         logger.debug( f"iku {uri}" )
-        uri = self.normalise_uri( uri )
+        uri = self.tosameas( self.normalise_uri( uri ) )
         result =  ( self.shapes.get(uri) or self.properties.get(uri) or self.enums.get(uri) or self.values.get(uri) or self.linktypes.get(uri) ) is not None
         logger.info( f"is_known_uri {uri=} returning {result=} s={self.shapes.get(uri)} p={self.properties.get(uri)} e={self.enums.get(uri)} v={self.values.get(uri)}" )
         return result
 
     def register_name( self, name, uri ):
-        uri = self.normalise_uri( uri )
+        uri = self.tosameas( self.normalise_uri( uri ) )
         self.values[uri]={'name': name }
 
     def get_uri_name( self, uri ):
-        uri = self.normalise_uri( uri )
+        uri = self.tosameas( self.normalise_uri( uri ) )
         result = self.shapes.get(uri) or self.properties.get(uri) or self.enums.get(uri) or self.values.get(uri) or self.linktypes.get(uri)
         if result is not None:
             result = result['name']
         logger.info( f"get_uri_name {uri=} returning {result=}" )
+        print( f"get_uri_name {uri=} returning {result=}" )
         return result
 
     def get_name_uri( self, name ):

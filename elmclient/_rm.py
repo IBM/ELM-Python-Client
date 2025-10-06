@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: MIT
 ##
 
+import copy
 import datetime
 import logging
 import re
@@ -129,7 +130,7 @@ class RDFURICodec( resource.Codec ):
 #        print( f"Decode {rdftype_u} {result=}" )
         return result
     
-class EnumCodec( resource.Codec ):
+class RMEnumCodec( resource.Codec ):
     def encode( self, pythonvalue ):
         # decode an enumeration name to the corresponding URL
         # scan the enum urls in this property
@@ -223,6 +224,7 @@ class RMProject(_project._Project, resource.Resources_Mixin ):
         self.gcconfiguri = None
         self.default_query_resource = "oslc_rm:Requirement"
         self._iscomponent=False
+        self._initial_confs_to_load = []
         self._confs_to_load = []
         self._confstoparent = []
         self.configTree = None
@@ -257,7 +259,7 @@ class RMProject(_project._Project, resource.Resources_Mixin ):
         if fname in self._folders:
             if self._folders[fname] is not None:
                 if folderuri != self._folders[fname].folderuri:
-                    self._folders[fname] = None # ambiguous!!!
+                    self._folders[fname] = None # ambiguous!!! No exception until the ambiguous name might be used!
                     logger.info( f"Folder name ambiguous {fname=} {folderuri} is ambiguous!" )
         else:
             logger.info( "Not ambiguous" )
@@ -346,13 +348,16 @@ class RMProject(_project._Project, resource.Resources_Mixin ):
 
             # process the contained folders
             for folderel in folderels:
+#                print( f"{folderel=}" )
                 # get this folder details - name, queryuri
                 fname = rdfxml.xmlrdf_get_resource_text(folderel,'.//dcterms:title')
+#                print( f"{fname=}" )
                 folderuri = rdfxml.xmlrdf_get_resource_uri( folderel )
+#                print( f"{folderuri=}" )
                 logger.info( f"{fname=} {folderuri=}" )
 
                 thisfolder = self._savefolder( parent, fname, folderuri )
-
+#                print( f"{thisfolder=}" )
                 # insert the subfolder query uris into the list still to be loaded
                 for subel in rdfxml.xml_find_elements(folderel,'.//rm_nav:subfolders'):
                     # add the subfolder query queryuri onto the list of folders to retrieve
@@ -448,7 +453,8 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
         logger.info( f"rmp gh {result=}" )
         return result
 
-    def load_components_and_configurations(self,force=False, cacheable=True):
+    # callbackfn has parameters ( completed, total, after=True ) - it's called before the update and after
+    def load_components_and_configurations(self,force=False, cacheable=True, compcallbackfn=None, configcallbackfn=None ):
         if self._components and not force:
             return
         self.configTree = anytree.AnyNode(name="theroot")
@@ -459,6 +465,9 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
         nconfs = 0
         # retrieve components and configurations for this project
         if not self.is_optin:
+            if compcallbackfn:
+                compcallbackfn( 0, 1, after=False ) 
+
             # get the default configuration
             projx = self.execute_get_xml(self.reluri('rm-projects/' + self.iid), intent="Retrieve project definition", cacheable=cacheable)
             compsu = rdfxml.xmlrdf_get_resource_text( projx, './/jp06:components' )
@@ -486,6 +495,9 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                 logger.debug( "{confs=}" )
             for confu in confs:
 #                confu = aconf['value']
+                if configcallbackfn:
+                    configcallbackfn( nconfs, len(confs), after=False ) 
+
                 confx = self.execute_get_xml(confu, intent="Retrieve a configuration definition", cacheable=cacheable)
                 conftitle = rdfxml.xmlrdf_get_resource_text(confx,'.//dcterms:title')
                 conftype = 'Stream' if 'stream' in confu else 'Baseline'
@@ -493,14 +505,14 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                 self._components[defaultcompu]['configurations'][confu] = {'name': conftitle, 'conftype': conftype, 'confXml': confx, 'created': created}
                 self._configurations[defaultcompu] = self._components[defaultcompu]['configurations'][confu]
                 nconfs += 1
+                if configcallbackfn:
+                    configcallbackfn( nconfs, len(confs), after=True ) 
+                    
+            if compcallbackfn:
+                compcallbackfn( 1, 1, after=True ) 
         elif self.singlemode:
-            #get the single component from a QueryCapability
-            # <oslc:QueryCapability>
-            #    <oslc_config:component rdf:resource="https://mb02-calm.rtp.raleigh.ibm.com:9443/rm/cm/component/_ln_roBIOEeumc4tx0skHCA"/>
-            #    <oslc:resourceType rdf:resource="http://jazz.net/ns/rm/dng/view#View"/>
-            #    <oslc:queryBase rdf:resource="https://mb02-calm.rtp.raleigh.ibm.com:9443/rm/views_oslc/query?componentURI=https%3A%2F%2Fmb02-calm.rtp.raleigh.ibm.com%3A9443%2Frm%2Fcm%2Fcomponent%2F_ln_roBIOEeumc4tx0skHCA"/>
-            #    <dcterms:title rdf:datatype="http://www.w3.org/2001/XMLSchema#string">View Definition Query Capability</dcterms:title>
-            # </oslc:QueryCapability>
+            if compcallbackfn:
+                compcallbackfn( 0, 1, after=False ) 
 
             px = self.execute_get_xml(self.project_uri, intent="Retrieve the project definition", cacheable=cacheable)
 
@@ -512,12 +524,16 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
             ncomps += 1
             self._components[compuri] = {'name': self.name, 'configurations': {}, 'confs_to_load': []}
             configs = self.execute_get_xml(compuri+"/configurations", intent="Retrieve project/component's list of all configurations", cacheable=cacheable)
-            for conf in rdfxml.xml_find_elements(configs,'.//rdfs:member'):
+            confs = rdfxml.xml_find_elements(configs,'.//rdfs:member')
+            for conf in confs:
+                if configcallbackfn:
+                    configcallbackfn( nconfs, len(confs), after=False ) 
                 confu = rdfxml.xmlrdf_get_resource_uri(conf)
                 try:
                     thisconfx = self.execute_get_xml(confu, intent="Retrieve a configuration definition", cacheable=cacheable)
                 except:
                     logger.info( f"Singlemode config ERROR probably archived {confu} !!!!!!!" )
+                    nconfs += 1 
                     continue
                 conftitle= rdfxml.xmlrdf_get_resource_text(thisconfx,'.//dcterms:title')
                 created = rdfxml.xmlrdf_get_resource_uri(thisconfx, './/dcterms:created')
@@ -530,6 +546,12 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                 self._components[compuri]['configurations'][confu] = {'name': conftitle, 'conftype': conftype, 'confXml': thisconfx, 'created':created}
                 self._configurations[confu] = self._components[compuri]['configurations'][confu]
                 nconfs += 1
+                if configcallbackfn:
+                    configcallbackfn( nconfs, len(confs), after=True ) 
+                    
+            if compcallbackfn:
+                compcallbackfn( 1, 1, after=True ) 
+                
             self._configurations = self._components[compuri]['configurations']
         else: # optin but could be single component
             cmsp_xml = self.app.retrieve_cm_service_provider_xml()
@@ -572,8 +594,10 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                 # full optin
                 cru = rdfxml.xmlrdf_get_resource_uri(projcx, 'oslc:creation')
                 crx = self.execute_get_rdf_xml(cru, intent="Retrieve project's oslc:creation RDF", cacheable=cacheable)
-
-                for component_el in rdfxml.xml_find_elements(crx, './/ldp:contains'):
+                comps = rdfxml.xml_find_elements(crx, './/ldp:contains')
+                for component_el in comps:
+                    if compcallbackfn:
+                        compcallbackfn( ncomps, len( comps ), after=False ) 
                     compu = component_el.get("{%s}resource" % rdfxml.RDF_DEFAULT_PREFIX["rdf"])
                     compx = self.execute_get_rdf_xml(compu, intent="Retrieve component definition to find all configurations", action="Retrieve each configuration", cacheable=cacheable)
                     comptitle = rdfxml.xmlrdf_get_resource_text(compx, './/dcterms:title')
@@ -646,8 +670,8 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
             else:
                 c = self._create_component_api(cu, cname, cconfs_to_load)
             c._configurations = self._components[cu]['configurations']
-            c._confs_to_load = self._components[cu]['confs_to_load']
-            self._confs_to_load.extend(self._components[cu]['confs_to_load'])
+            c._initial_confs_to_load = self._components[cu]['confs_to_load']
+            self._initial_confs_to_load.extend(self._components[cu]['confs_to_load'])
             self._components[cu]['component'] = c
         return (ncomps, nconfs)
 
@@ -662,30 +686,44 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
         cconfs_to_load = [confu]
         c = self._create_component_api(compu, cname, cconfs_to_load)
         c._configurations = self._components[compu]['configurations']
-        c._confs_to_load = self._components[compu]['confs_to_load']
-        self._confs_to_load.extend(self._components[compu]['confs_to_load'])
+        c._initial_confs_to_load = self._components[compu]['confs_to_load']
+        self._initial_confs_to_load.extend(self._components[compu]['confs_to_load'])
         self._components[compu]['component'] = c
         return c
 
     # if given stopatnameoruri returns True if found, False if not (which means all configs have been loaded and it isn't there!)
-    def load_configs(self, cacheable=True, stopatnameoruri=None, verbose=False, incremental=False ):
+    # callbackfn has parameters ( completed, total, after=True ) - it's called before the update and after
+    def load_configs(self, *, cacheable=True, stopatnameoruri=None, verbose=False, incremental=False, loadchangesets=True, configcallbackfn=None ):
         logger.debug( f"Loading configs {self._confs_to_load=}, {stopatnameoruri=}" )
+        print( f"Loading configs {self._confs_to_load=}, {stopatnameoruri=}" )
+#        print( f"Loading configs {self._confs_to_load=}, {stopatnameoruri=}" )
         # load configurations
         # and build a tree with initial baseline as root, alternating baseline and stream nodes each with a list of children, so it can be walked if needed
         if not incremental or not self.configTree:
             self.configTree = anytree.AnyNode(name='theroot',title='root', created=None, typesystem=None, ismutable=False, ischangeset=False )
+            self._confs_to_load = copy.copy( self._initial_confs_to_load )
+            print( f"Created configtree {self.configTree=}" )
         result = False
-        
+        nconfs=0
         # now load configs
         while True:
+            print( f"{self._confs_to_load=}" )
+            if configcallbackfn:
+                configcallbackfn( nconfs, len(self._configurations.keys())+len(self._confs_to_load), after=False ) 
+            
             if verbose:
                 print( ".",end="" )
             if not self._confs_to_load:
                 break
+                
             confu = self._confs_to_load.pop()
+            
             if not confu:
                 # skip None in list
+                print( f"Skipping None in {self._confs_to_load}" )
                 continue
+
+            nconfs += 1
 
 #            print( f"Retrieving config {confu}" )
             logger.debug( f"Retrieving config {confu}" )
@@ -720,7 +758,8 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
 #                print( f"1 {len(self._confs_to_load)} {self._confs_to_load=}" )
                 self._confs_to_load.append( rdfxml.xmlrdf_get_resource_uri(confmember_x, './oslc_config:streams') )
                 self._confs_to_load.append( rdfxml.xmlrdf_get_resource_uri(confmember_x, './oslc_config:baselines') )
-                self._confs_to_load.append( rdfxml.xmlrdf_get_resource_uri(confmember_x, './rm_config:changesets') )
+                if loadchangesets:
+                    self._confs_to_load.append( rdfxml.xmlrdf_get_resource_uri(confmember_x, './rm_config:changesets') )
                 self._confs_to_load=list(set(self._confs_to_load))
 #                print( f"2 {len(self._confs_to_load)} {self._confs_to_load=}" )
                 logger.debug( f"{thisconfu=}" )
@@ -751,7 +790,6 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                     else:
                         raise Exception( f"Unrecognized configuration type {confmember_x.tag}" )
 
-
                 if thisconfu in self._configurations:
                     logger.debug( f"Skipping {thisconfu} because already defined" )
 #                    print( f"Skipping {thisconfu} because already defined" )
@@ -764,6 +802,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                                                         ,'confXml': confmember_x
                                                         ,'created': created
                                                     }
+                    
 #                    self._configurations[thisconfu] = self._components[self.project_uri]['configurations'][thisconfu]
                 # use wasDerivedfrom to find the source or eaither a stream or baseline - there isn't one for the Initial Stream!
                 theparent_u = rdfxml.xmlrdf_get_resource_uri( confmember_x,'./prov:wasDerivedFrom')
@@ -788,11 +827,15 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                     if parentnode is None:
                         # do this one later
                         self._confstoparent.append( ( thisnode, theparent_u ) )
-#                        print( f"\nSaved for later {self._confstoparent[-1]=}" )
+                        print( f"\nSaved for later {self._confstoparent[-1]=}" )
                     else:
                         # parent is known so attach to it
                         thisnode.parent = parentnode
-#                        print( f"\nConfig {conftitle} Added config {thisconfu} parent={parentnode}" )
+                        print( f"\nConfig {conftitle} Added config {thisconfu} parent={parentnode}" )
+
+            if configcallbackfn:
+                configcallbackfn( nconfs, len(self._configurations.keys())+len(self._confs_to_load), after=True ) 
+
             # now check if stopatnameoururi is present and if so set result True
             if result:
                 break
@@ -806,19 +849,24 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                 (node,theparent_u) = nodedetails
 #                print( f"\n{node=} {theparent_u=}" )
                 # if we find the parent, attach it - if not found, add it to this list of those still needing parent
-                parentnode = anytree.search.find( self.configTree, filter_=lambda n: n.name==theparent_u )
-                if parentnode:
-                    # found!
-                    node.parent = parentnode
-                    foundparent = True
-#                    print( f"\nParented {node=} {theparent_u}" )
+                parentnodes = anytree.search.findall( self.configTree, filter_=lambda n: n.name==theparent_u )
+#                print( f"{parentnodes=}" )
+                if parentnodes:
+                    parentnode = parentnodes[0]
+                    if parentnode:
+                        # found!
+                        node.parent = parentnode
+                        foundparent = True
+    #                    print( f"\nParented {node=} {theparent_u}" )
+                    else:
+                        # remember this still needs parenting! Will be found on a later pass UNLESS it's been tried a few times and always fails
+                        # in which case we'll print a message and ignore the config!
+                        newconfstoparent.append( (node,theparent_u) )
+    #                    print( f"\npostponing {node=} {theparent_u}" )
+    #                    print( f"tree= {anytree.RenderTree(self.configTree, style=anytree.AsciiStyle())}" )
                 else:
-                    # remember this still needs parenting! Will be found on a later pass UNLESS it's been tried a few times and always fails
-                    # in which case we'll print a message and ignore the config!
-                    newconfstoparent.append( (node,theparent_u) )
-#                    print( f"\npostponing {node=} {theparent_u}" )
-#                    print( f"tree= {anytree.RenderTree(self.configTree, style=anytree.AsciiStyle())}" )
-                    
+                    print( f"No possible parent found for {theparent_u} - ignoring it!" )
+                    burp
             self._confstoparent = newconfstoparent
             # if no parent was found on this run through confstoparent, give up with the confs to parent preserved
             if not foundparent:
@@ -934,6 +982,30 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                     
         return result
 
+    def find_config_name( self, config_u ):
+        self.load_configs()
+        conf = self._configurations.get( config_u )
+        if conf:
+            return conf['name']
+        raise Exception( f"Config {config_u} not found!" )
+            
+    def load_new_config( self, config_u ):
+        # try GETting the url in case it's a new config (e.g. a changeset)
+        config_x = self.execute_get_rdf_xml(config_u, intent="Retrieve a configuration definition" )
+
+#                    print( f"Adding {conftitle}" )
+        conftitle = rdfxml.xmlrdf_get_resource_text(config_x, './/dcterms:title')
+        created = rdfxml.xmlrdf_get_resource_uri(config_x, './/dcterms:created', exceptionifnotfound=True)
+        conftype = "Unknown"
+
+        self._configurations[config_u] = {
+                                                'name': conftitle
+                                                ,'conftype': conftype
+                                                ,'confXml': config_x
+                                                ,'created': created
+                                            }
+        return conftitle
+        
     def list_configs( self ):
         configs = []
         self.load_configs()
@@ -972,6 +1044,29 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
             raise Exception( "services xml not found!" )
         self.typesystem_loaded = True
 
+        if False:
+            print( "\n+++" )
+            for i,p_u in enumerate( self.shapes.keys() ):
+                print( f"shapes {i} {p_u} {self.shapes[p_u]}" )
+                pass
+            
+            print( "\n---" )
+            for i,p_u in enumerate( self.properties.keys() ):
+                print( f"props {i} {p_u} {self.properties[p_u]}" )
+                pass
+
+            print( "\n===" )
+            for i,p_u in enumerate( self.enums.keys() ):
+                print( f"enums {i} {p_u} {self.enums[p_u]}" )
+                pass
+
+            print( "\n^^^" )
+            for i,p_u in enumerate( self.sameas.keys() ):
+                print( f"sameas {i} {p_u} {self.sameas[p_u]}" )
+                pass
+
+            print( "\n\n" )
+        
         return None
 
     # pick all the attributes from a resource shape definition
@@ -1010,29 +1105,33 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
 
         # register this shape as an oslc_instanceShape enum - this is an enumeration of all the defined types
         # ensure the oslc:instanceShape property is defined (but don't overwrite existing definition)
-        self.register_property( 'oslc:instanceShape', 'oslc:instanceShape', do_not_overwrite=True, typeCodec=resource.InstanceShapeCodec, shape_uri=uri )
-        self.register_property( 'acp:accessControl', 'acp:accessControl', do_not_overwrite=True, typeCodec=resource.AccessControlCodec , shape_uri=uri)
-        self.register_property( 'process:projectArea', 'process:projectArea', do_not_overwrite=True, typeCodec=resource.ProjectAreaCodec , shape_uri=uri)
-        self.register_property( 'oslc:serviceProvider', 'oslc:serviceProvider', do_not_overwrite=True, typeCodec=resource.ServiceProviderCodec, shape_uri=uri )
+        if not self.is_known_property_uri( 'oslc:instanceShape' ):
+            self.register_property( 'oslc:instanceShape', 'oslc:instanceShape', do_not_overwrite=True, typeCodec=resource.InstanceShapeCodec, shape_uri=uri )
+        if not self.is_known_property_uri( 'acp:accessControl' ):
+            self.register_property( 'acp:accessControl', 'acp:accessControl', do_not_overwrite=True, typeCodec=resource.AccessControlCodec , shape_uri=uri)
+        if not self.is_known_property_uri( 'process:projectArea' ):
+            self.register_property( 'process:projectArea', 'process:projectArea', do_not_overwrite=True, typeCodec=resource.ProjectAreaCodec , shape_uri=uri)
+        if not self.is_known_property_uri( 'oslc:serviceProvider' ):
+            self.register_property( 'oslc:serviceProvider', 'oslc:serviceProvider', do_not_overwrite=True, typeCodec=resource.ServiceProviderCodec, shape_uri=uri )
         # add the shape to it using the shape's URI as an enum URI
         self.register_enum( name, uri, 'oslc:instanceShape')
 
         n = 0
         # scan the attributes/properties
         for el in rdfxml.xml_find_elements(shapedef, './/oslc:Property/dcterms:title/..') + rdfxml.xml_find_elements(shapedef, './/oslc:Property/oslc:name/..'):
-#            print( f"{el=}" )
-#            print( f"{rdfxml.xmlrdf_get_resource_uri( el,'rdf:resource' )=}" )
-#            print( ET.tostring( el ) )
+            print( f"{el=}" )
+            print( f"{rdfxml.xmlrdf_get_resource_uri( el,'rdf:resource' )=}" )
+            print( ET.tostring( el ) )
             property_title_x = rdfxml.xml_find_element(el, 'dcterms:title')
             if property_title_x is None:
                 property_title_x = rdfxml.xml_find_element(el, 'oslc:name')
             if property_title_x is None:
                 burp
             property_title = property_title_x.text
-#            print( f"Loading {property_title}" )
+            print( f"Loading {property_title}" )
 #            propuri = rdfxml.xml_find_element( el, 'oslc:propertyDefinition').get( "{%s}resource" % rdfxml.RDF_DEFAULT_PREFIX["rdf"])
             propuri = rdfxml.xmlrdf_get_resource_uri( el, 'oslc:propertyDefinition')
-#            print( f"{propuri=}" )
+            print( f"{propuri=}" )
             # prefer range over valueType (doesn't nmatter for rm but does for qm which has both in a property definition)
             proptype = rdfxml.xmlrdf_get_resource_uri( el,'oslc:range' )
             if proptype is None:
@@ -1056,9 +1155,9 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
             # all links have a Reference oslc:representation
             # true links have         <oslc:range rdf:resource="http://open-services.net/ns/core#Resource"/>
             if rdfxml.xml_find_element( el, "oslc:representation[@rdf:resource='http://open-services.net/ns/core#Reference']") is not None and ( rdfxml.xml_find_element( el, "oslc:range[@rdf:resource='http://open-services.net/ns/core#Resource']" ) is not None or rdfxml.xml_find_element( el, "oslc:valueType[@rdf:resource='http://open-services.net/ns/core#Resource']" ) is not None):
-#                print( f"Ref {propuri=}" )
+                print( f"Ref {propuri=}" )
                 if propuri is not None:
-#                    print( f"Ref1 {propuri=}" )
+                    print( f"Ref1 {propuri=}" )
                     if propcodec is None: # don't override if the codec is already set!
                         propcodec = RMLinkCodec
                 # this could be a link type or an attribute datatype reference
@@ -1078,45 +1177,45 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                     self.register_linktype( property_title, propuri, label, inverselabel=inverselabel, rdfuri=rdfuri, typeCodec=propcodec, isMultiValued=isMultiValued )
             if True:
                 logger.info( f"Defining property {name}.{property_title} {propuri=} +++++++++++++++++++++++++++++++++++++++" )
-#                print( f"Defining property {name}.{property_title} {propuri=} {uri=} +++++++++++++++++++++++++++++++++++++++" )
+                print( f"Defining property {name}.{property_title} {propuri=} {uri=} +++++++++++++++++++++++++++++++++++++++" )
 #            self.register_property(property_title,propuri, shape_uri=uri)
 
-#            if property_title=="Residual POHS":
-#                print( ET.tostring( el ) )
                 # need to work out the codec
                 
                 self.register_property( property_title, propuri, isMultiValued=isMultiValued, shape_uri=uri )
                 # load the attribute definitions
                 n += 1
                 for range_el in rdfxml.xml_find_elements(el, 'oslc:range'):
+                    print( f"{range_el=}" )
                     range_uri = rdfxml.xmlrdf_get_resource_uri( range_el )
 
-                    if not range_uri.startswith( self.app.baseurl):
+                    if not range_uri.startswith( self.app.baseurl ):
                         logger.info( f"EXTERNAL {range_uri=}" )
                     else:
                         # retrieve all the enum value definitions
                         try:
                             # retrieve the definition of the range
-#                            print( f"Retrieving range rdf '{range_uri}'" )
+                            print( f"Retrieving range rdf '{range_uri}'" )
                             range_xml = self._get_typeuri_rdf(range_uri)
-#                            print( f"{range_xml=} {ET.tostring(range_xml)}" )
+                            print( f"{range_xml=} {ET.tostring(range_xml)}" )
                             if range_xml:
-                                enum_els = rdfxml.xml_find_elements(range_xml, './/rdf:Description/rdf:value/..')
-#                                print( f"{enum_els=}" )
+#                                enum_els = rdfxml.xml_find_elements(range_xml, './/rdf:Description/rdf:value/..')
+                                enum_els = rdfxml.xml_find_elements(range_xml, './/dng_types:EnumEntry/rdf:value/..')
+                                print( f"{enum_els=}" )
                                 # now process any enumeration values
                                 for enum_el in enum_els:
-                                    propcodec = EnumCodec
+                                    propcodec = RMEnumCodec
                                    
                                     enum_uri = rdfxml.xmlrdf_get_resource_uri( enum_el )
-#                                    print( f"{enum_uri=}" )
+                                    print( f"{enum_uri=}" )
                                     enum_value_name = rdfxml.xml_find_element(enum_el, 'rdfs:label').text
-#                                    print( f"{enum_value_name=}" )
+                                    print( f"{enum_value_name=}" )
                                     enum_value_el = rdfxml.xml_find_element(enum_el, 'rdf:value')
-#                                    print( f"+++{enum_value_el=}" )
+                                    print( f"+++{enum_value_el=}" )
                                     if enum_value_el is not None:
                                         enum_value = enum_value_el.text
 #
-#                                        print( f"defining enum value {enum_value_name=} {enum_uri=}" )
+                                        print( f"defining enum value {enum_value_name=} {enum_uri=}" )
                                         logger.info( f"defining enum value {enum_value_name=} {enum_uri=}" )
                                         # register the enumeration value against this property
                                         self.register_enum( enum_value_name, enum_uri, property_uri=propuri )
@@ -1331,6 +1430,11 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
         if name is not None:
             return name
         if path_or_uri in self._folders:
+#            print( f"{self._folders=}" )
+#            print( f"{path_or_uri=}" )
+#            print( f"{self._folders[path_or_uri]=}" )
+            if self._folders[path_or_uri] is None:
+                raise Exception( f"Folder name '{path_or_uri}' is ambiguous - must be more than one folder with the same name at that level!" )
             return self._folders[path_or_uri].folderuri
         raise Exception(f"Folder name {path_or_uri} not found")
 
@@ -1440,19 +1544,6 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
         return results
 
 
-
-
-#################################################################################################
-
-class RMComponent( RMProject, resource.Resources_Mixin ):
-    def __init__(self, name, project_uri, app, is_optin=False, singlemode=False,defaultinit=True, project=None):
-        if not project:
-            raise Exception( "You must provide a project instance when creating a component" )
-        super().__init__(name, project_uri, app, is_optin,singlemode,defaultinit=defaultinit)
-        self.component_project = project
-        self.services_uri = project.services_uri    # needed for reqif which wants to put the services.xml URI into created XML for new definitions
-        self._iscomponent=True
-
     # this is a bit primitive but works well enough for now
     def getconfigtype( self, configuri ):
         if '/baseline/' in configuri:   return "Baseline"
@@ -1460,17 +1551,175 @@ class RMComponent( RMProject, resource.Resources_Mixin ):
         if '/changeset/' in configuri:  return "Changeset"
         raise Exception( f"Config URL {configuri} not valid!" )
 
+    def create_baseline( self, *, baselinename=None, autorename=True ):
+        # confirm we're not in a changeset
+        if self.getconfigtype( self.local_config ) == 'Changeset':
+            raise Exception( "Can't create a baseline when in a changeset!" )
+        if self.getconfigtype( self.local_config ) == 'Baseline':
+            raise Exception( "Can't create a baseline when in a baseline!" )
+
+        # check the requested baselinename doesn't exist (can't have duplicate names)
+        if baselinename and not autorename and self.find_config( baselinename ):
+            raise Exception( f"Configuration {baselinename} is already used - can't have duplicates!" )
+            
+        uniqueness = utils.uniquestr()
+        
+        if not baselinename or autorename:
+            prefix = baselinename or "Automatically named baseline"
+            baselinename = f"{prefix} {uniqueness}"
+            if self.find_config( baselinename ):
+                raise Exception( "Sigh, the name {baselinename} isn't unique!" )
+            
+        # we're in a stream - create the baseline
+        # get the current stream
+        baselines_x = self.execute_get_rdf_xml( self.local_config )
+#        print( f"{stream_x=}" )
+        # find the changesets URL
+        baselines_u = rdfxml.xmlrdf_get_resource_uri( baselines_x, ".//oslc_config:baselines" )
+        comp_u = rdfxml.xmlrdf_get_resource_uri( baselines_x, './/oslc_config:component' )
+#        print( f"{baselines_u=}" )
+#        print( f"{comp_u=}" )
+        # create a new CS by POST
+        body = f"""<rdf:RDF
+    xmlns:dcterms="http://purl.org/dc/terms/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:oslc="http://open-services.net/ns/core#"
+    xmlns:oslc_config="http://open-services.net/ns/config#"
+    xmlns:acc="http://open-services.net/ns/core/acc#"
+    xmlns:process="http://jazz.net/ns/process#">
+  <oslc_config:Configuration  rdf:about="https://jazz.ibm.com:9443/rm/cm/baseline/something">
+    <oslc_config:component rdf:resource="{comp_u}"/>
+    <dcterms:title rdf:parseType="Literal">{baselinename}</dcterms:title>
+  </oslc_config:Configuration>
+</rdf:RDF>"""
+
+        response = self.execute_post_rdf_xml( baselines_u, data=body, headers={'Content-Type': 'application/rdf+xml', 'OSLC-Core-Version':'2.0'}, intent="Initiate stream creation" )
+
+        location = response.headers.get('Location')
+        if response.status_code == 201:
+            pass
+        elif response.status_code == 202 and location is not None:
+            # wait for the tracker to finished
+            result = self.wait_for_tracker( location, interval=1.0, progressbar=True, msg=f"Waiting for changeset creation to complete")
+            if result is None:
+                raise Exception( f"No result from tracker!" )
+        else:
+            raise Exception( f"Unknown response {response.status_code}" )
+
+        baseline_u = rdfxml.xmlrdf_get_resource_uri( result, './/dcterms:references')
+
+        self.load_new_config( baseline_u )
+
+        return baseline_u
+        
+    # create a stream - if already in a stream then first create a baseline, then a stream from that baseline
+    # if streamname or baselinename is none, automatic names are used which you may not like, but they are unique
+    def create_stream( self, *, streamname=None, baselinename=None, autorename=False ):
+        # confirm we're opt-in
+        if not self.is_optin:
+            raise Exception( "Can't create a new stream in an opt-out project!" )
+            
+        # confirm we're not in a changeset
+        if self.getconfigtype( self.local_config ) == 'Changeset':
+            raise Exception( "Can't create a sgtream when in a changeset!" )
+            
+        # check the requested streamname doesn't exist (can't have duplicate names)
+        if streamname and not autorename and self.find_config( streamname ):
+            raise Exception( f"Configuration {streamname} is already used - can't have duplicates!" )
+        if baselinename and not autorename and self.find_config( baselinename ):
+            raise Exception( f"Configuration {baselinename} is already used - can't have duplicates!" )
+
+        uniqueness = utils.uniquestr()
+            
+        if not streamname or autorename:
+            prefix = streamname or "Automatically named stream"
+            streamname = f"{prefix} {uniqueness}"
+            if self.find_config( streamname ):
+                raise Exception( "Sigh, the name {streamname} isn't unique!" )
+
+        if not baselinename or autorename:
+            uniqueness = utils.uniquestr()
+            prefix = baselinename or "Automatically named baseline"
+            baselinename = f"{prefix} {uniqueness}"
+            if self.find_config( baselinename ):
+                raise Exception( "Sigh, the name {baselinename} isn't unique!" )
+            
+        # now if we're in in a stream, we can create a baseline
+        if self.getconfigtype( self.local_config ) == 'Stream' :
+            # create a new baseline
+            bl_u = self.create_baseline( baselinename=baselinename )
+            # select the baseline
+            self.set_local_config( bl_u )
+            
+        # confirm we're in a baseline
+        if self.getconfigtype( self.local_config ) != 'Baseline' :
+            raise Exception( "Can only create stream whenb in a baseline!" )
+
+        # we're in a baseline - create the stream
+        # get the current stream
+        streams_x = self.execute_get_rdf_xml( self.local_config )
+#        print( f"{stream_x=}" )
+        # find the changesets URL
+        streams_u = rdfxml.xmlrdf_get_resource_uri( streams_x, ".//oslc_config:streams" )
+        comp_u = rdfxml.xmlrdf_get_resource_uri( streams_x, './/oslc_config:component' )
+#        print( f"{cs_u=}" )
+#        print( f"{comp_u=}" )
+        # create a new CS by POST
+        body = f"""<rdf:RDF
+    xmlns:dcterms="http://purl.org/dc/terms/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:oslc="http://open-services.net/ns/core#"
+    xmlns:oslc_config="http://open-services.net/ns/config#"
+    xmlns:acc="http://open-services.net/ns/core/acc#"
+    xmlns:process="http://jazz.net/ns/process#">
+  <oslc_config:Configuration  rdf:about="https://laptop-e95ocmuv:9443/rm/cm/stream/something">
+    <oslc_config:component rdf:resource="{comp_u}"/>
+    <dcterms:title rdf:parseType="Literal">{streamname}</dcterms:title>
+  </oslc_config:Configuration>
+</rdf:RDF>"""
+
+        response = self.execute_post_rdf_xml( streams_u, data=body, headers={'Content-Type': 'application/rdf+xml', 'OSLC-Core-Version':'2.0'}, intent="Initiate stream creation" )
+
+        location = response.headers.get('Location')
+        if response.status_code == 201:
+            pass
+        elif response.status_code == 202 and location is not None:
+            # wait for the tracker to finished
+            result = self.wait_for_tracker( location, interval=1.0, progressbar=True, msg=f"Waiting for changeset creation to complete")
+            if result is None:
+                raise Exception( f"No result from tracker!" )
+        else:
+            raise Exception( f"Unknown response {response.status_code}" )
+
+        stream_u = rdfxml.xmlrdf_get_resource_uri( result, './/dcterms:references')
+        
+        self.load_new_config( stream_u )
+
+        return stream_u
+
     # create a changeset in the current config (must be a stream)
-    def create_changeset( self, name, noexception=False ):
+    def create_changeset( self, *, name=None, autorename=True, noexception=False ):
+        # confirm we're opt-in
+        if not self.is_optin:
+            raise Exception( "Can't create a changeset in an opt-out project!" )
+
         # make sure config is a stream
         if self.getconfigtype( self.local_config ) != 'Stream' :
             raise Exception( "Can't create CS if not in stream!" )
 
+        uniqueness = utils.uniquestr()
+        
+        if name is None:
+            name = "Automatically named changeset"
+            
         # make sure name doesn't already exist amywhere in this component!
         if self.find_config( name, nowarning=True) is not None:
-            if noexception:
+            if autorename:
+                name = f"{name} {uniqueness}"
+                if self.find_config( name, nowarning=True) is not None:
+                    raise Exception( "Sigh, the name {name} isn't unique!" )
+            elif noexception:
                 return None
-            raise Exception( "CS name already exists!" )
 
         # create the changeset - it's up to the caller to select it as current config
         # get the current stream
@@ -1508,24 +1757,47 @@ class RMComponent( RMProject, resource.Resources_Mixin ):
         else:
             raise Exception( f"Unknown response {response.status_code}" )
 
-        cs = rdfxml.xmlrdf_get_resource_uri( result, './/dcterms:references')
-
-        return cs
+        cs_u = rdfxml.xmlrdf_get_resource_uri( result, './/dcterms:references')
+        self.load_new_config( cs_u )
+        return cs_u
 
     def discard_changeset( self ):
         raise Exception( "Discard changeset not implemented yet!" )
 
-    # deliver changeset and forget it
-    def deliver_changeset( self ):
-        raise Exception( "unfinished/untested!" )
+    # EITHER if current config is a changeset, don't specify targetstream_u and it will be delivered to the stream it was created in
+    # OR deliver current stream config to the targetstream_u
+    # policy should be a string like "" and this will be included in the delivery task
+    # policies:
+    # "http://jazz.net/ns/rm/dng/config#sourceWinsPolicy"
+    # "http://jazz.net/ns/rm/dng/config#mergeIndependentAttributes"
+    # "dng_config:dominantSourceAttribute" and then content is list of attribute URIs (need an example of this)
+    
+    def deliver( self, *, targetstream_u=None, policy=None ):
+#        print( f"Deliver {self=} {targetstream_u=}" )
         # check we're in a changeset
-        if self.getconfigtype( self.local_config ) != 'Changeset' :
-            raise Exception( f"Can't deliver CS if not in CS! Current config is {self.local_config}" )
+        if self.getconfigtype( self.local_config ) == 'Changeset' :
+            # changeset delivery to the stream it was created in
+            if targetstream_u is not None:
+                raise Exception( f"Can't deliver a changeset to a specific stream - don't specify targetstream_u" )
+            # get the target stream from the changeset
+            sourcestream_u = self.local_config
+            cs_x = self.execute_get_rdf_xml( self.local_config )
+            targetstream_u = rdfxml.xmlrdf_get_resource_uri( cs_x, './/oslc_config:overrides' )
+            csname = rdfxml.xmlrdf_get_resource_text( cs_x, './/dcterms:title' )
+            targetstreamname = self.find_config_name( targetstream_u )
+            deliverytitle = f"Delivery of changeset {csname} to the stream it was created in {targetstreamname}"
+            print( f"\n\nDeliver cs {self.local_config=} {targetstream_u=} {csname=} {targetstreamname=} {deliverytitle=}" )
+        else:
+            if self.getconfigtype( self.local_config ) == 'Stream' :
+                if targetstream_u is None:
+                    raise Exception( f"this config is in a streeam - you need to specify a target stream but you didn't!" )
+                sourcestreamname = self.find_config_name( self.local_config )
+                targetstreamname = self.find_config_name( targetstream_u )
+                deliverytitle = f"Delivery of stream {sourcestreamname} to stream {targetstreamname} {targetstream_u}"
+                print( f"\n\nDeliver stream {self.local_config=} {targetstream_u=} {sourcestreamname=} {targetstreamname=} {deliverytitle=}" )
+            else:
+                raise Exception( f"Can't deliver a baseline!" )
 
-        # get the target stream from the changeset
-        cs_x = self.execute_get_rdf_xml( self.local_config )
-        stream_u = rdfxml.xmlrdf_get_resource_uri( cs_x, './/oslc_config:overrides' )
-        csname = rdfxml.xmlrdf_get_resource_text( cs_x, './/dcterms:title' )
 #        print( f"target {stream_u=}" )
 #        print( f"cs name {csname=}" )
         # find the delivery session factory
@@ -1533,6 +1805,18 @@ class RMComponent( RMProject, resource.Resources_Mixin ):
 #        print( f"{ds_f_u=}" )
 #        print( f"{self.services_uri=}" )
         # create the content
+        # work out the policy
+        policyxml=""
+        if policy is not None:
+            if type(policy)!=list:
+                policies=[policy]
+            else:
+                policies = policy
+                
+            for apolicy in policies:
+                policyxml += f'<rm_config:policy rdf:resource="{apolicy}" />'
+        print( f"{policyxml=}" )
+        
         body=f"""<rdf:RDF
     xmlns:dcterms="http://purl.org/dc/terms/"
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -1540,15 +1824,16 @@ class RMComponent( RMProject, resource.Resources_Mixin ):
     xmlns:oslc="http://open-services.net/ns/core#">
   <rm_config:DeliverySession>
     <oslc:serviceProvider rdf:resource="{self.services_uri}"/>
+    {policyxml}
     <rm_config:source rdf:resource="{self.local_config}"/>
-    <rm_config:target rdf:resource="{stream_u}"/>
-    <dcterms:title rdf:parseType="Literal">Delivery session for cs {csname}</dcterms:title>
+    <rm_config:target rdf:resource="{targetstream_u}"/>
+    <dcterms:title rdf:parseType="Literal">{deliverytitle}</dcterms:title>
   </rm_config:DeliverySession>
 </rdf:RDF>
 """
 
         # switch to the target config
-        self.local_config = stream_u
+        self.local_config = targetstream_u
 
         # create the delivery session
         response = self.execute_post_rdf_xml( ds_f_u, data=body,headers={'Content-Type': 'application/rdf+xml', 'OSLC-Core-Version':'2.0'}, intent="Create delivery session" )
@@ -1577,7 +1862,7 @@ class RMComponent( RMProject, resource.Resources_Mixin ):
 #            print( f"{state=}" )
         elif response.status_code == 202:
             # wait for the tracker to finished
-            result = self.wait_for_tracker( location, interval=1.0, progressbar=True, msg=f"Waiting for changeset delivery to complete")
+            result = self.wait_for_tracker( location, interval=1.0, progressbar=True, msg=f"Waiting for {deliverytitle} to complete")
             if result is None:
                 raise Exception( f"No result from tracker!" )
 #            print( f"{result=}" )
@@ -1587,8 +1872,21 @@ class RMComponent( RMProject, resource.Resources_Mixin ):
             raise Exception( f"Unknown response {response.status_code}" )
 #        print( f"tracker result {state=}" )
 
-        self.local_config = None
-        # TODO: how to remove the delivered changeset from known configs?
+        # if we were in a changeset it's now been delivered so ensure it can't accidentally be used as the config
+        if self.getconfigtype( self.local_config )=="Changeset":
+            self.local_config = None
+        # TODO: how to remove the delivered changeset from known configs? That happens automatically
+
+#################################################################################################
+
+class RMComponent( RMProject, resource.Resources_Mixin ):
+    def __init__(self, name, project_uri, app, is_optin=False, singlemode=False,defaultinit=True, project=None):
+        if not project:
+            raise Exception( "You must provide a project instance when creating a component" )
+        super().__init__(name, project_uri, app, is_optin,singlemode,defaultinit=defaultinit)
+        self.component_project = project
+        self.services_uri = project.services_uri    # needed for reqif which wants to put the services.xml URI into created XML for new definitions
+        self._iscomponent=True
 
 
 #################################################################################################
@@ -1659,6 +1957,7 @@ class RMApp (_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
 
     # load the typesystem using the OSLC shape resources
     def _load_types(self,force=False):
+#        burp
         logger.debug( f"load type {self=} {force=}" )
 
         # if already loaded, try to avoid reloading
@@ -1678,12 +1977,35 @@ class RMApp (_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
             for el in shapes_to_load:
                 self._load_type_from_resource_shape(el)
                 pbar.update(1)
+                burp
 
             pbar.close()
         else:
             raise Exception( "services xml not found!" )
 
         self.typesystem_loaded = True
+
+        if False:
+            print( "\n+++" )
+            for i,p_u in enumerate( self.shapes.keys() ):
+                print( f"shapes {i} {p_u} {self.shapes[p_u]}" )
+            
+            print( "\n---" )
+            for i,p_u in enumerate( self.properties.keys() ):
+                print( f"props {i} {p_u} {self.properties[p_u]}" )
+
+            print( "\n===" )
+            for i,p_u in enumerate( self.enums.keys() ):
+                print( f"enums {i} {p_u} {self.enums[p_u]}" )
+
+            print( "\n^^^" )
+            for i,p_u in enumerate( self.sameas.keys() ):
+                print( f"sameas {i} {p_u} {self.sameas[p_u]}" )
+
+            print( "\n\n" )
+        
+#        burp
+        
         return None
 
     # RM has to find app-wide query capabilities differently from ETM/GCM - the XML with the QueryCapability is in the component RDF
@@ -1703,6 +2025,7 @@ class RMApp (_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
     # given a type URI, return its name
     def resolve_uri_to_name(self, uri, prefer_same_as=True, dontpreferhttprdfrui=True):
         logger.info( f"resolve_uri_to_name {uri=}" )
+        print( f"resolve_uri_to_name {uri=}" )
         if not uri:
             result = None
             return result
@@ -1741,6 +2064,7 @@ class RMApp (_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
         else:
             result = self.get_uri_name(uri)
         logger.info( f"Result {result=}" )
+        print( f"Result {result=}" )
         return result
 
     @classmethod
@@ -1948,7 +2272,8 @@ class RMApp (_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
                 raise Exception( f"No module '{args.module}' with that name in {args.project} {args.component}" )
             elif len(modules)>1:
                 for k,v in modules.items():
-                    print( f'{k} {v.get("dcterms:title","")}' )
+#                    print( f'{k} {v.get("dcterms:title","")}' )
+                    pass
                 raise Exception( "More than one module with that name in {args.project} {args.component}" )
             moduleuuid = list(modules.keys())[0].rsplit("/",1)[1]
 #            print( f"Module is {list(modules.keys())[0]} {moduleuuid}" )

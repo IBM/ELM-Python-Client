@@ -74,11 +74,16 @@ class _Project( oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixi
 #            print( f"Retrieving {uri}" )
             logger.info( utils.callers() )
             try:
-                self._gettypecache[realuri] = self.execute_get_rdf_xml(uri, intent="Retrieve type definition") if uri.startswith( "https://") else None
+                # try to retrieve the rdf using no_error_log=True becase some urls don't exist and we don't really mind if it can't be retrieved, e.g. /jts/users/unassigned which never exits in JTS
+                self._gettypecache[realuri] = self.execute_get_rdf_xml(uri, intent="Retrieve type definition", no_error_log=True) if uri.startswith( "https://") else None
                 logger.info( f"Retrieved:" )
             except ET.XMLSyntaxError:
                  self._gettypecache[realuri] = None
                  logger.info( "Bad result - ignoring" )
+            except requests.HTTPError:
+                 self._gettypecache[realuri] = None
+                 logger.info( "Bad result - ignoring" )
+                
 #        print( f"Returning {realuri} {self._gettypecache[realuri]} {ET.tostring(self._gettypecache[realuri])}" )
         return self._gettypecache[realuri]
 

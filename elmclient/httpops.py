@@ -513,7 +513,8 @@ class HttpRequest():
 
     # execute the request, retrying with increasing delays (login isn't handled at this level but at lower level)
     def _execute_request( self, *, no_error_log=False, close=False, cacheable=True, **kwargs ):
-        for wait_dur in [2, 5, 10, 20, 30, 60, 0]:
+        for wait_dur in [2, 5, 10, 0]:   # 20, 30, 60,
+            result=None
             try:
                 if not self._session.alwayscache and not cacheable:
                     # add a header so the response isn't cached
@@ -521,22 +522,31 @@ class HttpRequest():
                 result = self._execute_one_request_with_login( no_error_log=no_error_log, close=close, **kwargs)
                 return result
             except requests.RequestException as e:
-                # ALWAYS retry until all retry delays have been tried, the raise
-#                logger.info( f"Got error on HTTP request. URL: {self._req.url}, {e.response.status_code}, {e.response.text}")
-                logger.exception( f"Httpops RequestException was thrown for URL: {self._req.url} exception: {repr(e)}" )
-                if wait_dur == 0
-                    logger.error( "HTTPOPS not succeeded after all timeouts! - giving up!"
+#                print( f"ERROR {e=}" )
+                if no_error_log:
                     raise
-                logger.error( f"HTTPOPS pausing for {wait_dur} then retrying"
+                # ALWAYS retry until all retry delays have been tried, the raise
+                logger.exception( f"Httpops RequestException was thrown for URL: {self._req.url} exception: {repr(e)}" )
+                
+                if not self._is_retryable_error( e, result ):
+                    raise
+
+                if wait_dur == 0:
+                    logger.error( "HTTPOPS not succeeded after all timeouts! - giving up!" )
+                    raise
+                logger.error( f"HTTPOPS pausing for {wait_dur} then retrying" )
                 time.sleep(wait_dur)
-            except: Exception as e:
+            except Exception as e:
+                print( f"Unexpected exception was thrown for URL: {self._req.url}" )
                 logger.exception( f"Unexpected exception was thrown for URL: {self._req.url}" )
                 raise
                 
+        logger.error( "HTTPOPS not succeeded after all timeouts! - giving up!"    )                 
         raise Exception('programming error this point should never be reached')
         
 
-logger.error( "HTTPOPS not succeeded after all timeouts! - giving up!"                    # log a request/response, which may be the result of one or more redirections, so first log each of their request/response
+    
+    # log a request/response, which may be the result of one or more redirections, so first log each of their request/response
     def log_redirection_history( self, response, intent, action=None, donotlogbody=False ):
         thisintent = intent
         after = ""
@@ -679,11 +689,13 @@ logger.error( "HTTPOPS not succeeded after all timeouts! - giving up!"          
         return logtext
 
     # categorize a Requests .send() exception e as to whether is retriable
-    def _is_retryable_error( self, e ):
+    def _is_retryable_error( self, e, resp ):
         if self._session.auto_retry:
-            if e.response is None:
-                return True
-            if e.response.status_code in [
+#            print( f"{e=} {resp=}" )
+            
+            if resp is None or resp.response is None:
+                return False
+            if resp.response.status_code in [
                                                 http.client.REQUEST_TIMEOUT,
                                                 http.client.LOCKED, 
 #                                                http.client.INTERNAL_SERVER_ERROR,

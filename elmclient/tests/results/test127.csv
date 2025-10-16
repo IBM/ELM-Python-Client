@@ -34,14 +34,14 @@ https://jazz.ibm.com:9443/rm/resources/TX_nLV-83aKEfCeB7Wej8YFgg,2998,Operationa
 https://jazz.ibm.com:9443/rm/resources/BI_nPOZZnaKEfCeB7Wej8YFgg,2998,Operational Temperature Constraints,Heading,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nLRGkHaKEfCeB7Wej8YFgg,2999,"Definitions, Acronyms, and Abbreviations",Heading,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPNLQ3aKEfCeB7Wej8YFgg,2999,"Definitions, Acronyms, and Abbreviations",Heading,,Text
-https://jazz.ibm.com:9443/rm/resources/TX_nLRGkXaKEfCeB7Wej8YFgg,3000,Information captured via the handheld device shall be downloadable via either cable hookup or wireless signal.,System Requirement,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nP1ddXaKEfCeB7Wej8YFgg,3000,Information captured via the handheld device shall be downloadable via either cable hookup or wireless signal.,System Requirement,,Text
+https://jazz.ibm.com:9443/rm/resources/TX_nLRGkXaKEfCeB7Wej8YFgg,3000,Information captured via the handheld device shall be downloadable via either cable hookup or wireless signal.,System Requirement,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nLV-9naKEfCeB7Wej8YFgg,3001,General Description,Heading,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nP1dZHaKEfCeB7Wej8YFgg,3001,General Description,Heading,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nLV-9XaKEfCeB7Wej8YFgg,3002,Handheld Unit,Heading,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nP1dmnaKEfCeB7Wej8YFgg,3002,Handheld Unit,Heading,,Text
-https://jazz.ibm.com:9443/rm/resources/BI_nPh7aHaKEfCeB7Wej8YFgg,3003,Upaload Usage Data Locally,Diagrams and sketches,,Diagram
 https://jazz.ibm.com:9443/rm/resources/DM_nLV-93aKEfCeB7Wej8YFgg,3003,Upaload Usage Data Locally,Diagrams and sketches,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,Diagram
+https://jazz.ibm.com:9443/rm/resources/BI_nPh7aHaKEfCeB7Wej8YFgg,3003,Upaload Usage Data Locally,Diagrams and sketches,,Diagram
 https://jazz.ibm.com:9443/rm/resources/TX_nLa3cHaKEfCeB7Wej8YFgg,3004,User Characteristics,Heading,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPOZgXaKEfCeB7Wej8YFgg,3004,User Characteristics,Heading,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nLV--XaKEfCeB7Wej8YFgg,3005,The system shall be able to transmit and receive Meter data to the central office system without human intervention.,Stakeholder Requirement,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,Text
@@ -214,8 +214,8 @@ https://jazz.ibm.com:9443/rm/resources/BI_nP1dbXaKEfCeB7Wej8YFgg,3089,Functional
 https://jazz.ibm.com:9443/rm/resources/TX_nMB7f3aKEfCeB7Wej8YFgg,3089,Functional Requirements,Heading,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nMB7fnaKEfCeB7Wej8YFgg,3090,Communications Interfaces,Heading,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPOZinaKEfCeB7Wej8YFgg,3090,Communications Interfaces,Heading,,Text
-https://jazz.ibm.com:9443/rm/resources/BI_nPNLR3aKEfCeB7Wej8YFgg,3091,Product Perspective,Heading,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nMB7fXaKEfCeB7Wej8YFgg,3091,Product Perspective,Heading,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts,Text
+https://jazz.ibm.com:9443/rm/resources/BI_nPNLR3aKEfCeB7Wej8YFgg,3091,Product Perspective,Heading,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nMB7gHaKEfCeB7Wej8YFgg,3092,Update client address and meter location information.,Stakeholder Requirement,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPh7mXaKEfCeB7Wej8YFgg,3092,Update client address and meter location information.,Stakeholder Requirement,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nMLscnaKEfCeB7Wej8YFgg,3093,Alternate Flows,Heading,/Base Artifacts/Module Template/Use Case Template artifacts,Text
@@ -249,8 +249,8 @@ https://jazz.ibm.com:9443/rm/resources/BI_nPNLTnaKEfCeB7Wej8YFgg,3106,monitorPre
 https://jazz.ibm.com:9443/rm/resources/TX_nMOvyHaKEfCeB7Wej8YFgg,3107,All portable equipment shall have a ruggedness of IK06 or better in accordance with Standard IEC 62262:2002.,Stakeholder Requirement,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPOZcHaKEfCeB7Wej8YFgg,3107,All portable equipment shall have a ruggedness of IK06 or better in accordance with Standard IEC 62262:2002.,Stakeholder Requirement,,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPh7oHaKEfCeB7Wej8YFgg,3107,All portable equipment shall have a ruggedness of IK06 or better in accordance with Standard IEC 62262:2002.,Stakeholder Requirement,,Text
-https://jazz.ibm.com:9443/rm/resources/BI_nP1doHaKEfCeB7Wej8YFgg,3108,Assumptions and Dependencies,Heading,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nMOvyXaKEfCeB7Wej8YFgg,3108,Assumptions and Dependencies,Heading,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts,Text
+https://jazz.ibm.com:9443/rm/resources/BI_nP1doHaKEfCeB7Wej8YFgg,3108,Assumptions and Dependencies,Heading,,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nP1dbHaKEfCeB7Wej8YFgg,3109,System Requirements,Heading,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nMOvy3aKEfCeB7Wej8YFgg,3109,System Requirements,Heading,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nP1dl3aKEfCeB7Wej8YFgg,3110,Database server with the following minimum specifications:,System Requirement,,Text
@@ -285,8 +285,8 @@ https://jazz.ibm.com:9443/rm/resources/TX_nMfOcnaKEfCeB7Wej8YFgg,3124,Notes,Head
 https://jazz.ibm.com:9443/rm/resources/TX_nMhqs3aKEfCeB7Wej8YFgg,3125,"All portable equipment should survive multiple 6 ft./1.8 m drops on to concrete, across the operating temperature range in accordance with Standard MIL-STD 810G.",Stakeholder Requirement,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPOZbHaKEfCeB7Wej8YFgg,3125,"All portable equipment should survive multiple 6 ft./1.8 m drops on to concrete, across the operating temperature range in accordance with Standard MIL-STD 810G.",Stakeholder Requirement,,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPh7gnaKEfCeB7Wej8YFgg,3125,"All portable equipment should survive multiple 6 ft./1.8 m drops on to concrete, across the operating temperature range in accordance with Standard MIL-STD 810G.",Stakeholder Requirement,,Text
-https://jazz.ibm.com:9443/rm/resources/BI_nPEBZHaKEfCeB7Wej8YFgg,3126,1a. During the countdown the abort button is pressed.,Information,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nMhqsnaKEfCeB7Wej8YFgg,3126,1a. During the countdown the abort button is pressed.,Information,/Base Artifacts/Module Template/Use Case Template artifacts,Text
+https://jazz.ibm.com:9443/rm/resources/BI_nPEBZHaKEfCeB7Wej8YFgg,3126,1a. During the countdown the abort button is pressed.,Information,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nMfOcXaKEfCeB7Wej8YFgg,3127,<Picture>,Stakeholder Requirement,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPh7pHaKEfCeB7Wej8YFgg,3127,<Picture>,Stakeholder Requirement,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nMhqsHaKEfCeB7Wej8YFgg,3128,Meter Interface Unit,Heading,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,Text
@@ -537,8 +537,8 @@ https://jazz.ibm.com:9443/rm/resources/TX_nNtWcHaKEfCeB7Wej8YFgg,3249,"The handh
 https://jazz.ibm.com:9443/rm/resources/BI_nPh7kXaKEfCeB7Wej8YFgg,3249,"The handheld device shall allow for upload of all information collected on handheld computers during meter rounds, so that data can be compiled. Data shall be retrievable to business office computers in a manner that will interface with the existing billin",Stakeholder Requirement,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nNjlfnaKEfCeB7Wej8YFgg,3250,Appendixes,Heading,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPOZl3aKEfCeB7Wej8YFgg,3250,Appendixes,Heading,,Text
-https://jazz.ibm.com:9443/rm/resources/BI_nPNLZnaKEfCeB7Wej8YFgg,3251,Security,Heading,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nNjlf3aKEfCeB7Wej8YFgg,3251,Security,Heading,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts,Text
+https://jazz.ibm.com:9443/rm/resources/BI_nPNLZnaKEfCeB7Wej8YFgg,3251,Security,Heading,,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPEBXHaKEfCeB7Wej8YFgg,3252,"<e.g., The spacecraft does not reach escape velocity and the mission is aborted>",Information,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nNt9hHaKEfCeB7Wej8YFgg,3252,"<e.g., The spacecraft does not reach escape velocity and the mission is aborted>",Information,/Base Artifacts/Module Template/Use Case Template artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nNt9gXaKEfCeB7Wej8YFgg,3253,9. The system displays the leak data.,Information,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts,Text
@@ -559,8 +559,8 @@ https://jazz.ibm.com:9443/rm/resources/BI_nP1drnaKEfCeB7Wej8YFgg,3260,Referenced
 https://jazz.ibm.com:9443/rm/resources/TX_nNt9jXaKEfCeB7Wej8YFgg,3260,Referenced documents,Heading,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nNt9jHaKEfCeB7Wej8YFgg,3261,Security,Heading,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPOZkXaKEfCeB7Wej8YFgg,3261,Security,Heading,,Text
-https://jazz.ibm.com:9443/rm/resources/BI_nPOZf3aKEfCeB7Wej8YFgg,3262,Product Perspective,Heading,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nNt9i3aKEfCeB7Wej8YFgg,3262,Product Perspective,Heading,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts,Text
+https://jazz.ibm.com:9443/rm/resources/BI_nPOZf3aKEfCeB7Wej8YFgg,3262,Product Perspective,Heading,,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPOZbXaKEfCeB7Wej8YFgg,3263,Envelope Requirements,Heading,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nNt9inaKEfCeB7Wej8YFgg,3263,Envelope Requirements,Heading,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nN3HcXaKEfCeB7Wej8YFgg,3264,6. The usage data is displayed on the handheld device.,Information,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts,Text

@@ -1,740 +1,740 @@
 ﻿$uri,Identifier,parent
-https://jazz.ibm.com:9443/rm/materializedviews/VW_jWseE3aJEfCeB7Wej8YFgg,,
-https://jazz.ibm.com:9443/rm/materializedviews/VW_VRTbQHaKEfCeB7Wej8YFgg,,
-https://jazz.ibm.com:9443/rm/materializedviews/VW_jWseFHaJEfCeB7Wej8YFgg,,
-https://jazz.ibm.com:9443/rm/materializedviews/VW_jWseEnaJEfCeB7Wej8YFgg,,
-https://jazz.ibm.com:9443/rm/materializedviews/VW_jWseEXaJEfCeB7Wej8YFgg,,
-https://jazz.ibm.com:9443/rm/materializedviews/VW_jWseEHaJEfCeB7Wej8YFgg,,
-https://jazz.ibm.com:9443/rm/resources/MD_jis5w3aJEfCeB7Wej8YFgg,1,/01 Requirements
-https://jazz.ibm.com:9443/rm/resources/MD_jis5xHaJEfCeB7Wej8YFgg,2,/00 Admin
-https://jazz.ibm.com:9443/rm/resources/MD_jis5xXaJEfCeB7Wej8YFgg,3,/Module Template
-https://jazz.ibm.com:9443/rm/resources/MD_ji2DtXaJEfCeB7Wej8YFgg,4,/02 Reference
-https://jazz.ibm.com:9443/rm/resources/MD_ji2DsXaJEfCeB7Wej8YFgg,5,/01 Requirements
-https://jazz.ibm.com:9443/rm/resources/MD_ji2Ds3aJEfCeB7Wej8YFgg,6,/01 Requirements
-https://jazz.ibm.com:9443/rm/resources/MD_ji2DsHaJEfCeB7Wej8YFgg,7,/Module Template
-https://jazz.ibm.com:9443/rm/resources/MD_ji2DsnaJEfCeB7Wej8YFgg,8,/Use Case Content
-https://jazz.ibm.com:9443/rm/resources/MD_jis5xnaJEfCeB7Wej8YFgg,9,/Module Template
-https://jazz.ibm.com:9443/rm/resources/MD_ji2DtHaJEfCeB7Wej8YFgg,10,/01 Requirements
-https://jazz.ibm.com:9443/rm/resources/MD_ji2DtnaJEfCeB7Wej8YFgg,11,/01 Requirements/Meter Interface
-https://jazz.ibm.com:9443/rm/resources/WR_jdoMh3aJEfCeB7Wej8YFgg,12,/Base Artifacts/00 Admin/AMR Information Architecture artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkV4gnaJEfCeB7Wej8YFgg,12,
-https://jazz.ibm.com:9443/rm/resources/WR_jequU3aJEfCeB7Wej8YFgg,13,/Base Artifacts/00 Admin/AMR Information Architecture artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkV4hHaJEfCeB7Wej8YFgg,13,
-https://jazz.ibm.com:9443/rm/resources/WR_jh9S4XaJEfCeB7Wej8YFgg,14,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHxXaJEfCeB7Wej8YFgg,14,
-https://jazz.ibm.com:9443/rm/resources/WR_jis5wHaJEfCeB7Wej8YFgg,15,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozeXaJEfCeB7Wej8YFgg,15,
-https://jazz.ibm.com:9443/rm/resources/BI_jkMH0naJEfCeB7Wej8YFgg,16,
-https://jazz.ibm.com:9443/rm/resources/WR_jiQN03aJEfCeB7Wej8YFgg,16,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/WR_jiZ-03aJEfCeB7Wej8YFgg,17,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHrnaJEfCeB7Wej8YFgg,17,
-https://jazz.ibm.com:9443/rm/resources/TX_jdAhc3aJEfCeB7Wej8YFgg,18,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jj5MrXaJEfCeB7Wej8YFgg,18,
-https://jazz.ibm.com:9443/rm/resources/TX_jc4lsHaJEfCeB7Wej8YFgg,19,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqlHaJEfCeB7Wej8YFgg,19,
-https://jazz.ibm.com:9443/rm/resources/TX_jdAhdHaJEfCeB7Wej8YFgg,20,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvbpHaJEfCeB7Wej8YFgg,20,
-https://jazz.ibm.com:9443/rm/resources/TX_jdAhcnaJEfCeB7Wej8YFgg,21,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozhXaJEfCeB7Wej8YFgg,21,
-https://jazz.ibm.com:9443/rm/resources/TX_jdLgkHaJEfCeB7Wej8YFgg,22,/Base Artifacts/Module Template/Use Case Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjSvpnaJEfCeB7Wej8YFgg,22,
-https://jazz.ibm.com:9443/rm/resources/BI_jj5Ml3aJEfCeB7Wej8YFgg,23,
-https://jazz.ibm.com:9443/rm/resources/TX_jdUqgnaJEfCeB7Wej8YFgg,23,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jdUqhnaJEfCeB7Wej8YFgg,24,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMH03aJEfCeB7Wej8YFgg,24,
-https://jazz.ibm.com:9443/rm/resources/TX_jdLgkXaJEfCeB7Wej8YFgg,25,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqxnaJEfCeB7Wej8YFgg,25,
-https://jazz.ibm.com:9443/rm/resources/TX_jdLglnaJEfCeB7Wej8YFgg,26,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozdHaJEfCeB7Wej8YFgg,26,
-https://jazz.ibm.com:9443/rm/resources/TX_jdLglXaJEfCeB7Wej8YFgg,27,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozqnaJEfCeB7Wej8YFgg,27,
-https://jazz.ibm.com:9443/rm/resources/TX_jdebgHaJEfCeB7Wej8YFgg,28,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHiXaJEfCeB7Wej8YFgg,28,
-https://jazz.ibm.com:9443/rm/resources/TX_jdLglHaJEfCeB7Wej8YFgg,29,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHyHaJEfCeB7Wej8YFgg,29,
-https://jazz.ibm.com:9443/rm/resources/TX_jdUqh3aJEfCeB7Wej8YFgg,30,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvbmnaJEfCeB7Wej8YFgg,30,
-https://jazz.ibm.com:9443/rm/resources/DM_jdUqgHaJEfCeB7Wej8YFgg,31,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHiHaJEfCeB7Wej8YFgg,31,
-https://jazz.ibm.com:9443/rm/resources/TX_jdebgXaJEfCeB7Wej8YFgg,32,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkykd3aJEfCeB7Wej8YFgg,32,
-https://jazz.ibm.com:9443/rm/resources/BI_jj5MknaJEfCeB7Wej8YFgg,33,
-https://jazz.ibm.com:9443/rm/resources/TX_jdebhHaJEfCeB7Wej8YFgg,33,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jdebgnaJEfCeB7Wej8YFgg,34,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozmHaJEfCeB7Wej8YFgg,34,
-https://jazz.ibm.com:9443/rm/resources/TX_jdebg3aJEfCeB7Wej8YFgg,35,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHtnaJEfCeB7Wej8YFgg,35,
-https://jazz.ibm.com:9443/rm/resources/TX_jdoMgXaJEfCeB7Wej8YFgg,36,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkV4i3aJEfCeB7Wej8YFgg,36,
-https://jazz.ibm.com:9443/rm/resources/TX_jdoMgnaJEfCeB7Wej8YFgg,37,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozqHaJEfCeB7Wej8YFgg,37,
-https://jazz.ibm.com:9443/rm/resources/TX_jdebhXaJEfCeB7Wej8YFgg,38,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHlHaJEfCeB7Wej8YFgg,38,
-https://jazz.ibm.com:9443/rm/resources/TX_jdoMgHaJEfCeB7Wej8YFgg,39,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHynaJEfCeB7Wej8YFgg,39,
-https://jazz.ibm.com:9443/rm/resources/TX_jdebjHaJEfCeB7Wej8YFgg,40,/Base Artifacts/Module Template/Use Case Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjSvq3aJEfCeB7Wej8YFgg,40,
-https://jazz.ibm.com:9443/rm/resources/TX_jdoMhnaJEfCeB7Wej8YFgg,41,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqu3aJEfCeB7Wej8YFgg,41,
-https://jazz.ibm.com:9443/rm/resources/TX_jdoMhHaJEfCeB7Wej8YFgg,42,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jj5MqnaJEfCeB7Wej8YFgg,42,
-https://jazz.ibm.com:9443/rm/resources/TX_jdoMhXaJEfCeB7Wej8YFgg,43,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqrnaJEfCeB7Wej8YFgg,43,
-https://jazz.ibm.com:9443/rm/resources/TX_jdxWcXaJEfCeB7Wej8YFgg,44,/Base Artifacts/02 Reference/AMR Standards Documents artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqwnaJEfCeB7Wej8YFgg,44,
-https://jazz.ibm.com:9443/rm/resources/TX_jdxWc3aJEfCeB7Wej8YFgg,45,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqsXaJEfCeB7Wej8YFgg,45,
-https://jazz.ibm.com:9443/rm/resources/TX_jdxWcHaJEfCeB7Wej8YFgg,46,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozfnaJEfCeB7Wej8YFgg,46,
-https://jazz.ibm.com:9443/rm/resources/TX_jdoMg3aJEfCeB7Wej8YFgg,47,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvbknaJEfCeB7Wej8YFgg,47,
-https://jazz.ibm.com:9443/rm/resources/TX_jdxWdXaJEfCeB7Wej8YFgg,48,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqsHaJEfCeB7Wej8YFgg,48,
-https://jazz.ibm.com:9443/rm/resources/TX_jdxWeHaJEfCeB7Wej8YFgg,49,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlq1naJEfCeB7Wej8YFgg,49,
-https://jazz.ibm.com:9443/rm/resources/BI_jkoztnaJEfCeB7Wej8YFgg,49,
-https://jazz.ibm.com:9443/rm/resources/TX_jd7HcXaJEfCeB7Wej8YFgg,50,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMH3HaJEfCeB7Wej8YFgg,50,
-https://jazz.ibm.com:9443/rm/resources/TX_jdxWeXaJEfCeB7Wej8YFgg,51,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHvHaJEfCeB7Wej8YFgg,51,
-https://jazz.ibm.com:9443/rm/resources/TX_jd7HcHaJEfCeB7Wej8YFgg,52,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkV4lHaJEfCeB7Wej8YFgg,52,
-https://jazz.ibm.com:9443/rm/resources/TX_jd7HdHaJEfCeB7Wej8YFgg,53,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkV4mnaJEfCeB7Wej8YFgg,53,
-https://jazz.ibm.com:9443/rm/resources/TX_jd7HdXaJEfCeB7Wej8YFgg,54,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlql3aJEfCeB7Wej8YFgg,54,
-https://jazz.ibm.com:9443/rm/resources/TX_jd7Hc3aJEfCeB7Wej8YFgg,55,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHunaJEfCeB7Wej8YFgg,55,
-https://jazz.ibm.com:9443/rm/resources/TX_jd7HdnaJEfCeB7Wej8YFgg,56,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHuHaJEfCeB7Wej8YFgg,56,
-https://jazz.ibm.com:9443/rm/resources/TX_jd7HcnaJEfCeB7Wej8YFgg,57,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozl3aJEfCeB7Wej8YFgg,57,
-https://jazz.ibm.com:9443/rm/resources/TX_jeE4cnaJEfCeB7Wej8YFgg,58,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvbqHaJEfCeB7Wej8YFgg,58,
-https://jazz.ibm.com:9443/rm/resources/TX_jeE4dHaJEfCeB7Wej8YFgg,59,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvbsXaJEfCeB7Wej8YFgg,59,
-https://jazz.ibm.com:9443/rm/resources/TX_jd7HfXaJEfCeB7Wej8YFgg,60,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jj5MlnaJEfCeB7Wej8YFgg,60,
-https://jazz.ibm.com:9443/rm/resources/TX_jeE4cHaJEfCeB7Wej8YFgg,61,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlq0XaJEfCeB7Wej8YFgg,61,
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHwXaJEfCeB7Wej8YFgg,61,
-https://jazz.ibm.com:9443/rm/resources/TX_jeE4cXaJEfCeB7Wej8YFgg,62,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozjnaJEfCeB7Wej8YFgg,62,
-https://jazz.ibm.com:9443/rm/resources/TX_jeE4c3aJEfCeB7Wej8YFgg,63,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozs3aJEfCeB7Wej8YFgg,63,
-https://jazz.ibm.com:9443/rm/resources/TX_jeE4dXaJEfCeB7Wej8YFgg,64,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqz3aJEfCeB7Wej8YFgg,64,
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHv3aJEfCeB7Wej8YFgg,64,
-https://jazz.ibm.com:9443/rm/resources/TX_jeE4d3aJEfCeB7Wej8YFgg,65,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHs3aJEfCeB7Wej8YFgg,65,
-https://jazz.ibm.com:9443/rm/resources/TX_jeE4dnaJEfCeB7Wej8YFgg,66,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozo3aJEfCeB7Wej8YFgg,66,
-https://jazz.ibm.com:9443/rm/resources/TX_jeOpcHaJEfCeB7Wej8YFgg,67,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkV4hnaJEfCeB7Wej8YFgg,67,
-https://jazz.ibm.com:9443/rm/resources/TX_jeOpdHaJEfCeB7Wej8YFgg,68,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHy3aJEfCeB7Wej8YFgg,68,
-https://jazz.ibm.com:9443/rm/resources/TX_jeOpc3aJEfCeB7Wej8YFgg,69,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHrXaJEfCeB7Wej8YFgg,69,
-https://jazz.ibm.com:9443/rm/resources/TX_jeOpcXaJEfCeB7Wej8YFgg,70,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkykdnaJEfCeB7Wej8YFgg,70,
-https://jazz.ibm.com:9443/rm/resources/TX_jeE4eHaJEfCeB7Wej8YFgg,71,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMH0XaJEfCeB7Wej8YFgg,71,
-https://jazz.ibm.com:9443/rm/resources/TX_jeOpcnaJEfCeB7Wej8YFgg,72,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozgXaJEfCeB7Wej8YFgg,72,
-https://jazz.ibm.com:9443/rm/resources/TX_jeOpdXaJEfCeB7Wej8YFgg,73,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkykdHaJEfCeB7Wej8YFgg,73,
-https://jazz.ibm.com:9443/rm/resources/TX_jeOpeHaJEfCeB7Wej8YFgg,74,/Use Case Content/Actors
-https://jazz.ibm.com:9443/rm/resources/TX_jeOpdnaJEfCeB7Wej8YFgg,75,/Use Case Content/Actors
-https://jazz.ibm.com:9443/rm/resources/TX_jeXzY3aJEfCeB7Wej8YFgg,76,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqqnaJEfCeB7Wej8YFgg,76,
-https://jazz.ibm.com:9443/rm/resources/TX_jeXzYnaJEfCeB7Wej8YFgg,77,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkoznnaJEfCeB7Wej8YFgg,77,
-https://jazz.ibm.com:9443/rm/resources/TX_jeXzYHaJEfCeB7Wej8YFgg,78,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkoze3aJEfCeB7Wej8YFgg,78,
-https://jazz.ibm.com:9443/rm/resources/TX_jeXzaXaJEfCeB7Wej8YFgg,79,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozgnaJEfCeB7Wej8YFgg,79,
-https://jazz.ibm.com:9443/rm/resources/TX_jeXzYXaJEfCeB7Wej8YFgg,80,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHtXaJEfCeB7Wej8YFgg,80,
-https://jazz.ibm.com:9443/rm/resources/TX_jeXzZHaJEfCeB7Wej8YFgg,81,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkoznHaJEfCeB7Wej8YFgg,81,
-https://jazz.ibm.com:9443/rm/resources/TX_jeXza3aJEfCeB7Wej8YFgg,82,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozcXaJEfCeB7Wej8YFgg,82,
-https://jazz.ibm.com:9443/rm/resources/TX_jehkYXaJEfCeB7Wej8YFgg,83,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMH2naJEfCeB7Wej8YFgg,83,
-https://jazz.ibm.com:9443/rm/resources/TX_jeXzbHaJEfCeB7Wej8YFgg,84,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqpnaJEfCeB7Wej8YFgg,84,
-https://jazz.ibm.com:9443/rm/resources/BI_jj5Mp3aJEfCeB7Wej8YFgg,85,
-https://jazz.ibm.com:9443/rm/resources/TX_jeXzanaJEfCeB7Wej8YFgg,85,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jehkYHaJEfCeB7Wej8YFgg,86,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHsnaJEfCeB7Wej8YFgg,86,
-https://jazz.ibm.com:9443/rm/resources/TX_jehkYnaJEfCeB7Wej8YFgg,87,/Terms
-https://jazz.ibm.com:9443/rm/resources/TX_jehkZHaJEfCeB7Wej8YFgg,88,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHqnaJEfCeB7Wej8YFgg,88,
-https://jazz.ibm.com:9443/rm/resources/TX_jehkY3aJEfCeB7Wej8YFgg,89,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqmnaJEfCeB7Wej8YFgg,89,
-https://jazz.ibm.com:9443/rm/resources/TX_jehkZXaJEfCeB7Wej8YFgg,90,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jequUHaJEfCeB7Wej8YFgg,91,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHhnaJEfCeB7Wej8YFgg,91,
-https://jazz.ibm.com:9443/rm/resources/TX_jehkbHaJEfCeB7Wej8YFgg,92,/Base Artifacts/Module Template/Use Case Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjSvsnaJEfCeB7Wej8YFgg,92,
-https://jazz.ibm.com:9443/rm/resources/TX_jequUXaJEfCeB7Wej8YFgg,93,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozi3aJEfCeB7Wej8YFgg,93,
-https://jazz.ibm.com:9443/rm/resources/TX_jequUnaJEfCeB7Wej8YFgg,94,/Terms
-https://jazz.ibm.com:9443/rm/resources/TX_jequVHaJEfCeB7Wej8YFgg,95,/Base Artifacts/00 Admin/AMR Information Architecture artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkV4gXaJEfCeB7Wej8YFgg,95,
-https://jazz.ibm.com:9443/rm/resources/TX_jehkbnaJEfCeB7Wej8YFgg,96,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHj3aJEfCeB7Wej8YFgg,96,
-https://jazz.ibm.com:9443/rm/resources/TX_jehkbXaJEfCeB7Wej8YFgg,97,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozf3aJEfCeB7Wej8YFgg,97,
-https://jazz.ibm.com:9443/rm/resources/TX_jequWHaJEfCeB7Wej8YFgg,98,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqlXaJEfCeB7Wej8YFgg,98,
-https://jazz.ibm.com:9443/rm/resources/TX_jequWXaJEfCeB7Wej8YFgg,99,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqqXaJEfCeB7Wej8YFgg,99,
-https://jazz.ibm.com:9443/rm/resources/TX_jequVnaJEfCeB7Wej8YFgg,100,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHjXaJEfCeB7Wej8YFgg,100,
-https://jazz.ibm.com:9443/rm/resources/TX_jequV3aJEfCeB7Wej8YFgg,101,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMH1XaJEfCeB7Wej8YFgg,101,
-https://jazz.ibm.com:9443/rm/resources/TX_jequVXaJEfCeB7Wej8YFgg,102,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkoztHaJEfCeB7Wej8YFgg,102,
-https://jazz.ibm.com:9443/rm/resources/TX_je27kXaJEfCeB7Wej8YFgg,103,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvbpnaJEfCeB7Wej8YFgg,103,
-https://jazz.ibm.com:9443/rm/resources/TX_je0fUHaJEfCeB7Wej8YFgg,104,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHzXaJEfCeB7Wej8YFgg,104,
-https://jazz.ibm.com:9443/rm/resources/TX_je27kHaJEfCeB7Wej8YFgg,105,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHpXaJEfCeB7Wej8YFgg,105,
-https://jazz.ibm.com:9443/rm/resources/TX_je0fUXaJEfCeB7Wej8YFgg,106,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozinaJEfCeB7Wej8YFgg,106,
-https://jazz.ibm.com:9443/rm/resources/TX_je27pHaJEfCeB7Wej8YFgg,107,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jj5MqHaJEfCeB7Wej8YFgg,107,
-https://jazz.ibm.com:9443/rm/resources/TX_je27pXaJEfCeB7Wej8YFgg,108,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMH2HaJEfCeB7Wej8YFgg,108,
-https://jazz.ibm.com:9443/rm/resources/TX_je27m3aJEfCeB7Wej8YFgg,109,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHzHaJEfCeB7Wej8YFgg,109,
-https://jazz.ibm.com:9443/rm/resources/TX_je27mnaJEfCeB7Wej8YFgg,110,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHinaJEfCeB7Wej8YFgg,110,
-https://jazz.ibm.com:9443/rm/resources/TX_je-QUHaJEfCeB7Wej8YFgg,111,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvbo3aJEfCeB7Wej8YFgg,111,
-https://jazz.ibm.com:9443/rm/resources/TX_je-QU3aJEfCeB7Wej8YFgg,112,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkV4kXaJEfCeB7Wej8YFgg,112,
-https://jazz.ibm.com:9443/rm/resources/TX_je-QUXaJEfCeB7Wej8YFgg,113,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozfXaJEfCeB7Wej8YFgg,113,
-https://jazz.ibm.com:9443/rm/resources/TX_je27rHaJEfCeB7Wej8YFgg,114,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqmHaJEfCeB7Wej8YFgg,114,
-https://jazz.ibm.com:9443/rm/resources/TX_je-QUnaJEfCeB7Wej8YFgg,115,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHuXaJEfCeB7Wej8YFgg,115,
-https://jazz.ibm.com:9443/rm/resources/TX_je-QVHaJEfCeB7Wej8YFgg,116,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkV4jnaJEfCeB7Wej8YFgg,116,
-https://jazz.ibm.com:9443/rm/resources/TX_je-QVnaJEfCeB7Wej8YFgg,117,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvblXaJEfCeB7Wej8YFgg,117,
-https://jazz.ibm.com:9443/rm/resources/TX_je-QV3aJEfCeB7Wej8YFgg,118,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvblHaJEfCeB7Wej8YFgg,118,
-https://jazz.ibm.com:9443/rm/resources/TX_je-QVXaJEfCeB7Wej8YFgg,119,/Base Artifacts/Module Template/Use Case Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjSvs3aJEfCeB7Wej8YFgg,119,
-https://jazz.ibm.com:9443/rm/resources/BI_jjSvrnaJEfCeB7Wej8YFgg,120,
-https://jazz.ibm.com:9443/rm/resources/TX_jfHaQ3aJEfCeB7Wej8YFgg,120,/Base Artifacts/Module Template/Use Case Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jfHaRHaJEfCeB7Wej8YFgg,121,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqvnaJEfCeB7Wej8YFgg,121,
-https://jazz.ibm.com:9443/rm/resources/TX_je-QWHaJEfCeB7Wej8YFgg,122,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHrHaJEfCeB7Wej8YFgg,122,
-https://jazz.ibm.com:9443/rm/resources/TX_jfHaQHaJEfCeB7Wej8YFgg,123,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozkXaJEfCeB7Wej8YFgg,123,
-https://jazz.ibm.com:9443/rm/resources/TX_jfHaQXaJEfCeB7Wej8YFgg,124,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHznaJEfCeB7Wej8YFgg,124,
-https://jazz.ibm.com:9443/rm/resources/TX_jfHaQnaJEfCeB7Wej8YFgg,125,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqknaJEfCeB7Wej8YFgg,125,
-https://jazz.ibm.com:9443/rm/resources/TX_jfHaRnaJEfCeB7Wej8YFgg,126,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvboHaJEfCeB7Wej8YFgg,126,
-https://jazz.ibm.com:9443/rm/resources/BI_jjlq0HaJEfCeB7Wej8YFgg,127,
-https://jazz.ibm.com:9443/rm/resources/TX_jfHaR3aJEfCeB7Wej8YFgg,127,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHwHaJEfCeB7Wej8YFgg,127,
-https://jazz.ibm.com:9443/rm/resources/TX_jfHaRXaJEfCeB7Wej8YFgg,128,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvbkXaJEfCeB7Wej8YFgg,128,
-https://jazz.ibm.com:9443/rm/resources/TX_jfRLQ3aJEfCeB7Wej8YFgg,129,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvbnnaJEfCeB7Wej8YFgg,129,
-https://jazz.ibm.com:9443/rm/resources/TX_jfRLQXaJEfCeB7Wej8YFgg,130,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkV4j3aJEfCeB7Wej8YFgg,130,
-https://jazz.ibm.com:9443/rm/resources/TX_jfRLQHaJEfCeB7Wej8YFgg,131,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozfHaJEfCeB7Wej8YFgg,131,
-https://jazz.ibm.com:9443/rm/resources/TX_jfRLQnaJEfCeB7Wej8YFgg,132,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqn3aJEfCeB7Wej8YFgg,132,
-https://jazz.ibm.com:9443/rm/resources/TX_jfHaSHaJEfCeB7Wej8YFgg,133,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozsHaJEfCeB7Wej8YFgg,133,
-https://jazz.ibm.com:9443/rm/resources/TX_jfHaSXaJEfCeB7Wej8YFgg,134,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozp3aJEfCeB7Wej8YFgg,134,
-https://jazz.ibm.com:9443/rm/resources/TX_jfRLSHaJEfCeB7Wej8YFgg,135,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHpHaJEfCeB7Wej8YFgg,135,
-https://jazz.ibm.com:9443/rm/resources/TX_jfRLRXaJEfCeB7Wej8YFgg,136,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMH1naJEfCeB7Wej8YFgg,136,
-https://jazz.ibm.com:9443/rm/resources/TX_jfaVMnaJEfCeB7Wej8YFgg,137,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvboXaJEfCeB7Wej8YFgg,137,
-https://jazz.ibm.com:9443/rm/resources/TX_jfRLSnaJEfCeB7Wej8YFgg,138,/Terms
-https://jazz.ibm.com:9443/rm/resources/TX_jfaVMHaJEfCeB7Wej8YFgg,139,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHn3aJEfCeB7Wej8YFgg,139,
-https://jazz.ibm.com:9443/rm/resources/BI_jjSvoXaJEfCeB7Wej8YFgg,140,
-https://jazz.ibm.com:9443/rm/resources/TX_jfRLSXaJEfCeB7Wej8YFgg,140,/Base Artifacts/Module Template/Use Case Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jfaVM3aJEfCeB7Wej8YFgg,141,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHu3aJEfCeB7Wej8YFgg,141,
-https://jazz.ibm.com:9443/rm/resources/TX_jfaVMXaJEfCeB7Wej8YFgg,142,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHp3aJEfCeB7Wej8YFgg,142,
-https://jazz.ibm.com:9443/rm/resources/TX_jfaVNHaJEfCeB7Wej8YFgg,143,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozpXaJEfCeB7Wej8YFgg,143,
-https://jazz.ibm.com:9443/rm/resources/TX_jfaVOHaJEfCeB7Wej8YFgg,144,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHxHaJEfCeB7Wej8YFgg,144,
-https://jazz.ibm.com:9443/rm/resources/BI_jj5Mn3aJEfCeB7Wej8YFgg,145,
-https://jazz.ibm.com:9443/rm/resources/TX_jfaVNnaJEfCeB7Wej8YFgg,145,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jfaVNXaJEfCeB7Wej8YFgg,146,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkV4kHaJEfCeB7Wej8YFgg,146,
-https://jazz.ibm.com:9443/rm/resources/TX_jfaVN3aJEfCeB7Wej8YFgg,147,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHqXaJEfCeB7Wej8YFgg,147,
-https://jazz.ibm.com:9443/rm/resources/TX_jfaVOXaJEfCeB7Wej8YFgg,148,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkykfHaJEfCeB7Wej8YFgg,148,
-https://jazz.ibm.com:9443/rm/resources/BI_jjSvtHaJEfCeB7Wej8YFgg,149,
-https://jazz.ibm.com:9443/rm/resources/TX_jfkGMnaJEfCeB7Wej8YFgg,149,/Base Artifacts/Module Template/Use Case Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jfkGMXaJEfCeB7Wej8YFgg,150,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozdXaJEfCeB7Wej8YFgg,150,
-https://jazz.ibm.com:9443/rm/resources/TX_jfaVOnaJEfCeB7Wej8YFgg,151,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMH0HaJEfCeB7Wej8YFgg,151,
-https://jazz.ibm.com:9443/rm/resources/TX_jfkGMHaJEfCeB7Wej8YFgg,152,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHw3aJEfCeB7Wej8YFgg,152,
-https://jazz.ibm.com:9443/rm/resources/TX_jfkGNXaJEfCeB7Wej8YFgg,153,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkykgHaJEfCeB7Wej8YFgg,153,
-https://jazz.ibm.com:9443/rm/resources/TX_jfkGM3aJEfCeB7Wej8YFgg,154,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqzHaJEfCeB7Wej8YFgg,154,
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHonaJEfCeB7Wej8YFgg,154,
-https://jazz.ibm.com:9443/rm/resources/BI_jjlq0naJEfCeB7Wej8YFgg,155,
-https://jazz.ibm.com:9443/rm/resources/TX_jfkGN3aJEfCeB7Wej8YFgg,155,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHwnaJEfCeB7Wej8YFgg,155,
-https://jazz.ibm.com:9443/rm/resources/TX_jfkGOnaJEfCeB7Wej8YFgg,156,/Base Artifacts/00 Admin/AMR Information Architecture artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkV4g3aJEfCeB7Wej8YFgg,156,
-https://jazz.ibm.com:9443/rm/resources/TX_jft3MHaJEfCeB7Wej8YFgg,157,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHnXaJEfCeB7Wej8YFgg,157,
-https://jazz.ibm.com:9443/rm/resources/TX_jfkGOHaJEfCeB7Wej8YFgg,158,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqsnaJEfCeB7Wej8YFgg,158,
-https://jazz.ibm.com:9443/rm/resources/TX_jfkGPHaJEfCeB7Wej8YFgg,159,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkykeHaJEfCeB7Wej8YFgg,159,
-https://jazz.ibm.com:9443/rm/resources/TX_jfkGOXaJEfCeB7Wej8YFgg,160,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHlXaJEfCeB7Wej8YFgg,160,
-https://jazz.ibm.com:9443/rm/resources/TX_jfkGO3aJEfCeB7Wej8YFgg,161,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqq3aJEfCeB7Wej8YFgg,161,
-https://jazz.ibm.com:9443/rm/resources/TX_jft3MXaJEfCeB7Wej8YFgg,162,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHsHaJEfCeB7Wej8YFgg,162,
-https://jazz.ibm.com:9443/rm/resources/TX_jft3NXaJEfCeB7Wej8YFgg,163,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqrHaJEfCeB7Wej8YFgg,163,
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqoXaJEfCeB7Wej8YFgg,164,
-https://jazz.ibm.com:9443/rm/resources/TX_jft3NHaJEfCeB7Wej8YFgg,164,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jft3N3aJEfCeB7Wej8YFgg,165,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvbr3aJEfCeB7Wej8YFgg,165,
-https://jazz.ibm.com:9443/rm/resources/TX_jft3M3aJEfCeB7Wej8YFgg,166,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozn3aJEfCeB7Wej8YFgg,166,
-https://jazz.ibm.com:9443/rm/resources/TX_jft3NnaJEfCeB7Wej8YFgg,167,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHg3aJEfCeB7Wej8YFgg,167,
-https://jazz.ibm.com:9443/rm/resources/TX_jft3MnaJEfCeB7Wej8YFgg,168,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlq1HaJEfCeB7Wej8YFgg,168,
-https://jazz.ibm.com:9443/rm/resources/BI_jkozuHaJEfCeB7Wej8YFgg,168,
-https://jazz.ibm.com:9443/rm/resources/TX_jft3OHaJEfCeB7Wej8YFgg,169,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqvHaJEfCeB7Wej8YFgg,169,
-https://jazz.ibm.com:9443/rm/resources/TX_jf3BIHaJEfCeB7Wej8YFgg,170,/Use Case Content/Actors
-https://jazz.ibm.com:9443/rm/resources/TX_jf3BJHaJEfCeB7Wej8YFgg,171,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqnXaJEfCeB7Wej8YFgg,171,
-https://jazz.ibm.com:9443/rm/resources/BI_jjSvp3aJEfCeB7Wej8YFgg,172,
-https://jazz.ibm.com:9443/rm/resources/TX_jf3BInaJEfCeB7Wej8YFgg,172,/Base Artifacts/Module Template/Use Case Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jf3BJnaJEfCeB7Wej8YFgg,173,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkV4inaJEfCeB7Wej8YFgg,173,
-https://jazz.ibm.com:9443/rm/resources/TX_jf3BJXaJEfCeB7Wej8YFgg,174,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHmXaJEfCeB7Wej8YFgg,174,
-https://jazz.ibm.com:9443/rm/resources/TX_jf3BIXaJEfCeB7Wej8YFgg,175,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozrnaJEfCeB7Wej8YFgg,175,
-https://jazz.ibm.com:9443/rm/resources/TX_jf3BI3aJEfCeB7Wej8YFgg,176,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkV4iHaJEfCeB7Wej8YFgg,176,
-https://jazz.ibm.com:9443/rm/resources/TX_jgAyIHaJEfCeB7Wej8YFgg,177,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkV4l3aJEfCeB7Wej8YFgg,177,
-https://jazz.ibm.com:9443/rm/resources/TX_jf3BJ3aJEfCeB7Wej8YFgg,178,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHm3aJEfCeB7Wej8YFgg,178,
-https://jazz.ibm.com:9443/rm/resources/TX_jf3BKXaJEfCeB7Wej8YFgg,179,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHo3aJEfCeB7Wej8YFgg,179,
-https://jazz.ibm.com:9443/rm/resources/TX_jf3BKHaJEfCeB7Wej8YFgg,180,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHvXaJEfCeB7Wej8YFgg,180,
-https://jazz.ibm.com:9443/rm/resources/TX_jgAyInaJEfCeB7Wej8YFgg,181,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvbk3aJEfCeB7Wej8YFgg,181,
-https://jazz.ibm.com:9443/rm/resources/BI_jj5MsHaJEfCeB7Wej8YFgg,182,
-https://jazz.ibm.com:9443/rm/resources/TX_jgAyI3aJEfCeB7Wej8YFgg,182,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jgAyJHaJEfCeB7Wej8YFgg,183,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozmXaJEfCeB7Wej8YFgg,183,
-https://jazz.ibm.com:9443/rm/resources/BI_jj5Mo3aJEfCeB7Wej8YFgg,184,
-https://jazz.ibm.com:9443/rm/resources/TX_jgAyIXaJEfCeB7Wej8YFgg,184,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jgKjIXaJEfCeB7Wej8YFgg,185,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHgXaJEfCeB7Wej8YFgg,185,
-https://jazz.ibm.com:9443/rm/resources/BI_jj5MmXaJEfCeB7Wej8YFgg,186,
-https://jazz.ibm.com:9443/rm/resources/TX_jgAyKHaJEfCeB7Wej8YFgg,186,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jgAyJXaJEfCeB7Wej8YFgg,187,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlquXaJEfCeB7Wej8YFgg,187,
-https://jazz.ibm.com:9443/rm/resources/BI_jj5MpXaJEfCeB7Wej8YFgg,188,
-https://jazz.ibm.com:9443/rm/resources/TX_jgKjIHaJEfCeB7Wej8YFgg,188,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jj5Mr3aJEfCeB7Wej8YFgg,189,
-https://jazz.ibm.com:9443/rm/resources/TX_jgAyJnaJEfCeB7Wej8YFgg,189,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqtHaJEfCeB7Wej8YFgg,190,
-https://jazz.ibm.com:9443/rm/resources/TX_jgAyJ3aJEfCeB7Wej8YFgg,190,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jgKjInaJEfCeB7Wej8YFgg,191,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvbp3aJEfCeB7Wej8YFgg,191,
-https://jazz.ibm.com:9443/rm/resources/TX_jgKjJHaJEfCeB7Wej8YFgg,192,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozjHaJEfCeB7Wej8YFgg,192,
-https://jazz.ibm.com:9443/rm/resources/TX_jgKjI3aJEfCeB7Wej8YFgg,193,/Use Case Content/Actors
-https://jazz.ibm.com:9443/rm/resources/TX_jgKjKHaJEfCeB7Wej8YFgg,194,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHmnaJEfCeB7Wej8YFgg,194,
-https://jazz.ibm.com:9443/rm/resources/TX_jgTtEHaJEfCeB7Wej8YFgg,195,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvbn3aJEfCeB7Wej8YFgg,195,
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqoHaJEfCeB7Wej8YFgg,196,
-https://jazz.ibm.com:9443/rm/resources/TX_jgKjKXaJEfCeB7Wej8YFgg,196,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jgKjJ3aJEfCeB7Wej8YFgg,197,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHhHaJEfCeB7Wej8YFgg,197,
-https://jazz.ibm.com:9443/rm/resources/TX_jgKjJnaJEfCeB7Wej8YFgg,198,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozdnaJEfCeB7Wej8YFgg,198,
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqznaJEfCeB7Wej8YFgg,199,
-https://jazz.ibm.com:9443/rm/resources/TX_jgKjJXaJEfCeB7Wej8YFgg,199,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHvnaJEfCeB7Wej8YFgg,199,
-https://jazz.ibm.com:9443/rm/resources/BI_jj5MoXaJEfCeB7Wej8YFgg,200,
-https://jazz.ibm.com:9443/rm/resources/TX_jgTtEXaJEfCeB7Wej8YFgg,200,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jgTtE3aJEfCeB7Wej8YFgg,201,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHjHaJEfCeB7Wej8YFgg,201,
-https://jazz.ibm.com:9443/rm/resources/TX_jgTtEnaJEfCeB7Wej8YFgg,202,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkV4knaJEfCeB7Wej8YFgg,202,
-https://jazz.ibm.com:9443/rm/resources/TX_jgTtFHaJEfCeB7Wej8YFgg,203,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkV4k3aJEfCeB7Wej8YFgg,203,
-https://jazz.ibm.com:9443/rm/resources/BI_jj5MpHaJEfCeB7Wej8YFgg,204,
-https://jazz.ibm.com:9443/rm/resources/TX_jgdeEHaJEfCeB7Wej8YFgg,204,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jgTtFXaJEfCeB7Wej8YFgg,205,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkykcXaJEfCeB7Wej8YFgg,205,
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqv3aJEfCeB7Wej8YFgg,206,
-https://jazz.ibm.com:9443/rm/resources/TX_jgTtFnaJEfCeB7Wej8YFgg,206,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jgdeEXaJEfCeB7Wej8YFgg,207,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHh3aJEfCeB7Wej8YFgg,207,
-https://jazz.ibm.com:9443/rm/resources/TX_jgdeEnaJEfCeB7Wej8YFgg,208,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozr3aJEfCeB7Wej8YFgg,208,
-https://jazz.ibm.com:9443/rm/resources/TX_jgdeFXaJEfCeB7Wej8YFgg,209,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvbpXaJEfCeB7Wej8YFgg,209,
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqlnaJEfCeB7Wej8YFgg,210,
-https://jazz.ibm.com:9443/rm/resources/TX_jgdeFnaJEfCeB7Wej8YFgg,210,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jgdeE3aJEfCeB7Wej8YFgg,211,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozq3aJEfCeB7Wej8YFgg,211,
-https://jazz.ibm.com:9443/rm/resources/TX_jgdeFHaJEfCeB7Wej8YFgg,212,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqk3aJEfCeB7Wej8YFgg,212,
-https://jazz.ibm.com:9443/rm/resources/TX_jgdeF3aJEfCeB7Wej8YFgg,213,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkoziHaJEfCeB7Wej8YFgg,213,
-https://jazz.ibm.com:9443/rm/resources/TX_jgnPEXaJEfCeB7Wej8YFgg,214,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozeHaJEfCeB7Wej8YFgg,214,
-https://jazz.ibm.com:9443/rm/resources/BI_jjlq03aJEfCeB7Wej8YFgg,215,
-https://jazz.ibm.com:9443/rm/resources/TX_jgnPEHaJEfCeB7Wej8YFgg,215,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkoztXaJEfCeB7Wej8YFgg,215,
-https://jazz.ibm.com:9443/rm/resources/BI_jj5MmnaJEfCeB7Wej8YFgg,216,
-https://jazz.ibm.com:9443/rm/resources/TX_jgnPFnaJEfCeB7Wej8YFgg,216,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlquHaJEfCeB7Wej8YFgg,217,
-https://jazz.ibm.com:9443/rm/resources/TX_jgnPE3aJEfCeB7Wej8YFgg,217,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jgnPF3aJEfCeB7Wej8YFgg,218,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHx3aJEfCeB7Wej8YFgg,218,
-https://jazz.ibm.com:9443/rm/resources/TX_jgnPEnaJEfCeB7Wej8YFgg,219,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvbl3aJEfCeB7Wej8YFgg,219,
-https://jazz.ibm.com:9443/rm/resources/BI_jj5MoHaJEfCeB7Wej8YFgg,220,
-https://jazz.ibm.com:9443/rm/resources/TX_jgnPFXaJEfCeB7Wej8YFgg,220,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jgnPGHaJEfCeB7Wej8YFgg,221,/Terms
-https://jazz.ibm.com:9443/rm/resources/TX_jgnPFHaJEfCeB7Wej8YFgg,222,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHt3aJEfCeB7Wej8YFgg,222,
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqy3aJEfCeB7Wej8YFgg,223,
-https://jazz.ibm.com:9443/rm/resources/TX_jgwZA3aJEfCeB7Wej8YFgg,223,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHpnaJEfCeB7Wej8YFgg,223,
-https://jazz.ibm.com:9443/rm/resources/BI_jjSvrXaJEfCeB7Wej8YFgg,224,
-https://jazz.ibm.com:9443/rm/resources/TX_jgnPGXaJEfCeB7Wej8YFgg,224,/Base Artifacts/Module Template/Use Case Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jgwZAXaJEfCeB7Wej8YFgg,225,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozlnaJEfCeB7Wej8YFgg,225,
-https://jazz.ibm.com:9443/rm/resources/BI_jj5MkXaJEfCeB7Wej8YFgg,226,
-https://jazz.ibm.com:9443/rm/resources/TX_jgnPGnaJEfCeB7Wej8YFgg,226,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jgwZAnaJEfCeB7Wej8YFgg,227,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkoziXaJEfCeB7Wej8YFgg,227,
-https://jazz.ibm.com:9443/rm/resources/TX_jgwZAHaJEfCeB7Wej8YFgg,228,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkV4jHaJEfCeB7Wej8YFgg,228,
-https://jazz.ibm.com:9443/rm/resources/TX_jgwZBHaJEfCeB7Wej8YFgg,229,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvbsnaJEfCeB7Wej8YFgg,229,
-https://jazz.ibm.com:9443/rm/resources/TX_jgwZBnaJEfCeB7Wej8YFgg,230,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvbnHaJEfCeB7Wej8YFgg,230,
-https://jazz.ibm.com:9443/rm/resources/BI_jjSvonaJEfCeB7Wej8YFgg,231,
-https://jazz.ibm.com:9443/rm/resources/TX_jgwZBXaJEfCeB7Wej8YFgg,231,/Base Artifacts/Module Template/Use Case Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jj5MlHaJEfCeB7Wej8YFgg,232,
-https://jazz.ibm.com:9443/rm/resources/TX_jg6KAXaJEfCeB7Wej8YFgg,232,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjSvqHaJEfCeB7Wej8YFgg,233,
-https://jazz.ibm.com:9443/rm/resources/TX_jgwZB3aJEfCeB7Wej8YFgg,233,/Base Artifacts/Module Template/Use Case Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jgwZCnaJEfCeB7Wej8YFgg,234,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHnHaJEfCeB7Wej8YFgg,234,
-https://jazz.ibm.com:9443/rm/resources/TX_jg6KAHaJEfCeB7Wej8YFgg,235,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHk3aJEfCeB7Wej8YFgg,235,
-https://jazz.ibm.com:9443/rm/resources/TX_jgwZCHaJEfCeB7Wej8YFgg,236,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkykc3aJEfCeB7Wej8YFgg,236,
-https://jazz.ibm.com:9443/rm/resources/TX_jgwZCXaJEfCeB7Wej8YFgg,237,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvbq3aJEfCeB7Wej8YFgg,237,
-https://jazz.ibm.com:9443/rm/resources/TX_jg6KAnaJEfCeB7Wej8YFgg,238,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozk3aJEfCeB7Wej8YFgg,238,
-https://jazz.ibm.com:9443/rm/resources/TX_jg6KA3aJEfCeB7Wej8YFgg,239,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozlHaJEfCeB7Wej8YFgg,239,
-https://jazz.ibm.com:9443/rm/resources/TX_jg6KCHaJEfCeB7Wej8YFgg,240,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlq1XaJEfCeB7Wej8YFgg,240,
-https://jazz.ibm.com:9443/rm/resources/BI_jkozt3aJEfCeB7Wej8YFgg,240,
-https://jazz.ibm.com:9443/rm/resources/TX_jg6KBHaJEfCeB7Wej8YFgg,241,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMH23aJEfCeB7Wej8YFgg,241,
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqnHaJEfCeB7Wej8YFgg,242,
-https://jazz.ibm.com:9443/rm/resources/TX_jg6KCnaJEfCeB7Wej8YFgg,242,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqnnaJEfCeB7Wej8YFgg,243,
-https://jazz.ibm.com:9443/rm/resources/TX_jg6KBnaJEfCeB7Wej8YFgg,243,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jg6KB3aJEfCeB7Wej8YFgg,244,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHnnaJEfCeB7Wej8YFgg,244,
-https://jazz.ibm.com:9443/rm/resources/BI_jkykfXaJEfCeB7Wej8YFgg,245,
-https://jazz.ibm.com:9443/rm/resources/TX_jg6KBXaJEfCeB7Wej8YFgg,245,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jg6KCXaJEfCeB7Wej8YFgg,246,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jhDT8HaJEfCeB7Wej8YFgg,247,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozcnaJEfCeB7Wej8YFgg,247,
-https://jazz.ibm.com:9443/rm/resources/TX_jhDT8XaJEfCeB7Wej8YFgg,248,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkV4mHaJEfCeB7Wej8YFgg,248,
-https://jazz.ibm.com:9443/rm/resources/TX_jhFwMHaJEfCeB7Wej8YFgg,249,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHq3aJEfCeB7Wej8YFgg,249,
-https://jazz.ibm.com:9443/rm/resources/TX_jhFwMXaJEfCeB7Wej8YFgg,250,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozoHaJEfCeB7Wej8YFgg,250,
-https://jazz.ibm.com:9443/rm/resources/TX_jhFwMnaJEfCeB7Wej8YFgg,251,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozenaJEfCeB7Wej8YFgg,251,
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqtnaJEfCeB7Wej8YFgg,252,
-https://jazz.ibm.com:9443/rm/resources/TX_jhFwNnaJEfCeB7Wej8YFgg,252,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvbmXaJEfCeB7Wej8YFgg,253,
-https://jazz.ibm.com:9443/rm/resources/TX_jhFwN3aJEfCeB7Wej8YFgg,253,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jhFwM3aJEfCeB7Wej8YFgg,254,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHoHaJEfCeB7Wej8YFgg,254,
-https://jazz.ibm.com:9443/rm/resources/TX_jhFwNXaJEfCeB7Wej8YFgg,255,/Terms
-https://jazz.ibm.com:9443/rm/resources/TX_jhFwNHaJEfCeB7Wej8YFgg,256,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozgHaJEfCeB7Wej8YFgg,256,
-https://jazz.ibm.com:9443/rm/resources/BI_jjSvqXaJEfCeB7Wej8YFgg,257,
-https://jazz.ibm.com:9443/rm/resources/TX_jhNE8HaJEfCeB7Wej8YFgg,257,/Base Artifacts/Module Template/Use Case Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jhFwOHaJEfCeB7Wej8YFgg,258,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozd3aJEfCeB7Wej8YFgg,258,
-https://jazz.ibm.com:9443/rm/resources/TX_jhNE8XaJEfCeB7Wej8YFgg,259,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHhXaJEfCeB7Wej8YFgg,259,
-https://jazz.ibm.com:9443/rm/resources/TX_jhNE83aJEfCeB7Wej8YFgg,260,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkV4iXaJEfCeB7Wej8YFgg,260,
-https://jazz.ibm.com:9443/rm/resources/TX_jhNE8naJEfCeB7Wej8YFgg,261,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozqXaJEfCeB7Wej8YFgg,261,
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqrXaJEfCeB7Wej8YFgg,262,
-https://jazz.ibm.com:9443/rm/resources/TX_jhW18HaJEfCeB7Wej8YFgg,262,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqw3aJEfCeB7Wej8YFgg,263,
-https://jazz.ibm.com:9443/rm/resources/TX_jhNE-HaJEfCeB7Wej8YFgg,263,/Base Artifacts/02 Reference/AMR Standards Documents artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jhNE9HaJEfCeB7Wej8YFgg,264,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqyXaJEfCeB7Wej8YFgg,264,
-https://jazz.ibm.com:9443/rm/resources/TX_jhNE9naJEfCeB7Wej8YFgg,265,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozc3aJEfCeB7Wej8YFgg,265,
-https://jazz.ibm.com:9443/rm/resources/TX_jhNE9XaJEfCeB7Wej8YFgg,266,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqynaJEfCeB7Wej8YFgg,266,
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHoXaJEfCeB7Wej8YFgg,266,
-https://jazz.ibm.com:9443/rm/resources/TX_jhNE93aJEfCeB7Wej8YFgg,267,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozjXaJEfCeB7Wej8YFgg,267,
-https://jazz.ibm.com:9443/rm/resources/BI_jj5Mq3aJEfCeB7Wej8YFgg,268,
-https://jazz.ibm.com:9443/rm/resources/TX_jhW18naJEfCeB7Wej8YFgg,268,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jhW18XaJEfCeB7Wej8YFgg,269,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozsnaJEfCeB7Wej8YFgg,269,
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqs3aJEfCeB7Wej8YFgg,270,
-https://jazz.ibm.com:9443/rm/resources/TX_jhW1-HaJEfCeB7Wej8YFgg,270,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jj5MrnaJEfCeB7Wej8YFgg,271,
-https://jazz.ibm.com:9443/rm/resources/TX_jhW19HaJEfCeB7Wej8YFgg,271,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqxXaJEfCeB7Wej8YFgg,272,
-https://jazz.ibm.com:9443/rm/resources/TX_jhW183aJEfCeB7Wej8YFgg,272,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqt3aJEfCeB7Wej8YFgg,273,
-https://jazz.ibm.com:9443/rm/resources/TX_jhW19naJEfCeB7Wej8YFgg,273,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jhW193aJEfCeB7Wej8YFgg,274,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHsXaJEfCeB7Wej8YFgg,274,
-https://jazz.ibm.com:9443/rm/resources/TX_jhW19XaJEfCeB7Wej8YFgg,275,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvbsHaJEfCeB7Wej8YFgg,275,
-https://jazz.ibm.com:9443/rm/resources/TX_jhW1-naJEfCeB7Wej8YFgg,276,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkyke3aJEfCeB7Wej8YFgg,276,
-https://jazz.ibm.com:9443/rm/resources/BI_jj5MqXaJEfCeB7Wej8YFgg,277,
-https://jazz.ibm.com:9443/rm/resources/TX_jhW1-XaJEfCeB7Wej8YFgg,277,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjSvrHaJEfCeB7Wej8YFgg,278,
-https://jazz.ibm.com:9443/rm/resources/TX_jhgm8XaJEfCeB7Wej8YFgg,278,/Base Artifacts/Module Template/Use Case Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jhgm8HaJEfCeB7Wej8YFgg,279,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkykeXaJEfCeB7Wej8YFgg,279,
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqmXaJEfCeB7Wej8YFgg,280,
-https://jazz.ibm.com:9443/rm/resources/TX_jhgm83aJEfCeB7Wej8YFgg,280,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jhgm9HaJEfCeB7Wej8YFgg,281,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHkHaJEfCeB7Wej8YFgg,281,
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqyHaJEfCeB7Wej8YFgg,282,
-https://jazz.ibm.com:9443/rm/resources/TX_jhgm8naJEfCeB7Wej8YFgg,282,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jhgm9XaJEfCeB7Wej8YFgg,283,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozkHaJEfCeB7Wej8YFgg,283,
-https://jazz.ibm.com:9443/rm/resources/TX_jhgm-XaJEfCeB7Wej8YFgg,284,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvbqnaJEfCeB7Wej8YFgg,284,
-https://jazz.ibm.com:9443/rm/resources/BI_jj5MpnaJEfCeB7Wej8YFgg,285,
-https://jazz.ibm.com:9443/rm/resources/TX_jhpw4HaJEfCeB7Wej8YFgg,285,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvbmHaJEfCeB7Wej8YFgg,286,
-https://jazz.ibm.com:9443/rm/resources/TX_jhgm-HaJEfCeB7Wej8YFgg,286,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jhgm93aJEfCeB7Wej8YFgg,287,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqzXaJEfCeB7Wej8YFgg,287,
-https://jazz.ibm.com:9443/rm/resources/TX_jhgm-naJEfCeB7Wej8YFgg,288,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkykdXaJEfCeB7Wej8YFgg,288,
-https://jazz.ibm.com:9443/rm/resources/BI_jjvbnXaJEfCeB7Wej8YFgg,289,
-https://jazz.ibm.com:9443/rm/resources/TX_jhgm9naJEfCeB7Wej8YFgg,289,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jhgm-3aJEfCeB7Wej8YFgg,290,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozg3aJEfCeB7Wej8YFgg,290,
-https://jazz.ibm.com:9443/rm/resources/BI_jj5MonaJEfCeB7Wej8YFgg,291,
-https://jazz.ibm.com:9443/rm/resources/TX_jhpw4XaJEfCeB7Wej8YFgg,291,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jhpw4naJEfCeB7Wej8YFgg,292,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozlXaJEfCeB7Wej8YFgg,292,
-https://jazz.ibm.com:9443/rm/resources/TX_jhpw53aJEfCeB7Wej8YFgg,293,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHlnaJEfCeB7Wej8YFgg,293,
-https://jazz.ibm.com:9443/rm/resources/TX_jhpw5HaJEfCeB7Wej8YFgg,294,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHmHaJEfCeB7Wej8YFgg,294,
-https://jazz.ibm.com:9443/rm/resources/TX_jhpw6HaJEfCeB7Wej8YFgg,295,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvbrHaJEfCeB7Wej8YFgg,295,
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqonaJEfCeB7Wej8YFgg,296,
-https://jazz.ibm.com:9443/rm/resources/TX_jhpw5XaJEfCeB7Wej8YFgg,296,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jhpw6XaJEfCeB7Wej8YFgg,297,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHknaJEfCeB7Wej8YFgg,297,
-https://jazz.ibm.com:9443/rm/resources/BI_jj5Mm3aJEfCeB7Wej8YFgg,298,
-https://jazz.ibm.com:9443/rm/resources/TX_jhpw5naJEfCeB7Wej8YFgg,298,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jhpw43aJEfCeB7Wej8YFgg,299,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHjnaJEfCeB7Wej8YFgg,299,
-https://jazz.ibm.com:9443/rm/resources/BI_jjSvsHaJEfCeB7Wej8YFgg,300,
-https://jazz.ibm.com:9443/rm/resources/TX_jhzh4HaJEfCeB7Wej8YFgg,300,/Base Artifacts/Module Template/Use Case Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jhpw63aJEfCeB7Wej8YFgg,301,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozonaJEfCeB7Wej8YFgg,301,
-https://jazz.ibm.com:9443/rm/resources/TX_jhzh4XaJEfCeB7Wej8YFgg,302,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkoznXaJEfCeB7Wej8YFgg,302,
-https://jazz.ibm.com:9443/rm/resources/BI_jj5MmHaJEfCeB7Wej8YFgg,303,
-https://jazz.ibm.com:9443/rm/resources/TX_jhzh4naJEfCeB7Wej8YFgg,303,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jhpw6naJEfCeB7Wej8YFgg,304,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHl3aJEfCeB7Wej8YFgg,304,
-https://jazz.ibm.com:9443/rm/resources/BI_jj5Mk3aJEfCeB7Wej8YFgg,305,
-https://jazz.ibm.com:9443/rm/resources/TX_jhzh5naJEfCeB7Wej8YFgg,305,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjSvqnaJEfCeB7Wej8YFgg,306,
-https://jazz.ibm.com:9443/rm/resources/TX_jhzh53aJEfCeB7Wej8YFgg,306,/Base Artifacts/Module Template/Use Case Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjSvsXaJEfCeB7Wej8YFgg,307,
-https://jazz.ibm.com:9443/rm/resources/TX_jhzh5XaJEfCeB7Wej8YFgg,307,/Base Artifacts/Module Template/Use Case Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jhzh5HaJEfCeB7Wej8YFgg,308,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvbrXaJEfCeB7Wej8YFgg,308,
-https://jazz.ibm.com:9443/rm/resources/TX_jhzh43aJEfCeB7Wej8YFgg,309,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHkXaJEfCeB7Wej8YFgg,309,
-https://jazz.ibm.com:9443/rm/resources/TX_jhzh6HaJEfCeB7Wej8YFgg,310,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvbrnaJEfCeB7Wej8YFgg,310,
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqx3aJEfCeB7Wej8YFgg,311,
-https://jazz.ibm.com:9443/rm/resources/TX_jhzh6naJEfCeB7Wej8YFgg,311,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jj5MnnaJEfCeB7Wej8YFgg,312,
-https://jazz.ibm.com:9443/rm/resources/TX_jhzh63aJEfCeB7Wej8YFgg,312,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jh9S4naJEfCeB7Wej8YFgg,313,/Base Artifacts/02 Reference/AMR Standards Documents artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqwXaJEfCeB7Wej8YFgg,313,
-https://jazz.ibm.com:9443/rm/resources/TX_jh9S43aJEfCeB7Wej8YFgg,314,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHxnaJEfCeB7Wej8YFgg,314,
-https://jazz.ibm.com:9443/rm/resources/BI_jkMH13aJEfCeB7Wej8YFgg,315,
-https://jazz.ibm.com:9443/rm/resources/TX_jhzh6XaJEfCeB7Wej8YFgg,315,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jh9S4HaJEfCeB7Wej8YFgg,316,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkykfnaJEfCeB7Wej8YFgg,316,
-https://jazz.ibm.com:9443/rm/resources/TX_jh9S5naJEfCeB7Wej8YFgg,317,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHi3aJEfCeB7Wej8YFgg,317,
-https://jazz.ibm.com:9443/rm/resources/TX_jh9S5HaJEfCeB7Wej8YFgg,318,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkV4m3aJEfCeB7Wej8YFgg,318,
-https://jazz.ibm.com:9443/rm/resources/TX_jh9S5XaJEfCeB7Wej8YFgg,319,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozoXaJEfCeB7Wej8YFgg,319,
-https://jazz.ibm.com:9443/rm/resources/TX_jh9S53aJEfCeB7Wej8YFgg,320,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHtHaJEfCeB7Wej8YFgg,320,
-https://jazz.ibm.com:9443/rm/resources/TX_jh9S6HaJEfCeB7Wej8YFgg,321,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozknaJEfCeB7Wej8YFgg,321,
-https://jazz.ibm.com:9443/rm/resources/TX_jh9S6naJEfCeB7Wej8YFgg,322,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkykf3aJEfCeB7Wej8YFgg,322,
-https://jazz.ibm.com:9443/rm/resources/TX_jiGc03aJEfCeB7Wej8YFgg,323,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkV4h3aJEfCeB7Wej8YFgg,323,
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqvXaJEfCeB7Wej8YFgg,324,
-https://jazz.ibm.com:9443/rm/resources/TX_jiGc0naJEfCeB7Wej8YFgg,324,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjSvr3aJEfCeB7Wej8YFgg,325,
-https://jazz.ibm.com:9443/rm/resources/TX_jh9S63aJEfCeB7Wej8YFgg,325,/Base Artifacts/Module Template/Use Case Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jiGc0HaJEfCeB7Wej8YFgg,326,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozsXaJEfCeB7Wej8YFgg,326,
-https://jazz.ibm.com:9443/rm/resources/BI_jj5MsXaJEfCeB7Wej8YFgg,327,
-https://jazz.ibm.com:9443/rm/resources/TX_jiGc0XaJEfCeB7Wej8YFgg,327,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jh9S6XaJEfCeB7Wej8YFgg,328,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jiGc1HaJEfCeB7Wej8YFgg,329,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvbqXaJEfCeB7Wej8YFgg,329,
-https://jazz.ibm.com:9443/rm/resources/BI_jjSvo3aJEfCeB7Wej8YFgg,330,
-https://jazz.ibm.com:9443/rm/resources/TX_jiGc1XaJEfCeB7Wej8YFgg,330,/Base Artifacts/Module Template/Use Case Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHyXaJEfCeB7Wej8YFgg,331,
-https://jazz.ibm.com:9443/rm/resources/TX_jiGc1naJEfCeB7Wej8YFgg,331,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jiGc2naJEfCeB7Wej8YFgg,332,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkV4lnaJEfCeB7Wej8YFgg,332,
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHgnaJEfCeB7Wej8YFgg,333,
-https://jazz.ibm.com:9443/rm/resources/TX_jiGc2HaJEfCeB7Wej8YFgg,333,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jiGc2XaJEfCeB7Wej8YFgg,334,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozpnaJEfCeB7Wej8YFgg,334,
-https://jazz.ibm.com:9443/rm/resources/TX_jiGc13aJEfCeB7Wej8YFgg,335,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHr3aJEfCeB7Wej8YFgg,335,
-https://jazz.ibm.com:9443/rm/resources/TX_jiGc3HaJEfCeB7Wej8YFgg,336,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozmnaJEfCeB7Wej8YFgg,336,
-https://jazz.ibm.com:9443/rm/resources/TX_jiQN0HaJEfCeB7Wej8YFgg,337,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozh3aJEfCeB7Wej8YFgg,337,
-https://jazz.ibm.com:9443/rm/resources/TX_jiGc23aJEfCeB7Wej8YFgg,338,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozpHaJEfCeB7Wej8YFgg,338,
-https://jazz.ibm.com:9443/rm/resources/TX_jiQN0naJEfCeB7Wej8YFgg,339,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHz3aJEfCeB7Wej8YFgg,339,
-https://jazz.ibm.com:9443/rm/resources/BI_jjSvpHaJEfCeB7Wej8YFgg,340,
-https://jazz.ibm.com:9443/rm/resources/TX_jiQN1HaJEfCeB7Wej8YFgg,340,/Base Artifacts/Module Template/Use Case Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jiQN1naJEfCeB7Wej8YFgg,341,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozm3aJEfCeB7Wej8YFgg,341,
-https://jazz.ibm.com:9443/rm/resources/TX_jiQN1XaJEfCeB7Wej8YFgg,342,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozrXaJEfCeB7Wej8YFgg,342,
-https://jazz.ibm.com:9443/rm/resources/TX_jiQN0XaJEfCeB7Wej8YFgg,343,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozj3aJEfCeB7Wej8YFgg,343,
-https://jazz.ibm.com:9443/rm/resources/BI_jjvbonaJEfCeB7Wej8YFgg,344,
-https://jazz.ibm.com:9443/rm/resources/TX_jiQN2naJEfCeB7Wej8YFgg,344,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqp3aJEfCeB7Wej8YFgg,345,
-https://jazz.ibm.com:9443/rm/resources/TX_jiQN13aJEfCeB7Wej8YFgg,345,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jj5MrHaJEfCeB7Wej8YFgg,346,
-https://jazz.ibm.com:9443/rm/resources/TX_jiZ-0HaJEfCeB7Wej8YFgg,346,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jiQN2XaJEfCeB7Wej8YFgg,347,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozhHaJEfCeB7Wej8YFgg,347,
-https://jazz.ibm.com:9443/rm/resources/TX_jiQN2HaJEfCeB7Wej8YFgg,348,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkV4jXaJEfCeB7Wej8YFgg,348,
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqunaJEfCeB7Wej8YFgg,349,
-https://jazz.ibm.com:9443/rm/resources/TX_jiZ-1XaJEfCeB7Wej8YFgg,349,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqm3aJEfCeB7Wej8YFgg,350,
-https://jazz.ibm.com:9443/rm/resources/TX_jiZ-0XaJEfCeB7Wej8YFgg,350,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jiZ-0naJEfCeB7Wej8YFgg,351,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozrHaJEfCeB7Wej8YFgg,351,
-https://jazz.ibm.com:9443/rm/resources/TX_jiZ-1HaJEfCeB7Wej8YFgg,352,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkozhnaJEfCeB7Wej8YFgg,352,
-https://jazz.ibm.com:9443/rm/resources/BI_jjvbm3aJEfCeB7Wej8YFgg,353,
-https://jazz.ibm.com:9443/rm/resources/TX_jiZ-1naJEfCeB7Wej8YFgg,353,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jj5MlXaJEfCeB7Wej8YFgg,354,
-https://jazz.ibm.com:9443/rm/resources/TX_jiZ-2naJEfCeB7Wej8YFgg,354,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqpXaJEfCeB7Wej8YFgg,355,
-https://jazz.ibm.com:9443/rm/resources/TX_jiZ-2HaJEfCeB7Wej8YFgg,355,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMH1HaJEfCeB7Wej8YFgg,356,
-https://jazz.ibm.com:9443/rm/resources/TX_jiZ-13aJEfCeB7Wej8YFgg,356,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jj5MnXaJEfCeB7Wej8YFgg,357,
-https://jazz.ibm.com:9443/rm/resources/TX_jiZ-2XaJEfCeB7Wej8YFgg,357,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqkXaJEfCeB7Wej8YFgg,358,
-https://jazz.ibm.com:9443/rm/resources/TX_jijIwnaJEfCeB7Wej8YFgg,358,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqqHaJEfCeB7Wej8YFgg,359,
-https://jazz.ibm.com:9443/rm/resources/TX_jijIwHaJEfCeB7Wej8YFgg,359,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jj5MnHaJEfCeB7Wej8YFgg,360,
-https://jazz.ibm.com:9443/rm/resources/TX_jijIwXaJEfCeB7Wej8YFgg,360,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjSvpXaJEfCeB7Wej8YFgg,361,
-https://jazz.ibm.com:9443/rm/resources/TX_jiZ-23aJEfCeB7Wej8YFgg,361,/Base Artifacts/Module Template/Use Case Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jijIxHaJEfCeB7Wej8YFgg,362,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkykcnaJEfCeB7Wej8YFgg,362,
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqtXaJEfCeB7Wej8YFgg,363,
-https://jazz.ibm.com:9443/rm/resources/TX_jijIxXaJEfCeB7Wej8YFgg,363,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjvblnaJEfCeB7Wej8YFgg,364,
-https://jazz.ibm.com:9443/rm/resources/TX_jijIxnaJEfCeB7Wej8YFgg,364,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/TX_jijIw3aJEfCeB7Wej8YFgg,365,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkV4mXaJEfCeB7Wej8YFgg,365,
-https://jazz.ibm.com:9443/rm/resources/TX_jijIy3aJEfCeB7Wej8YFgg,366,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkV4lXaJEfCeB7Wej8YFgg,366,
-https://jazz.ibm.com:9443/rm/resources/TX_jijIx3aJEfCeB7Wej8YFgg,367,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMHqHaJEfCeB7Wej8YFgg,367,
-https://jazz.ibm.com:9443/rm/resources/TX_jijIynaJEfCeB7Wej8YFgg,368,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqr3aJEfCeB7Wej8YFgg,368,
-https://jazz.ibm.com:9443/rm/resources/TX_jis5wXaJEfCeB7Wej8YFgg,369,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkykenaJEfCeB7Wej8YFgg,369,
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqpHaJEfCeB7Wej8YFgg,370,
-https://jazz.ibm.com:9443/rm/resources/TX_jijIyXaJEfCeB7Wej8YFgg,370,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jjlqo3aJEfCeB7Wej8YFgg,371,
-https://jazz.ibm.com:9443/rm/resources/TX_jijIyHaJEfCeB7Wej8YFgg,371,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
-https://jazz.ibm.com:9443/rm/resources/BI_jkMH2XaJEfCeB7Wej8YFgg,372,
-https://jazz.ibm.com:9443/rm/resources/TX_jis5wnaJEfCeB7Wej8YFgg,372,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/materializedviews/VW_QreiAKUhEfCyB8IKcgJhMA,,
+https://jazz.ibm.com:9443/rm/materializedviews/VW_P2eXMKUiEfCyB8IKcgJhMA,,
+https://jazz.ibm.com:9443/rm/materializedviews/VW_Qro6EqUhEfCyB8IKcgJhMA,,
+https://jazz.ibm.com:9443/rm/materializedviews/VW_Qro6EaUhEfCyB8IKcgJhMA,,
+https://jazz.ibm.com:9443/rm/materializedviews/VW_Qro6EKUhEfCyB8IKcgJhMA,,
+https://jazz.ibm.com:9443/rm/materializedviews/VW_Qro6E6UhEfCyB8IKcgJhMA,,
+https://jazz.ibm.com:9443/rm/resources/MD_RBVdQKUhEfCyB8IKcgJhMA,1,/01 Requirements
+https://jazz.ibm.com:9443/rm/resources/MD_RBVdRKUhEfCyB8IKcgJhMA,2,/Module Template
+https://jazz.ibm.com:9443/rm/resources/MD_RBenMqUhEfCyB8IKcgJhMA,3,/Use Case Content
+https://jazz.ibm.com:9443/rm/resources/MD_RBenMaUhEfCyB8IKcgJhMA,4,/01 Requirements
+https://jazz.ibm.com:9443/rm/resources/MD_RBVdQaUhEfCyB8IKcgJhMA,5,/00 Admin
+https://jazz.ibm.com:9443/rm/resources/MD_RBVdQqUhEfCyB8IKcgJhMA,6,/Module Template
+https://jazz.ibm.com:9443/rm/resources/MD_RBnKEKUhEfCyB8IKcgJhMA,7,/01 Requirements
+https://jazz.ibm.com:9443/rm/resources/MD_RBenMKUhEfCyB8IKcgJhMA,8,/Module Template
+https://jazz.ibm.com:9443/rm/resources/MD_RBoYMqUhEfCyB8IKcgJhMA,9,/02 Reference
+https://jazz.ibm.com:9443/rm/resources/MD_RBoYMKUhEfCyB8IKcgJhMA,10,/01 Requirements
+https://jazz.ibm.com:9443/rm/resources/MD_RB3BsKUhEfCyB8IKcgJhMA,11,/01 Requirements/Meter Interface
+https://jazz.ibm.com:9443/rm/resources/WR_Q5KYsKUhEfCyB8IKcgJhMA,12,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSENaUhEfCyB8IKcgJhMA,12,
+https://jazz.ibm.com:9443/rm/resources/WR_Q5nEo6UhEfCyB8IKcgJhMA,13,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEQqUhEfCyB8IKcgJhMA,13,
+https://jazz.ibm.com:9443/rm/resources/WR_Q6EXoaUhEfCyB8IKcgJhMA,14,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dmaUhEfCyB8IKcgJhMA,14,
+https://jazz.ibm.com:9443/rm/resources/WR_Q0oeAqUhEfCyB8IKcgJhMA,15,/Base Artifacts/00 Admin/AMR Information Architecture artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEUaUhEfCyB8IKcgJhMA,15,
+https://jazz.ibm.com:9443/rm/resources/WR_QzNhsKUhEfCyB8IKcgJhMA,16,/Base Artifacts/00 Admin/AMR Information Architecture artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSET6UhEfCyB8IKcgJhMA,16,
+https://jazz.ibm.com:9443/rm/resources/WR_Q5nErqUhEfCyB8IKcgJhMA,17,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEHqUhEfCyB8IKcgJhMA,17,
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6ZKUhEfCyB8IKcgJhMA,18,
+https://jazz.ibm.com:9443/rm/resources/TX_QwjPUqUhEfCyB8IKcgJhMA,18,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/TX_Qxg4kKUhEfCyB8IKcgJhMA,19,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dyqUhEfCyB8IKcgJhMA,19,
+https://jazz.ibm.com:9443/rm/resources/BI_QtOOdKUhEfCyB8IKcgJhMA,20,
+https://jazz.ibm.com:9443/rm/resources/TX_QxNWkaUhEfCyB8IKcgJhMA,20,/Base Artifacts/Module Template/Use Case Template artifacts
+https://jazz.ibm.com:9443/rm/resources/TX_Qxg4kaUhEfCyB8IKcgJhMA,21,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dlKUhEfCyB8IKcgJhMA,21,
+https://jazz.ibm.com:9443/rm/resources/TX_QxNWkKUhEfCyB8IKcgJhMA,22,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwVKUhEfCyB8IKcgJhMA,22,
+https://jazz.ibm.com:9443/rm/resources/TX_QxTdMaUhEfCyB8IKcgJhMA,23,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEOKUhEfCyB8IKcgJhMA,23,
+https://jazz.ibm.com:9443/rm/resources/TX_Qw_7MKUhEfCyB8IKcgJhMA,24,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dpaUhEfCyB8IKcgJhMA,24,
+https://jazz.ibm.com:9443/rm/resources/BI_Qt0rYqUhEfCyB8IKcgJhMA,25,
+https://jazz.ibm.com:9443/rm/resources/TX_QxTdMKUhEfCyB8IKcgJhMA,25,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
+https://jazz.ibm.com:9443/rm/resources/TX_QyH8kKUhEfCyB8IKcgJhMA,26,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5V6UhEfCyB8IKcgJhMA,26,
+https://jazz.ibm.com:9443/rm/resources/TX_QyM1EKUhEfCyB8IKcgJhMA,27,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEQ6UhEfCyB8IKcgJhMA,27,
+https://jazz.ibm.com:9443/rm/resources/DM_QxlxEKUhEfCyB8IKcgJhMA,28,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSD-KUhEfCyB8IKcgJhMA,28,
+https://jazz.ibm.com:9443/rm/resources/TX_QyM1EqUhEfCyB8IKcgJhMA,29,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSD-aUhEfCyB8IKcgJhMA,29,
+https://jazz.ibm.com:9443/rm/resources/TX_QySUoaUhEfCyB8IKcgJhMA,30,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1duKUhEfCyB8IKcgJhMA,30,
+https://jazz.ibm.com:9443/rm/resources/TX_QySUoKUhEfCyB8IKcgJhMA,31,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QwBDx6UhEfCyB8IKcgJhMA,31,
+https://jazz.ibm.com:9443/rm/resources/TX_Qw_7MaUhEfCyB8IKcgJhMA,32,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5baUhEfCyB8IKcgJhMA,32,
+https://jazz.ibm.com:9443/rm/resources/BI_QtXYYKUhEfCyB8IKcgJhMA,33,
+https://jazz.ibm.com:9443/rm/resources/TX_Qyl2oqUhEfCyB8IKcgJhMA,33,/Base Artifacts/Module Template/Use Case Template artifacts
+https://jazz.ibm.com:9443/rm/resources/TX_Qyl2o6UhEfCyB8IKcgJhMA,34,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEOqUhEfCyB8IKcgJhMA,34,
+https://jazz.ibm.com:9443/rm/resources/TX_QySUoqUhEfCyB8IKcgJhMA,35,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEJqUhEfCyB8IKcgJhMA,35,
+https://jazz.ibm.com:9443/rm/resources/TX_Qy5YoaUhEfCyB8IKcgJhMA,36,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwQqUhEfCyB8IKcgJhMA,36,
+https://jazz.ibm.com:9443/rm/resources/TX_Qyl2oaUhEfCyB8IKcgJhMA,37,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEBKUhEfCyB8IKcgJhMA,37,
+https://jazz.ibm.com:9443/rm/resources/TX_Qyl2oKUhEfCyB8IKcgJhMA,38,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5UqUhEfCyB8IKcgJhMA,38,
+https://jazz.ibm.com:9443/rm/resources/TX_Qyyq8KUhEfCyB8IKcgJhMA,39,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QviipaUhEfCyB8IKcgJhMA,39,
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6fqUhEfCyB8IKcgJhMA,40,
+https://jazz.ibm.com:9443/rm/resources/TX_QzICIKUhEfCyB8IKcgJhMA,40,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/TX_QzDwsKUhEfCyB8IKcgJhMA,41,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5aqUhEfCyB8IKcgJhMA,41,
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6i6UhEfCyB8IKcgJhMA,42,
+https://jazz.ibm.com:9443/rm/resources/TX_QzICIaUhEfCyB8IKcgJhMA,42,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/TX_QzYg0aUhEfCyB8IKcgJhMA,43,/Base Artifacts/02 Reference/AMR Standards Documents artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6kqUhEfCyB8IKcgJhMA,43,
+https://jazz.ibm.com:9443/rm/resources/TX_Qy5YoKUhEfCyB8IKcgJhMA,44,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dyKUhEfCyB8IKcgJhMA,44,
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6gKUhEfCyB8IKcgJhMA,45,
+https://jazz.ibm.com:9443/rm/resources/TX_QzYg06UhEfCyB8IKcgJhMA,45,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qt0rcqUhEfCyB8IKcgJhMA,46,
+https://jazz.ibm.com:9443/rm/resources/TX_QzhDsKUhEfCyB8IKcgJhMA,46,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1d1qUhEfCyB8IKcgJhMA,46,
+https://jazz.ibm.com:9443/rm/resources/TX_QzhDsaUhEfCyB8IKcgJhMA,47,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSELKUhEfCyB8IKcgJhMA,47,
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6gaUhEfCyB8IKcgJhMA,48,
+https://jazz.ibm.com:9443/rm/resources/TX_QzYg0qUhEfCyB8IKcgJhMA,48,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/TX_QzhDtKUhEfCyB8IKcgJhMA,49,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dt6UhEfCyB8IKcgJhMA,49,
+https://jazz.ibm.com:9443/rm/resources/TX_QzhDsqUhEfCyB8IKcgJhMA,50,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QviirqUhEfCyB8IKcgJhMA,50,
+https://jazz.ibm.com:9443/rm/resources/TX_QzhDtaUhEfCyB8IKcgJhMA,51,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEKqUhEfCyB8IKcgJhMA,51,
+https://jazz.ibm.com:9443/rm/resources/TX_QzhDs6UhEfCyB8IKcgJhMA,52,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSETKUhEfCyB8IKcgJhMA,52,
+https://jazz.ibm.com:9443/rm/resources/TX_QzYg0KUhEfCyB8IKcgJhMA,53,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dnqUhEfCyB8IKcgJhMA,53,
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6Z6UhEfCyB8IKcgJhMA,54,
+https://jazz.ibm.com:9443/rm/resources/TX_QzhDt6UhEfCyB8IKcgJhMA,54,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/TX_QzhDtqUhEfCyB8IKcgJhMA,55,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QviitKUhEfCyB8IKcgJhMA,55,
+https://jazz.ibm.com:9443/rm/resources/BI_Qt0rbaUhEfCyB8IKcgJhMA,56,
+https://jazz.ibm.com:9443/rm/resources/TX_QzrbwaUhEfCyB8IKcgJhMA,56,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEMaUhEfCyB8IKcgJhMA,56,
+https://jazz.ibm.com:9443/rm/resources/TX_QzrbwKUhEfCyB8IKcgJhMA,57,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5VqUhEfCyB8IKcgJhMA,57,
+https://jazz.ibm.com:9443/rm/resources/TX_Qzq0sKUhEfCyB8IKcgJhMA,58,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEKKUhEfCyB8IKcgJhMA,58,
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwYaUhEfCyB8IKcgJhMA,59,
+https://jazz.ibm.com:9443/rm/resources/TX_QzrbxaUhEfCyB8IKcgJhMA,59,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/TX_QzrbwqUhEfCyB8IKcgJhMA,60,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1drqUhEfCyB8IKcgJhMA,60,
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwWKUhEfCyB8IKcgJhMA,61,
+https://jazz.ibm.com:9443/rm/resources/TX_Qzrbw6UhEfCyB8IKcgJhMA,61,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/TX_QyM1EaUhEfCyB8IKcgJhMA,62,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwSqUhEfCyB8IKcgJhMA,62,
+https://jazz.ibm.com:9443/rm/resources/TX_Qz1MwqUhEfCyB8IKcgJhMA,63,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEI6UhEfCyB8IKcgJhMA,63,
+https://jazz.ibm.com:9443/rm/resources/TX_QzrbxKUhEfCyB8IKcgJhMA,64,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1d06UhEfCyB8IKcgJhMA,64,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0Ay8KUhEfCyB8IKcgJhMA,65,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QwBDxqUhEfCyB8IKcgJhMA,65,
+https://jazz.ibm.com:9443/rm/resources/TX_Qz1MwaUhEfCyB8IKcgJhMA,66,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dw6UhEfCyB8IKcgJhMA,66,
+https://jazz.ibm.com:9443/rm/resources/BI_Qt0ra6UhEfCyB8IKcgJhMA,67,
+https://jazz.ibm.com:9443/rm/resources/TX_Qz1MwKUhEfCyB8IKcgJhMA,67,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEL6UhEfCyB8IKcgJhMA,67,
+https://jazz.ibm.com:9443/rm/resources/TX_Qz1MxKUhEfCyB8IKcgJhMA,68,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QviioKUhEfCyB8IKcgJhMA,68,
+https://jazz.ibm.com:9443/rm/resources/TX_Qz1Mw6UhEfCyB8IKcgJhMA,69,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEQaUhEfCyB8IKcgJhMA,69,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0Ay8aUhEfCyB8IKcgJhMA,70,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1doaUhEfCyB8IKcgJhMA,70,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0FrcaUhEfCyB8IKcgJhMA,71,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEO6UhEfCyB8IKcgJhMA,71,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0FrcKUhEfCyB8IKcgJhMA,72,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEHaUhEfCyB8IKcgJhMA,72,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0SfwKUhEfCyB8IKcgJhMA,73,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEJaUhEfCyB8IKcgJhMA,73,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0Kj8qUhEfCyB8IKcgJhMA,74,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dm6UhEfCyB8IKcgJhMA,74,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0FrcqUhEfCyB8IKcgJhMA,75,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QwBDxKUhEfCyB8IKcgJhMA,75,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0Kj8aUhEfCyB8IKcgJhMA,76,/Use Case Content/Actors
+https://jazz.ibm.com:9443/rm/resources/TX_Q0UU8aUhEfCyB8IKcgJhMA,77,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6eqUhEfCyB8IKcgJhMA,77,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0Kj8KUhEfCyB8IKcgJhMA,78,/Use Case Content/Actors
+https://jazz.ibm.com:9443/rm/resources/TX_Q0UU8KUhEfCyB8IKcgJhMA,79,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dvqUhEfCyB8IKcgJhMA,79,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0UU8qUhEfCyB8IKcgJhMA,80,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dvKUhEfCyB8IKcgJhMA,80,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0UU9aUhEfCyB8IKcgJhMA,81,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dkaUhEfCyB8IKcgJhMA,81,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0UU96UhEfCyB8IKcgJhMA,82,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEIqUhEfCyB8IKcgJhMA,82,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0UU9KUhEfCyB8IKcgJhMA,83,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5Z6UhEfCyB8IKcgJhMA,83,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0UU-aUhEfCyB8IKcgJhMA,84,/Terms
+https://jazz.ibm.com:9443/rm/resources/TX_Q0UU9qUhEfCyB8IKcgJhMA,85,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6dqUhEfCyB8IKcgJhMA,85,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0UU-KUhEfCyB8IKcgJhMA,86,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSESqUhEfCyB8IKcgJhMA,86,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0eF8KUhEfCyB8IKcgJhMA,87,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6aqUhEfCyB8IKcgJhMA,87,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0eF86UhEfCyB8IKcgJhMA,88,/Base Artifacts/Module Template/Use Case Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QtXYZ6UhEfCyB8IKcgJhMA,88,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0eF8aUhEfCyB8IKcgJhMA,89,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEGqUhEfCyB8IKcgJhMA,89,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0eF8qUhEfCyB8IKcgJhMA,90,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/TX_Q0kzoaUhEfCyB8IKcgJhMA,91,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSD9qUhEfCyB8IKcgJhMA,91,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0oeAKUhEfCyB8IKcgJhMA,92,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dq6UhEfCyB8IKcgJhMA,92,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0UU86UhEfCyB8IKcgJhMA,93,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1doqUhEfCyB8IKcgJhMA,93,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0eF9KUhEfCyB8IKcgJhMA,94,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dn6UhEfCyB8IKcgJhMA,94,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0oeAaUhEfCyB8IKcgJhMA,95,/Terms
+https://jazz.ibm.com:9443/rm/resources/TX_Q0oeA6UhEfCyB8IKcgJhMA,96,/Base Artifacts/00 Admin/AMR Information Architecture artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSETqUhEfCyB8IKcgJhMA,96,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0oeBKUhEfCyB8IKcgJhMA,97,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1d1KUhEfCyB8IKcgJhMA,97,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0kzoKUhEfCyB8IKcgJhMA,98,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSD_6UhEfCyB8IKcgJhMA,98,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0oeBqUhEfCyB8IKcgJhMA,99,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSERaUhEfCyB8IKcgJhMA,99,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0oeBaUhEfCyB8IKcgJhMA,100,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSD_aUhEfCyB8IKcgJhMA,100,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0xn8qUhEfCyB8IKcgJhMA,101,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dqqUhEfCyB8IKcgJhMA,101,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0xn8KUhEfCyB8IKcgJhMA,102,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6eaUhEfCyB8IKcgJhMA,102,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0oeB6UhEfCyB8IKcgJhMA,103,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6ZaUhEfCyB8IKcgJhMA,103,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0xn8aUhEfCyB8IKcgJhMA,104,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEPaUhEfCyB8IKcgJhMA,104,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0xn9aUhEfCyB8IKcgJhMA,105,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSD-qUhEfCyB8IKcgJhMA,105,
+https://jazz.ibm.com:9443/rm/resources/TX_Q03ukKUhEfCyB8IKcgJhMA,106,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEPKUhEfCyB8IKcgJhMA,106,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0xn86UhEfCyB8IKcgJhMA,107,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEFaUhEfCyB8IKcgJhMA,107,
+https://jazz.ibm.com:9443/rm/resources/TX_Q0xn9KUhEfCyB8IKcgJhMA,108,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwVqUhEfCyB8IKcgJhMA,108,
+https://jazz.ibm.com:9443/rm/resources/TX_Q08AAKUhEfCyB8IKcgJhMA,109,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwU6UhEfCyB8IKcgJhMA,109,
+https://jazz.ibm.com:9443/rm/resources/TX_Q03ukaUhEfCyB8IKcgJhMA,110,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5aKUhEfCyB8IKcgJhMA,110,
+https://jazz.ibm.com:9443/rm/resources/TX_Q03uk6UhEfCyB8IKcgJhMA,111,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6aKUhEfCyB8IKcgJhMA,111,
+https://jazz.ibm.com:9443/rm/resources/TX_Q03ukqUhEfCyB8IKcgJhMA,112,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSESKUhEfCyB8IKcgJhMA,112,
+https://jazz.ibm.com:9443/rm/resources/TX_Q08AAaUhEfCyB8IKcgJhMA,113,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dnaUhEfCyB8IKcgJhMA,113,
+https://jazz.ibm.com:9443/rm/resources/TX_Q08ABqUhEfCyB8IKcgJhMA,114,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwRaUhEfCyB8IKcgJhMA,114,
+https://jazz.ibm.com:9443/rm/resources/TX_Q08AA6UhEfCyB8IKcgJhMA,115,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qviiq6UhEfCyB8IKcgJhMA,115,
+https://jazz.ibm.com:9443/rm/resources/TX_Q08AAqUhEfCyB8IKcgJhMA,116,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEKaUhEfCyB8IKcgJhMA,116,
+https://jazz.ibm.com:9443/rm/resources/TX_Q08ACKUhEfCyB8IKcgJhMA,117,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEHKUhEfCyB8IKcgJhMA,117,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1FxAaUhEfCyB8IKcgJhMA,118,/Base Artifacts/Module Template/Use Case Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QtXYY6UhEfCyB8IKcgJhMA,118,
+https://jazz.ibm.com:9443/rm/resources/TX_Q08ACaUhEfCyB8IKcgJhMA,119,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dsaUhEfCyB8IKcgJhMA,119,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1I0UKUhEfCyB8IKcgJhMA,120,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6jqUhEfCyB8IKcgJhMA,120,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1DUwKUhEfCyB8IKcgJhMA,121,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEPqUhEfCyB8IKcgJhMA,121,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1FxAKUhEfCyB8IKcgJhMA,122,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6YqUhEfCyB8IKcgJhMA,122,
+https://jazz.ibm.com:9443/rm/resources/TX_Q08ABaUhEfCyB8IKcgJhMA,123,/Base Artifacts/Module Template/Use Case Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QtXYaKUhEfCyB8IKcgJhMA,123,
+https://jazz.ibm.com:9443/rm/resources/TX_Q08AB6UhEfCyB8IKcgJhMA,124,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwRKUhEfCyB8IKcgJhMA,124,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1KpgKUhEfCyB8IKcgJhMA,125,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwQaUhEfCyB8IKcgJhMA,125,
+https://jazz.ibm.com:9443/rm/resources/TX_Q08ABKUhEfCyB8IKcgJhMA,126,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QviiqKUhEfCyB8IKcgJhMA,126,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1KpgaUhEfCyB8IKcgJhMA,127,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwUKUhEfCyB8IKcgJhMA,127,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1KpgqUhEfCyB8IKcgJhMA,128,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qt0rbKUhEfCyB8IKcgJhMA,128,
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEMKUhEfCyB8IKcgJhMA,128,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1Kpg6UhEfCyB8IKcgJhMA,129,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1d0KUhEfCyB8IKcgJhMA,129,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1QJE6UhEfCyB8IKcgJhMA,130,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwTqUhEfCyB8IKcgJhMA,130,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1QJFKUhEfCyB8IKcgJhMA,131,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSERqUhEfCyB8IKcgJhMA,131,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1QJFaUhEfCyB8IKcgJhMA,132,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEFKUhEfCyB8IKcgJhMA,132,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1KphKUhEfCyB8IKcgJhMA,133,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dx6UhEfCyB8IKcgJhMA,133,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1QJF6UhEfCyB8IKcgJhMA,134,/Terms
+https://jazz.ibm.com:9443/rm/resources/TX_Q1QJGaUhEfCyB8IKcgJhMA,135,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEF6UhEfCyB8IKcgJhMA,135,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1QJFqUhEfCyB8IKcgJhMA,136,/Base Artifacts/Module Template/Use Case Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QtAzEKUhEfCyB8IKcgJhMA,136,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1QJGqUhEfCyB8IKcgJhMA,137,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwUaUhEfCyB8IKcgJhMA,137,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1QJGKUhEfCyB8IKcgJhMA,138,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSED6UhEfCyB8IKcgJhMA,138,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1Z6EqUhEfCyB8IKcgJhMA,139,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QviiqqUhEfCyB8IKcgJhMA,139,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1Z6EKUhEfCyB8IKcgJhMA,140,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEK6UhEfCyB8IKcgJhMA,140,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1Z6FKUhEfCyB8IKcgJhMA,141,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEGaUhEfCyB8IKcgJhMA,141,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1Z6FqUhEfCyB8IKcgJhMA,142,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QwBDzKUhEfCyB8IKcgJhMA,142,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1Z6EaUhEfCyB8IKcgJhMA,143,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dxaUhEfCyB8IKcgJhMA,143,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1Z6F6UhEfCyB8IKcgJhMA,144,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEQKUhEfCyB8IKcgJhMA,144,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1jrEKUhEfCyB8IKcgJhMA,145,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dlaUhEfCyB8IKcgJhMA,145,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1Z6GKUhEfCyB8IKcgJhMA,146,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEM6UhEfCyB8IKcgJhMA,146,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1jrEaUhEfCyB8IKcgJhMA,147,/Base Artifacts/Module Template/Use Case Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QtXYaaUhEfCyB8IKcgJhMA,147,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1jrE6UhEfCyB8IKcgJhMA,148,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QwBD0KUhEfCyB8IKcgJhMA,148,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1jrEqUhEfCyB8IKcgJhMA,149,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qt0raKUhEfCyB8IKcgJhMA,149,
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEEqUhEfCyB8IKcgJhMA,149,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1QJEKUhEfCyB8IKcgJhMA,150,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dnKUhEfCyB8IKcgJhMA,150,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1Z6E6UhEfCyB8IKcgJhMA,151,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5X6UhEfCyB8IKcgJhMA,151,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1tcEKUhEfCyB8IKcgJhMA,152,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qt0rbqUhEfCyB8IKcgJhMA,152,
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEMqUhEfCyB8IKcgJhMA,152,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1QJEqUhEfCyB8IKcgJhMA,153,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6b6UhEfCyB8IKcgJhMA,153,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1tcEqUhEfCyB8IKcgJhMA,154,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEBaUhEfCyB8IKcgJhMA,154,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1QJEaUhEfCyB8IKcgJhMA,155,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QviiqaUhEfCyB8IKcgJhMA,155,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1tcE6UhEfCyB8IKcgJhMA,156,/Base Artifacts/00 Admin/AMR Information Architecture artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEUKUhEfCyB8IKcgJhMA,156,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1tcEaUhEfCyB8IKcgJhMA,157,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6gqUhEfCyB8IKcgJhMA,157,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1Z6FaUhEfCyB8IKcgJhMA,158,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSENKUhEfCyB8IKcgJhMA,158,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1tcFKUhEfCyB8IKcgJhMA,159,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6e6UhEfCyB8IKcgJhMA,159,
+https://jazz.ibm.com:9443/rm/resources/TX_Q11-8KUhEfCyB8IKcgJhMA,160,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEDaUhEfCyB8IKcgJhMA,160,
+https://jazz.ibm.com:9443/rm/resources/TX_Q1tcFaUhEfCyB8IKcgJhMA,161,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QwBDyKUhEfCyB8IKcgJhMA,161,
+https://jazz.ibm.com:9443/rm/resources/TX_Q11-8aUhEfCyB8IKcgJhMA,162,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEIKUhEfCyB8IKcgJhMA,162,
+https://jazz.ibm.com:9443/rm/resources/TX_Q11-9KUhEfCyB8IKcgJhMA,163,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6caUhEfCyB8IKcgJhMA,163,
+https://jazz.ibm.com:9443/rm/resources/TX_Q11-9aUhEfCyB8IKcgJhMA,164,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6fKUhEfCyB8IKcgJhMA,164,
+https://jazz.ibm.com:9443/rm/resources/TX_Q11-86UhEfCyB8IKcgJhMA,165,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dv6UhEfCyB8IKcgJhMA,165,
+https://jazz.ibm.com:9443/rm/resources/TX_Q11-9qUhEfCyB8IKcgJhMA,166,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSD86UhEfCyB8IKcgJhMA,166,
+https://jazz.ibm.com:9443/rm/resources/TX_Q11-8qUhEfCyB8IKcgJhMA,167,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qt0rcKUhEfCyB8IKcgJhMA,167,
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1d2KUhEfCyB8IKcgJhMA,167,
+https://jazz.ibm.com:9443/rm/resources/TX_Q11-96UhEfCyB8IKcgJhMA,168,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwX6UhEfCyB8IKcgJhMA,168,
+https://jazz.ibm.com:9443/rm/resources/TX_Q11--KUhEfCyB8IKcgJhMA,169,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6jKUhEfCyB8IKcgJhMA,169,
+https://jazz.ibm.com:9443/rm/resources/TX_Q11--aUhEfCyB8IKcgJhMA,170,/Use Case Content/Actors
+https://jazz.ibm.com:9443/rm/resources/TX_Q2ffMKUhEfCyB8IKcgJhMA,171,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dzqUhEfCyB8IKcgJhMA,171,
+https://jazz.ibm.com:9443/rm/resources/TX_Q2rscKUhEfCyB8IKcgJhMA,172,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6baUhEfCyB8IKcgJhMA,172,
+https://jazz.ibm.com:9443/rm/resources/TX_Q2rscqUhEfCyB8IKcgJhMA,173,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QviipKUhEfCyB8IKcgJhMA,173,
+https://jazz.ibm.com:9443/rm/resources/TX_Q2ffMqUhEfCyB8IKcgJhMA,174,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QviioqUhEfCyB8IKcgJhMA,174,
+https://jazz.ibm.com:9443/rm/resources/TX_Q2zBMKUhEfCyB8IKcgJhMA,175,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSELaUhEfCyB8IKcgJhMA,175,
+https://jazz.ibm.com:9443/rm/resources/TX_Q2zBM6UhEfCyB8IKcgJhMA,176,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5Y6UhEfCyB8IKcgJhMA,176,
+https://jazz.ibm.com:9443/rm/resources/TX_Q2ffMaUhEfCyB8IKcgJhMA,177,/Base Artifacts/Module Template/Use Case Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QtOOdaUhEfCyB8IKcgJhMA,177,
+https://jazz.ibm.com:9443/rm/resources/TX_Q2zBNKUhEfCyB8IKcgJhMA,178,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwQ6UhEfCyB8IKcgJhMA,178,
+https://jazz.ibm.com:9443/rm/resources/TX_Q2zBMaUhEfCyB8IKcgJhMA,179,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEE6UhEfCyB8IKcgJhMA,179,
+https://jazz.ibm.com:9443/rm/resources/TX_Q2rsc6UhEfCyB8IKcgJhMA,180,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEC6UhEfCyB8IKcgJhMA,180,
+https://jazz.ibm.com:9443/rm/resources/TX_Q2zBNaUhEfCyB8IKcgJhMA,181,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5cKUhEfCyB8IKcgJhMA,181,
+https://jazz.ibm.com:9443/rm/resources/TX_Q2zBNqUhEfCyB8IKcgJhMA,182,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1duaUhEfCyB8IKcgJhMA,182,
+https://jazz.ibm.com:9443/rm/resources/TX_Q2zBN6UhEfCyB8IKcgJhMA,183,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6iaUhEfCyB8IKcgJhMA,183,
+https://jazz.ibm.com:9443/rm/resources/TX_Q2rscaUhEfCyB8IKcgJhMA,184,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSECaUhEfCyB8IKcgJhMA,184,
+https://jazz.ibm.com:9443/rm/resources/TX_Q2zBMqUhEfCyB8IKcgJhMA,185,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QviisaUhEfCyB8IKcgJhMA,185,
+https://jazz.ibm.com:9443/rm/resources/TX_Q2zBOaUhEfCyB8IKcgJhMA,186,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6hKUhEfCyB8IKcgJhMA,186,
+https://jazz.ibm.com:9443/rm/resources/TX_Q28yMaUhEfCyB8IKcgJhMA,187,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSD8aUhEfCyB8IKcgJhMA,187,
+https://jazz.ibm.com:9443/rm/resources/TX_Q28yMKUhEfCyB8IKcgJhMA,188,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5ZaUhEfCyB8IKcgJhMA,188,
+https://jazz.ibm.com:9443/rm/resources/TX_Q2zBOqUhEfCyB8IKcgJhMA,189,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5WaUhEfCyB8IKcgJhMA,189,
+https://jazz.ibm.com:9443/rm/resources/TX_Q2-nY6UhEfCyB8IKcgJhMA,190,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qt0raqUhEfCyB8IKcgJhMA,190,
+https://jazz.ibm.com:9443/rm/resources/BI_QvSELqUhEfCyB8IKcgJhMA,190,
+https://jazz.ibm.com:9443/rm/resources/TX_Q2-nYKUhEfCyB8IKcgJhMA,191,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwV6UhEfCyB8IKcgJhMA,191,
+https://jazz.ibm.com:9443/rm/resources/TX_Q2-nYaUhEfCyB8IKcgJhMA,192,/Use Case Content/Actors
+https://jazz.ibm.com:9443/rm/resources/TX_Q2-nZqUhEfCyB8IKcgJhMA,193,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSECqUhEfCyB8IKcgJhMA,193,
+https://jazz.ibm.com:9443/rm/resources/TX_Q2-nZaUhEfCyB8IKcgJhMA,194,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSD9KUhEfCyB8IKcgJhMA,194,
+https://jazz.ibm.com:9443/rm/resources/TX_Q2-nZKUhEfCyB8IKcgJhMA,195,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dlqUhEfCyB8IKcgJhMA,195,
+https://jazz.ibm.com:9443/rm/resources/TX_Q2-naKUhEfCyB8IKcgJhMA,196,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwT6UhEfCyB8IKcgJhMA,196,
+https://jazz.ibm.com:9443/rm/resources/TX_Q2-nZ6UhEfCyB8IKcgJhMA,197,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6cKUhEfCyB8IKcgJhMA,197,
+https://jazz.ibm.com:9443/rm/resources/TX_Q2-naaUhEfCyB8IKcgJhMA,198,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5YaUhEfCyB8IKcgJhMA,198,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3GjNKUhEfCyB8IKcgJhMA,199,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6j6UhEfCyB8IKcgJhMA,199,
+https://jazz.ibm.com:9443/rm/resources/TX_Q2-nYqUhEfCyB8IKcgJhMA,200,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1drKUhEfCyB8IKcgJhMA,200,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3GjMqUhEfCyB8IKcgJhMA,201,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QviiraUhEfCyB8IKcgJhMA,201,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3GjMaUhEfCyB8IKcgJhMA,202,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSD_KUhEfCyB8IKcgJhMA,202,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3GjM6UhEfCyB8IKcgJhMA,203,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QwBDwaUhEfCyB8IKcgJhMA,203,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3GjNaUhEfCyB8IKcgJhMA,204,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5ZKUhEfCyB8IKcgJhMA,204,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3GjMKUhEfCyB8IKcgJhMA,205,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QviirKUhEfCyB8IKcgJhMA,205,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3GjOqUhEfCyB8IKcgJhMA,206,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwVaUhEfCyB8IKcgJhMA,206,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3GjNqUhEfCyB8IKcgJhMA,207,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSD96UhEfCyB8IKcgJhMA,207,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3GjOaUhEfCyB8IKcgJhMA,208,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6Y6UhEfCyB8IKcgJhMA,208,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3GjOKUhEfCyB8IKcgJhMA,209,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dy6UhEfCyB8IKcgJhMA,209,
+https://jazz.ibm.com:9443/rm/resources/TX_Q2zBOKUhEfCyB8IKcgJhMA,210,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5b6UhEfCyB8IKcgJhMA,210,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3GjN6UhEfCyB8IKcgJhMA,211,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dz6UhEfCyB8IKcgJhMA,211,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3GjO6UhEfCyB8IKcgJhMA,212,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6ZqUhEfCyB8IKcgJhMA,212,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3GjPKUhEfCyB8IKcgJhMA,213,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dqKUhEfCyB8IKcgJhMA,213,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3QUNaUhEfCyB8IKcgJhMA,214,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5YKUhEfCyB8IKcgJhMA,214,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3QUNqUhEfCyB8IKcgJhMA,215,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5WqUhEfCyB8IKcgJhMA,215,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3QUMaUhEfCyB8IKcgJhMA,216,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dmKUhEfCyB8IKcgJhMA,216,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3QUM6UhEfCyB8IKcgJhMA,217,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6iKUhEfCyB8IKcgJhMA,217,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3QUMqUhEfCyB8IKcgJhMA,218,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwR6UhEfCyB8IKcgJhMA,218,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3QUNKUhEfCyB8IKcgJhMA,219,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEJ6UhEfCyB8IKcgJhMA,219,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3QUMKUhEfCyB8IKcgJhMA,220,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qt0rb6UhEfCyB8IKcgJhMA,220,
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1d1aUhEfCyB8IKcgJhMA,220,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3aFMKUhEfCyB8IKcgJhMA,221,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEN6UhEfCyB8IKcgJhMA,221,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3aFMaUhEfCyB8IKcgJhMA,222,/Terms
+https://jazz.ibm.com:9443/rm/resources/TX_Q3j2MqUhEfCyB8IKcgJhMA,223,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qt0rZ6UhEfCyB8IKcgJhMA,223,
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEFqUhEfCyB8IKcgJhMA,223,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3j2MKUhEfCyB8IKcgJhMA,224,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dtqUhEfCyB8IKcgJhMA,224,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3j2M6UhEfCyB8IKcgJhMA,225,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwYqUhEfCyB8IKcgJhMA,225,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3tnMaUhEfCyB8IKcgJhMA,226,/Base Artifacts/Module Template/Use Case Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QtOOdqUhEfCyB8IKcgJhMA,226,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3aFMqUhEfCyB8IKcgJhMA,227,/Base Artifacts/Module Template/Use Case Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QtXYYqUhEfCyB8IKcgJhMA,227,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3aFM6UhEfCyB8IKcgJhMA,228,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5UaUhEfCyB8IKcgJhMA,228,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3j2NKUhEfCyB8IKcgJhMA,229,/Base Artifacts/Module Template/Use Case Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QtOOcKUhEfCyB8IKcgJhMA,229,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3aFNKUhEfCyB8IKcgJhMA,230,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QviipqUhEfCyB8IKcgJhMA,230,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3tnMqUhEfCyB8IKcgJhMA,231,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QwBDw6UhEfCyB8IKcgJhMA,231,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3tnMKUhEfCyB8IKcgJhMA,232,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwTKUhEfCyB8IKcgJhMA,232,
+https://jazz.ibm.com:9443/rm/resources/TX_Q32xIaUhEfCyB8IKcgJhMA,233,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEDKUhEfCyB8IKcgJhMA,233,
+https://jazz.ibm.com:9443/rm/resources/TX_Q38QsaUhEfCyB8IKcgJhMA,234,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5VKUhEfCyB8IKcgJhMA,234,
+https://jazz.ibm.com:9443/rm/resources/TX_Q3j2MaUhEfCyB8IKcgJhMA,235,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dqaUhEfCyB8IKcgJhMA,235,
+https://jazz.ibm.com:9443/rm/resources/TX_Q38QsKUhEfCyB8IKcgJhMA,236,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEA6UhEfCyB8IKcgJhMA,236,
+https://jazz.ibm.com:9443/rm/resources/TX_Q32xIKUhEfCyB8IKcgJhMA,237,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwW6UhEfCyB8IKcgJhMA,237,
+https://jazz.ibm.com:9443/rm/resources/TX_Q38QsqUhEfCyB8IKcgJhMA,238,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1ds6UhEfCyB8IKcgJhMA,238,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4GBsKUhEfCyB8IKcgJhMA,239,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEDqUhEfCyB8IKcgJhMA,239,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4GBsqUhEfCyB8IKcgJhMA,240,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/TX_Q38QtqUhEfCyB8IKcgJhMA,241,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6bqUhEfCyB8IKcgJhMA,241,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4GBsaUhEfCyB8IKcgJhMA,242,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qt0rcaUhEfCyB8IKcgJhMA,242,
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1d16UhEfCyB8IKcgJhMA,242,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4GBtKUhEfCyB8IKcgJhMA,243,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dkqUhEfCyB8IKcgJhMA,243,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4GBs6UhEfCyB8IKcgJhMA,244,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6bKUhEfCyB8IKcgJhMA,244,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4GBt6UhEfCyB8IKcgJhMA,245,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dwKUhEfCyB8IKcgJhMA,245,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4GBtaUhEfCyB8IKcgJhMA,246,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QviisqUhEfCyB8IKcgJhMA,246,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4GBuaUhEfCyB8IKcgJhMA,247,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEEKUhEfCyB8IKcgJhMA,247,
+https://jazz.ibm.com:9443/rm/resources/TX_Q38QtKUhEfCyB8IKcgJhMA,248,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSES6UhEfCyB8IKcgJhMA,248,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4GBuKUhEfCyB8IKcgJhMA,249,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dmqUhEfCyB8IKcgJhMA,249,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4GBtqUhEfCyB8IKcgJhMA,250,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEG6UhEfCyB8IKcgJhMA,250,
+https://jazz.ibm.com:9443/rm/resources/TX_Q38Qs6UhEfCyB8IKcgJhMA,251,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dtKUhEfCyB8IKcgJhMA,251,
+https://jazz.ibm.com:9443/rm/resources/TX_Q38QtaUhEfCyB8IKcgJhMA,252,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QwBDzaUhEfCyB8IKcgJhMA,252,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4PLoKUhEfCyB8IKcgJhMA,253,/Terms
+https://jazz.ibm.com:9443/rm/resources/TX_Q4PLo6UhEfCyB8IKcgJhMA,254,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dl6UhEfCyB8IKcgJhMA,254,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4PLpKUhEfCyB8IKcgJhMA,255,/Base Artifacts/Module Template/Use Case Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QtOOd6UhEfCyB8IKcgJhMA,255,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4PLpqUhEfCyB8IKcgJhMA,256,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dyaUhEfCyB8IKcgJhMA,256,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4PLqKUhEfCyB8IKcgJhMA,257,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qt0rZaUhEfCyB8IKcgJhMA,257,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4PLqaUhEfCyB8IKcgJhMA,258,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qt0rZqUhEfCyB8IKcgJhMA,258,
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEEaUhEfCyB8IKcgJhMA,258,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4PLp6UhEfCyB8IKcgJhMA,259,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qviio6UhEfCyB8IKcgJhMA,259,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4Y8oKUhEfCyB8IKcgJhMA,260,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dk6UhEfCyB8IKcgJhMA,260,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4Y8oaUhEfCyB8IKcgJhMA,261,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1draUhEfCyB8IKcgJhMA,261,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4Y8oqUhEfCyB8IKcgJhMA,262,/Base Artifacts/02 Reference/AMR Standards Documents artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6k6UhEfCyB8IKcgJhMA,262,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4Y8o6UhEfCyB8IKcgJhMA,263,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6faUhEfCyB8IKcgJhMA,263,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4Y8pKUhEfCyB8IKcgJhMA,264,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1d0qUhEfCyB8IKcgJhMA,264,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4PLoaUhEfCyB8IKcgJhMA,265,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6hqUhEfCyB8IKcgJhMA,265,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4PLpaUhEfCyB8IKcgJhMA,266,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSD9aUhEfCyB8IKcgJhMA,266,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4Y8p6UhEfCyB8IKcgJhMA,267,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5bqUhEfCyB8IKcgJhMA,267,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4GBuqUhEfCyB8IKcgJhMA,268,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1doKUhEfCyB8IKcgJhMA,268,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4Y8pqUhEfCyB8IKcgJhMA,269,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qt0rYaUhEfCyB8IKcgJhMA,269,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4Y8qaUhEfCyB8IKcgJhMA,270,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6h6UhEfCyB8IKcgJhMA,270,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4Y8paUhEfCyB8IKcgJhMA,271,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5a6UhEfCyB8IKcgJhMA,271,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4PLoqUhEfCyB8IKcgJhMA,272,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwSaUhEfCyB8IKcgJhMA,272,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4Y8qKUhEfCyB8IKcgJhMA,273,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwYKUhEfCyB8IKcgJhMA,273,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4Y8qqUhEfCyB8IKcgJhMA,274,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEIaUhEfCyB8IKcgJhMA,274,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4itpqUhEfCyB8IKcgJhMA,275,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6aaUhEfCyB8IKcgJhMA,275,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4itoqUhEfCyB8IKcgJhMA,276,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QwBDy6UhEfCyB8IKcgJhMA,276,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4itpKUhEfCyB8IKcgJhMA,277,/Base Artifacts/Module Template/Use Case Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QtXYYaUhEfCyB8IKcgJhMA,277,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4itp6UhEfCyB8IKcgJhMA,278,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEAKUhEfCyB8IKcgJhMA,278,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4itqKUhEfCyB8IKcgJhMA,279,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dsKUhEfCyB8IKcgJhMA,279,
+https://jazz.ibm.com:9443/rm/resources/BI_Qt0raaUhEfCyB8IKcgJhMA,280,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4itqqUhEfCyB8IKcgJhMA,280,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
+https://jazz.ibm.com:9443/rm/resources/TX_Q4itoKUhEfCyB8IKcgJhMA,281,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6g6UhEfCyB8IKcgJhMA,281,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4itqaUhEfCyB8IKcgJhMA,282,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwTaUhEfCyB8IKcgJhMA,282,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4ito6UhEfCyB8IKcgJhMA,283,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QwBDyaUhEfCyB8IKcgJhMA,283,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4itq6UhEfCyB8IKcgJhMA,284,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwSKUhEfCyB8IKcgJhMA,284,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4r3kKUhEfCyB8IKcgJhMA,285,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwWqUhEfCyB8IKcgJhMA,285,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4itoaUhEfCyB8IKcgJhMA,286,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5aaUhEfCyB8IKcgJhMA,286,
+https://jazz.ibm.com:9443/rm/resources/BI_Qt0rZKUhEfCyB8IKcgJhMA,287,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4itpaUhEfCyB8IKcgJhMA,287,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
+https://jazz.ibm.com:9443/rm/resources/TX_Q4r3kqUhEfCyB8IKcgJhMA,288,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1do6UhEfCyB8IKcgJhMA,288,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4r3k6UhEfCyB8IKcgJhMA,289,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5ZqUhEfCyB8IKcgJhMA,289,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4r3lKUhEfCyB8IKcgJhMA,290,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5YqUhEfCyB8IKcgJhMA,290,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4r3laUhEfCyB8IKcgJhMA,291,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dtaUhEfCyB8IKcgJhMA,291,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4r3kaUhEfCyB8IKcgJhMA,292,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QwBDxaUhEfCyB8IKcgJhMA,292,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4r3l6UhEfCyB8IKcgJhMA,293,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSECKUhEfCyB8IKcgJhMA,293,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4r3lqUhEfCyB8IKcgJhMA,294,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSD_qUhEfCyB8IKcgJhMA,294,
+https://jazz.ibm.com:9443/rm/resources/TX_Q42PoaUhEfCyB8IKcgJhMA,295,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEBqUhEfCyB8IKcgJhMA,295,
+https://jazz.ibm.com:9443/rm/resources/TX_Q42PoqUhEfCyB8IKcgJhMA,296,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwXKUhEfCyB8IKcgJhMA,296,
+https://jazz.ibm.com:9443/rm/resources/TX_Q45S86UhEfCyB8IKcgJhMA,297,/Base Artifacts/Module Template/Use Case Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QtXYZaUhEfCyB8IKcgJhMA,297,
+https://jazz.ibm.com:9443/rm/resources/TX_Q45S8aUhEfCyB8IKcgJhMA,298,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEB6UhEfCyB8IKcgJhMA,298,
+https://jazz.ibm.com:9443/rm/resources/TX_Q42PoKUhEfCyB8IKcgJhMA,299,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5W6UhEfCyB8IKcgJhMA,299,
+https://jazz.ibm.com:9443/rm/resources/TX_Q45S8KUhEfCyB8IKcgJhMA,300,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEAqUhEfCyB8IKcgJhMA,300,
+https://jazz.ibm.com:9443/rm/resources/TX_Q45S8qUhEfCyB8IKcgJhMA,301,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dwqUhEfCyB8IKcgJhMA,301,
+https://jazz.ibm.com:9443/rm/resources/TX_Q45S9KUhEfCyB8IKcgJhMA,302,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dvaUhEfCyB8IKcgJhMA,302,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5AnsKUhEfCyB8IKcgJhMA,303,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5WKUhEfCyB8IKcgJhMA,303,
+https://jazz.ibm.com:9443/rm/resources/BI_QtOOeKUhEfCyB8IKcgJhMA,304,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5AntqUhEfCyB8IKcgJhMA,304,/Base Artifacts/Module Template/Use Case Template artifacts
+https://jazz.ibm.com:9443/rm/resources/TX_Q5AnsaUhEfCyB8IKcgJhMA,305,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEAaUhEfCyB8IKcgJhMA,305,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5Ant6UhEfCyB8IKcgJhMA,306,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwXqUhEfCyB8IKcgJhMA,306,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5AnuqUhEfCyB8IKcgJhMA,307,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5XqUhEfCyB8IKcgJhMA,307,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5AnuaUhEfCyB8IKcgJhMA,308,/Base Artifacts/01 Requirements/Requirements for Reuse artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qt0rY6UhEfCyB8IKcgJhMA,308,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5AnvKUhEfCyB8IKcgJhMA,309,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QwBDzqUhEfCyB8IKcgJhMA,309,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5AnuKUhEfCyB8IKcgJhMA,310,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSER6UhEfCyB8IKcgJhMA,310,
+https://jazz.ibm.com:9443/rm/resources/BI_QtXYZqUhEfCyB8IKcgJhMA,311,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5AntKUhEfCyB8IKcgJhMA,311,/Base Artifacts/Module Template/Use Case Template artifacts
+https://jazz.ibm.com:9443/rm/resources/TX_Q5KYsaUhEfCyB8IKcgJhMA,312,/Base Artifacts/02 Reference/AMR Standards Documents artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6kaUhEfCyB8IKcgJhMA,312,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5AntaUhEfCyB8IKcgJhMA,313,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5U6UhEfCyB8IKcgJhMA,313,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5AnsqUhEfCyB8IKcgJhMA,314,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwXaUhEfCyB8IKcgJhMA,314,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5KYs6UhEfCyB8IKcgJhMA,315,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QviitaUhEfCyB8IKcgJhMA,315,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5KYtKUhEfCyB8IKcgJhMA,316,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dwaUhEfCyB8IKcgJhMA,316,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5KYsqUhEfCyB8IKcgJhMA,317,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSENqUhEfCyB8IKcgJhMA,317,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5KYuaUhEfCyB8IKcgJhMA,318,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QwBDz6UhEfCyB8IKcgJhMA,318,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5KYt6UhEfCyB8IKcgJhMA,319,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dsqUhEfCyB8IKcgJhMA,319,
+https://jazz.ibm.com:9443/rm/resources/TX_Q4r3mKUhEfCyB8IKcgJhMA,320,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6cqUhEfCyB8IKcgJhMA,320,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5KYuKUhEfCyB8IKcgJhMA,321,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/TX_Q5KYtaUhEfCyB8IKcgJhMA,322,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSD-6UhEfCyB8IKcgJhMA,322,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5UJsaUhEfCyB8IKcgJhMA,323,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1d0aUhEfCyB8IKcgJhMA,323,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5KYtqUhEfCyB8IKcgJhMA,324,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEJKUhEfCyB8IKcgJhMA,324,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5UJs6UhEfCyB8IKcgJhMA,325,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6jaUhEfCyB8IKcgJhMA,325,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5UJsqUhEfCyB8IKcgJhMA,326,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5caUhEfCyB8IKcgJhMA,326,
+https://jazz.ibm.com:9443/rm/resources/BI_QtXYZKUhEfCyB8IKcgJhMA,327,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5UJsKUhEfCyB8IKcgJhMA,327,/Base Artifacts/Module Template/Use Case Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QtOOcaUhEfCyB8IKcgJhMA,328,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5fI0KUhEfCyB8IKcgJhMA,328,/Base Artifacts/Module Template/Use Case Template artifacts
+https://jazz.ibm.com:9443/rm/resources/TX_Q5fI06UhEfCyB8IKcgJhMA,329,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSD8qUhEfCyB8IKcgJhMA,329,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5fI1aUhEfCyB8IKcgJhMA,330,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QviisKUhEfCyB8IKcgJhMA,330,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5fI0aUhEfCyB8IKcgJhMA,331,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEOaUhEfCyB8IKcgJhMA,331,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5UJtKUhEfCyB8IKcgJhMA,332,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QviioaUhEfCyB8IKcgJhMA,332,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5UJtaUhEfCyB8IKcgJhMA,333,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwWaUhEfCyB8IKcgJhMA,333,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5fI0qUhEfCyB8IKcgJhMA,334,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEH6UhEfCyB8IKcgJhMA,334,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5fI1KUhEfCyB8IKcgJhMA,335,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dxqUhEfCyB8IKcgJhMA,335,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5fI16UhEfCyB8IKcgJhMA,336,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1duqUhEfCyB8IKcgJhMA,336,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5nEpaUhEfCyB8IKcgJhMA,337,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dzaUhEfCyB8IKcgJhMA,337,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5nEoaUhEfCyB8IKcgJhMA,338,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dr6UhEfCyB8IKcgJhMA,338,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5nEp6UhEfCyB8IKcgJhMA,339,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6d6UhEfCyB8IKcgJhMA,339,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5fI1qUhEfCyB8IKcgJhMA,340,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dxKUhEfCyB8IKcgJhMA,340,
+https://jazz.ibm.com:9443/rm/resources/BI_QtOOcqUhEfCyB8IKcgJhMA,341,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5nEpKUhEfCyB8IKcgJhMA,341,/Base Artifacts/Module Template/Use Case Template artifacts
+https://jazz.ibm.com:9443/rm/resources/TX_Q5nEqKUhEfCyB8IKcgJhMA,342,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qviip6UhEfCyB8IKcgJhMA,342,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5nEoqUhEfCyB8IKcgJhMA,343,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEP6UhEfCyB8IKcgJhMA,343,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5nEpqUhEfCyB8IKcgJhMA,344,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1du6UhEfCyB8IKcgJhMA,344,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5nEqaUhEfCyB8IKcgJhMA,345,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dpKUhEfCyB8IKcgJhMA,345,
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6a6UhEfCyB8IKcgJhMA,346,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5nErKUhEfCyB8IKcgJhMA,346,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/TX_Q5nEoKUhEfCyB8IKcgJhMA,347,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dp6UhEfCyB8IKcgJhMA,347,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5nEqqUhEfCyB8IKcgJhMA,348,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwUqUhEfCyB8IKcgJhMA,348,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5nEq6UhEfCyB8IKcgJhMA,349,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5bKUhEfCyB8IKcgJhMA,349,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5nEraUhEfCyB8IKcgJhMA,350,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dzKUhEfCyB8IKcgJhMA,350,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5w1oKUhEfCyB8IKcgJhMA,351,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qv1dpqUhEfCyB8IKcgJhMA,351,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5w1pqUhEfCyB8IKcgJhMA,352,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5VaUhEfCyB8IKcgJhMA,352,
+https://jazz.ibm.com:9443/rm/resources/BI_QtOOc6UhEfCyB8IKcgJhMA,353,
+https://jazz.ibm.com:9443/rm/resources/TX_Q528QKUhEfCyB8IKcgJhMA,353,/Base Artifacts/Module Template/Use Case Template artifacts
+https://jazz.ibm.com:9443/rm/resources/TX_Q5w1pKUhEfCyB8IKcgJhMA,354,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6daUhEfCyB8IKcgJhMA,354,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5w1paUhEfCyB8IKcgJhMA,355,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5XaUhEfCyB8IKcgJhMA,355,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5w1oqUhEfCyB8IKcgJhMA,356,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwS6UhEfCyB8IKcgJhMA,356,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5w1oaUhEfCyB8IKcgJhMA,357,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6iqUhEfCyB8IKcgJhMA,357,
+https://jazz.ibm.com:9443/rm/resources/TX_Q56moaUhEfCyB8IKcgJhMA,358,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6YaUhEfCyB8IKcgJhMA,358,
+https://jazz.ibm.com:9443/rm/resources/TX_Q528QaUhEfCyB8IKcgJhMA,359,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6eKUhEfCyB8IKcgJhMA,359,
+https://jazz.ibm.com:9443/rm/resources/TX_Q56mpKUhEfCyB8IKcgJhMA,360,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6haUhEfCyB8IKcgJhMA,360,
+https://jazz.ibm.com:9443/rm/resources/TX_Q56moKUhEfCyB8IKcgJhMA,361,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Quk5XKUhEfCyB8IKcgJhMA,361,
+https://jazz.ibm.com:9443/rm/resources/TX_Q56mpaUhEfCyB8IKcgJhMA,362,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QuQwRqUhEfCyB8IKcgJhMA,362,
+https://jazz.ibm.com:9443/rm/resources/TX_Q56moqUhEfCyB8IKcgJhMA,363,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qviis6UhEfCyB8IKcgJhMA,363,
+https://jazz.ibm.com:9443/rm/resources/BI_QwBDwqUhEfCyB8IKcgJhMA,364,
+https://jazz.ibm.com:9443/rm/resources/TX_Q56mo6UhEfCyB8IKcgJhMA,364,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/TX_Q56mqaUhEfCyB8IKcgJhMA,365,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6f6UhEfCyB8IKcgJhMA,365,
+https://jazz.ibm.com:9443/rm/resources/TX_Q56mp6UhEfCyB8IKcgJhMA,366,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6c6UhEfCyB8IKcgJhMA,366,
+https://jazz.ibm.com:9443/rm/resources/TX_Q56mqKUhEfCyB8IKcgJhMA,367,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qtq6dKUhEfCyB8IKcgJhMA,367,
+https://jazz.ibm.com:9443/rm/resources/TX_Q6EXoKUhEfCyB8IKcgJhMA,368,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_Qviir6UhEfCyB8IKcgJhMA,368,
+https://jazz.ibm.com:9443/rm/resources/TX_Q6EXoqUhEfCyB8IKcgJhMA,369,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QwBDyqUhEfCyB8IKcgJhMA,369,
+https://jazz.ibm.com:9443/rm/resources/TX_Q56mpqUhEfCyB8IKcgJhMA,370,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSEGKUhEfCyB8IKcgJhMA,370,
+https://jazz.ibm.com:9443/rm/resources/TX_Q5w1o6UhEfCyB8IKcgJhMA,371,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSERKUhEfCyB8IKcgJhMA,371,
+https://jazz.ibm.com:9443/rm/resources/TX_Q6EXo6UhEfCyB8IKcgJhMA,372,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_QvSESaUhEfCyB8IKcgJhMA,372,

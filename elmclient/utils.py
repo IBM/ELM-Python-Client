@@ -24,7 +24,13 @@ import cryptography.hazmat.primitives.kdf.pbkdf2
 # from https://stackoverflow.com/a/55276759/2318649
 
 import logging
+import logging.handlers
+
 import functools
+
+# settings for the rotating logs
+LOGFILEROLLOVERSIZE_MIB=50
+LOGFILEROLLOVERCOUNT=10
 
 # the TRACE level is between warning and info so the httpops can just log communication with the server without getting all the other info/debug logged
 logging.TRACE = 25
@@ -64,7 +70,13 @@ def setup_logging( *, filelevel=logging.INFO, consolelevel=None ):
 
         if filelevel is not None:
             # file handler gets *all* log messages
-            handler = logging.FileHandler(os.path.join(LOGFOLDER,f"elmclient-{datetimestamp}.log"), mode='w')  # create a 'log1.log' handler
+# older non-rotating file handler:           handler = logging.FileHandler(os.path.join(LOGFOLDER,f"elmclient-{datetimestamp}.log"), mode='w')  # create a 'log1.log' handler
+            handler = logging.handlers.RotatingFileHandler(
+                os.path.join(LOGFOLDER,f"elmclient-{datetimestamp}.log"),
+                maxBytes = LOGFILEROLLOVERSIZE_MIB*1024*1024,
+                backupCount = LOGFILEROLLOVERCOUNT,
+                mode='w'
+            )
             handler.setLevel(filelevel)  # make sure all levels go to it
             handler.setFormatter(filelogformatter)  # use the above formatter
             log.addHandler(handler)  # add the file handler to the root logger

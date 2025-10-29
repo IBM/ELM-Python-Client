@@ -21,11 +21,16 @@ import urllib
 import lxml.etree as ET
 import requests
 import tqdm
+import threading
 
 from elmclient import rdfxml
 
 # make this an empty string to disable cookie saving
 COOKIE_SAVE_FILE = ".cookies"
+
+# this semaphore is used around reading/writing the cookie file so for multi-threaded use it is always read/written safely
+SEMA_COOKIEFILE_MAX = 1
+sema_cookiefile = threading.BoundedSemaphore(value=SEMA_COOKIEFILE_MAX)
 
 logger = logging.getLogger(__name__)
 
@@ -513,39 +518,23 @@ class HttpRequest():
 
     # execute the request, retrying with increasing delays (login isn't handled at this level but at lower level)
     def _execute_request( self, *, no_error_log=False, close=False, cacheable=True, **kwargs ):
-        for wait_dur in [2, 5, 10, 0]:   # 20, 30, 60,
-            result=None
+        for wait_dur in [2, 5, 10, 0]:
             try:
+                result=None
                 if not self._session.alwayscache and not cacheable:
                     # add a header so the response isn't cached
                     self._req.headers['Cache-Control'] = "no-store, max-age=0"
                 result = self._execute_one_request_with_login( no_error_log=no_error_log, close=close, **kwargs)
                 return result
             except requests.RequestException as e:
-#                print( f"ERROR {e=}" )
-                if no_error_log:
+                if wait_dur == 0 or not self._is_retryable_error(e, result):
                     raise
-                # ALWAYS retry until all retry delays have been tried, the raise
-                logger.exception( f"Httpops RequestException was thrown for URL: {self._req.url} exception: {repr(e)}" )
-                
-                if not self._is_retryable_error( e, result ):
-                    raise
-
-                if wait_dur == 0:
-                    logger.error( "HTTPOPS not succeeded after all timeouts! - giving up!" )
-                    raise
-                logger.error( f"HTTPOPS pausing for {wait_dur} then retrying" )
+                logger.info( f"Got error on HTTP request. URL: {self._req.url}, {e.response.status_code}, {e.response.text}")
+                logger.warning( f'RETRY: Retry after {wait_dur} seconds... URL: {self._req.url}' )
+                logger.error( "HTTPOPS not succeeded after all timeouts! - giving up!" )                
                 time.sleep(wait_dur)
-            except Exception as e:
-                print( f"Unexpected exception was thrown for URL: {self._req.url}" )
-                logger.exception( f"Unexpected exception was thrown for URL: {self._req.url}" )
-                raise
-                
-        logger.error( "HTTPOPS not succeeded after all timeouts! - giving up!"    )                 
         raise Exception('programming error this point should never be reached')
         
-
-    
     # log a request/response, which may be the result of one or more redirections, so first log each of their request/response
     def log_redirection_history( self, response, intent, action=None, donotlogbody=False ):
         thisintent = intent
@@ -691,11 +680,7 @@ class HttpRequest():
     # categorize a Requests .send() exception e as to whether is retriable
     def _is_retryable_error( self, e, resp ):
         if self._session.auto_retry:
-#            print( f"{e=} {resp=}" )
-            
-            if resp is None or resp.response is None:
-                return False
-            if resp.response.status_code in [
+            if resp and resp.response.status_code in [
                                                 http.client.REQUEST_TIMEOUT,
                                                 http.client.LOCKED, 
 #                                                http.client.INTERNAL_SERVER_ERROR,
@@ -729,12 +714,13 @@ class HttpRequest():
         # try to load previous cookies - helps avoid authentication when previous cookies already authenticatded us
         if COOKIE_SAVE_FILE:
             if os.path.isfile( COOKIE_SAVE_FILE ):
-                try:
-                    with open( COOKIE_SAVE_FILE, 'rb') as f:
-                        self._session.cookies.update( pickle.load( f ) )
-                except:
-                    print( "Warning cookie file {COOKIE_SAVE_FILE} not valid - removing it!" )
-                    os.remove( COOKIE_SAVE_FILE )
+                with sema_cookiefile:
+                    try:
+                        with open( COOKIE_SAVE_FILE, 'rb') as f:
+                            self._session.cookies.update( pickle.load( f ) )
+                    except:
+                        print( "Warning cookie file {COOKIE_SAVE_FILE} not valid - removing it!" )
+                        os.remove( COOKIE_SAVE_FILE )
                     
         
         # copy header Configuration-Context to oslc_config.context/vvc.configuration parameter so URL when cached is config-specific
@@ -897,8 +883,9 @@ class HttpRequest():
 
         # save cookies
         if COOKIE_SAVE_FILE:
-            with open( COOKIE_SAVE_FILE, 'wb') as f:
-                pickle.dump( self._session.cookies, f )
+            with sema_cookiefile:
+                with open( COOKIE_SAVE_FILE, 'wb') as f:
+                    pickle.dump( self._session.cookies, f )
 
 
         return response

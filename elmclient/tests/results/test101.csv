@@ -213,8 +213,8 @@ https://jazz.ibm.com:9443/rm/resources/TX_nMB7eHaKEfCeB7Wej8YFgg,3086,Standards 
 https://jazz.ibm.com:9443/rm/resources/BI_nPOZjXaKEfCeB7Wej8YFgg,3086,Standards Compliance,Heading,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nMLscHaKEfCeB7Wej8YFgg,3087,Leashed Pets,Hazard and Risk,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPrscXaKEfCeB7Wej8YFgg,3087,Leashed Pets,Hazard and Risk,,Text
-https://jazz.ibm.com:9443/rm/resources/BI_nPrsbnaKEfCeB7Wej8YFgg,3088,Fire/Explosion,Heading,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nMLscXaKEfCeB7Wej8YFgg,3088,Fire/Explosion,Heading,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts,Text
+https://jazz.ibm.com:9443/rm/resources/BI_nPrsbnaKEfCeB7Wej8YFgg,3088,Fire/Explosion,Heading,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nMB7f3aKEfCeB7Wej8YFgg,3089,Functional Requirements,Heading,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nP1dbXaKEfCeB7Wej8YFgg,3089,Functional Requirements,Heading,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nMB7fnaKEfCeB7Wej8YFgg,3090,Communications Interfaces,Heading,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts,Text
@@ -481,8 +481,8 @@ https://jazz.ibm.com:9443/rm/resources/BI_nP1dp3aKEfCeB7Wej8YFgg,3218,Any supple
 https://jazz.ibm.com:9443/rm/resources/BI_nPOZdXaKEfCeB7Wej8YFgg,3218,Any supplementary communication between subsystem units shall be available through Bluetooth in order to maintain IP67 or better in accordance with Standard IEC 60529.,Stakeholder Requirement,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nNbCkHaKEfCeB7Wej8YFgg,3219,Functional Requirements,Heading,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPNLTXaKEfCeB7Wej8YFgg,3219,Functional Requirements,Heading,,Text
-https://jazz.ibm.com:9443/rm/resources/TX_nNZ0cXaKEfCeB7Wej8YFgg,3220,Intentionally left blank,Heading,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nP1dtnaKEfCeB7Wej8YFgg,3220,Intentionally left blank,Heading,,Text
+https://jazz.ibm.com:9443/rm/resources/TX_nNZ0cXaKEfCeB7Wej8YFgg,3220,Intentionally left blank,Heading,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nNZ0cHaKEfCeB7Wej8YFgg,3221,The system software and functions shall be quickly and easily movable to another computer or workstation in the event of failure of the control computer.,Stakeholder Requirement,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPh7u3aKEfCeB7Wej8YFgg,3221,The system software and functions shall be quickly and easily movable to another computer or workstation in the event of failure of the control computer.,Stakeholder Requirement,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nNbCk3aKEfCeB7Wej8YFgg,3222,Ability to perform advanced data analysis of incremental meter readings,Stakeholder Requirement,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,Text
@@ -544,8 +544,8 @@ https://jazz.ibm.com:9443/rm/resources/TX_nNjlfnaKEfCeB7Wej8YFgg,3250,Appendixes
 https://jazz.ibm.com:9443/rm/resources/BI_nPOZl3aKEfCeB7Wej8YFgg,3250,Appendixes,Heading,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nNjlf3aKEfCeB7Wej8YFgg,3251,Security,Heading,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPNLZnaKEfCeB7Wej8YFgg,3251,Security,Heading,,Text
-https://jazz.ibm.com:9443/rm/resources/TX_nNt9hHaKEfCeB7Wej8YFgg,3252,"<e.g., The spacecraft does not reach escape velocity and the mission is aborted>",Information,/Base Artifacts/Module Template/Use Case Template artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPEBXHaKEfCeB7Wej8YFgg,3252,"<e.g., The spacecraft does not reach escape velocity and the mission is aborted>",Information,,Text
+https://jazz.ibm.com:9443/rm/resources/TX_nNt9hHaKEfCeB7Wej8YFgg,3252,"<e.g., The spacecraft does not reach escape velocity and the mission is aborted>",Information,/Base Artifacts/Module Template/Use Case Template artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nNt9gXaKEfCeB7Wej8YFgg,3253,9. The system displays the leak data.,Information,/Base Artifacts/Use Case Content/Upload Usage Data Locally artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPYKeXaKEfCeB7Wej8YFgg,3253,9. The system displays the leak data.,Information,,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nP1dsnaKEfCeB7Wej8YFgg,3254,Precedence and criticality of requirements,Heading,,Text
@@ -582,8 +582,8 @@ https://jazz.ibm.com:9443/rm/resources/TX_nN3HdXaKEfCeB7Wej8YFgg,3269,Support co
 https://jazz.ibm.com:9443/rm/resources/BI_nPh7eHaKEfCeB7Wej8YFgg,3269,Support conservation monitoring and enforcement,Stakeholder Requirement,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nN3HdHaKEfCeB7Wej8YFgg,3270,"The desired solution leverages the existing infrastructure of meters, but may require enhancements to support a more flexible means of determining water consumption. The goal is to best provide services and read meters in an electronically automated and co",Stakeholder Requirement,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPh7bnaKEfCeB7Wej8YFgg,3270,"The desired solution leverages the existing infrastructure of meters, but may require enhancements to support a more flexible means of determining water consumption. The goal is to best provide services and read meters in an electronically automated and co",Stakeholder Requirement,,Text
-https://jazz.ibm.com:9443/rm/resources/BI_nP1dhXaKEfCeB7Wej8YFgg,3271,The meter interface unit shall sample water flow every 15 minutes in a 24 hour period to determine leakage.,System Requirement,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nN3Hc3aKEfCeB7Wej8YFgg,3271,The meter interface unit shall sample water flow every 15 minutes in a 24 hour period to determine leakage.,System Requirement,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts,Text
+https://jazz.ibm.com:9443/rm/resources/BI_nP1dhXaKEfCeB7Wej8YFgg,3271,The meter interface unit shall sample water flow every 15 minutes in a 24 hour period to determine leakage.,System Requirement,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nN3HeXaKEfCeB7Wej8YFgg,3272,Transferability/Conversion,Heading,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPOZk3aKEfCeB7Wej8YFgg,3272,Transferability/Conversion,Heading,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nN3HeHaKEfCeB7Wej8YFgg,3273,Ability to perform advanced data analysis of incremental meter readings,Stakeholder Requirement,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,Text
@@ -632,8 +632,8 @@ https://jazz.ibm.com:9443/rm/resources/TX_nOKpdHaKEfCeB7Wej8YFgg,3294,"The meter
 https://jazz.ibm.com:9443/rm/resources/BI_nPh7pnaKEfCeB7Wej8YFgg,3294,"The meter interface unit shall allow for at least one, but preferably several, mechanisms for data collection.",Stakeholder Requirement,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nOKpd3aKEfCeB7Wej8YFgg,3295,General Description,Heading,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPh7a3aKEfCeB7Wej8YFgg,3295,General Description,Heading,,Text
-https://jazz.ibm.com:9443/rm/resources/TX_nOTzYHaKEfCeB7Wej8YFgg,3296,Intentionally left blank,Heading,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nP1duHaKEfCeB7Wej8YFgg,3296,Intentionally left blank,Heading,,Text
+https://jazz.ibm.com:9443/rm/resources/TX_nOTzYHaKEfCeB7Wej8YFgg,3296,Intentionally left blank,Heading,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPEBX3aKEfCeB7Wej8YFgg,3297,Trigger,Heading,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nOTzYXaKEfCeB7Wej8YFgg,3297,Trigger,Heading,/Base Artifacts/Module Template/Use Case Template artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nOKpeHaKEfCeB7Wej8YFgg,3298,The handheld device shall provide for the means for the meter reader to manually enter a meter reading or information about a meter reading such as,Stakeholder Requirement,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,Text
@@ -655,8 +655,8 @@ https://jazz.ibm.com:9443/rm/resources/BI_nP1dlnaKEfCeB7Wej8YFgg,3306,Database S
 https://jazz.ibm.com:9443/rm/resources/TX_nOTza3aKEfCeB7Wej8YFgg,3306,Database Server,Heading,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nOTzaHaKEfCeB7Wej8YFgg,3307,The meter interface unit shall be compatible with MMIU.,Stakeholder Requirement,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPh7qXaKEfCeB7Wej8YFgg,3307,The meter interface unit shall be compatible with MMIU.,Stakeholder Requirement,,Text
-https://jazz.ibm.com:9443/rm/resources/TX_nOTzZ3aKEfCeB7Wej8YFgg,3308,Goal,Heading,/Base Artifacts/Module Template/Use Case Template artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPEBU3aKEfCeB7Wej8YFgg,3308,Goal,Heading,,Text
+https://jazz.ibm.com:9443/rm/resources/TX_nOTzZ3aKEfCeB7Wej8YFgg,3308,Goal,Heading,/Base Artifacts/Module Template/Use Case Template artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nOTzanaKEfCeB7Wej8YFgg,3309,ANSI 1252 Latin 1 for CSV Export,Information,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPh7YnaKEfCeB7Wej8YFgg,3309,ANSI 1252 Latin 1 for CSV Export,Information,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nOTzbHaKEfCeB7Wej8YFgg,3310,External Communications,Heading,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts,Text
@@ -677,8 +677,8 @@ https://jazz.ibm.com:9443/rm/resources/BI_nP1df3aKEfCeB7Wej8YFgg,3317,The meter 
 https://jazz.ibm.com:9443/rm/resources/TX_nOdkY3aKEfCeB7Wej8YFgg,3317,The meter interface unit shall be compatible with the existing meter models in use for the area covered by this project.,System Requirement,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nP1dnXaKEfCeB7Wej8YFgg,3318,The handheld unit shall function in environments from -5 degree C through +50 degree C.,System Requirement,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nOdkZ3aKEfCeB7Wej8YFgg,3318,The handheld unit shall function in environments from -5 degree C through +50 degree C.,System Requirement,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts,Text
-https://jazz.ibm.com:9443/rm/resources/TX_nOnVYnaKEfCeB7Wej8YFgg,3319,General Constraints,Heading,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPNLSnaKEfCeB7Wej8YFgg,3319,General Constraints,Heading,,Text
+https://jazz.ibm.com:9443/rm/resources/TX_nOnVYnaKEfCeB7Wej8YFgg,3319,General Constraints,Heading,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nP1di3aKEfCeB7Wej8YFgg,3320,Control Computer and Related Hardware,Heading,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nOdkaHaKEfCeB7Wej8YFgg,3320,Control Computer and Related Hardware,Heading,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nOdkaXaKEfCeB7Wej8YFgg,3321,The meter interface unit shall calculate the average pressure for each hour of the day over a 7 day cycle,System Requirement,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts,Text
@@ -693,8 +693,8 @@ https://jazz.ibm.com:9443/rm/resources/BI_nP1dnHaKEfCeB7Wej8YFgg,3325,The handhe
 https://jazz.ibm.com:9443/rm/resources/TX_nOnVY3aKEfCeB7Wej8YFgg,3325,The handheld unit shall have a mass no greater than 2.25kg.,System Requirement,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nOdkanaKEfCeB7Wej8YFgg,3326,Future AMR handheld mass growth,Hazard and Risk,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPrsbXaKEfCeB7Wej8YFgg,3326,Future AMR handheld mass growth,Hazard and Risk,,Text
-https://jazz.ibm.com:9443/rm/resources/TX_nOnVaXaKEfCeB7Wej8YFgg,3327,detectLeak,Heading,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPNLVHaKEfCeB7Wej8YFgg,3327,detectLeak,Heading,,Text
+https://jazz.ibm.com:9443/rm/resources/TX_nOnVaXaKEfCeB7Wej8YFgg,3327,detectLeak,Heading,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nOnVZ3aKEfCeB7Wej8YFgg,3328,General Constraints,Heading,/Base Artifacts/Module Template/Software Requirements Specification Template artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPOZgnaKEfCeB7Wej8YFgg,3328,General Constraints,Heading,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nOnVaHaKEfCeB7Wej8YFgg,3329,Control Computer and Related Hardware,Heading,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,Text
@@ -717,14 +717,14 @@ https://jazz.ibm.com:9443/rm/resources/BI_nPrseXaKEfCeB7Wej8YFgg,3337,Inadequate
 https://jazz.ibm.com:9443/rm/resources/TX_nOnVcHaKEfCeB7Wej8YFgg,3337,Inadequate wireless coverage for all customers,Hazard and Risk,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nOxGYHaKEfCeB7Wej8YFgg,3338,Attributes,Heading,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPNLZHaKEfCeB7Wej8YFgg,3338,Attributes,Heading,,Text
-https://jazz.ibm.com:9443/rm/resources/TX_nOnVbXaKEfCeB7Wej8YFgg,3339,The meter interface unit shall compare instantaneous readings to the historical average for the hour of the day,System Requirement,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPNLV3aKEfCeB7Wej8YFgg,3339,The meter interface unit shall compare instantaneous readings to the historical average for the hour of the day,System Requirement,,Text
+https://jazz.ibm.com:9443/rm/resources/TX_nOnVbXaKEfCeB7Wej8YFgg,3339,The meter interface unit shall compare instantaneous readings to the historical average for the hour of the day,System Requirement,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nP1dq3aKEfCeB7Wej8YFgg,3340,Identification,Heading,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nOnVcXaKEfCeB7Wej8YFgg,3340,Identification,Heading,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPNLXnaKEfCeB7Wej8YFgg,3341,Software Interfaces,Heading,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nOxGZXaKEfCeB7Wej8YFgg,3341,Software Interfaces,Heading,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts,Text
-https://jazz.ibm.com:9443/rm/resources/TX_nOxGY3aKEfCeB7Wej8YFgg,3342,The meter interface unit shall log a low pressure event if the pressure is below 1.8 bar,System Requirement,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPNLUnaKEfCeB7Wej8YFgg,3342,The meter interface unit shall log a low pressure event if the pressure is below 1.8 bar,System Requirement,,Text
+https://jazz.ibm.com:9443/rm/resources/TX_nOxGY3aKEfCeB7Wej8YFgg,3342,The meter interface unit shall log a low pressure event if the pressure is below 1.8 bar,System Requirement,/Base Artifacts/01 Requirements/Meter Interface/Meter Interface Subsystem Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nOxGYnaKEfCeB7Wej8YFgg,3343,Assumptions and Dependencies,Heading,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_nPh7iHaKEfCeB7Wej8YFgg,3343,Assumptions and Dependencies,Heading,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_nOxGZnaKEfCeB7Wej8YFgg,3344,Humidity operational limits of the device,Hazard and Risk,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts,Text

@@ -1364,6 +1364,8 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
         if name is not None:
             return name
         if path_or_uri in self._folders:
+            if self._folders[path_or_uri] is None:
+                raise Exception( f"Folder name '{path_or_uri}' is ambiguous - must be more than one folder with the same name at that level!" )
             return self._folders[path_or_uri].folderuri
         raise Exception(f"Folder name {path_or_uri} not found")
 
@@ -1475,16 +1477,6 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
 
 
 
-#################################################################################################
-
-class RMComponent( RMProject, resource.Resources_Mixin ):
-    def __init__(self, name, project_uri, app, is_optin=False, singlemode=False,defaultinit=True, project=None):
-        if not project:
-            raise Exception( "You must provide a project instance when creating a component" )
-        super().__init__(name, project_uri, app, is_optin,singlemode,defaultinit=defaultinit)
-        self.component_project = project
-        self.services_uri = project.services_uri    # needed for reqif which wants to put the services.xml URI into created XML for new definitions
-        self._iscomponent=True
 
     # this is a bit primitive but works well enough for now
     def getconfigtype( self, configuri ):
@@ -1493,17 +1485,175 @@ class RMComponent( RMProject, resource.Resources_Mixin ):
         if '/changeset/' in configuri:  return "Changeset"
         raise Exception( f"Config URL {configuri} not valid!" )
 
+    def create_baseline( self, *, baselinename=None, autorename=True ):
+        # confirm we're not in a changeset or baseline
+        if self.getconfigtype( self.local_config ) == 'Changeset':
+            raise Exception( "Can't create a baseline when in a changeset!" )
+        if self.getconfigtype( self.local_config ) == 'Baseline':
+            raise Exception( "Can't create a baseline when in a baseline!" )
+
+        # check the requested baselinename doesn't exist (can't have duplicate names)
+        if baselinename and not autorename and self.find_config( baselinename ):
+            raise Exception( f"Configuration {baselinename} is already used - can't have duplicates!" )
+            
+        uniqueness = utils.uniquestr()
+        
+        if not baselinename or autorename:
+            prefix = baselinename or "Automatically named baseline"
+            baselinename = f"{prefix} {uniqueness}"
+            if self.find_config( baselinename ):
+                raise Exception( "Sigh, the name {baselinename} isn't unique!" )
+            
+        # we're in a stream - create the baseline
+        # get the current stream
+        baselines_x = self.execute_get_rdf_xml( self.local_config )
+#        print( f"{stream_x=}" )
+        # find the changesets URL
+        baselines_u = rdfxml.xmlrdf_get_resource_uri( baselines_x, ".//oslc_config:baselines" )
+        comp_u = rdfxml.xmlrdf_get_resource_uri( baselines_x, './/oslc_config:component' )
+#        print( f"{baselines_u=}" )
+#        print( f"{comp_u=}" )
+        # create a new CS by POST
+        body = f"""<rdf:RDF
+    xmlns:dcterms="http://purl.org/dc/terms/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:oslc="http://open-services.net/ns/core#"
+    xmlns:oslc_config="http://open-services.net/ns/config#"
+    xmlns:acc="http://open-services.net/ns/core/acc#"
+    xmlns:process="http://jazz.net/ns/process#">
+  <oslc_config:Configuration  rdf:about="https://jazz.ibm.com:9443/rm/cm/baseline/something">
+    <oslc_config:component rdf:resource="{comp_u}"/>
+    <dcterms:title rdf:parseType="Literal">{baselinename}</dcterms:title>
+  </oslc_config:Configuration>
+</rdf:RDF>"""
+
+        response = self.execute_post_rdf_xml( baselines_u, data=body, headers={'Content-Type': 'application/rdf+xml', 'OSLC-Core-Version':'2.0'}, intent="Initiate stream creation" )
+
+        location = response.headers.get('Location')
+        if response.status_code == 201:
+            pass
+        elif response.status_code == 202 and location is not None:
+            # wait for the tracker to finished
+            result = self.wait_for_tracker( location, interval=1.0, progressbar=True, msg=f"Waiting for changeset creation to complete")
+            if result is None:
+                raise Exception( f"No result from tracker!" )
+        else:
+            raise Exception( f"Unknown response {response.status_code}" )
+
+        baseline_u = rdfxml.xmlrdf_get_resource_uri( result, './/dcterms:references')
+
+        self.load_new_config( baseline_u )
+
+        return baseline_u
+        
+    # create a stream - if already in a stream then first create a baseline, then a stream from that baseline
+    # if streamname or baselinename is none, automatic names are used which you may not like, but they are unique
+    def create_stream( self, *, streamname=None, baselinename=None, autorename=False ):
+        # confirm we're opt-in
+        if not self.is_optin:
+            raise Exception( "Can't create a new stream in an opt-out project!" )
+            
+        # confirm we're not in a changeset
+        if self.getconfigtype( self.local_config ) == 'Changeset':
+            raise Exception( "Can't create a sgtream when in a changeset!" )
+            
+        # check the requested streamname doesn't exist (can't have duplicate names)
+        if streamname and not autorename and self.find_config( streamname ):
+            raise Exception( f"Configuration {streamname} is already used - can't have duplicates!" )
+        if baselinename and not autorename and self.find_config( baselinename ):
+            raise Exception( f"Configuration {baselinename} is already used - can't have duplicates!" )
+
+        uniqueness = utils.uniquestr()
+            
+        if not streamname or autorename:
+            prefix = streamname or "Automatically named stream"
+            streamname = f"{prefix} {uniqueness}"
+            if self.find_config( streamname ):
+                raise Exception( "Sigh, the name {streamname} isn't unique!" )
+
+        if not baselinename or autorename:
+            uniqueness = utils.uniquestr()
+            prefix = baselinename or "Automatically named baseline"
+            baselinename = f"{prefix} {uniqueness}"
+            if self.find_config( baselinename ):
+                raise Exception( "Sigh, the name {baselinename} isn't unique!" )
+            
+        # now if we're in in a stream, we can create a baseline
+        if self.getconfigtype( self.local_config ) == 'Stream' :
+            # create a new baseline
+            bl_u = self.create_baseline( baselinename=baselinename )
+            # select the baseline
+            self.set_local_config( bl_u )
+            
+        # confirm we're in a baseline
+        if self.getconfigtype( self.local_config ) != 'Baseline' :
+            raise Exception( "Can only create stream whenb in a baseline!" )
+
+        # we're in a baseline - create the stream
+        # get the current stream
+        streams_x = self.execute_get_rdf_xml( self.local_config )
+#        print( f"{stream_x=}" )
+        # find the changesets URL
+        streams_u = rdfxml.xmlrdf_get_resource_uri( streams_x, ".//oslc_config:streams" )
+        comp_u = rdfxml.xmlrdf_get_resource_uri( streams_x, './/oslc_config:component' )
+#        print( f"{cs_u=}" )
+#        print( f"{comp_u=}" )
+        # create a new CS by POST
+        body = f"""<rdf:RDF
+    xmlns:dcterms="http://purl.org/dc/terms/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:oslc="http://open-services.net/ns/core#"
+    xmlns:oslc_config="http://open-services.net/ns/config#"
+    xmlns:acc="http://open-services.net/ns/core/acc#"
+    xmlns:process="http://jazz.net/ns/process#">
+  <oslc_config:Configuration  rdf:about="https://laptop-e95ocmuv:9443/rm/cm/stream/something">
+    <oslc_config:component rdf:resource="{comp_u}"/>
+    <dcterms:title rdf:parseType="Literal">{streamname}</dcterms:title>
+  </oslc_config:Configuration>
+</rdf:RDF>"""
+
+        response = self.execute_post_rdf_xml( streams_u, data=body, headers={'Content-Type': 'application/rdf+xml', 'OSLC-Core-Version':'2.0'}, intent="Initiate stream creation" )
+
+        location = response.headers.get('Location')
+        if response.status_code == 201:
+            pass
+        elif response.status_code == 202 and location is not None:
+            # wait for the tracker to finished
+            result = self.wait_for_tracker( location, interval=1.0, progressbar=True, msg=f"Waiting for changeset creation to complete")
+            if result is None:
+                raise Exception( f"No result from tracker!" )
+        else:
+            raise Exception( f"Unknown response {response.status_code}" )
+
+        stream_u = rdfxml.xmlrdf_get_resource_uri( result, './/dcterms:references')
+        
+        self.load_new_config( stream_u )
+
+        return stream_u
+
     # create a changeset in the current config (must be a stream)
-    def create_changeset( self, name, noexception=False ):
+    def create_changeset( self, *, name=None, autorename=True, noexception=False ):
+        # confirm we're opt-in
+        if not self.is_optin:
+            raise Exception( "Can't create a changeset in an opt-out project!" )
+
         # make sure config is a stream
         if self.getconfigtype( self.local_config ) != 'Stream' :
             raise Exception( "Can't create CS if not in stream!" )
 
+        uniqueness = utils.uniquestr()
+        
+        if name is None:
+            name = "Automatically named changeset"
+            
         # make sure name doesn't already exist amywhere in this component!
         if self.find_config( name, nowarning=True) is not None:
-            if noexception:
+            if autorename:
+                name = f"{name} {uniqueness}"
+                if self.find_config( name, nowarning=True) is not None:
+                    raise Exception( "Sigh, the name {name} isn't unique!" )
+            elif noexception:
                 return None
-            raise Exception( "CS name already exists!" )
 
         # create the changeset - it's up to the caller to select it as current config
         # get the current stream
@@ -1541,24 +1691,48 @@ class RMComponent( RMProject, resource.Resources_Mixin ):
         else:
             raise Exception( f"Unknown response {response.status_code}" )
 
-        cs = rdfxml.xmlrdf_get_resource_uri( result, './/dcterms:references')
-
-        return cs
-
+        cs_u = rdfxml.xmlrdf_get_resource_uri( result, './/dcterms:references')
+        self.load_new_config( cs_u )
+        return cs_u
     def discard_changeset( self ):
         raise Exception( "Discard changeset not implemented yet!" )
 
-    # deliver changeset and forget it
-    def deliver_changeset( self ):
-        raise Exception( "unfinished/untested!" )
+    # EITHER if current config is a changeset, don't specify targetstream_u and it will be delivered to the stream it was created in
+    # OR deliver current stream config to the targetstream_u
+    # policy should be a string like "" and this will be included in the delivery task
+    # policies:
+    # "http://jazz.net/ns/rm/dng/config#sourceWinsPolicy"
+    # "http://jazz.net/ns/rm/dng/config#mergeIndependentAttributes"
+    # "dng_config:dominantSourceAttribute" and then content is list of attribute URIs (need an example of this)
+    
+    def deliver( self, *, targetstream_u=None, policy=None ):
+#        print( f"Deliver {self=} {targetstream_u=}" )
         # check we're in a changeset
-        if self.getconfigtype( self.local_config ) != 'Changeset' :
-            raise Exception( f"Can't deliver CS if not in CS! Current config is {self.local_config}" )
+        if self.getconfigtype( self.local_config ) == 'Changeset' :
+            # changeset->stream delivery
+            # changeset delivery to the stream it was created in
+            if targetstream_u is not None:
+                raise Exception( f"Can't deliver a changeset to a specific stream - don't specify targetstream_u" )
+            # get the target stream from the changeset
+            sourcestream_u = self.local_config
+            cs_x = self.execute_get_rdf_xml( self.local_config )
+            targetstream_u = rdfxml.xmlrdf_get_resource_uri( cs_x, './/oslc_config:overrides' )
+            csname = rdfxml.xmlrdf_get_resource_text( cs_x, './/dcterms:title' )
+            targetstreamname = self.find_config_name( targetstream_u )
+            deliverytitle = f"Delivery of changeset {csname} to the stream it was created in {targetstreamname}"
+            print( f"\n\nDeliver cs {self.local_config=} {targetstream_u=} {csname=} {targetstreamname=} {deliverytitle=}" )
+        else:
+            # stream->stream delivery
+            if self.getconfigtype( self.local_config ) == 'Stream' :
+                if targetstream_u is None:
+                    raise Exception( f"this config is in a streeam - you need to specify a target stream but you didn't!" )
+                sourcestreamname = self.find_config_name( self.local_config )
+                targetstreamname = self.find_config_name( targetstream_u )
+                deliverytitle = f"Delivery of stream {sourcestreamname} to stream {targetstreamname} {targetstream_u}"
+                print( f"\n\nDeliver stream {self.local_config=} {targetstream_u=} {sourcestreamname=} {targetstreamname=} {deliverytitle=}" )
+            else:
+                raise Exception( f"Can't deliver a baseline!" )
 
-        # get the target stream from the changeset
-        cs_x = self.execute_get_rdf_xml( self.local_config )
-        stream_u = rdfxml.xmlrdf_get_resource_uri( cs_x, './/oslc_config:overrides' )
-        csname = rdfxml.xmlrdf_get_resource_text( cs_x, './/dcterms:title' )
 #        print( f"target {stream_u=}" )
 #        print( f"cs name {csname=}" )
         # find the delivery session factory
@@ -1566,6 +1740,18 @@ class RMComponent( RMProject, resource.Resources_Mixin ):
 #        print( f"{ds_f_u=}" )
 #        print( f"{self.services_uri=}" )
         # create the content
+        # work out the policy
+        policyxml=""
+        if policy is not None:
+            if type(policy)!=list:
+                policies=[policy]
+            else:
+                policies = policy
+                
+            for apolicy in policies:
+                policyxml += f'<rm_config:policy rdf:resource="{apolicy}" />'
+        print( f"{policyxml=}" )
+        
         body=f"""<rdf:RDF
     xmlns:dcterms="http://purl.org/dc/terms/"
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -1573,15 +1759,15 @@ class RMComponent( RMProject, resource.Resources_Mixin ):
     xmlns:oslc="http://open-services.net/ns/core#">
   <rm_config:DeliverySession>
     <oslc:serviceProvider rdf:resource="{self.services_uri}"/>
+    {policyxml}
     <rm_config:source rdf:resource="{self.local_config}"/>
-    <rm_config:target rdf:resource="{stream_u}"/>
-    <dcterms:title rdf:parseType="Literal">Delivery session for cs {csname}</dcterms:title>
+    <rm_config:target rdf:resource="{targetstream_u}"/>
+    <dcterms:title rdf:parseType="Literal">{deliverytitle}</dcterms:title>
   </rm_config:DeliverySession>
 </rdf:RDF>
 """
-
         # switch to the target config
-        self.local_config = stream_u
+        self.local_config = targetstream_u
 
         # create the delivery session
         response = self.execute_post_rdf_xml( ds_f_u, data=body,headers={'Content-Type': 'application/rdf+xml', 'OSLC-Core-Version':'2.0'}, intent="Create delivery session" )
@@ -1610,7 +1796,7 @@ class RMComponent( RMProject, resource.Resources_Mixin ):
 #            print( f"{state=}" )
         elif response.status_code == 202:
             # wait for the tracker to finished
-            result = self.wait_for_tracker( location, interval=1.0, progressbar=True, msg=f"Waiting for changeset delivery to complete")
+            result = self.wait_for_tracker( location, interval=1.0, progressbar=True, msg=f"Waiting for {deliverytitle} to complete")
             if result is None:
                 raise Exception( f"No result from tracker!" )
 #            print( f"{result=}" )
@@ -1620,8 +1806,21 @@ class RMComponent( RMProject, resource.Resources_Mixin ):
             raise Exception( f"Unknown response {response.status_code}" )
 #        print( f"tracker result {state=}" )
 
-        self.local_config = None
-        # TODO: how to remove the delivered changeset from known configs?
+        # if we were in a changeset it's now been delivered so ensure it can't accidentally be used as the config
+        if self.getconfigtype( self.local_config )=="Changeset":
+            self.local_config = None
+        # TODO: how to remove the delivered changeset from known configs? That happens automatically
+
+#################################################################################################
+
+class RMComponent( RMProject, resource.Resources_Mixin ):
+    def __init__(self, name, project_uri, app, is_optin=False, singlemode=False,defaultinit=True, project=None):
+        if not project:
+            raise Exception( "You must provide a project instance when creating a component" )
+        super().__init__(name, project_uri, app, is_optin,singlemode,defaultinit=defaultinit)
+        self.component_project = project
+        self.services_uri = project.services_uri    # needed for reqif which wants to put the services.xml URI into created XML for new definitions
+        self._iscomponent=True
 
 
 #################################################################################################

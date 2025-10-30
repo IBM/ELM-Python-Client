@@ -56,7 +56,7 @@ jtscontext = 'jts'
 rmcontext  = 'rm'
 
 # the project+compontent+config that will be updated
-proj = "rm_optout_p1"
+proj = "rm_optin_p2"
 comp = proj
 conf =  f"{comp} Initial Stream"
 
@@ -68,6 +68,7 @@ caching = 2
     
 ##################################################################################
 if __name__=="__main__":
+    print( f"You provided {len(sys.argv)} arguments" )
     if len(sys.argv) != 5:
         print( 'A typical commandline might be: dn_simple_createfolderandartifact.py "Stakeholder Requirement" "My first stakefilder requirement" / newfoldername' )
         raise Exception( 'You must provide: The artifact type, the artifact text, and the folder path to create the artifact in - each surrounded by " if including spaces' )

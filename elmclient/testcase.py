@@ -14,12 +14,6 @@ class TestCaseLink:
 class TestCase:
     @classmethod
     def create_minimal(cls, title: str) -> 'TestCase':
-        """
-        Create a new minimal TestCase instance with just a title.
-        The generated XML will include only the required namespaces, type, and title.
-        :param title: Title of the new Test Case
-        :return: A minimal TestCase object
-        """
         namespaces = {
             'rdf': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#',
             'dcterms': 'http://purl.org/dc/terms/',
@@ -55,7 +49,6 @@ class TestCase:
             namespaces=namespaces
         )
 
-        # Add to elements for proper serialization
         tc.elements.append((
             '{http://purl.org/dc/terms/}title',
             {'{http://www.w3.org/2001/XMLSchema#}datatype': 'http://www.w3.org/2001/XMLSchema#string'},
@@ -87,49 +80,28 @@ class TestCase:
     links: List[TestCaseLink] = field(default_factory=list)
     namespaces: Dict[str, str] = field(default_factory=dict)
     elements: List[Tuple[str, Dict[str, str], Optional[str]]] = field(default_factory=list)
-
-    
+    extra_descriptions: Dict[str, List[Tuple[str, Dict[str, str], Optional[str]]]] = field(default_factory=dict)
 
     def add_link(self, predicate: str, target: str, title: Optional[str] = None):
-        """
-        Add a generic link to the test case.
-        :param predicate: Predicate URI of the link
-        :param target: Target URI of the linked resource
-        :param title: Optional title describing the link
-        """
         self.links.append(TestCaseLink(predicate=predicate, target=target, title=title))
 
     def add_validatesRequirementLink(self, target: str, title: Optional[str] = None):
-        """
-        Add a validatesRequirement link to the test case and include a corresponding RDF property.
-        :param target: The target requirement URI
-        :param title: Optional title for the link
-        """
         self.links.append(TestCaseLink(
             subject=self.uri,
             predicate="http://open-services.net/ns/qm#validatesRequirement",
             target=target,
             title=title
         ))
-        # Add corresponding property to the TestCase element list
         tag = '{' + self.namespaces.get('oslc_qm', 'http://open-services.net/ns/qm#') + '}validatesRequirement'
         attrib = {'{' + self.namespaces['rdf'] + '}resource': target}
         self.elements.append((tag, attrib, None))
 
     def delete_link(self, target: str) -> bool:
-        """
-        Delete a generic link based on its target URI.
-        :param target: The target URI to remove
-        :return: True if a link was removed, False otherwise
-        """
         initial_length = len(self.links)
         self.links = [link for link in self.links if link.target != target]
         return len(self.links) < initial_length
 
     def delete_validatesRequirementLink(self, target: str) -> bool:
-        """
-        Delete validatesRequirement links matching the target URL from both the links list and the elements list.
-        """
         initial_links = len(self.links)
         self.links = [link for link in self.links if not (
             link.predicate == "http://open-services.net/ns/qm#validatesRequirement" and link.target == target)
@@ -146,21 +118,41 @@ class TestCase:
 
     @staticmethod
     def from_etree(etree: ET._ElementTree) -> 'TestCase':
-        """
-        Parse a TestCase instance from an RDF XML ElementTree.
-        :param etree: lxml.etree ElementTree representing the RDF
-        :return: TestCase instance with parsed data
-        """
         root = etree.getroot()
         namespaces = {k if k is not None else '': v for k, v in root.nsmap.items()}
         ns = namespaces.copy()
 
-        main_elem = root.find(".//rdf:Description[@rdf:about]", ns)
+        # Find all rdf:Description elements with rdf:about
+        about_elements = root.findall(".//rdf:Description[@rdf:about]", ns)
+
+        # Identify the main test case element (without '#' in rdf:about)
+        main_elem = None
+        for elem in about_elements:
+            uri = elem.attrib.get(f'{{{ns["rdf"]}}}about')
+            #print(uri)
+            if uri and 'TestCase' in uri and '#' not in uri:
+                main_elem = elem
+                break
+
         if main_elem is None:
-            raise ValueError("No rdf:Description with rdf:about found")
+            raise ValueError("No main rdf:Description with rdf:about (without '#') found")
 
         uri = main_elem.attrib[f'{{{ns["rdf"]}}}about']
         testcase = TestCase(uri=uri, namespaces=namespaces)
+
+    
+    
+    # def from_etree(etree: ET._ElementTree) -> 'TestCase':
+        # root = etree.getroot()
+        # namespaces = {k if k is not None else '': v for k, v in root.nsmap.items()}
+        # ns = namespaces.copy()
+
+        # main_elem = root.find(".//rdf:Description[@rdf:about]", ns)
+        # if main_elem is None:
+            # raise ValueError("No rdf:Description with rdf:about found")
+
+        # uri = main_elem.attrib[f'{{{ns["rdf"]}}}about']
+        # testcase = TestCase(uri=uri, namespaces=namespaces)
 
         for elem in main_elem:
             tag = elem.tag
@@ -214,13 +206,21 @@ class TestCase:
                     title=title_elem.text if title_elem is not None else None
                 ))
 
+        for desc in root.findall(".//rdf:Description[@rdf:about]", ns):
+            about = desc.attrib.get(f'{{{ns["rdf"]}}}about')
+            if about == testcase.uri:
+                continue
+            elems = []
+            for elem in desc:
+                tag = elem.tag
+                text = elem.text.strip() if elem.text else ""
+                attrib = dict(elem.attrib)
+                elems.append((tag, attrib, text))
+            testcase.extra_descriptions[about] = elems
+
         return testcase
 
     def to_etree(self) -> ET._ElementTree:
-        """
-        Serialize the TestCase instance to an RDF XML ElementTree.
-        :return: lxml.etree ElementTree
-        """
         NSMAP = self.namespaces or {'rdf': "http://www.w3.org/1999/02/22-rdf-syntax-ns#"}
         rdf = ET.Element(ET.QName(NSMAP['rdf'], 'RDF'), nsmap=NSMAP)
         if self.uri!="":
@@ -230,7 +230,6 @@ class TestCase:
         else:
             desc = ET.SubElement(rdf, ET.QName(NSMAP['rdf'], 'Description'))
 
-        # Emit known fields first
         def add(tag_ns: str, tag: str, text=None, attrib=None):
             el = ET.SubElement(desc, ET.QName(NSMAP[tag_ns], tag), attrib or {})
             if text:
@@ -273,7 +272,7 @@ class TestCase:
         for tag, attrib, text in self.elements:
             short_tag = ET.QName(tag).localname
             if short_tag in known_tags:
-                continue  # already added from field values
+                continue
             el = ET.SubElement(desc, ET.QName(tag), {
                 ET.QName(k) if isinstance(k, str) and ':' in k else k: v for k, v in attrib.items()
             })
@@ -300,17 +299,18 @@ class TestCase:
             if link.title:
                 ET.SubElement(stmt, ET.QName(NSMAP['dcterms'], 'title')).text = link.title
 
+        for about, elems in self.extra_descriptions.items():
+            desc = ET.SubElement(rdf, ET.QName(NSMAP['rdf'], 'Description'), {
+                ET.QName(NSMAP['rdf'], 'about'): about
+            })
+            for tag, attrib, text in elems:
+                el = ET.SubElement(desc, ET.QName(tag), attrib)
+                if text:
+                    el.text = text
+
         return ET.ElementTree(rdf)
 
     def is_xml_equal(self, other: 'TestCase') -> bool:
-        """
-        Compare two TestCase instances for XML structural equality.
-        :param other: Another TestCase instance
-        :return: True if both XML trees are semantically identical
-        """
-        """
-        Compare two TestCase instances for XML structural equality.
-        """
         def clean(xml: ET._ElementTree) -> bytes:
             return ET.tostring(xml.getroot(), encoding='utf-8', method='c14n')
 

@@ -596,8 +596,8 @@ https://jazz.ibm.com:9443/rm/resources/TX_jpWEyqUiEfCyB8IKcgJhMA,3291,Carbon Tru
 https://jazz.ibm.com:9443/rm/resources/BI_jmioYKUiEfCyB8IKcgJhMA,3291,Carbon Trust Standard,Heading,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_jpWEzKUiEfCyB8IKcgJhMA,3292,Hazard Acronyms,Heading,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_jnC-xqUiEfCyB8IKcgJhMA,3292,Hazard Acronyms,Heading,,Text
-https://jazz.ibm.com:9443/rm/resources/TX_jpWEzqUiEfCyB8IKcgJhMA,3293,General Description,Heading,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_jm9fK6UiEfCyB8IKcgJhMA,3293,General Description,Heading,,Text
+https://jazz.ibm.com:9443/rm/resources/TX_jpWEzqUiEfCyB8IKcgJhMA,3293,General Description,Heading,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/TX_jpWEy6UiEfCyB8IKcgJhMA,3294,"The meter interface unit shall allow for at least one, but preferably several, mechanisms for data collection.",Stakeholder Requirement,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_jm9fZqUiEfCyB8IKcgJhMA,3294,"The meter interface unit shall allow for at least one, but preferably several, mechanisms for data collection.",Stakeholder Requirement,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_jpWEzaUiEfCyB8IKcgJhMA,3295,The control computer shall be capable of operating in a normal office environment.,System Requirement,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts,Text
@@ -629,8 +629,8 @@ https://jazz.ibm.com:9443/rm/resources/TX_jpf1x6UiEfCyB8IKcgJhMA,3308,The meter 
 https://jazz.ibm.com:9443/rm/resources/BI_jm9faaUiEfCyB8IKcgJhMA,3308,The meter interface unit shall be compatible with MMIU.,Stakeholder Requirement,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_jpqN0aUiEfCyB8IKcgJhMA,3309,Database Server,Heading,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_jnJFhqUiEfCyB8IKcgJhMA,3309,Database Server,Heading,,Text
-https://jazz.ibm.com:9443/rm/resources/TX_jpqN0KUiEfCyB8IKcgJhMA,3310,ANSI 1252 Latin 1 for CSV Export,Information,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_jm9fIqUiEfCyB8IKcgJhMA,3310,ANSI 1252 Latin 1 for CSV Export,Information,,Text
+https://jazz.ibm.com:9443/rm/resources/TX_jpqN0KUiEfCyB8IKcgJhMA,3310,ANSI 1252 Latin 1 for CSV Export,Information,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/TX_jpqN0qUiEfCyB8IKcgJhMA,3311,External Communications,Heading,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_jnC-waUiEfCyB8IKcgJhMA,3311,External Communications,Heading,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_jpqN1KUiEfCyB8IKcgJhMA,3312,"The system shall consist of a series of antennas, towers, collectors, repeaters, or other permanently installed infrastructure to collect transmissions of meter readings from AMR capable meters and get the data to a central computer without a person in the",System Requirement,/Base Artifacts/01 Requirements/AMR System Requirements Specification artifacts,Text
@@ -701,8 +701,8 @@ https://jazz.ibm.com:9443/rm/resources/TX_jqIH46UiEfCyB8IKcgJhMA,3344,Overview,H
 https://jazz.ibm.com:9443/rm/resources/BI_jmmS2aUiEfCyB8IKcgJhMA,3344,Overview,Heading,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_jqIH6KUiEfCyB8IKcgJhMA,3345,Humidity operational limits of the device,Hazard and Risk,/Base Artifacts/01 Requirements/AMR Hazards and Risks artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_jnC-wKUiEfCyB8IKcgJhMA,3345,Humidity operational limits of the device,Hazard and Risk,,Text
-https://jazz.ibm.com:9443/rm/resources/TX_jqIH5KUiEfCyB8IKcgJhMA,3346,Assumptions and Dependencies,Heading,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_jm9fSKUiEfCyB8IKcgJhMA,3346,Assumptions and Dependencies,Heading,,Text
+https://jazz.ibm.com:9443/rm/resources/TX_jqIH5KUiEfCyB8IKcgJhMA,3346,Assumptions and Dependencies,Heading,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/TX_jqIH6qUiEfCyB8IKcgJhMA,3347,Qualification provisions,Heading,/Base Artifacts/Module Template/Hardware Requirements Specification Template artifacts,Text
 https://jazz.ibm.com:9443/rm/resources/BI_jnRBKqUiEfCyB8IKcgJhMA,3347,Qualification provisions,Heading,,Text
 https://jazz.ibm.com:9443/rm/resources/TX_jqIH66UiEfCyB8IKcgJhMA,3348,The Fixed Network Application software and data collection software must operate on a central server.,Stakeholder Requirement,/Base Artifacts/01 Requirements/AMR Stakeholder Requirements Specification artifacts,Text

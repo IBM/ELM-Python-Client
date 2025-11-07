@@ -11,7 +11,21 @@
 #• Modify its title and description
 #• Delete an existing validates Requirement link if it exists
 #• Add 2 Validated By links, 1 to a DNG requirement – 1 to a DWA requirement
+#parameters
+jazzhost = 'https://jazz.ibm.com:9443'
 
+username = 'ibm'
+password = 'ibm'
+
+jtscontext = 'jts'
+qmappdomain  = 'qm'
+
+# the project+component+config that will be queried
+proj = "SGC Quality Management"
+comp = "SGC MTM"
+conf = "SGC MTM Production stream" #conf="" if project is optout
+
+#### DO NOT TOUCH elmclient initializing####### Go to scenario2
 import sys
 import os
 import csv
@@ -37,20 +51,6 @@ if -1 in levels:
 utils.setup_logging( filelevel=levels[0], consolelevel=levels[1] )
 logger = logging.getLogger(__name__)
 utils.log_commandline( os.path.basename(sys.argv[0]) )
-
-#parameters
-jazzhost = 'https://jazz.ibm.com:9443'
-
-username = 'ibm'
-password = 'ibm'
-
-jtscontext = 'jts'
-qmappdomain  = 'qm'
-
-# the project+component+config that will be queried
-proj = "SGC Quality Management"
-comp = "SGC MTM"
-conf = "SGC MTM Production stream" #conf="" if project is optout
 
 
 # caching control
@@ -105,11 +105,16 @@ if conf!="":
 #• Delete an existing validates Requirement link if it exists
 #• Add 2 Validated By links, 1 to a DNG requirement – 1 to a DWA requirement
 
+#Get the query base of the QM configuration
 tcquerybase = c.get_query_capability_uri("oslc_qm:TestCaseQuery")
 if not tcquerybase:
     raise Exception( "TestCaseQueryBase not found !!!" )
+
+#Put here the ID of a Test Case that exists and that has a validatedBy link
 tcid = 53
 print(f"Querying test case with identifier = {tcid}")
+
+#OSLC query to get the test case with the identifier defined above
 tcs = c.execute_oslc_query(
         tcquerybase,
         whereterms=[['rqm_qm:shortIdentifier','=',f'"{tcid}"']],
@@ -117,38 +122,39 @@ tcs = c.execute_oslc_query(
         prefixes={rdfxml.RDF_DEFAULT_PREFIX["rqm_qm"]:'rqm_qm'} # note this is reversed - url to prefix
         )
 
+#We check if we get only 1 test case in the response.
 if len(tcs.items())==1:
     
-    tc_u = list(tcs.keys())[0]
+    tc_u = list(tcs.keys())[0] #getting the test case URL, it is the first key of the list object tcs.
     print(f"Found Test Case URL: {tc_u}")
     print("Doing a Get on test case url")
-    xml_data,etag = c.execute_get_rdf_xml( tc_u, return_etag=True)
-    #print(ET.tostring(xml_data))
-    
+    xml_data,etag = c.execute_get_rdf_xml( tc_u, return_etag=True) #doing a GET on the Test Case URL, with option to return the etag in order to update the test case later.
     print("Etag:" + etag)
-    #put the TC data in a test case object
+    
+    #put the TC data in a test case object (Class TestCase of the framework)
     tcObject = TestCase.from_etree(xml_data)
 
     #get the title and description
     print(f"Test case title: {tcObject.title}")
     print(f"Test case description: {tcObject.description}")
     print("----------------------------------------------------------")
-    #displaying the links details
+    #displaying the links details, links are stored in the "links" list of the TestCase object
     print("Links details:")
     for link in tcObject.links:
         print(f" - {link.predicate} -> {link.target} (title: {link.title})")
 
     print("----------------------------------------------------------")
 
-    #modifying title and description
+    #modifying title and description, it just add the mention "added by Python" to the title and the description of the Test Case
     tcObject.title += " added by Python"
+    #Description can be empty so we need to check that before modifying it.
     if tcObject.description is None:
         tcObject.description = " added by Python"
     else:
         tcObject.description += " added by Python"
 
 
-    #delete an existing link
+    #delete the first existing link (if it exists), we loop through the link, delete the first link and exit the loop with the break key word
     for link in tcObject.links:
         tcObject.delete_validatesRequirementLink(link.target)
         print(f"Deleting the link to {link.target}")
@@ -172,10 +178,11 @@ if len(tcs.items())==1:
 
     print("----------------------------------------------------------")
     
-    #get the data from the test case object
+    #get the data from the test case object, needed to send the PUT update request to actually update the Test Case. 
     xml_data = tcObject.to_etree()
-    #print(ET.tostring(xml_data))
+    
     print("sending the PUT request to update the test case")
+    #To do the PUT request, we need the Test Case URL, the updated XML data of the Test Case and the etag
     response = c.execute_post_rdf_xml(tc_u, data=xml_data, put=True, cacheable=False, headers={'If-Match':etag,'Content-Type':'application/rdf+xml'}, intent="Update the test case"  )
     if response.status_code==200:
         print("Update succesfull")
@@ -183,9 +190,13 @@ if len(tcs.items())==1:
         print("Update failed")
 #####################################################################################################
 
+#check if we got no test case
 elif len(tcs.items())==0:
     print("No test case found")
 
+#check if we got more than 1 test case, impossible but we handled that possibility
 else:
     print(f"We found more than one test case with identififer {tcid} !!!???")
+
+#end of the script
 print( "Finished" )

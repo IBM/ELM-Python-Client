@@ -9,7 +9,21 @@
 
 #ETM scenario1: Run a query for all Test Case modified since 01/01/2025 -> Display their URLs, identifier and title
 #
+#parameters
+jazzhost = 'https://jazz.ibm.com:9443'
 
+username = 'ibm'
+password = 'ibm'
+
+jtscontext = 'jts'
+qmappdomain  = 'qm'
+
+# the project+component+config that will be queried
+proj = "SGC Quality Management"
+comp = "SGC MTM"
+conf = "SGC MTM Production stream"
+
+#### DO NOT TOUCH elmclient initializing####### Go to scenario1
 import sys
 import os
 import csv
@@ -33,21 +47,6 @@ if -1 in levels:
 utils.setup_logging( filelevel=levels[0], consolelevel=levels[1] )
 logger = logging.getLogger(__name__)
 utils.log_commandline( os.path.basename(sys.argv[0]) )
-
-#parameters
-jazzhost = 'https://jazz.ibm.com:9443'
-
-username = 'ibm'
-password = 'ibm'
-
-jtscontext = 'jts'
-qmappdomain  = 'qm'
-
-# the project+component+config that will be queried
-proj = "SGC Quality Management"
-comp = "SGC MTM"
-conf = "SGC MTM Production stream"
-
 
 # caching control
 # 0=fully cached (but code below specifies queries aren't cached) - if you need to clear the cache, delet efolder .web_cache
@@ -95,10 +94,13 @@ c.set_local_config(local_config_u)
 #####################################################################################################
 #SCENARIO 1 
 # find the test cases with dcterms modified > 2025-01-01
+
+#Get the query base of the QM configuration
 tcquerybase = c.get_query_capability_uri("oslc_qm:TestCaseQuery")
 if not tcquerybase:
     raise Exception( "TestCaseQueryBase not found !!!" )
 
+# OSLC query to find all the test cases modified after the 1st of January 2025, returns dcterms:identifier, dcterms:title, rqm_qm:shortIdentifier
 tcs = c.execute_oslc_query(
         tcquerybase,
         whereterms=[['dcterms:modified','>','"2025-01-01T00:00:00.000Z"^^xsd:dateTime']],
@@ -106,10 +108,14 @@ tcs = c.execute_oslc_query(
         prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms',rdfxml.RDF_DEFAULT_PREFIX["rqm_qm"]:'rqm_qm'} # note this is reversed - url to prefix
         )
 
-nbTC = len(tcs) #count the number of Test case returned by the query
+nbTC = len(tcs) #count the number of Test case returned by the query and display it
 print(f"The query returned {nbTC} Test Cases")
 print("----------------------------------------------------------")
+
+#initialize a count variable to zero
 count = 0
+
+#looping through the test cases returned by the query -> print data
 for TCurl in tcs:
     count+=1
     print(f"Test case #{count}")

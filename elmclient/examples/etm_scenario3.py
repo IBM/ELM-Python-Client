@@ -12,6 +12,21 @@
 #• Save the test case
 #• Add 2 Validated By links, 1 to a DNG requirement – 1 to a DWA requirement
 
+#parameters
+jazzhost = 'https://jazz.ibm.com:9443'
+
+username = 'ibm'
+password = 'ibm'
+
+jtscontext = 'jts'
+qmappdomain  = 'qm'
+
+# the project+component+config that will be queried
+proj = "SGC Quality Management"
+comp = "SGC MTM"
+conf = "SGC MTM Production stream" #conf="" if project is optout
+
+#### DO NOT TOUCH elmclient initializing####### Go to scenario3
 import sys
 import os
 import csv
@@ -37,21 +52,6 @@ if -1 in levels:
 utils.setup_logging( filelevel=levels[0], consolelevel=levels[1] )
 logger = logging.getLogger(__name__)
 utils.log_commandline( os.path.basename(sys.argv[0]) )
-
-#parameters
-jazzhost = 'https://jazz.ibm.com:9443'
-
-username = 'ibm'
-password = 'ibm'
-
-jtscontext = 'jts'
-qmappdomain  = 'qm'
-
-# the project+component+config that will be queried
-proj = "SGC Quality Management"
-comp = "SGC MTM"
-conf = "SGC MTM Production stream" #conf="" if project is optout
-
 
 # caching control
 # 0=fully cached (but code below specifies queries aren't cached) - if you need to clear the cache, delet efolder .web_cache
@@ -128,6 +128,7 @@ if not jsessionid:
 #POST request to create the new test case
 response = c.execute_post_rdf_xml( tc_factory_u, data=xml_data, intent="Create a test case", headers={'Referer': 'https://jazz.ibm.com:9443/qm', 'X-Jazz-CSRF-Prevent': jsessionid }, remove_parameters=['oslc_config.context']  )
 
+#if response is 201, Test Case has been created succesfully
 if response.status_code==201:
     print("Test Case created succesfully")
     #Get the url of the new Test case created
@@ -135,6 +136,7 @@ if response.status_code==201:
     if not tcquerybase:
         raise Exception( "TestCaseQueryBase not found !!!" )
     
+    #Getting the created TC to add links
     print(f"Querying test case with title = {tc_title}")
     tcs = c.execute_oslc_query(
             tcquerybase,

@@ -94,6 +94,8 @@ class StringLiteralCodec( Codec ):
         if pythonvalue.startswith( "<" ):
             newel_x.append( ET.XML(pythonvalue) )
         else:
+            # specify the string literal
+            newel_x.set(f'{{rdfxml.RDF_DEFAULT_PREFIX["rdf"]}}datatype',"http://www.w3.org/2001/XMLSchema#string")
             newel_x.text = pythonvalue
 #        print( f"StringLiteralCodec Encode {pythonvalue=} {newel_x=} {ET.tostring( newel_x )}" )
         return newel_x
@@ -264,15 +266,36 @@ class Resource( object ):
                 raise Exception( f"Attribute '{name}' is an unmodifiable system property!" )
 #            print( f"set {name} {value}" )
             # TBC if an enumeration, check the value/values are actual enum names
+            
+            # find the property definition if it is already known
             if name not in self._attribute_to_propuri:
-                # need to check if this name is in the type/shape as a property
+                # need to check if this name is in the type/shape as a property or is in the component's linktypes (which are available for all types, subject to Link Constraints which aren't handled!)
                 
-                pass
+                # check properties of this shape
+                print( f"{self._shape_u=}" )
+                print( f"{self._projorcomp.shapes[self._shape_u]=}" )
+                for p in self._projorcomp.shapes[self._shape_u]['properties']:
+                    print( f"{p=} {self._projorcomp.properties[p]['name']=}" )
+                    
+                prop_u = next((c2 for c2 in self._projorcomp.shapes[self._shape_u]['properties'] if self._projorcomp.properties[c2]['name'] == name), None)
+                print( f"{prop_u=}" )
+                if prop_u:
+                    prop = self._projorcomp.properties[prop_u]
+                else:
+                    # check linktypes
+    #                print( f"{self._projorcomp.linktypes=}" )
+                    lt = next((c2 for c2 in self._projorcomp.linktypes.keys() if self._projorcomp.linktypes[c2]['name'] == name), None)
+    #                print( f"{lt=}" )
+                    if lt:
+                        prop_u = lt
+                        prop = self._projorcomp.linktypes[ lt ]
+                    else:
+                        raise Exception( f"{name} isn't a property or linktype!" )
             else:
                 prop_u = self._attribute_to_propuri[ name ]
-#            print( f"{prop_u=}" )
+#                print( f"{prop_u=}" )
             
-            prop = self._projorcomp.properties[prop_u]
+                prop = self._projorcomp.properties[prop_u]
 #            print( f"{prop=}" )
             
             if self.__lockdown_unmodifiables and prop['typeCodec'] is not None:
@@ -280,7 +303,7 @@ class Resource( object ):
                 thiscodec = prop['typeCodec']( self._projorcomp, self._shape_u, prop_u )
                 thiscodec.checkonassignment( value )
                 
-            if prop['enums']:
+            if prop.get('enums'):
                 # an enum
                 if type( value )==list:
                     if len( value )>1:
@@ -567,9 +590,9 @@ class Resources_Mixin:
                 
             # get the property name
             nameuri = rdfxml.tag_to_uri(prefixedtag)
-#            print( f"{nameuri=}" )
+            print( f"{nameuri=}" )
             propname = projorcomp.resolve_uri_to_name( nameuri )
-#            print( f"{propname=}" )
+            print( f"{propname=}" )
             if propname.startswith( "http" ):
                 # no friendly name so use just the tag
                 propname = tag
@@ -580,7 +603,7 @@ class Resources_Mixin:
                 
             # make the property name a safe Python attribute name
             propname = makeSafeAttributeName( propname, taguri )
-#            print( f"safe {propname=}" )
+            print( f"safe {propname=}" )
 
             # work out what format the thing is from the typesystem, using the tag of the child
             propdef = self.properties.get( taguri )
@@ -597,7 +620,7 @@ class Resources_Mixin:
                 res._attribute_to_propuri[propname]=taguri        
 #                print( f"{res._attribute_to_propuri=}" )
                 
-#            print( f"{propdef=}" )
+            print( f"{propdef=}" )
             # use the codec to decode the value
             thecodec = propdef['typeCodec']
             if thecodec is None:

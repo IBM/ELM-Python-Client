@@ -179,6 +179,7 @@ class Type_System_Mixin():
 
     def register_shape( self, shape_name, shape_uri, *, rdfuri=None, shape_formats=None ):
         logger.info( f"register_shape {shape_name=} {shape_uri=}" )
+        print( f"register_shape {shape_name=} {shape_uri=}" )
         shape_uri = self.normalise_uri( shape_uri)
         if shape_uri in self.shapes:
             raise Exception( f"Shape {shape_uri} already defined!" )
@@ -221,7 +222,7 @@ class Type_System_Mixin():
 #    def register_property( self, property_name, property_uri, *, property_value_type=None, shape_uri=None, altname = None, do_not_overwrite=True, property_definition_uri=None, isMultiValued=False, typeCodec=None ):
     def register_property( self, property_name, property_uri, *, shape_uri=None, property_value_type=None, altname = None, do_not_overwrite=True, property_definition_uri=None, isMultiValued=False, typeCodec=None ):
         logger.info( f"register_property {property_name=} {property_uri=} {isMultiValued=} {typeCodec=}" )
-#        print( f"register_property {property_name=} {property_uri=} {isMultiValued=} {typeCodec=}" )
+        print( f"register_property {property_name=} {property_uri=} {isMultiValued=} {typeCodec=}" )
         if property_uri in self.properties:
 #            print( f"Already defined {self.properties[property_uri]=}" )
 #            burp

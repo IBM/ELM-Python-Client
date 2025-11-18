@@ -1079,34 +1079,37 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
             if property_title_x is None:
                 burp
             property_title = property_title_x.text
-#            print( f"Loading {property_title}" )
+            print( f"Loading prop {property_title}" )
 #            propuri = rdfxml.xml_find_element( el, 'oslc:propertyDefinition').get( "{%s}resource" % rdfxml.RDF_DEFAULT_PREFIX["rdf"])
             propuri = rdfxml.xmlrdf_get_resource_uri( el, 'oslc:propertyDefinition')
-#            print( f"{propuri=}" )
+            print( f"{propuri=}" )
             # prefer range over valueType (doesn't nmatter for rm but does for qm which has both in a property definition)
             proptype = rdfxml.xmlrdf_get_resource_uri( el,'oslc:range' )
             if proptype is None:
                 proptype = rdfxml.xmlrdf_get_resource_uri(el,'oslc:valueType' ) 
-#            print( f"{proptype=}" )
+            print( f"{proptype=}" )
             # lookup the codec, if there is one
             propcodec = valueTypeToCodec.get( proptype )
-#            print( f"{propcodec=}" )
+            print( f"{propcodec=}" )
 
-            if self.is_known_property_uri( propuri ):
-                logger.debug( f"ALREADY KNOWN" )
-#                print( f"ALREADY KNOWN" )
-                continue
-                
             # work out if multivalued
             mvtext_x = rdfxml.xmlrdf_get_resource_uri( el, "oslc:occurs" )            
             isMultiValued = mvtext_x=="http://open-services.net/ns/core#Zero-or-many"
 #            print( f"{property_title} {isMultiValued=} {mvtext_x=}" )
+
+            self.register_property( property_title, propuri, isMultiValued=isMultiValued, shape_uri=uri, typeCodec=propcodec )
+
+            if self.is_known_property_uri( propuri ):
+                logger.debug( f"ALREADY KNOWN" )
+                print( f"ALREADY KNOWN" )
+                continue
+                
             
             # get the property definition
             # all links have a Reference oslc:representation
             # true links have         <oslc:range rdf:resource="http://open-services.net/ns/core#Resource"/>
             if rdfxml.xml_find_element( el, "oslc:representation[@rdf:resource='http://open-services.net/ns/core#Reference']") is not None and ( rdfxml.xml_find_element( el, "oslc:range[@rdf:resource='http://open-services.net/ns/core#Resource']" ) is not None or rdfxml.xml_find_element( el, "oslc:valueType[@rdf:resource='http://open-services.net/ns/core#Resource']" ) is not None):
-#                print( f"Ref {propuri=}" )
+                print( f"Ref {propuri=}" )
                 if propuri is not None:
 #                    print( f"Ref1 {propuri=}" )
                     if propcodec is None: # don't override if the codec is already set!
@@ -1127,15 +1130,15 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
 #                    print( f"Defining linktype {name}.{property_title} {propuri=} {uri=} +++++++++++++++++++++++++++++++++++++++" )
                     self.register_linktype( property_title, propuri, label, inverselabel=inverselabel, rdfuri=rdfuri, typeCodec=propcodec, isMultiValued=isMultiValued )
             if True:
-                logger.info( f"Defining property {name}.{property_title} {propuri=} +++++++++++++++++++++++++++++++++++++++" )
-#                print( f"Defining property {name}.{property_title} {propuri=} {uri=} +++++++++++++++++++++++++++++++++++++++" )
+                logger.info( f"Defining property {name}.{property_title} {propuri=}  {propcodec=} +++++++++++++++++++++++++++++++++++++++" )
+                print( f"Defining property {name}.{property_title} {propuri=} {uri=} {propcodec=} +++++++++++++++++++++++++++++++++++++++" )
 #            self.register_property(property_title,propuri, shape_uri=uri)
 
 #            if property_title=="Residual POHS":
 #                print( ET.tostring( el ) )
                 # need to work out the codec
                 
-                self.register_property( property_title, propuri, isMultiValued=isMultiValued, shape_uri=uri )
+# too late                self.register_property( property_title, propuri, isMultiValued=isMultiValued, shape_uri=uri )
                 # load the attribute definitions
                 n += 1
                 for range_el in rdfxml.xml_find_elements(el, 'oslc:range'):

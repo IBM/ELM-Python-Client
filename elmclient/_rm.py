@@ -50,6 +50,9 @@ class ModuleResource( resource.Resource ):
         raise Exception( "Save not implemented yet" )
         pass
 
+class WrapperResource( resource.Resource ):
+    name="Wrapper"
+
 class ModuleStructureResource( resource.Resource ):
     name = "ModuleStructure"
 
@@ -134,11 +137,13 @@ class EnumCodec( resource.Codec ):
         # decode an enumeration name to the corresponding URL
         # scan the enum urls in this property
         enumvalue_u = None
-        for enum_u in self.properties[self.prop_u]['enums']:
-            if self.enumers[enum_u]['name']==pythonvalue:
+#        print( f"{self=}" )
+#        for enum_u in self.enums[self.prop_u]:
+        for enum_u in self.projorcomp.enums:
+            if self.projorcomp.enums[enum_u]['name']==pythonvalue:
                 enumvalue_u = enum_u
         if enumvalue_u is None:
-            burp
+            raise Exception( f"Enumeration vlue {pythonvalue} not found in typesystem!" )
         thetag=rdfxml.uri_to_tag( self.prop_u )
         result_x = ET.Element( thetag, { self.rdf_resource_tag: enumvalue_u } )
 #        print( f"Encode {pythonvalue=} {result_x=} {ET.tostring( result_x )=}" )
@@ -240,6 +245,12 @@ class RMProject(_project._Project, resource.Resources_Mixin ):
             'acp_serviceProvider',
             'rdf_type',
             'uses',
+            'diagram',
+            'diagramImage',
+            'wrappedResource',
+            'wrappedResourceContentType',
+            'wrappedResourceRevision',
+            
         ]
     # save a folder details, and return the new folder instance
     def _savefolder( self, parent, fname, folderuri ):
@@ -377,7 +388,7 @@ class RMProject(_project._Project, resource.Resources_Mixin ):
 
     # MUST be provided a path starting with / because if it were just a name we wouldn't know where to create it!
     # this will create any missing folders in the path to create the final folder
-    # new folders are recorded so no need to reoaod the full folder hierarchy!
+    # new folders are recorded so no need to reload the full folder hierarchy!
     def create_folder( self, path ):
         if not path.startswith( "/" ):
             raise Exception( f"You *must* provide a path starting with / for the new folder otherwise don't know where to create it! You provided {path}" )
@@ -753,22 +764,27 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                     else:
                         raise Exception( f"Unrecognized configuration type {confmember_x.tag}" )
 
+                # use wasDerivedfrom to find the source or eaither a stream or baseline - there isn't one for the Initial Stream!
+                theparent_u = rdfxml.xmlrdf_get_resource_uri( confmember_x,'./prov:wasDerivedFrom')
+#                print( f"{theparent_u=}" )
 
                 if thisconfu in self._configurations:
                     logger.debug( f"Skipping {thisconfu} because already defined" )
 #                    print( f"Skipping {thisconfu} because already defined" )
                 else:
                     logger.debug( f"Adding {conftitle}" )
-#                    print( f"Adding {conftitle}" )
+#                    print( f"Adding {conftitle} {theparent_u=}" )
+
                     self._configurations[thisconfu] = {
                                                         'name': conftitle
                                                         ,'conftype': conftype
                                                         ,'confXml': confmember_x
                                                         ,'created': created
+                                                        ,'parentConfig': theparent_u
                                                     }
 #                    self._configurations[thisconfu] = self._components[self.project_uri]['configurations'][thisconfu]
                 # use wasDerivedfrom to find the source or eaither a stream or baseline - there isn't one for the Initial Stream!
-                theparent_u = rdfxml.xmlrdf_get_resource_uri( confmember_x,'./prov:wasDerivedFrom')
+#                theparent_u = rdfxml.xmlrdf_get_resource_uri( confmember_x,'./prov:wasDerivedFrom')
 #                print( f"{theparent_u=}" )
                 if not theparent_u:
                     # this is the initial stream
@@ -975,7 +991,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
         return configs
 
     # for RM, load the typesystem using the OSLC shape resources listed for the Requirements and Requirements Collection creation factories
-    def _load_types(self,force=False):
+    def _load_types(self,force=False, verbose=True ):
         logger.debug( f"load type {self=} {force=}" )
         # if already loaded, try to avoid reloading
         if self.typesystem_loaded and not force:
@@ -991,14 +1007,16 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
             sx = self.get_services_xml(force=True)
         if sx:
             shapes_to_load = rdfxml.xml_find_elements(sx, './/oslc:resourceShape' )
-
-            pbar = tqdm.tqdm(initial=0, total=len(shapes_to_load),smoothing=1,unit=" results",desc="Loading DN shapes")
+            if verbose:
+                pbar = tqdm.tqdm(initial=0, total=len(shapes_to_load),smoothing=1,unit=" results",desc="Loading DN shapes")
 
             for el in shapes_to_load:
                 self._load_type_from_resource_shape(el)
-                pbar.update(1)
+                if verbose:
+                    pbar.update(1)
 
-            pbar.close()
+            if verbose:
+                pbar.close()
 
         else:
             raise Exception( "services xml not found!" )
@@ -1182,6 +1200,12 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
             self.shapes[shape_uri]['properties'].append( property_uri )
             # add type to properties
             self.register_property( property_name, property_uri, typeCodec=RDFURICodec, isMultiValued=True, shape_uri=shape_uri )
+            return True
+        elif property_uri=="http://www.ibm.com/xmlns/rm/public/1.0/wrappedResourceRevision" or property_uri=="http://www.ibm.com/xmlns/rm/public/1.0/wrappedResourceContentType" or property_uri=="http://www.ibm.com/xmlns/rm/public/1.0/wrappedResource" or property_uri=="http://www.ibm.com/xmlns/rdm/rdf/diagram" or property_uri=="http://www.ibm.com/xmlns/rdm/rdf/diagramImage":
+            # add property to shape
+            self.shapes[shape_uri]['properties'].append( property_uri )
+            # add type to properties
+            self.register_property( property_name, property_uri, typeCodec=RDFURICodec, isMultiValued=False, shape_uri=shape_uri )
             return True
         return False
         
@@ -1886,11 +1910,11 @@ class RMApp (_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
         return (pa_u,comp_u)
         
     # load the typesystem using the OSLC shape resources listed for all the creation factories and query capabilities
-    def load_types(self, force=False):
-        self._load_types(force)
+    def load_types(self, force=False, verbose=True ):
+        self._load_types(force, verbose=verbose )
 
     # load the typesystem using the OSLC shape resources
-    def _load_types(self,force=False):
+    def _load_types(self,force=False, verbose=True):
         logger.debug( f"load type {self=} {force=}" )
 
         # if already loaded, try to avoid reloading

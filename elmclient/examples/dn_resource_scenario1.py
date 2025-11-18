@@ -1,0 +1,114 @@
+##
+## © Copyright 2025- IBM Inc. All rights reserved
+# SPDX-License-Identifier: MIT
+##
+
+#######################################################################################################
+#
+# elmclient DN Resources sample
+#
+# DN scenario 1: Find artifacts that are Stakeholder Requirements with Status set to "In Process" and add the word METERING at the start of the Title
+#
+
+#parameters
+
+jazzhost = 'https://jazz.ibm.com:9443'
+    
+username = 'ibm'
+password = 'ibm'
+
+jtscontext = 'jts'
+rmcontext  = 'rm'
+
+# the project+compontent+config that will be updated
+proj = "rm_optin_p2"
+comp = proj
+conf =  f"{comp} Initial Stream"
+
+# provide on the commandline the id of an artifact in the  project/component/configuration
+# also provide on the commandline a string (surrounded in " if it includes space) and this will be put on the front of the existing text of the artifact
+
+import logging
+import os.path
+import sys
+import time
+
+import lxml.etree as ET
+
+import elmclient.server as elmserver
+import elmclient.utils as utils
+import elmclient.rdfxml as rdfxml
+
+# setup logging - see levels in utils.py - TRACE,OFF means that a log of all http communication is put in the logs folder below wherever this example is run
+#loglevel = "INFO,INFO"
+loglevel = "TRACE,OFF"
+levels = [utils.loglevels.get(l,-1) for l in loglevel.split(",",1)]
+if len(levels)<2:
+    # assert console logging level OFF if not provided
+    levels.append(None)
+if -1 in levels:
+    raise Exception( f'Logging level {loglevel} not valid - should be comma-separated one or two values from DEBUG, INFO, WARNING, ERROR, CRITICAL, OFF' )
+
+utils.setup_logging( filelevel=levels[0], consolelevel=levels[1] )
+
+logger = logging.getLogger(__name__)
+
+utils.log_commandline( os.path.basename(sys.argv[0]) )
+
+# caching control
+# 0=fully cached (but code below specifies queries aren't cached) - if you need to clear the cache, delet efolder .web_cache
+# 1=clear cache initially then continue with cache enabled
+# 2=clear cache and disable caching
+caching = 2
+
+##################################################################################
+if __name__=="__main__":
+    
+    #####################################################################################################
+    # create our "server" which is how we connect to DOORS Next
+    # first enable the proxy so if a proxy is running it can monitor the communication with server (this is ignored if proxy isn't running)
+    elmserver.setupproxy(jazzhost,proxyport=8888)
+    theserver = elmserver.JazzTeamServer(jazzhost, username, password, verifysslcerts=False, jtsappstring=f"jts:{jtscontext}", appstring='rm', cachingcontrol=caching)
+
+    #####################################################################################################
+    # create the RM application interface
+    dnapp = theserver.find_app( f"rm:{rmcontext}", ok_to_create=True )
+
+    #####################################################################################################
+    # open the project
+    p = dnapp.find_project(proj)
+
+    #####################################################################################################
+    # find the component
+    c = p.find_local_component(comp)
+    print( f"{c=}" )
+    comp_u = c.project_uri
+    print( f"{comp_u=}" )
+
+    #####################################################################################################
+    # select the configuration
+    config_u = c.get_local_config(conf)
+    print( f"{config_u=}" )
+    c.set_local_config(config_u)
+
+    #####################################################################################################
+    # find artifacts which are Stakeholder Requirements and have Status "In Process"
+    artifacts = c.resourceQuery( "oslc:instanceShape='Stakeholder Requirement' and Status='In Process'", returnBaseArtifacts=True, returnBindings=False )
+    
+    #####################################################################################################
+    # go through the results looking for meter in the Title
+    for i,a in enumerate( artifacts ):
+        # filter for meter in the title
+        if 'meter' in a.Title:
+
+            # print the resource (artifact) details
+            print( f"**************************\nResult {i}\n{a}" )
+                        
+            # update the artifact Title
+            a.Title  ="METERING "+a.Title
+            print( "Title is now "+a.Title )
+            
+            # save the update back into DOORS Next
+            a.put()
+            print( f"{a.Identifier} {a._url} Updated in DOORS Next\n" )
+        

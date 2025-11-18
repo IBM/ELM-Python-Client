@@ -23,6 +23,8 @@ import pprint
 import sys
 import urllib
 
+import tqdm
+
 pp = pprint.PrettyPrinter(indent=4)
 
 import lxml.etree as ET
@@ -262,7 +264,12 @@ class Resource( object ):
                 raise Exception( f"Attribute '{name}' is an unmodifiable system property!" )
 #            print( f"set {name} {value}" )
             # TBC if an enumeration, check the value/values are actual enum names
-            prop_u = self._attribute_to_propuri[ name ]
+            if name not in self._attribute_to_propuri:
+                # need to check if this name is in the type/shape as a property
+                
+                pass
+            else:
+                prop_u = self._attribute_to_propuri[ name ]
 #            print( f"{prop_u=}" )
             
             prop = self._projorcomp.properties[prop_u]
@@ -314,7 +321,8 @@ class Resource( object ):
         # do the PUT
         result = self._projorcomp.execute_post_rdf_xml( self._url, data=new_x, headers={'If-Match':self._etag}, intent="Update the artifact", put=True )
         # update myself from the rdf
-        self._projorcomp.resourceFactory( self._url, self._projorcomp, existingresource=self )
+        result = self._projorcomp.resourceFactory( self._url, self._projorcomp, existingresource=self )
+        return result
         
     def to_etree( self ):
         rawrdf = self._xml
@@ -347,7 +355,9 @@ class Resource( object ):
                     # make it a list
                     newvalues = [newvalues]
                 for newvalue in newvalues:
+#                    print( f"{newvalue=} {prop=} {shape_u=} {taguri=}" )
                     thiscodec = prop['typeCodec']( self._projorcomp, shape_u, taguri )
+#                    print( f"{thiscodec=}" )
                     newel_x = thiscodec.encode( newvalue )
                     # add this to the rawrdf
                     description.append( newel_x )
@@ -420,11 +430,11 @@ class Resources_Mixin:
     def retrieveResource( self, resourceURL ):
         return self.resourceFactory( resourceURL, self )
         
+        
     def queryCoreArtifactByID( self, id, cacheable=True ):
         
         # get the query capability base URL for requirements
         qcbase = self.get_query_capability_uri("oslc_rm:Requirement")
-
 
         ####################################################################################
         # find the FROM artifact using OSLC Query
@@ -457,12 +467,48 @@ class Resources_Mixin:
         
         return fromartifact_u
         
-    def findResourcesPrepareQuery( self ):
-        pass
-    def findResourcesAddTermToQuery( self, query, prop, proptest, propvalue ):
-        pass
-    def executeQuery( self, query ):
-        pass
+    def resourceQuery( self, advancedQueryString, *, returnBaseArtifacts=True, returnBindings=True, selects=None, verbose=True):
+        
+        selects = selects or ""
+        
+        isnulls = "rm_nav:parent" if returnBindings and not returnBaseArtifacts else ""
+        isnotnulls = "rm_nav:parent" if returnBaseArtifacts and not returnBindings else ""
+        
+        # ensure the selects string includes the nulls/notnulls properties
+        selectslist = selects.split( "," ) if len(selects)>0 else []
+        print( f"1 {selectslist=}" )
+        if isnulls:            
+            selectslist.append( isnulls )
+        if isnotnulls:
+            selectslist.append( isnotnulls )
+        print( f"{selectslist=}" )
+        selects = ",".join(selectslist)
+
+        print( f"{isnulls=}" )
+        print( f"{isnotnulls=}" )
+        print( f"{selects=}" )
+
+        # ensure the typesystem is loaded
+        self.load_types()
+
+        results = self.do_complex_query( "oslc_rm:Requirement", querystring=advancedQueryString, searchterms=None, select=selects, isnulls=isnulls
+                        ,isnotnulls=isnotnulls, show_progress=True, pagesize=0
+                     )
+        print( f"{len(results)=}" )
+        resources=[]
+        if verbose:
+            pbar = tqdm.tqdm(initial=0, total=len(results),smoothing=1,unit=" results",desc="Converting to resources")
+            
+        for r in results:
+            resources.append( self.resourceFactory( r, self ) )
+            if verbose:
+                pbar.update(1)
+
+        if verbose:
+            pbar.close()
+            
+        return resources
+                        
     # this builds itself from rdf-xml containing the properties
     # the properties are turned into attributes with the human-friendly name
     def resourceFactory( self, resourceURL, projorcomp, existingresource=None ):
@@ -505,7 +551,7 @@ class Resources_Mixin:
 
         maintag = rdfxml.xml_find_element( xml.getroot(), ".//rdf:Description[@rdf:about]" )
         if maintag is None:
-            burp
+            raise Exception( f"Bad XML - no rdf:about!" )
         # scan the top-level tags and convert into attributes on res
         for child in maintag:
 #            print( f"Child {child.tag} {child.text}" )
@@ -639,7 +685,103 @@ class Resources_Mixin:
             raise Exception( "Save not implemented yet" )
             # convert self into a specific type of resource
             pass
+            
+    # immediately create a new core artifact, in the specified folder
+    def createCoreResource( self, artifactTypename_or_rdfuri ,* ,foldername_or_path=None ):        
+        foldername_or_path = foldername_or_path or "/"
 
+        # mskr sure the type system is loaded
+        self.load_types()
+        
+        # load the folder (using folder query capability)
+        # NOTE this returns as soon as it finds a matching folder - i.e. doesn't load them all!
+        thefolder = self.find_folder(foldername_or_path)
+        if thefolder is None:
+            raise Exception( f"Folder '{foldername_or_path}' not found!" )
+        print( f"Folder URL = {thefolder.folderuri}" )
+        
+        # find the requirement creation factory    
+        factory_u, shapes = self.get_factory_uri("oslc_rm:Requirement", return_shapes=True )
+#        print( f"Factory URL = {factory_u}" )
+#        print( f"Shapes for this factory: {shapes}" )
+
+        # THIS CODE SHOULD USE THE TYPESYSTEM!
+
+        # Find the type - read the shapes until find one matching the type name on the commandline
+        # If you have two or more shapes with the same name this will only return the last matching one - the order is determined by the server and can vary - i.e. different shapes with the same name is a BAD idea!
+        # Also shows all the shape names :-)
+        theshape_u = None
+        for shape_u in shapes:
+            # retrieve the type
+            shape_x = self.execute_get_rdf_xml( shape_u )
+            # check its name
+            shape_title = rdfxml.xmlrdf_get_resource_text( shape_x, ".//oslc:ResourceShape/dcterms:title" )
+#            print( f"{shape_title=}" )
+            if shape_title == artifactTypename_or_rdfuri:
+                theshape_u = shape_u
+#                print( f"Found artifact type!" )
+                break
+            shape_sameas = rdfxml.xmlrdf_get_resource_text( shape_x, ".//oslc:ResourceShape/owl:sameAs" )
+#            print( f"{shape_sameas=}" )
+            if shape_sameas == artifactTypename_or_rdfuri:
+                theshape_u = shape_u
+#                print( f"Found RDF URI!" )
+                break
+            
+        if theshape_u is None:
+            raise Exception( f"Shape '{artifactTypename_or_rdfuri}' not found!" )
+     
+        # text of the XML with basic content provided (this is based on example in section 2 of https://jazz.net/library/article/1197
+        # If you want more complex and general purpose data such as custom attributes you probably need to use the instanceShape
+        thexml_t = f"""<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dc="http://purl.org/dc/terms/"
+         xmlns:public_rm_10="http://www.ibm.com/xmlns/rm/public/1.0/"
+         xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
+         xmlns:rm="http://www.ibm.com/xmlns/rdm/rdf/"
+         xmlns:acp="http://jazz.net/ns/acp#"
+         xmlns:rm_property="https://grarrc.ibm.com:9443/rm/types/"
+         xmlns:oslc="http://open-services.net/ns/core#"
+         xmlns:nav="http://jazz.net/ns/rm/navigation#"
+         xmlns:jazz_rm="http://jazz.net/ns/rm#"
+         xmlns:oslc_rm="http://open-services.net/ns/rm#">
+    <rdf:Description rdf:about="">
+        <rdf:type rdf:resource="http://open-services.net/ns/rm#Requirement"/>
+<!--         <dc:description rdf:parseType="Literal">OSLC Creation Example</dc:description> -->
+        <jazz_rm:primaryText rdf:parseType="Literal"><div xmlns="http://www.w3.org/1999/xhtml">
+</div></jazz_rm:primaryText>
+        <dc:title rdf:parseType="Literal"></dc:title>
+        <oslc:instanceShape rdf:resource="{theshape_u}"/>
+        <nav:parent rdf:resource="{thefolder.folderuri}"/>
+    </rdf:Description>
+</rdf:RDF>  
+ """
+        thexml_x = ET.fromstring( thexml_t )
+        
+        # POST it to create the artifact
+        response = self.execute_post_rdf_xml( factory_u, data=thexml_x, intent="Create the artifact"  )
+#        print( f"POST result = {response.status_code}" )
+        location = response.headers.get('Location')
+        if response.status_code != 201:
+            raise Exception( "POST failed!" )
+        theartifact_u = location
+        
+        # get the artifact so we can show its id
+        theartifact_x = self.execute_get_rdf_xml( theartifact_u, intent="Retrieve the artifact so we can show its identifier" )
+        
+        # show its ID
+        theid = rdfxml.xml_find_element( theartifact_x, ".//dcterms:identifier" )
+#        print( f"Your new artifact has identifier {theid.text} URL {theartifact_u}" )
+
+        newresource = self.resourceFactory( theartifact_u, self, existingresource=None )
+
+#        print( f"{newresource=}" )
+        
+        return newresource
+        
+    # immediately create the resource for a module
+    def createModuleResource( self, artifactTypename_or_rdfuri, *, foldername_or_path=None  ):
+        return self.createCoreResource( artifactTypename_or_rdfuri=artifactTypename_or_rdfuri, foldername_or_path=foldername_or_path )
+        
         
 if __name__ == "__main__":
     # simple test harness

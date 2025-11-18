@@ -130,7 +130,11 @@ class _OSLCOperations_Mixin:
 
         properties = properties or []
         isnulls = isnulls or []
+        if type(isnulls)==str:
+            isnulls = [isnulls]
         isnotnulls = isnotnulls or []
+        if type(isnotnulls)==str:
+            isnotnulls = [isnotnulls]
         searchterms = searchterms or []
 
         if show_progress:

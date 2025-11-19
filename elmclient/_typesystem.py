@@ -5,11 +5,28 @@
 
 
 import logging
+import keyword
 
 from . import rdfxml
 from . import utils
 
+
 logger = logging.getLogger(__name__)
+
+#################################################################################################
+
+def makeSafeAttributeName( name, propuri ):
+#    print( f"Make safe name fror {name } so it can be used as a Python object attribute" )
+    res = ""
+    for c in name:
+        if not c.isalpha():
+            c = "_"
+        res += c
+    if keyword.iskeyword( res ) or keyword.issoftkeyword( res ):
+#        print( f"unsafe {name}" )
+        res = makeSafeAttributeName( rdfxml.uri_to_prefixed_tag( propuri ), propuri )
+#    print( f"Make safe name fror {name } {res}" )
+    return res
 
 #################################################################################################
 
@@ -179,7 +196,7 @@ class Type_System_Mixin():
 
     def register_shape( self, shape_name, shape_uri, *, rdfuri=None, shape_formats=None ):
         logger.info( f"register_shape {shape_name=} {shape_uri=}" )
-        print( f"register_shape {shape_name=} {shape_uri=}" )
+#        print( f"register_shape {shape_name=} {shape_uri=}" )
         shape_uri = self.normalise_uri( shape_uri)
         if shape_uri in self.shapes:
             raise Exception( f"Shape {shape_uri} already defined!" )
@@ -222,19 +239,24 @@ class Type_System_Mixin():
 #    def register_property( self, property_name, property_uri, *, property_value_type=None, shape_uri=None, altname = None, do_not_overwrite=True, property_definition_uri=None, isMultiValued=False, typeCodec=None ):
     def register_property( self, property_name, property_uri, *, shape_uri=None, property_value_type=None, altname = None, do_not_overwrite=True, property_definition_uri=None, isMultiValued=False, typeCodec=None ):
         logger.info( f"register_property {property_name=} {property_uri=} {isMultiValued=} {typeCodec=}" )
-        print( f"register_property {property_name=} {property_uri=} {isMultiValued=} {typeCodec=}" )
+#        print( f"register_property {property_name=} {property_uri=} {isMultiValued=} {typeCodec=}" )
         if property_uri in self.properties:
 #            print( f"Already defined {self.properties[property_uri]=}" )
 #            burp
             pass
         property_uri = self.normalise_uri( property_uri )
+        safeName = makeSafeAttributeName( property_name, property_uri )
 #        shape_uri = self.normalise_uri( shape_uri )
+
         if not do_not_overwrite or property_uri not in self.properties:
 #            self.properties[property_uri] = {'name': property_name, 'shape': shape_uri, 'enums': [], 'value_type': property_value_type, 'altname':altname, 'isMultiValued':isMultiValued, 'typeCodec': typeCodec }
-            self.properties[property_uri] = {'name': property_name, 'enums': [], 'value_type': property_value_type, 'altname':altname, 'isMultiValued':isMultiValued, 'typeCodec': typeCodec }
+            self.properties[property_uri] = {'name': property_name, 'safeName': safeName, 'enums': [], 'value_type': property_value_type, 'altname':altname, 'isMultiValued':isMultiValued, 'typeCodec': typeCodec }
+
         if altname and property_definition_uri and ( not do_not_overwrite or property_definition_uri not in self.properties):
             self.properties[property_definition_uri] = {'name': altname, 'enums': [], 'value_type': property_value_type, 'altname':None, 'isMultiValued':isMultiValued, 'typeCodec': typeCodec }
             self.properties[rdfxml.uri_to_default_prefixed_tag(property_definition_uri)] = {'name': altname, 'enums': [], 'value_type': property_value_type, 'altname':None, 'isMultiValued':isMultiValued, 'typeCode': typeCodec }
+            
+        # make sure the property is recorded on the shape
         if shape_uri is not None and property_uri not in self.shapes[shape_uri]['properties']:
             self.shapes[shape_uri]['properties'].append(property_uri)
 
@@ -253,10 +275,13 @@ class Type_System_Mixin():
     def register_linktype( self, linktype_name, linktype_uri, label, *, inverselabel=None, rdfuri=None, isMultiValued=False, typeCodec=None ):
         logger.info( f"register_linktype {linktype_name=} {linktype_uri=} {label=} {inverselabel=} {rdfuri=} {typeCodec=}" )
         linktype_uri = self.normalise_uri( linktype_uri )
+        
+        safeName = makeSafeAttributeName( linktype_name, linktype_uri )
+        
 #        shape_uri = self.normalise_uri( shape_uri )
         if linktype_uri not in self.linktypes:
 #            self.linktypes[linktype_uri] = {'name': label, 'inverselabel': inverselabel, 'shape': shape_uri, 'rdfuri': rdfuri }
-            self.linktypes[linktype_uri] = {'name': linktype_name, 'label': label, 'inverselabel': inverselabel, 'rdfuri': rdfuri, 'typeCodec': typeCodec }
+            self.linktypes[linktype_uri] = {'name': linktype_name, 'safeName': safeName, 'label': label, 'inverselabel': inverselabel, 'rdfuri': rdfuri, 'typeCodec': typeCodec }
 #        if shape_uri is not None:
 #            self.shapes[shape_uri]['linktypes'].append(linktype_uri)
         
@@ -325,6 +350,7 @@ class Type_System_Mixin():
 
     def register_enum( self, enum_name, enum_uri, property_uri, *, id=None ):
         logger.info( f"register_enum {enum_name=} {enum_uri=} {property_uri=} {id=}" )
+#        print( f"register_enum {enum_name=} {enum_uri=} {property_uri=} {id=}" )
         # add the enum  to the property
         enum_uri = self.normalise_uri( enum_uri )
         property_uri = self.normalise_uri( property_uri )
@@ -349,16 +375,20 @@ class Type_System_Mixin():
 
     def get_enum_id( self, enum_name, property_uri ):
         logger.info( f"get_enum_id {enum_name=} {property_uri=}" )
+#        print( f"get_enum_id {enum_name=} {property_uri=}" )
         property_uri = self.normalise_uri( property_uri )
         result = None
         logger.info( f"{self.properties[property_uri]=}" )
+#        print( f"{self.properties[property_uri]=}" )
         logger.info( f"{self.properties[property_uri]['enums']=}" )
+#        print( f"{self.properties[property_uri]['enums']=}" )
         for enum_uri in self.properties[property_uri]['enums']:
             if self.enums[enum_uri]['name']==enum_name:
                 result = self.enums[enum_uri]['id'] or enum_uri
 #                result = enum_uri # this makes ccm queries for e.g. rc:cm:type=Defect not work - ccm doens't like getting a URI - # unfortunately I can't remember why I added this line :-(
                 break
         logger.info( f"get_enum_id {enum_name=} {property_uri=} {result=}" )
+#        print( f"get_enum_id {enum_name=} {property_uri=} {result=}" )
         return result
 
     # generic uri/name

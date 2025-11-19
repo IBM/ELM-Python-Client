@@ -96,7 +96,7 @@ if __name__=="__main__":
     print( f"{mores[0]=}" )
     mores[0].Title = mores[0].Title+"1"
     print( f"{mores[0]=}" )
-    mores[0].addCoreArtifactLink( "Satisfies", 2854 )
+#    mores[0].addCoreArtifactLink( "Satisfies", 2854 )
     print( f"After add link {mores[0]=}" )
     mores[0].to_etree()
     mores[0].put()

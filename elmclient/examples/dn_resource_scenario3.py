@@ -59,7 +59,7 @@ utils.log_commandline( os.path.basename(sys.argv[0]) )
 # 0=fully cached (but code below specifies queries aren't cached) - if you need to clear the cache, delet efolder .web_cache
 # 1=clear cache initially then continue with cache enabled
 # 2=clear cache and disable caching
-caching = 0
+caching = 2
 
 ##################################################################################
 if __name__=="__main__":
@@ -95,14 +95,14 @@ if __name__=="__main__":
     # create a stakeholder requirement
     reqt1 = c.createCoreResource( "Stakeholder Requirement" )
     
-    print( f"New artifact ID is {reqt1.Identifier=}" )
+    print( f"New artifact ID is {reqt1.Identifier}" )
 
-    print( f"{reqt1=}" )
+    print( f"Your new Stakeholder Requirement is:{reqt1}" )
 
 #    reqt1.Primary_Text = "Hello, World"
     reqt1.Primary_Text = '<div xmlns="http://www.w3.org/1999/xhtml">Hello, World</div>'
     
     reqt1.put()
     
-    print( f"{reqt1=}" )
+    print( f"With the Primary_Text set your Stakeholder Requirement is:{reqt1}" )
     

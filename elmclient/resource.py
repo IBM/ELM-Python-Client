@@ -32,6 +32,7 @@ import lxml.etree as ET
 from elmclient import utils
 from elmclient import rdfxml
 from elmclient import server
+from elmclient import _typesystem
 
 # formats for properties
 XMLLITERAL = "XMLLITERAL"
@@ -52,7 +53,7 @@ class Codec( object ):
         self.datatype_tag = f"{{http://www.w3.org/1999/02/22-rdf-syntax-ns#}}datatype"
         pass
         
-    def encode( self, pythonvalue ):
+    def encode( self, pythonvalue, debug=False ):
         # default encoding is string
 #        print( f"Encode {self=} {type(self)} {pythonvalue=}" )
         thetag=rdfxml.uri_to_tag( self.prop_u )
@@ -61,14 +62,14 @@ class Codec( object ):
 #        print( f"Encode {rdfvalue=} {result_x=} {ET.tostring( result_x )=}" )
         return result_x
 
-    def decode( self, rdfvalue_x ):
+    def decode( self, rdfvalue_x, debug=False ):
         # default decoding is string
         result = rdfvalue_x.text
 #        print( f"Decode {rdfvalue_x=} {result=} {ET.tostring( rdfvalue_x )}" )
         return result
     
     def checkonassignment( self, value ):
-        print( f"Check {type(self)} on assignment value {value} does nothing!" )
+#        print( f"Check {type(self)} on assignment value {value} does nothing!" )
         return
         
 class XMLLiteralCodec( Codec ):
@@ -83,24 +84,26 @@ class XMLLiteralCodec( Codec ):
         return pythonvalue
         
 class StringLiteralCodec( Codec ):
-    def encode( self, pythonvalue ):
+    def encode( self, pythonvalue, debug=False ):
         # default encoding is string
         # RM typesystem doesn't seem to have any indication that a Literal is a plain string or xhtml - AFAIK xhtml is only used for the Primary Text
         # but need a way to handle this
         # bit of a hack: if the string starts with < and ends with > then it's parsed
         # direct into the element, otherwise it's assumed not to be XML and inserted as the text of the element
         thetag=rdfxml.uri_to_tag( self.prop_u )
-        newel_x = ET.Element( thetag, { self.parse_type_tag: 'Literal'} )
+#        print( f"{pythonvalue=} {self.prop_u=} {thetag=} {self.parse_type_tag=}" )
         if pythonvalue.startswith( "<" ):
+            newel_x = ET.Element( thetag, { self.parse_type_tag: 'Literal'} )
             newel_x.append( ET.XML(pythonvalue) )
         else:
             # specify the string literal
-            newel_x.set(f'{{rdfxml.RDF_DEFAULT_PREFIX["rdf"]}}datatype',"http://www.w3.org/2001/XMLSchema#string")
+            newel_x = ET.Element( thetag )
+            newel_x.set(f'{{{rdfxml.RDF_DEFAULT_PREFIX["rdf"]}}}datatype',"http://www.w3.org/2001/XMLSchema#string")
             newel_x.text = pythonvalue
 #        print( f"StringLiteralCodec Encode {pythonvalue=} {newel_x=} {ET.tostring( newel_x )}" )
         return newel_x
 
-    def decode( self, rdfvalue_x ):
+    def decode( self, rdfvalue_x, debug=False ):
         # default decoding is string
         # surely there should be a less hacky way of getting the literal content?
         literal = ET.tostring(rdfvalue_x).decode()
@@ -272,19 +275,19 @@ class Resource( object ):
                 # need to check if this name is in the type/shape as a property or is in the component's linktypes (which are available for all types, subject to Link Constraints which aren't handled!)
                 
                 # check properties of this shape
-                print( f"{self._shape_u=}" )
-                print( f"{self._projorcomp.shapes[self._shape_u]=}" )
-                for p in self._projorcomp.shapes[self._shape_u]['properties']:
-                    print( f"{p=} {self._projorcomp.properties[p]['name']=}" )
+#                print( f"{self._shape_u=}" )
+#                print( f"{self._projorcomp.shapes[self._shape_u]=}" )
+#                for p in self._projorcomp.shapes[self._shape_u]['properties']:
+#                    print( f"{p=} {self._projorcomp.properties[p]['name']=}" )
                     
-                prop_u = next((c2 for c2 in self._projorcomp.shapes[self._shape_u]['properties'] if self._projorcomp.properties[c2]['name'] == name), None)
-                print( f"{prop_u=}" )
+                prop_u = next((c2 for c2 in self._projorcomp.shapes[self._shape_u]['properties'] if ( self._projorcomp.properties[c2]['name'] == name ) or ( self._projorcomp.properties[c2].get('safeName',"" ) == name ) ), None)
+#                print( f"{prop_u=} {self._projorcomp.properties[prop_u]=}" )
                 if prop_u:
                     prop = self._projorcomp.properties[prop_u]
                 else:
                     # check linktypes
     #                print( f"{self._projorcomp.linktypes=}" )
-                    lt = next((c2 for c2 in self._projorcomp.linktypes.keys() if self._projorcomp.linktypes[c2]['name'] == name), None)
+                    lt = next((c2 for c2 in self._projorcomp.linktypes.keys() if ( self._projorcomp.linktypes[c2]['name'] == name ) or ( self._projorcomp.linktypes[c2].get('safeName',"" ) == name ) ), None)
     #                print( f"{lt=}" )
                     if lt:
                         prop_u = lt
@@ -407,43 +410,31 @@ class Resource( object ):
 #        print( "repr" )
         modifiablelines = [f"{k}: {self.__dict__[k]}" for k in sorted(self.__dict__.keys()) if not k.startswith( "_" ) and not k in self._projorcomp.unmodifiables ]
         unmodifiablelines = [f"{k}: {self.__dict__[k]}" for k in sorted(self.__dict__.keys()) if not k.startswith( "_" ) and k in self._projorcomp.unmodifiables]
-        result = f"{type(self)} {id(self)=}\nUnmodifiable:\n  "+"\n  ".join( unmodifiablelines )+"\nModifiable:\n  "+"\n  ".join( modifiablelines )+"\n"
+        result = f"\n  Id={self.Identifier} {self.oslc_instanceShape} {self._url}\n  Unmodifiable:\n    "+"\n    ".join( unmodifiablelines )+"\n  Modifiable:\n    "+"\n    ".join( modifiablelines )+"\n"
         return result
         
-    def addCoreArtifactLink( self, linktypename, targetid ):
-        # find the linktype
-        lt_u = self._projorcomp.get_linktype_uri( linktypename )
-#        print( f"{lt_u=}" )
-        
-        if lt_u is None:
-            raise Exception( f"Link type '{linktypename}' not found" )
-        linkattrname = makeSafeAttributeName( linktypename )
-#        print( f"{linkattrname=}" )
-        # find the target id
-        target_u = self._projorcomp.queryCoreArtifactByID( targetid )
-        if target_u is None:
-            raise Exception( f"target id '{targetid}' not found" )
-            
-        # check link doesn't already exist
-        # TBC
-        
-        # add the link
-        setattr( self, linkattrname, targetid )
-        
-        pass
+#    def addCoreArtifactLink( self, linktypename, targetid ):
+#        # find the linktype
+#        lt_u = self._projorcomp.get_linktype_uri( linktypename )
+##        print( f"{lt_u=}" )
+#        
+#        if lt_u is None:
+#            raise Exception( f"Link type '{linktypename}' not found" )
+#        linkattrname = _typesystem.makeSafeAttributeName( linktypename )
+##        print( f"{linkattrname=}" )
+#        # find the target id
+#        target_u = self._projorcomp.queryCoreArtifactByID( targetid )
+#        if target_u is None:
+#            raise Exception( f"target id '{targetid}' not found" )
+#            
+#        # check link doesn't already exist
+#        # TBC
+#        
+#        # add the link
+#        setattr( self, linkattrname, targetid )
+#        
+#        pass
 
-def makeSafeAttributeName( name, propuri ):
-#    print( f"Make safe name fror {name }" )
-    res = ""
-    for c in name:
-        if not c.isalpha():
-            c = "_"
-        res += c
-    if keyword.iskeyword( res ) or keyword.issoftkeyword( res ):
-#        print( f"unsafe {name}" )
-        res = makeSafeAttributeName( rdfxml.uri_to_prefixed_tag( propuri ), propuri )
-#    print( f"Make safe name fror {name } {res}" )
-    return res
         
 @utils.mixinomatic
 class Resources_Mixin:
@@ -473,8 +464,8 @@ class Resources_Mixin:
         if len(artifacts)==0:
             raise Exception( f"No artifact with identifier '{fromid}' found in project {proj} component {comp} configuration {conf}" )
         elif len(artifacts)>2:
-            for k,v in artifacts.items():
-                print( f'{k} ID {v.get("dcterms:identifier","???")} Title {v.get("dcterms:title","")}' )
+#            for k,v in artifacts.items():
+#                print( f'{k} ID {v.get("dcterms:identifier","???")} Title {v.get("dcterms:title","")}' )
             raise Exception( "More than one artifcact with that id in project {proj} component {comp} configuraition {conf}" )
         
         # find the core artifact - it has a value for rm_nav:parent
@@ -499,17 +490,17 @@ class Resources_Mixin:
         
         # ensure the selects string includes the nulls/notnulls properties
         selectslist = selects.split( "," ) if len(selects)>0 else []
-        print( f"1 {selectslist=}" )
+#        print( f"1 {selectslist=}" )
         if isnulls:            
             selectslist.append( isnulls )
         if isnotnulls:
             selectslist.append( isnotnulls )
-        print( f"{selectslist=}" )
+#        print( f"{selectslist=}" )
         selects = ",".join(selectslist)
 
-        print( f"{isnulls=}" )
-        print( f"{isnotnulls=}" )
-        print( f"{selects=}" )
+#        print( f"{isnulls=}" )
+#        print( f"{isnotnulls=}" )
+#        print( f"{selects=}" )
 
         # ensure the typesystem is loaded
         self.load_types()
@@ -517,7 +508,7 @@ class Resources_Mixin:
         results = self.do_complex_query( "oslc_rm:Requirement", querystring=advancedQueryString, searchterms=None, select=selects, isnulls=isnulls
                         ,isnotnulls=isnotnulls, show_progress=True, pagesize=0
                      )
-        print( f"{len(results)=}" )
+#        print( f"{len(results)=}" )
         resources=[]
         if verbose:
             pbar = tqdm.tqdm(initial=0, total=len(results),smoothing=1,unit=" results",desc="Converting to resources")
@@ -590,9 +581,9 @@ class Resources_Mixin:
                 
             # get the property name
             nameuri = rdfxml.tag_to_uri(prefixedtag)
-            print( f"{nameuri=}" )
+#            print( f"{nameuri=}" )
             propname = projorcomp.resolve_uri_to_name( nameuri )
-            print( f"{propname=}" )
+#            print( f"{propname=}" )
             if propname.startswith( "http" ):
                 # no friendly name so use just the tag
                 propname = tag
@@ -602,8 +593,8 @@ class Resources_Mixin:
                 pass
                 
             # make the property name a safe Python attribute name
-            propname = makeSafeAttributeName( propname, taguri )
-            print( f"safe {propname=}" )
+            propname = _typesystem.makeSafeAttributeName( propname, taguri )
+#            print( f"safe {propname=}" )
 
             # work out what format the thing is from the typesystem, using the tag of the child
             propdef = self.properties.get( taguri )
@@ -614,13 +605,15 @@ class Resources_Mixin:
                     raise Exception( f"Unkown property in RDF! {propname} {taguri} {shapeurl}" )
                 propdef = self.properties.get( taguri )
                 
+            propname = propdef['safeName']
+                
             # make sure there is an entry mapping the safe attribute name to its uri
             if not propname in res._attribute_to_propuri:
                 # need to add!
                 res._attribute_to_propuri[propname]=taguri        
 #                print( f"{res._attribute_to_propuri=}" )
                 
-            print( f"{propdef=}" )
+#            print( f"{propdef=}" )
             # use the codec to decode the value
             thecodec = propdef['typeCodec']
             if thecodec is None:
@@ -721,7 +714,7 @@ class Resources_Mixin:
         thefolder = self.find_folder(foldername_or_path)
         if thefolder is None:
             raise Exception( f"Folder '{foldername_or_path}' not found!" )
-        print( f"Folder URL = {thefolder.folderuri}" )
+#        print( f"Folder URL = {thefolder.folderuri}" )
         
         # find the requirement creation factory    
         factory_u, shapes = self.get_factory_uri("oslc_rm:Requirement", return_shapes=True )

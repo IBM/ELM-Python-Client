@@ -270,9 +270,13 @@ class _ParseTreeToOSLCQuery(lark.visitors.Transformer):
             else:
                 t1 = type(value)
                 logger.info( f"t1 {value} {t1=}" )
+#                print( f"t1 {value} {t1=}" )
                 if isinstance(value, str) and not value.startswith('"') and not value.startswith("'") and ':' not in value and not re.match(r"\d",value):
                     # this is a valueidentifier - try to resolve it as an enum in the context of identifier
                     if self.resolverobject.resolve_enum_name_to_uri is not None:
+#                        print( f"{self.resolverobject.resolve_enum_name_to_uri(value, identifier)=}" )
+#                        print( f"{self.resolverobject=}" )
+#                        print( f"{self.resolverobject.resolve_enum_name_to_uri=}" )
                         result = self.resolverobject.resolve_enum_name_to_uri(value, identifier)
                         if result is None:
                             raise Exception(f"Single ref {value} not resolved in context {identifier}")
@@ -281,6 +285,7 @@ class _ParseTreeToOSLCQuery(lark.visitors.Transformer):
                         else:
                             s[2] = '"'+result+'"'
         logger.info( f"Term returning {s}" )
+#        print( f"Term returning {s}" )
         return s
 
     def simpleidentifier(self,s):

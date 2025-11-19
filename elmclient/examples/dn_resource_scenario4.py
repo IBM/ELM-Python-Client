@@ -60,7 +60,7 @@ utils.log_commandline( os.path.basename(sys.argv[0]) )
 # 0=fully cached (but code below specifies queries aren't cached) - if you need to clear the cache, delet efolder .web_cache
 # 1=clear cache initially then continue with cache enabled
 # 2=clear cache and disable caching
-caching = 0
+caching = 2
 
 ##################################################################################
 if __name__=="__main__":
@@ -92,47 +92,50 @@ if __name__=="__main__":
     print( f"{config_u=}" )
     c.set_local_config(config_u)
     
-# find an example with a pre-created link
-#    coresys=c.resourceQuery( "Identifier=4736",returnBindings=False )
+## find an example with a pre-created link so you can see the format
+#    coresys=c.resourceQuery( "Identifier=4770",returnBindings=False )
 #    print( f"{coresys=}" )
 
     #####################################################################################################
     # create a stakeholder requirement
     reqt1 = c.createCoreResource( "Stakeholder Requirement" )
     
-    print( f"Stakeholder Requirement artifact ID is {reqt1.Identifier=}" )
+    print( f"Stakeholder Requirement artifact ID is {reqt1.Identifier}" )
 
-#    print( f"{reqt1=}" )
+#    print( f"{reqt1}" )
 
     reqt1.Primary_Text = '<div xmlns="http://www.w3.org/1999/xhtml">I am what a Stakeholder wants!</div>'
     
     reqt1.put()
     
-    print( f"With the updated primaryText your Stakeholder Requirement is:\n{reqt1=}" )
+    print( f"With the updated primaryText your Stakeholder Requirement is:\n{reqt1}" )
     
     #####################################################################################################
     # create a system requirement
     reqt2 = c.createCoreResource( "System Requirement" )
     
-    print( f"System Requirement artifact ID is {reqt2.Identifier=}" )
+    print( f"System Requirement artifact ID is {reqt2.Identifier}" )
 
-#    print( f"{reqt2=}" )
+#    print( f"{reqt2}" )
 
     reqt2.Primary_Text = '<div xmlns="http://www.w3.org/1999/xhtml">I am what a Systems Engineer wants!</div>'
     
     reqt2.put()
     
-    print( f"With the updated primaryText your System Requirement is:\n{reqt2=}" )
+    print( f"With the updated primaryText your System Requirement is:\n{reqt2}" )
 
     #####################################################################################################
     # create Satisfies link from the System Requirement to the Stakeholder Requirement
     reqt2.Questions="There is a question"
+    reqt2.Test_Criteria="There are some criteria"
+    
     reqt2.put()
-    print( f"With the Questions set your System Requirement is: {reqt2=}" )
-    burp
+    
+    print( f"With the Questions set your System Requirement is: {reqt2}" )
+    
     # create the link to the reqt1 id
     reqt2.Satisfies=reqt1.Identifier
     
     reqt2.put()
     
-    print( f"With the Satisfies link your System Requirement is: {reqt2=}" )
+    print( f"With the Satisfies link your System Requirement is: {reqt2}" )

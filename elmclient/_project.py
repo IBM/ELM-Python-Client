@@ -302,8 +302,10 @@ class _Project( oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixi
     # the context is the attribute definition - needed to be specified ultimately by the user when enumeration value names aren't unique
     def resolve_enum_name_to_uri(self, name, propertyuri=None, exception_if_not_found=True):
         logger.info( f"resolve_enum_name_to_uri {name=} {propertyuri=}" )
+#        print( f"resolve_enum_name_to_uri {name=} {propertyuri=}" )
         result = self.get_enum_id(name,propertyuri)
         logger.info( f"resolve_enum_name_to_uri {name=} {propertyuri=} {result=}" )
+#        print( f"resolve_enum_name_to_uri {name=} {propertyuri=} {result=}" )
         return result
 
     # for OSLC query, given a type URI, return its name

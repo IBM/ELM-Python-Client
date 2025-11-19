@@ -59,7 +59,7 @@ utils.log_commandline( os.path.basename(sys.argv[0]) )
 # 0=fully cached (but code below specifies queries aren't cached) - if you need to clear the cache, delet efolder .web_cache
 # 1=clear cache initially then continue with cache enabled
 # 2=clear cache and disable caching
-caching = 0
+caching = 2
 
 ##################################################################################
 if __name__=="__main__":

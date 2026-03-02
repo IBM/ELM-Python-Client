@@ -28,6 +28,10 @@ from elmclient import rdfxml
 # make this an empty string to disable cookie saving
 COOKIE_SAVE_FILE = ".cookies"
 
+# headers added to every HTTP operation
+INTENTHEADER = "elmclient-Intent"
+TRACEHEADER  = "elmclient-Trace"
+
 # this semaphore is used around reading/writing the cookie file so for multi-threaded use it is always read/written safely
 SEMA_COOKIEFILE_MAX = 1
 sema_cookiefile = threading.BoundedSemaphore(value=SEMA_COOKIEFILE_MAX)
@@ -36,6 +40,16 @@ logger = logging.getLogger(__name__)
 
 is_windows = any(platform.win32_ver())
 
+def delete_cookie_save_file():
+    if COOKIE_SAVE_FILE:
+        if os.path.isfile( COOKIE_SAVE_FILE ):
+            os.remove( COOKIE_SAVE_FILE )
+            logger.info( f"Deleted cookie file {COOKIE_SAVE_FILE}" )
+#            print( f"Deleted cookie file {COOKIE_SAVE_FILE}" )
+        else:
+            logger.info( f"No cookie file {COOKIE_SAVE_FILE} to delete" )
+    else:
+        logger.info( f"Cookies not being saved to file" )
 
 def quote( s ):
     if is_windows:
@@ -424,6 +438,8 @@ class HttpOperations_Mixin():
                     result = response_j
                     break
             else:
+                state = rdfxml.xmlrdf_get_resource_uri( response_x, ".//oslc_auto:state" )
+                print( f"{state=}" )
                 if rdfxml.xmlrdf_get_resource_uri( response_x, ".//oslc_auto:state[@rdf:resource='http://open-services.net/ns/auto#complete']" ) is not None:
                     if rdfxml.xmlrdf_get_resource_uri( response_x, ".//oslc_auto:verdict[@rdf:resource='http://open-services.net/ns/auto#error']" ) is not None:
                         status = rdfxml.xmlrdf_get_resource_text( response_x, ".//oslc:statusCode" ) or "NO STATUS CODE"
@@ -433,6 +449,7 @@ class HttpOperations_Mixin():
                         verdict = response_x
                     result = response_x
                     break
+#                elif rdfxml.xmlrdf_get_resource_uri( response_x, ".//oslc_auto:state[@rdf:resource='http://open-services.net/ns/auto#complete']" ):
             time.sleep( interval )
         if progressbar:
             pbar.update(100-donelasttime)
@@ -474,7 +491,11 @@ def chooseconfigheader( configurl ):
         return "vvc.configuration"
     return "oslc_config.context"
 
-class HttpRequest():
+# a kludge so HttpRequest can be extended by an extension (see __init__.py)
+# from https://stackoverflow.com/a/16157223
+class NonObject(object):pass
+
+class HttpRequest(NonObject):
     def __init__(self, session, verb, uri, *, params=None, headers=None, data=None):
         # Requests encoding of parameters uses + for space - we need it to use %20!
         if params:
@@ -616,10 +637,12 @@ class HttpRequest():
 
     # generate a compact stacktrace of function-line-file because it's often
     # helpful to know how the HTTP operation was called
-    def _callers( self ):
+    def _callers( self, offset=0 ):
         caller_list = []
         # get the stacktrace and do a couple of f_back-s to remove the call to this function and to the _log_request()/_log_response() function
-        frame = inspect.currentframe().f_back.f_back
+        frame = inspect.currentframe()
+        for i in range( offset+2 ):
+            frame = frame.f_back
         while frame.f_back:
             caller_list.append(
                 '{2}:{1}:{0}()'.format(frame.f_code.co_name, frame.f_lineno, frame.f_code.co_filename.split("\\")[-1]))
@@ -766,7 +789,8 @@ class HttpRequest():
 
             # check for us using an appp password for this url (context root) and if so extend the User-Agent header 
             prepped.headers['User-Agent'] += addhdr
-
+            prepped.headers[INTENTHEADER] = intent
+            prepped.headers[TRACEHEADER] = self._callers(offset=-1)
             response = self._session.send( prepped )
                                                  
             self.log_redirection_history( response, intent=intent, action=action )
@@ -869,6 +893,9 @@ class HttpRequest():
                 request.headers.update({'Cache-Control': 'no-cache'})
                 prepped = self._session.prepare_request(request)
                 prepped.headers['User-Agent'] += addhdr
+                prepped.headers[INTENTHEADER] = intent
+                prepped.headers[TRACEHEADER] = self._callers(offset=-1)
+
                 response = self._session.send(prepped)
                 self.log_redirection_history( response, intent="RETRY AFTER AUTHENTICATION "+intent, action=action )
                 response.raise_for_status()
@@ -896,7 +923,7 @@ class HttpRequest():
         if auth_url:
             # Access Auth URL
             
-            auth_url_response = self._session.get(auth_url)  # Load up them cookies!
+            auth_url_response = self._session.get(auth_url, headers={INTENTHEADER: "Login 1", TRACEHEADER: self._callers(offset=-1) })  # Load up them cookies!
             self.log_redirection_history( auth_url_response, intent="Login",donotlogbody=True )
 
             if auth_url_response.headers.get('X-com-ibm-team-repository-web-auth-msg') != 'authrequired':
@@ -913,7 +940,7 @@ class HttpRequest():
         try:
                 
             # Now we should have the proper oauth cookies, so try again
-            response = self._session.get(auth_url)
+            response = self._session.get(auth_url, headers={INTENTHEADER: "Login 2", TRACEHEADER: self._callers(offset=-1) })
         except requests.exceptions.RequestException as e:
             logger.info( f"Failed to login to auth URL [{auth_url}] with exception [{e}]" )
             raise Exception("Login not possible(2)!")
@@ -922,19 +949,22 @@ class HttpRequest():
         # refer to https://jazz.net/wiki/bin/view/Main/NativeClientAuthentication#Open_ID_Connect_and_the_Jazz_Sec
         # and for Application Password flow refer to https://jazz.net/wiki/bin/view/Main/ApplicationPasswordsAdoption
         # (tested against a localUserRegistry JAS and a simple LDAP JAS and for application password an OIDC-backed JAS)
-        addhdr = "" if not self.get_app_password( url ) else " app-password-enabled"
+#        print( f"{auth_url=} {ap_redirect_url=}" )
+        logger.trace( f"{auth_url=} {ap_redirect_url=}" )
+        agentheader = self._session.headers['User-Agent']
+        agentheader += "" if not self.get_app_password( url ) else " app-password-enabled"
         if auth_url:
             # Access Auth URL
             # step 1 - GET on auth_url with &prompt=none added
-            auth_url_response = self._session.get( str(auth_url) + "&prompt=none", headers = { "User-Agent":f"Python{addhdr}" } )  # Load up them cookies!
-            self.log_redirection_history( auth_url_response, intent="JAS Authorize step 1",donotlogbody=True )
+            auth_url_response = self._session.get( str(auth_url) + "&prompt=none", headers = { "User-Agent": agentheader, INTENTHEADER: "Get on auth url with &prompt=none", TRACEHEADER: self._callers(offset=-1) } )  # Load up them cookies!
+            self.log_redirection_history( auth_url_response, intent="JAS Authorize step 1" )
             # step 2 - check for response indicating
 #            if auth_url_response.status_code != 200 or 'X-JSA-LOGIN-REQUIRED' not in auth_url_response.headers:
                 
             if auth_url_response.status_code != 200 and not ap_redirect_url:
                 return auth_url_response  # no more auth required
             if ap_redirect_url and auth_url_response.status_code==401:
-                if not authurl_response.headers.get( 'WWW-Authenticate',"" ).startswith( "Negotiate"):
+                if not authurl_response.headers.get( 'WWW-Authenticate',"" ).lower().startswith( "negotiate"):
                     return auth_url_response  # no more auth required
                     
             if ap_redirect_url and 'X-JSA-LOGIN-REQUIRED' not in auth_url_response.headers:
@@ -943,44 +973,56 @@ class HttpRequest():
                 # detect SAML/OIDC/Kerberos
                 # check for OIDC headers
                 if any( [c.name.startswith("WASOidcNonce") for c in list(auth_url_response.cookies)] ) and any([c.name.startswith("WASOidcState") for c in list(auth_url_response.cookies)]):
+                    logger.info( "Found both WASOidcNonce and WASOidcState" )
                     pass
                 elif re.search( r"<\s*input\s+.*name\s*=\s*['\"]?SAMLRequest['\"]?", auth_url_response.text, re.DOTALL ):
+                    logger.info( "Found SAMLRequest" )
                     pass
-                elif authurl_response.headers.get( 'WWW-Authenticate',"" ).startswith( "Negotiate"): 
+                elif authurl_response.headers.get( 'WWW-Authenticate',"" ).lower().startswith( "negotiate"): 
+                    logger.info( "Found Negotiate" )
                     pass
                     # Kerberos not supported!
                     raise Exception( "Kerberos/SPNEGO Authentication for application password not supported" )
                 else:
+                    logger.info( "No special conditions found - assuming authenticated" )
                     return auth_url_response  # no more auth required
                 # do the login
                 username, password = self.get_user_password(auth_url)
                 appassword = self.get_app_password( url )
-#                print( f"{username=} {password=} {appassword=}" )
                 # if redirects are automatically followed on this call to authenticate with the OP, the GET of the original protected resource fails, and so the authentication fails.
                 # this may be because this GET doesn't have headers like OSLC-Core-Version.
                 # Solution is not to follow redirects and ensure that the original GET is repeated, i.e. with the correct headers :-)
-                auth_url_response = self._session.get( str(ap_redirect_url), auth=(username, appassword), headers={ "User-Agent":"Python2 app-password-enabled" }, allow_redirects=False )  # Load up them cookies!
+                auth_url_response = self._session.get( str(ap_redirect_url), auth=(username, appassword), headers={ "User-Agent": agentheader, INTENTHEADER: "Get on auth url with basic app password creds", TRACEHEADER: self._callers(offset=-1) }, allow_redirects=False )  # Load up them cookies!
+                self.log_redirection_history( auth_url_response, intent="JAS Authorize step n" )
 
-                return None
+#                return None
                 
             else:
                 if auth_url_response.headers.get('X-JSA-LOGIN-REQUIRED', "") != 'true':
-                    raise Exception( "login required is not true it is '%s'" % (auth_url_response.headers['X-JSA-LOGIN-REQUIRED']))
+                    logger.info( "X-JSA-LOGIN-REQUIRED is not true it is '%s'" % (auth_url_response.headers.get('X-JSA-LOGIN-REQUIRED',"Missing")) )
+                    return
                 # step 3 GET from auth_url (with nothing added)
-                auth_url_response = self._session.get(str(auth_url))  # Load up them cookies!
-                self.log_redirection_history( auth_url_response, intent="JAS Authorize step 3",donotlogbody=True )
+                auth_url_response = self._session.get(str(auth_url), headers={ "User-Agent": agentheader, INTENTHEADER: "Get on auth url without &prompt=none (and no basic auth)", TRACEHEADER: self._callers(offset=-1) })  # Load up them cookies!
+                self.log_redirection_history( auth_url_response, intent="JAS Authorize step 3" )
                 if auth_url_response.status_code == 200:
                     # use basic auth - 3iii in https://jazz.net/wiki/bin/view/Main/NativeClientAuthentication
                     username, password = self.get_user_password(auth_url)
-#                    print( f"{username=} {password=}" )
-                    auth_url_response = self._session.get( str(auth_url), auth=(username, password) )  # Load up them cookies!
+                    appassword = self.get_app_password( url )
+                    if appassword:
+                        auth_url_response = self._session.get( str(ap_redirect_url), auth=(username, appassword), headers={ "User-Agent": agentheader, INTENTHEADER: "Get on app password redirect url with basic app password creds", TRACEHEADER: self._callers(offset=-1) } )  # Load up them cookies!
+                    else:
+                        auth_url_response = self._session.get( str(auth_url), auth=(username, password), headers={ INTENTHEADER: "Get on auth url with basic non-app password creds", TRACEHEADER: self._callers(offset=-1) }, allow_redirects=False )  # Load up them cookies! No point allowing redirects because the correct headers aren't present on the auto redirect GET
+                    self.log_redirection_history( auth_url_response, intent="JAS Authorize step n1" )
+                    
         else:
             logger.error('''Something about JSA OIDC login has changed since this script was written. I can no longer determine where to authorize myself.''')
             raise Exception("Authorize not possible (1)")
 
         try:
             # Now we should have the proper oauth cookies, so try again
-            response = self._session.get(auth_url, headers={"User-Agent":f"Python1{addhdr}" })
+            response = self._session.get(auth_url, headers={"User-Agent": agentheader, INTENTHEADER: "Retry aftes JAS login", TRACEHEADER: self._callers(offset=-1) })
+            self.log_redirection_history( response, intent="Retry after JAS login" )
+            print( f"r {response.status_code=}" )
             response.text
             
         except requests.exceptions.RequestException as e:
@@ -997,8 +1039,10 @@ class HttpRequest():
             # JAS authentication uses a post
             request = requests.Request("POST",str(auth_url), headers=headers, data=data)
             prepped = self._session.prepare_request(request)
+            prepped.headers[INTENTHEADER] = "Authorize"
+            prepped.headers[TRACEHEADER] = self._callers(offset=-1)
 
-            response = self._session.send(prepped)
+            response = self._session.send(prepped )
             self.log_redirection_history( response, intent="Authorize",donotlogbody=True )
 
             response.raise_for_status()
@@ -1023,7 +1067,7 @@ class HttpRequest():
                                             ""])
         try:
 
-            response = self._session.get(auth_url)
+            response = self._session.get(auth_url, headers={INTENTHEADER: "_jazz_form_authorize", TRACEHEADER: self._callers(offset=-1) } )
             self.log_redirection_history( response, intent="Authenticate Form",donotlogbody=True )
 
         except requests.HTTPError as e:

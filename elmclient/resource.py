@@ -706,7 +706,7 @@ class Resources_Mixin:
     def createCoreResource( self, artifactTypename_or_rdfuri ,* ,foldername_or_path=None ):        
         foldername_or_path = foldername_or_path or "/"
 
-        # mskr sure the type system is loaded
+        # make sure the type system is loaded
         self.load_types()
         
         # load the folder (using folder query capability)
@@ -796,6 +796,7 @@ class Resources_Mixin:
         
     # immediately create the resource for a module
     def createModuleResource( self, artifactTypename_or_rdfuri, *, foldername_or_path=None  ):
+        # should this check that the type has format=Module ???
         return self.createCoreResource( artifactTypename_or_rdfuri=artifactTypename_or_rdfuri, foldername_or_path=foldername_or_path )
         
         

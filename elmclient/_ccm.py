@@ -465,10 +465,10 @@ class AMProject(CCMProject):
 class AMApp(_app._App, _typesystem.No_Type_System_Mixin):
     domain = 'am'
     project_class = AMProject
-    supports_configs = False
-    supports_components = False
-    supports_reportable_rest = False
-    reportable_rest_status = "Application does not support Reportable REST"
+    supports_configs = True
+    supports_components = True
+    supports_reportable_rest = True
+    reportable_rest_status = "Application does support Reportable REST see https://jazz.net/wiki/bin/view/Main/RMMReportableRestAPI"
     identifier_uri = 'dcterms:identifier'
 
     def __init__(self, server, contextroot, jts=None):

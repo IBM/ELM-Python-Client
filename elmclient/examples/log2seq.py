@@ -102,6 +102,9 @@ reqshowheaders=[
     'OSLC-Core-Version',
     'Referer',
     'vvc.configuration',
+    'elmclient-Intent',
+    'elmclient-Trace',
+    
 ]
 
 # these are case-sensitive
@@ -113,6 +116,7 @@ respshowheaders=[
     'Set-Cookie',
     'WWW-Authenticate',
     'X-jazz-web-oauth-url',
+    'X-JSA-APP-PASSWORD-REDIRECT',
     'X-JSA-AUTHORIZATION-REDIRECT',
     'X-JSA-AUTHORIZATION-URL',
     'X-JSA-LOGIN-REQUIRED',

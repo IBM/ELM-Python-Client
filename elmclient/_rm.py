@@ -27,6 +27,7 @@ from . import server
 from . import utils
 from . import _newtypesystem
 from . import resource
+from . import _rmtypesapi
 
 # used for OSLC Query on types
 typeresources = {
@@ -39,17 +40,50 @@ typeresources = {
 
 class CoreResource( resource.Resource ):
     name = "Core"
+    def getBindings( self ):
+        raise Exception( "Save not implemented yet" )
+        pass
     
 class BindingResource( resource.Resource):
     name = "Binding"
-    
+    moduleResource=None
+    coreResource=None
+    def _getSection():
+        pass
+    def _getCoreResource(self):
+        pass
+    def _getParent(self):
+        pass
+    def _getChildren( self):
+        pass
+    def addBelow(self,coreid_or_coreresource_or_artifacttype):
+        # add new binding below
+        pass
+    def addAfter( self,coreid_or_coreresource_or_artifacttype ):
+        # add new binding after
+        pass
+    def moveAfter( self, binding ):
+        # move self and all children
+        pass
+    def moveBelow( self, binding ):
+        # move self and all children
+        pass
+    def delete( self ):
+        # delete self and all children
+        pass
+        
 class ModuleResource( resource.Resource ):
     name = "Module"
-    
+    structureResource=None
+    bindingHierarchyRoot=None # this will be an AnyTree, each entry pointing at a BindingResource
     def getModuleBindings( self ):
         raise Exception( "Save not implemented yet" )
         pass
-
+    def findBindingBySection( self, section ):
+        pass
+    def iterateHierarchy( self ):
+        pass
+        
 class WrapperResource( resource.Resource ):
     name="Wrapper"
 
@@ -210,7 +244,7 @@ if False:
         pass
 
 @utils.mixinomatic
-class RMProject(_project._Project, resource.Resources_Mixin ):
+class RMProject(_project._Project, resource.Resources_Mixin, _rmtypesapi.RMTypes_Mixin ):
     # A project
     # NOTE there is a derived class RMComponent used for RM components - it doesn't offer any
     #   functionality, and is a separate class only so it's easier to see whether an instance is a component or the overall project

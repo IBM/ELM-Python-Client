@@ -283,6 +283,7 @@ class JazzTeamServer( httpops.HttpOperations_Mixin ):
                     logger.info( f"Erasing existing cache" )
                     shutil.rmtree(os.path.join(cachefolder,WEB_SAVE_FOLDER))
                     time.sleep(1.0)
+                httpops.delete_cookie_save_file()
 
             if caching_save_data(cachingcontrol):
                 # cached - create folder for cache

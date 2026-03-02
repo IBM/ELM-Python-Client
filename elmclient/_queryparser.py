@@ -294,6 +294,7 @@ class _ParseTreeToOSLCQuery(lark.visitors.Transformer):
             raise Exception( "Bad simpleidentifier" )
         resultname = s[0].value
         # look it up and if necessary store to mapping
+#        print( f"{self=} {self.resolverobject=} {self.resolverobject.resolve_property_name_to_uri=} {resultname=}" )
         result = self.resolverobject.resolve_property_name_to_uri(resultname)
         if result is None:
             raise Exception("Name resolution for %s failed!" % (resultname))

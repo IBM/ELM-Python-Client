@@ -66,7 +66,7 @@ caching = 2
 ##################################################################################
 if __name__=="__main__":
     if len(sys.argv) != 4:
-        print( 'A typical commandline might be: dn_simple_createartifact.py "Stakeholder Requirement" "My first stakefilder requirement" /' )
+        print( 'A typical commandline might be: dn_simple_createartifact.py "Stakeholder Requirement" "My first stakeholder requirement" /' )
         raise Exception( 'You must provide: The artifact type, the artifact text, and the folder path to create the artifact in - each surrounded by " if including spaces' )
 
     print( f"Attempting to create a '{sys.argv[1]}' in project '{proj}' in configuration {conf} in folder '{sys.argv[3]}'" )

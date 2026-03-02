@@ -306,11 +306,12 @@ class Type_System_Mixin():
         else:
             properties = [k for k,v in self.properties.items() if v['name']==property_name]
             
-#            print( f"1 {properties=}" )
+            print( f"1 {properties=}" )
             
         if len(properties)==1:
             result = properties[0]
         else:
+            return properties[0]
             # try using altname
             altproperties = [k for k,v in self.properties.items() if v['altname']==property_name]
             if len(altproperties)==1:

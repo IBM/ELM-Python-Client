@@ -75,7 +75,7 @@ class _Project( oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixi
             logger.info( utils.callers() )
             try:
                 # try to retrieve the rdf using no_error_log=True becase some urls don't exist and we don't really mind if it can't be retrieved, e.g. /jts/users/unassigned which never exits in JTS
-                self._gettypecache[realuri] = self.execute_get_rdf_xml(uri, intent="Retrieve type definition", no_error_log=True) if uri.startswith( "https://") else None
+                self._gettypecache[realuri] = self.execute_get_rdf_xml(uri, intent="Retrieve type definition", no_error_log=True, cacheable=True) if uri.startswith( "https://") else None
                 logger.info( f"Retrieved:" )
             except ET.XMLSyntaxError:
                  self._gettypecache[realuri] = None
@@ -256,6 +256,7 @@ class _Project( oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixi
 #                    print( f"Checking {config=} for {self.project_uri=}" )
                     if config['componentUri'] == self.project_uri:
                         config_uri = config['configurationUri']
+                        break  # first match is correct according to GC SDK https://jazz.net/gc/doc/scenario?id=GetFlatListOfContributionsForGcHiearchy
             if not config_uri:
                 raise Exception( 'Cannot find configuration [%s] in project [%s]' % (name_or_uri, self.uri))
         else:
@@ -293,9 +294,10 @@ class _Project( oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixi
     # the context is the shape definition - can be None, needed to be specified ultimately by the user when property names aren't unique
     def resolve_property_name_to_uri(self, name, shapeuri=None, exception_if_not_found=True):
         logger.info( f"resolve_property_name_to_uri {name=} {shapeuri=}" )
+#        print( f"resolve_property_name_to_uri {name=} {shapeuri=}" )
 #        result = self.get_property_uri(name,shape_uri=shapeuri) or self.get_linktype_uri(name,shape_uri=shapeuri)
         result = self.get_property_uri(name, shape_uri=shapeuri) or self.get_linktype_uri(name)
-        logger.info( f"resolve_property_name_to_uri {name=} {shapeuri=} {result=}" )
+#        print( f"resolve_property_name_to_uri {name=} {shapeuri=} {result=}" )
         return result
 
     # for OSLC query, given an enumeration value name in and context (property uri), return its URI
@@ -487,33 +489,35 @@ class _Project( oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixi
             logger.info( "Starting a property")
             propnodeid = rdfxml.xmlrdf_get_resource_uri( propel, attrib="rdf:nodeID" )
             logger.info( f"{propnodeid=}" )
-            logger.info( f"{propnodeid=}" )
+#            print( f"{propnodeid=}" )
             real_propel_x = rdfxml.xml_find_element( shapedef_x, f'.//rdf:Description[@rdf:nodeID="{propnodeid}"]' )
             logger.info( f"{real_propel_x=}" )
-            logger.info( f"{real_propel_x=}" )
+#            print( f"{real_propel_x=}" )
 #            print( "XML==",ET.tostring(real_propel_x) )
             # dcterms:title xml:lang="en"
             property_title_el = rdfxml.xml_find_element( real_propel_x, './dcterms:title[@xml:lang="en"]')
             logger.info( f"1 {property_title_el=}" )
+#            print( f"1 {property_title_el=}" )
             if property_title_el is None:
                 property_title_el = rdfxml.xml_find_element(real_propel_x, './dcterms:title[@rdf:datatype]' )
                 logger.info( f"2 {property_title_el=}" )
+#                print( f"2 {property_title_el=}" )
             if property_title_el is None:
                 property_title_el = rdfxml.xml_find_element( real_propel_x, './oslc:name')
                 logger.info( f"3 {property_title_el=}" )
+#                print( f"3 {property_title_el=}" )
             logger.info( f"{property_title_el=}" )
-            logger.info( f"{property_title_el=}" )
+#            print( f"{property_title_el=}" )
             if property_title_el is None:
                 logger.info( "Skipping shape with no title!" )
-                logger.info( "Skipping shape with no title!" )
-                burp
+#                print( "Skipping shape with no title!" )
                 continue
             property_title = property_title_el.text
             logger.info( f"{property_title=}" )
-            logger.info( f"{property_title=}" )
+#            print( f"{property_title=}" )
             if rdfxml.xmlrdf_get_resource_text(real_propel_x,"oslc:hidden") == "true":
                 logger.info( f"Skipping hidden property {property_title}" )
-                logger.info( f"Skipping hidden property {property_title}" )
+#                print( f"Skipping hidden property {property_title}" )
                 continue
             valueshape_uri = rdfxml.xmlrdf_get_resource_uri( real_propel_x,'./oslc:valueShape' )
             logger.info( f"{valueshape_uri=}" )

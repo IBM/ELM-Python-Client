@@ -62,7 +62,7 @@ def do_validate(inputargs=None):
     LOGLEVEL    = os.environ.get("QUERY_LOGLEVEL"   ,None )
 
     # setup arghandler
-    parser = argparse.ArgumentParser(description="Use the Validate APU to list feed, validate a feed, get validaiton results")
+    parser = argparse.ArgumentParser(description="Use the Validate APU to list feed, validate a feed, get validation results")
 
     # the holder for sub-parsers
     subparsers = parser.add_subparsers(help='sub-commands',dest='subparser_name')

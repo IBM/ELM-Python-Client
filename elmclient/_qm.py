@@ -159,6 +159,7 @@ class QMProject( _project._Project, _qmrestapi.QM_REST_API_Mixin, resource.Resou
             logger.debug( f"full optin" )
             cmsp_xml = self.app.retrieve_cm_service_provider_xml()
             logger.info( f"cmsp=",ET.tostring(cmsp_xml) )
+#            print( f"cmsp=",ET.tostring(cmsp_xml) )
 #  <rdf:Description rdf:nodeID="A4">
 #    <oslc:resourceType rdf:resource="http://open-services.net/ns/config#Component"/>
 #    <oslc:queryBase rdf:resource="https://jazz.ibm.com:9443/qm/oslc_config/resources/com.ibm.team.vvc.Component"/>
@@ -167,11 +168,21 @@ class QMProject( _project._Project, _qmrestapi.QM_REST_API_Mixin, resource.Resou
 #    <rdf:type rdf:resource="http://open-services.net/ns/core#QueryCapability"/>
 #  </rdf:Description>
 
-            components_uri = rdfxml.xmlrdf_get_resource_uri(cmsp_xml, './/rdf:Description/rdf:type[@rdf:resource="http://open-services.net/ns/core#QueryCapability"]/../oslc:resourceType[@rdf:resource="http://open-services.net/ns/config#Component"]/../oslc:queryBase')
-            logger.info( f"{components_uri=}" )
-#            print( f"{components_uri=}" )
+            components_x = rdfxml.xml_find_element(cmsp_xml, './/rdf:Description/rdf:type[@rdf:resource="http://open-services.net/ns/core#QueryCapability"]/../oslc:resourceType[@rdf:resource="http://open-services.net/ns/config#Component"]/../oslc:queryBase')
+            component_uri = rdfxml.xmlrdf_get_resource_uri( components_x )
+            logger.info( f"1 {component_uri=}" )
+            if not component_uri:
+                component_x = rdfxml.xml_find_element(cmsp_xml, './/rdf:Description/oslc:resourceType[@rdf:resource="http://open-services.net/ns/config#Component"]/../oslc:queryBase')
+#                component_x = rdfxml.xml_find_element(cmsp_xml, './/rdf:Description/oslc:resourceType[@rdf:resource="http://open-services.net/ns/config#Component"]/../oslc:queryBase')
+#                print( f"{component_x=}" )
+                component_uri = rdfxml.xmlrdf_get_resource_uri(component_x)
+#                print( f"3 {component_uri=}" )
+#                burp
+                
+            logger.info( f"{component_uri=}" )
+#            print( f"2 {component_uri=}" )
             # get all components
-            crx = self.execute_get_xml( components_uri, intent="Retrieve component definition" )
+            crx = self.execute_get_xml( component_uri, intent="Retrieve component definitions" )
             logger.info( f"{crx=}" )
 #      <oslc_config:Component rdf:about="https://jazz.ibm.com:9443/qm/oslc_config/resources/com.ibm.team.vvc.Component/_iw4s4EB3Eeus6Zk4qsm_Cw">
 #        <dcterms:title rdf:parseType="Literal">SGC Agile</dcterms:title>
@@ -185,11 +196,13 @@ class QMProject( _project._Project, _qmrestapi.QM_REST_API_Mixin, resource.Resou
 #        <dcterms:relation rdf:resource="https://jazz.ibm.com:9443/qm/service/com.ibm.rqm.integration.service.IIntegrationService/resources/_rikP0EB1Eeus6Zk4qsm_Cw/component/_iw4s4EB3Eeus6Zk4qsm_Cw"/>
 #      </oslc_config:Component>
 
-            for component_el in rdfxml.xml_find_elements(crx, f'.//oslc_config:Component/process:projectArea[@rdf:resource="{self.project_uri}"]/..'):
+            for component_el in rdfxml.xml_find_elements(crx, f'.//oslc_config:Component/process:projectArea[@rdf:resource="{self.project_uri}"]/..') or rdfxml.xml_find_elements(crx, f'.//rdf:Description/process:projectArea[@rdf:resource="{self.project_uri}"]/..'):
                 logger.info( f"{component_el=}" )
+#                print( f"{component_el=}" )
                 compu = rdfxml.xmlrdf_get_resource_uri(component_el)
                 comptitle = rdfxml.xmlrdf_get_resource_text(component_el, './/dcterms:title')
                 logger.info( f"Found component {comptitle}" )
+#                print( f"Found component {comptitle}" )
                 ncomps += 1
                 confu = rdfxml.xmlrdf_get_resource_uri(component_el, './/oslc_config:configurations')
                 self._components[compu] = {'name': comptitle, 'configurations': {}, 'confs_to_load': [confu]}
@@ -498,7 +511,7 @@ class QMProject( _project._Project, _qmrestapi.QM_REST_API_Mixin, resource.Resou
         identifiers = [str(i) for i in identifiers]
 #        print( f"{identifiers=}" )
         for i in identifiers:
-            print( f"{i=}" )
+#            print( f"{i=}" )
             if not utils.isint( str(i) ):
                 raise Exception( "value '{i}' is not an integer!" )
                         

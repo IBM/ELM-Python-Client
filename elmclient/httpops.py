@@ -594,9 +594,13 @@ class HttpRequest():
                     if rawtext.startswith( '<?xml' ) or rawtext.startswith( '<rdf' ):
                         # assume XML
 #                        print( f"is xml {rawtext[0:4]}" )
-                        tree = ET.fromstring( rawtext )
-                        ET.indent(tree, space="       " )
-                        rawtext = ET.tostring( tree )
+                        try:
+                            body_bytes = request.body if isinstance(request.body, bytes) else request.body.encode('utf-8')
+                            tree = ET.fromstring( body_bytes )
+                            ET.indent(tree, space="       " )
+                            rawtext = ET.tostring( tree, encoding='unicode' )
+                        except Exception:
+                            pass  # keep rawtext as-is
                     else:
 #                        print( f"not xml {rawtext[0:4]}" )
                         pass
@@ -658,9 +662,12 @@ class HttpRequest():
                     if rawtext.startswith( '<?xml' ) or rawtext.startswith( '<rdf' ):
                         # assume XML
 #                        print( f"is xml {rawtext[0:4]}" )
-                        tree = ET.fromstring( rawtext.encode() )
-                        ET.indent(tree, space="  " )
-                        rawtext = ET.tostring( tree ).decode()
+                        try:
+                            tree = ET.fromstring( response.content )
+                            ET.indent(tree, space="  " )
+                            rawtext = ET.tostring( tree, encoding='unicode' )
+                        except Exception:
+                            pass  # keep rawtext as-is
                     else:
 #                        print( f"not xml {rawtext[0:4]}" )
                         pass

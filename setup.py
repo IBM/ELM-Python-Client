@@ -35,6 +35,9 @@ setup(
     packages=["elmclient", "elmclient.examples","elmclient.tests"],
     include_package_data=True,
     install_requires=['CacheControl','anytree',"colorama","cryptography",'lark_parser','lockfile','lxml',"openpyxl","python-dateutil", "pytz", "requests","requests_toolbelt",'tqdm','urllib3', "bump2version", "twine",'filelock'],
+    extras_require={
+        "mcp": ["mcp[cli]"],
+    },
     entry_points={
         "console_scripts": [
             "oslcquery=elmclient.examples.oslcquery:main",
@@ -43,6 +46,7 @@ setup(
             "reqif_io=elmclient.examples.reqif_io:main",
             "log2seq=elmclient.examples.log2seq:main",
             "validate=elmclient.examples.validate:main",
+            "elm-mcp-server=elmclient.mcp_server:main",
         ]
     },
 )

@@ -31,13 +31,13 @@ https://jazz.ibm.com:9443/rm/resources/TX_qxNXaty4EfCdUPxBs9MP1g,4097,/Business 
 https://jazz.ibm.com:9443/rm/resources/BI_qxNXQNy4EfCdUPxBs9MP1g,4097,
 https://jazz.ibm.com:9443/rm/resources/TX_qxXIM9y4EfCdUPxBs9MP1g,4098,/Component - Common/Features
 https://jazz.ibm.com:9443/rm/resources/BI_qxNXTNy4EfCdUPxBs9MP1g,4098,
-https://jazz.ibm.com:9443/rm/resources/TX_qxXINty4EfCdUPxBs9MP1g,4099,/Base Artifacts/Component - Mobile/User Story Elaboration/Storyboards/Dividend Contribution - Mobile artifacts
 https://jazz.ibm.com:9443/rm/resources/BI_qw51Ody4EfCdUPxBs9MP1g,4099,
+https://jazz.ibm.com:9443/rm/resources/TX_qxXINty4EfCdUPxBs9MP1g,4099,/Base Artifacts/Component - Mobile/User Story Elaboration/Storyboards/Dividend Contribution - Mobile artifacts
 https://jazz.ibm.com:9443/rm/resources/TX_qxXIN9y4EfCdUPxBs9MP1g,4100,/Component - Common/Features
 https://jazz.ibm.com:9443/rm/resources/BI_qxNXTdy4EfCdUPxBs9MP1g,4100,
 https://jazz.ibm.com:9443/rm/resources/DM_qxXIOdy4EfCdUPxBs9MP1g,4101,/Component - Mobile/User Story Elaboration/UI Sketches/Frame Sketches
-https://jazz.ibm.com:9443/rm/resources/BI_qxDmY9y4EfCdUPxBs9MP1g,4102,
 https://jazz.ibm.com:9443/rm/resources/TX_qxXIPdy4EfCdUPxBs9MP1g,4102,/Base Artifacts/Component - Web/User Story Elaboration/Storyboards/Dividend Contribution artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_qxDmY9y4EfCdUPxBs9MP1g,4102,
 https://jazz.ibm.com:9443/rm/resources/BI_qxDmNdy4EfCdUPxBs9MP1g,4102,
 https://jazz.ibm.com:9443/rm/resources/TX_qxXIOty4EfCdUPxBs9MP1g,4103,/Base Artifacts/Component - Web/User Story Elaboration/Storyboards/Dividend Contribution artifacts
 https://jazz.ibm.com:9443/rm/resources/BI_qxDmWNy4EfCdUPxBs9MP1g,4103,
@@ -88,15 +88,15 @@ https://jazz.ibm.com:9443/rm/resources/TX_qxqDJ9y4EfCdUPxBs9MP1g,4127,/Base Arti
 https://jazz.ibm.com:9443/rm/resources/BI_qxDmjty4EfCdUPxBs9MP1g,4127,
 https://jazz.ibm.com:9443/rm/resources/TX_qxqDIdy4EfCdUPxBs9MP1g,4128,/Component - Web/User Story Elaboration/Elaborated Stories
 https://jazz.ibm.com:9443/rm/resources/BI_qxNXRNy4EfCdUPxBs9MP1g,4128,
+https://jazz.ibm.com:9443/rm/resources/TX_qxg5Qdy4EfCdUPxBs9MP1g,4129,/Base Artifacts/Component - Web/User Story Elaboration/Storyboards/Dividend Contribution to Multiple Organizations artifacts
 https://jazz.ibm.com:9443/rm/resources/BI_qxDmTty4EfCdUPxBs9MP1g,4129,
 https://jazz.ibm.com:9443/rm/resources/BI_qxDmV9y4EfCdUPxBs9MP1g,4129,
 https://jazz.ibm.com:9443/rm/resources/BI_qxDmWty4EfCdUPxBs9MP1g,4129,
 https://jazz.ibm.com:9443/rm/resources/BI_qxDmXdy4EfCdUPxBs9MP1g,4129,
-https://jazz.ibm.com:9443/rm/resources/TX_qxg5Qdy4EfCdUPxBs9MP1g,4129,/Base Artifacts/Component - Web/User Story Elaboration/Storyboards/Dividend Contribution to Multiple Organizations artifacts
 https://jazz.ibm.com:9443/rm/resources/BI_qxDmS9y4EfCdUPxBs9MP1g,4129,
 https://jazz.ibm.com:9443/rm/resources/DM_qxqDJNy4EfCdUPxBs9MP1g,4130,/Component - Mobile/User Story Elaboration/UI Sketches/Frame Sketches
-https://jazz.ibm.com:9443/rm/resources/BI_qxDmUty4EfCdUPxBs9MP1g,4131,
 https://jazz.ibm.com:9443/rm/resources/TX_qxqDKNy4EfCdUPxBs9MP1g,4131,/Base Artifacts/Component - Web/User Story Elaboration/Storyboards/Dividend Contribution artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_qxDmUty4EfCdUPxBs9MP1g,4131,
 https://jazz.ibm.com:9443/rm/resources/BI_qxDmfdy4EfCdUPxBs9MP1g,4131,
 https://jazz.ibm.com:9443/rm/resources/TX_qxqDLNy4EfCdUPxBs9MP1g,4132,/Base Artifacts/Component - Mobile/User Story Elaboration/Storyboards/Dividend Contribution - Mobile artifacts
 https://jazz.ibm.com:9443/rm/resources/BI_qw51N9y4EfCdUPxBs9MP1g,4132,
@@ -104,8 +104,8 @@ https://jazz.ibm.com:9443/rm/resources/TX_qxqDKdy4EfCdUPxBs9MP1g,4133,/Component
 https://jazz.ibm.com:9443/rm/resources/BI_qxNXV9y4EfCdUPxBs9MP1g,4133,
 https://jazz.ibm.com:9443/rm/resources/TX_qx0bMNy4EfCdUPxBs9MP1g,4134,/Base Artifacts/0. README/Release 1 Specification artifacts
 https://jazz.ibm.com:9443/rm/resources/BI_qxNXNty4EfCdUPxBs9MP1g,4134,
-https://jazz.ibm.com:9443/rm/resources/BI_qxDmT9y4EfCdUPxBs9MP1g,4135,
 https://jazz.ibm.com:9443/rm/resources/TX_qxymANy4EfCdUPxBs9MP1g,4135,/Base Artifacts/Component - Web/User Story Elaboration/Storyboards/Dividend Contribution artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_qxDmT9y4EfCdUPxBs9MP1g,4135,
 https://jazz.ibm.com:9443/rm/resources/BI_qxDmety4EfCdUPxBs9MP1g,4135,
 https://jazz.ibm.com:9443/rm/resources/BI_qxNXSty4EfCdUPxBs9MP1g,4136,
 https://jazz.ibm.com:9443/rm/resources/TX_qx0bMdy4EfCdUPxBs9MP1g,4136,/Component - Common/Features
@@ -129,12 +129,12 @@ https://jazz.ibm.com:9443/rm/resources/BI_qxDmddy4EfCdUPxBs9MP1g,4146,
 https://jazz.ibm.com:9443/rm/resources/BI_qxDmSNy4EfCdUPxBs9MP1g,4146,
 https://jazz.ibm.com:9443/rm/resources/TX_qx9lJty4EfCdUPxBs9MP1g,4147,/Base Artifacts/Lifecycle Scenarios/Release 1 Lifecycle Scenarios artifacts
 https://jazz.ibm.com:9443/rm/resources/BI_qxDmi9y4EfCdUPxBs9MP1g,4147,
-https://jazz.ibm.com:9443/rm/resources/BI_qxDmcdy4EfCdUPxBs9MP1g,4148,
 https://jazz.ibm.com:9443/rm/resources/TX_qx9lKNy4EfCdUPxBs9MP1g,4148,/Base Artifacts/Component - Web/User Story Elaboration/Storyboards/Dividend Contribution artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_qxDmcdy4EfCdUPxBs9MP1g,4148,
 https://jazz.ibm.com:9443/rm/resources/BI_qxDmQ9y4EfCdUPxBs9MP1g,4148,
 https://jazz.ibm.com:9443/rm/resources/DM_qx9lI9y4EfCdUPxBs9MP1g,4149,/Component - Mobile/User Story Elaboration/UI Sketches/Frame Sketches
-https://jazz.ibm.com:9443/rm/resources/BI_qxDmdty4EfCdUPxBs9MP1g,4150,
 https://jazz.ibm.com:9443/rm/resources/TX_qx9lIty4EfCdUPxBs9MP1g,4150,/Base Artifacts/Component - Web/User Story Elaboration/Storyboards/Dividend Contribution artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_qxDmdty4EfCdUPxBs9MP1g,4150,
 https://jazz.ibm.com:9443/rm/resources/BI_qxDmSdy4EfCdUPxBs9MP1g,4150,
 https://jazz.ibm.com:9443/rm/resources/TX_qx9lJNy4EfCdUPxBs9MP1g,4151,/Component - Common/Features
 https://jazz.ibm.com:9443/rm/resources/BI_qxNXS9y4EfCdUPxBs9MP1g,4151,
@@ -148,8 +148,8 @@ https://jazz.ibm.com:9443/rm/resources/BI_qxNXT9y4EfCdUPxBs9MP1g,4155,
 https://jazz.ibm.com:9443/rm/resources/TX_qyH9MNy4EfCdUPxBs9MP1g,4156,/Base Artifacts/0. README/Release 1 Specification artifacts
 https://jazz.ibm.com:9443/rm/resources/BI_qxNXNdy4EfCdUPxBs9MP1g,4156,
 https://jazz.ibm.com:9443/rm/resources/BI_qxDmOdy4EfCdUPxBs9MP1g,4157,
-https://jazz.ibm.com:9443/rm/resources/BI_qxDmZ9y4EfCdUPxBs9MP1g,4157,
 https://jazz.ibm.com:9443/rm/resources/TX_qyH9Mdy4EfCdUPxBs9MP1g,4157,/Base Artifacts/Component - Web/User Story Elaboration/Storyboards/Dividend Contribution artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_qxDmZ9y4EfCdUPxBs9MP1g,4157,
 https://jazz.ibm.com:9443/rm/resources/BI_qxDmN9y4EfCdUPxBs9MP1g,4158,
 https://jazz.ibm.com:9443/rm/resources/TX_qyFg89y4EfCdUPxBs9MP1g,4158,/Base Artifacts/Component - Web/User Story Elaboration/Storyboards/Dividend Contribution artifacts
 https://jazz.ibm.com:9443/rm/resources/BI_qxDmZdy4EfCdUPxBs9MP1g,4158,
@@ -158,8 +158,8 @@ https://jazz.ibm.com:9443/rm/resources/BI_qxNXRty4EfCdUPxBs9MP1g,4159,
 https://jazz.ibm.com:9443/rm/resources/TX_qyH9M9y4EfCdUPxBs9MP1g,4160,/Project Meetings
 https://jazz.ibm.com:9443/rm/resources/TX_qyH9ONy4EfCdUPxBs9MP1g,4161,/Base Artifacts/Component - Mobile/User Story Elaboration/Storyboards/Dividend Contribution - Mobile artifacts
 https://jazz.ibm.com:9443/rm/resources/BI_qw51PNy4EfCdUPxBs9MP1g,4161,
-https://jazz.ibm.com:9443/rm/resources/BI_qxDmVNy4EfCdUPxBs9MP1g,4162,
 https://jazz.ibm.com:9443/rm/resources/TX_qyH9Ody4EfCdUPxBs9MP1g,4162,/Base Artifacts/Component - Web/User Story Elaboration/Storyboards/Dividend Contribution to Multiple Organizations artifacts
+https://jazz.ibm.com:9443/rm/resources/BI_qxDmVNy4EfCdUPxBs9MP1g,4162,
 https://jazz.ibm.com:9443/rm/resources/TX_qyH9Nty4EfCdUPxBs9MP1g,4163,/Component - Common/Features
 https://jazz.ibm.com:9443/rm/resources/BI_qxNXUdy4EfCdUPxBs9MP1g,4163,
 https://jazz.ibm.com:9443/rm/resources/TX_qyH9PNy4EfCdUPxBs9MP1g,4164,/Base Artifacts/Lifecycle Scenarios/Release 1 Lifecycle Scenarios artifacts
@@ -243,8 +243,8 @@ https://jazz.ibm.com:9443/rm/resources/TX_qybfONy4EfCdUPxBs9MP1g,4203,/Base Arti
 https://jazz.ibm.com:9443/rm/resources/BI_qxDmVdy4EfCdUPxBs9MP1g,4203,
 https://jazz.ibm.com:9443/rm/resources/BI_qxDmf9y4EfCdUPxBs9MP1g,4203,
 https://jazz.ibm.com:9443/rm/resources/TX_qybfNty4EfCdUPxBs9MP1g,4204,/Component - Web/User Story Elaboration/Elaborated Stories
-https://jazz.ibm.com:9443/rm/resources/TX_qybfPty4EfCdUPxBs9MP1g,4205,/Base Artifacts/Component - Mobile/User Story Elaboration/Storyboards/Dividend Contribution - Mobile artifacts
 https://jazz.ibm.com:9443/rm/resources/BI_qw51Pdy4EfCdUPxBs9MP1g,4205,
+https://jazz.ibm.com:9443/rm/resources/TX_qybfPty4EfCdUPxBs9MP1g,4205,/Base Artifacts/Component - Mobile/User Story Elaboration/Storyboards/Dividend Contribution - Mobile artifacts
 https://jazz.ibm.com:9443/rm/resources/TX_qybfPNy4EfCdUPxBs9MP1g,4206,/Base Artifacts/Component - Web/User Story Elaboration/Storyboards/Dividend Contribution artifacts
 https://jazz.ibm.com:9443/rm/resources/BI_qxDmUNy4EfCdUPxBs9MP1g,4206,
 https://jazz.ibm.com:9443/rm/resources/BI_qxDme9y4EfCdUPxBs9MP1g,4206,
@@ -268,13 +268,13 @@ https://jazz.ibm.com:9443/rm/resources/WR_qx0bPNy4EfCdUPxBs9MP1g,4213,/Component
 https://jazz.ibm.com:9443/rm/resources/WR_qyFg8ty4EfCdUPxBs9MP1g,4214,/Component - Web/User Story Elaboration/UI Sketches/Part-Images
 https://jazz.ibm.com:9443/rm/resources/WR_qx9lJ9y4EfCdUPxBs9MP1g,4215,/Component - Mobile/User Story Elaboration/UI Sketches/Images - iPhone
 https://jazz.ibm.com:9443/rm/resources/WR_qx0bM9y4EfCdUPxBs9MP1g,4216,/Component - Mobile/User Story Elaboration/UI Sketches/Images - iPhone
-https://jazz.ibm.com:9443/rm/resources/BI_qxDmU9y4EfCdUPxBs9MP1g,4217,
 https://jazz.ibm.com:9443/rm/resources/WR_qyRHKdy4EfCdUPxBs9MP1g,4217,/Component - Web/User Story Elaboration/UI Sketches
+https://jazz.ibm.com:9443/rm/resources/BI_qxDmU9y4EfCdUPxBs9MP1g,4217,
 https://jazz.ibm.com:9443/rm/resources/BI_qxDmfty4EfCdUPxBs9MP1g,4217,
 https://jazz.ibm.com:9443/rm/resources/BI_qxDmSty4EfCdUPxBs9MP1g,4218,
+https://jazz.ibm.com:9443/rm/resources/WR_qxg5Ody4EfCdUPxBs9MP1g,4218,/Component - Web/User Story Elaboration/UI Sketches
 https://jazz.ibm.com:9443/rm/resources/BI_qxDmWdy4EfCdUPxBs9MP1g,4218,
 https://jazz.ibm.com:9443/rm/resources/BI_qxDmd9y4EfCdUPxBs9MP1g,4218,
-https://jazz.ibm.com:9443/rm/resources/WR_qxg5Ody4EfCdUPxBs9MP1g,4218,/Component - Web/User Story Elaboration/UI Sketches
 https://jazz.ibm.com:9443/rm/resources/BI_qxDmgty4EfCdUPxBs9MP1g,4218,
 https://jazz.ibm.com:9443/rm/resources/WR_qxg5Pdy4EfCdUPxBs9MP1g,4219,/Component - Mobile/User Story Elaboration/UI Sketches/Images - iPhone
 https://jazz.ibm.com:9443/rm/resources/WR_qyH9NNy4EfCdUPxBs9MP1g,4220,/0. README/images
@@ -303,8 +303,8 @@ https://jazz.ibm.com:9443/rm/resources/WR_qyRHI9y4EfCdUPxBs9MP1g,4238,/Reports
 https://jazz.ibm.com:9443/rm/resources/WR_qxXIMty4EfCdUPxBs9MP1g,4239,/Component - Web/User Story Elaboration/UI Sketches/Part-Images
 https://jazz.ibm.com:9443/rm/resources/WR_qyYb4Ny4EfCdUPxBs9MP1g,4240,/Component - Web/User Story Elaboration/UI Sketches/Part-Images
 https://jazz.ibm.com:9443/rm/resources/BI_qxDmONy4EfCdUPxBs9MP1g,4241,
-https://jazz.ibm.com:9443/rm/resources/BI_qxDmUdy4EfCdUPxBs9MP1g,4241,
 https://jazz.ibm.com:9443/rm/resources/WR_qyH9Sty4EfCdUPxBs9MP1g,4241,/Component - Web/User Story Elaboration/UI Sketches
+https://jazz.ibm.com:9443/rm/resources/BI_qxDmUdy4EfCdUPxBs9MP1g,4241,
 https://jazz.ibm.com:9443/rm/resources/BI_qxDmfNy4EfCdUPxBs9MP1g,4241,
 https://jazz.ibm.com:9443/rm/resources/BI_qxDmZty4EfCdUPxBs9MP1g,4241,
 https://jazz.ibm.com:9443/rm/resources/WR_qxfEAdy4EfCdUPxBs9MP1g,4242,/Component - Mobile/User Story Elaboration/UI Sketches/Images - iPhone

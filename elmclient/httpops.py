@@ -1016,7 +1016,14 @@ class HttpRequest(NonObject):
                     username, password = self.get_user_password(auth_url)
                     appassword = self.get_app_password( url )
                     if appassword:
-                        auth_url_response = self._session.get( str(ap_redirect_url), auth=(username, appassword), headers={ "User-Agent": agentheader, INTENTHEADER: "Get on app password redirect url with basic app password creds", TRACEHEADER: self._callers(offset=-1) } )  # Load up them cookies!
+                        try:
+                            # if redirects are automatically followed on this call to authenticate with the OP, the GET of the original protected resource fails, and so the authentication fails.
+                            # this may be because this GET doesn't have headers like OSLC-Core-Version.
+                            # Solution is not to follow redirects and ensure that the original GET is repeated, i.e. with the correct headers :-)
+#                            auth_url_response = self._session.get( str(ap_redirect_url), auth=(username, appassword), headers={ "OSLC-Core-Version": "2.0", "Accept": "application/xml", "User-Agent": agentheader, INTENTHEADER: "Get on app password redirect url with basic app password creds", TRACEHEADER: self._callers(offset=-1) }, allow_redirects=False )  # Load up them cookies!
+                            auth_url_response = self._session.get( str(ap_redirect_url), auth=(username, appassword), headers={ "User-Agent": agentheader, INTENTHEADER: "Get on app password redirect url with basic app password creds", TRACEHEADER: self._callers(offset=-1) }, allow_redirects=False )  # Load up them cookies!
+                        except requests.exceptions.RequestException as e:
+                            raise Exception( "JSA AP authentication failed!" )
                     else:
                         auth_url_response = self._session.get( str(auth_url), auth=(username, password), headers={ INTENTHEADER: "Get on auth url with basic non-app password creds", TRACEHEADER: self._callers(offset=-1) }, allow_redirects=False )  # Load up them cookies! No point allowing redirects because the correct headers aren't present on the auto redirect GET
                     self.log_redirection_history( auth_url_response, intent="JAS Authorize step n1" )
@@ -1029,7 +1036,7 @@ class HttpRequest(NonObject):
             # Now we should have the proper oauth cookies, so try again
             response = self._session.get(auth_url, headers={"User-Agent": agentheader, INTENTHEADER: "Retry aftes JAS login", TRACEHEADER: self._callers(offset=-1) })
             self.log_redirection_history( response, intent="Retry after JAS login" )
-            print( f"r {response.status_code=}" )
+#            print( f"r {response.status_code=}" )
             response.text
             
         except requests.exceptions.RequestException as e:

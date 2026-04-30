@@ -46,7 +46,7 @@ setup(
             "reqif_io=elmclient.examples.reqif_io:main",
             "log2seq=elmclient.examples.log2seq:main",
             "validate=elmclient.examples.validate:main",
-            "elm-mcp-server=elmclient.mcp_server:main",
+            "elm-mcp-server=elmclient.examples.elm_mcp_server:main",
         ]
     },
 )

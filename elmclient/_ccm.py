@@ -467,7 +467,7 @@ class AMApp(_app._App, _typesystem.No_Type_System_Mixin):
     project_class = AMProject
     supports_configs = True
     supports_components = True
-    supports_reportable_rest = True
+    supports_reportable_rest = False
     reportable_rest_status = "Application does support Reportable REST see https://jazz.net/wiki/bin/view/Main/RMMReportableRestAPI"
     identifier_uri = 'dcterms:identifier'
 
@@ -483,3 +483,4 @@ class AMApp(_app._App, _typesystem.No_Type_System_Mixin):
         if headers:
             result.update(headers)
         return result
+        

@@ -2035,6 +2035,27 @@ class RMApp (_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
         logger.info( f"Result {result=}" )
         return result
 
+    def flatListOfContributionsForGcHierarchy( self, configurationNameOrUri, *, include=None, justThisApp=True ):
+        include = include or "*"
+        if configurationNameOrUri.startswith( "http" ):
+            configurationUri = configurationNameOrUri
+        else:
+            configurationUri = self.find_config( configurationNameOrUri )
+            
+        reluri = "gcsdk-api/flatListOfContributionsForGcHierarchy"
+        params = {
+            "configurationUri": configurationUri,
+            "include": include,
+        }
+        response = self.execute_get_json( reluri, params=params)
+#        print( f"\n{response=}\n\n" )
+        contribs = [c.get('configurationUri') for c in response['configurations'] if c.get('configurationUri') ]
+        if justThisApp:
+            localcontribs = [c for c in contribs if c.startswith( self.reluri() ) ]
+#            print( f"{localcontribs=}" )
+            return localcontribs
+        return contribs
+
     @classmethod
     def add_represt_arguments( cls, subparsers, common_args ):
         '''

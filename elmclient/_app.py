@@ -169,7 +169,7 @@ class _App( httpops.HttpOperations_Mixin, _validate.Validate_Mixin, _customScena
                 if res is None:
                     # create the project instance
                     res = self.project_class(self._projects[projectu]['name'], self._projects[projectu]['projectu'], self, is_optin=self._projects[projectu]['is_optin'],singlemode=self._projects[projectu]['singlemode'])
-        logger.info( f'Project {projectname_or_uri} found {projectu} {res}' )
+        logger.info( f'Project {projectname_or_uri} found {res}' )
         return res
         
     def is_uri( self, name_or_uri ):

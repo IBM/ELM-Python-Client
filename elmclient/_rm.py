@@ -970,7 +970,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
                         raise Exception( f"Unknown type {typedetails[1]}" )
 
 
-    def get_local_config(self, name_or_uri, global_config_uri=None, verbose=False ):
+    def get_local_config(self, name_or_uri, *, global_config_uri=None, verbose=False ):
         logger.info( f"GLC {self=} {name_or_uri=}" )
 #        print( f"GLC {self=} {name_or_uri=} {global_config_uri=}" )
         if global_config_uri:
@@ -1752,8 +1752,10 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
             raise Exception( f"Unknown response {response.status_code}" )
 
         cs_u = rdfxml.xmlrdf_get_resource_uri( result, './/dcterms:references')
-        self.load_new_config( cs_u )
+#        self.load_new_config( cs_u )
+        self.load_configs( stopatnameoruri=cs_u )
         return cs_u
+        
     def discard_changeset( self ):
         raise Exception( "Discard changeset not implemented yet!" )
 
@@ -1778,7 +1780,7 @@ xmlns:calm="http://jazz.net/xmlns/prod/jazz/calm/1.0/"
             cs_x = self.execute_get_rdf_xml( self.local_config )
             targetstream_u = rdfxml.xmlrdf_get_resource_uri( cs_x, './/oslc_config:overrides' )
             csname = rdfxml.xmlrdf_get_resource_text( cs_x, './/dcterms:title' )
-            targetstreamname = self.find_config_name( targetstream_u )
+            targetstreamname = self.find_config( targetstream_u )
             deliverytitle = f"Delivery of changeset {csname} to the stream it was created in {targetstreamname}"
             print( f"\n\nDeliver cs {self.local_config=} {targetstream_u=} {csname=} {targetstreamname=} {deliverytitle=}" )
         else:
@@ -2035,7 +2037,7 @@ class RMApp (_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
         logger.info( f"Result {result=}" )
         return result
 
-    def flatListOfContributionsForGcHierarchy( self, configurationNameOrUri, *, include=None, justThisApp=True ):
+    def flatListOfContributionsForGcHierarchy( self, configurationNameOrUri, *, include=None, justThisApp=True, returnCompAndPA=False ):
         include = include or "*"
         if configurationNameOrUri.startswith( "http" ):
             configurationUri = configurationNameOrUri
@@ -2049,13 +2051,18 @@ class RMApp (_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
         }
         response = self.execute_get_json( reluri, params=params)
 #        print( f"\n{response=}\n\n" )
-        contribs = [c.get('configurationUri') for c in response['configurations'] if c.get('configurationUri') ]
-        if justThisApp:
-            localcontribs = [c for c in contribs if c.startswith( self.reluri() ) ]
-#            print( f"{localcontribs=}" )
-            return localcontribs
-        return contribs
-
+        if not returnCompAndPA:
+            # just the config URLs
+            contribs = [c.get('configurationUri') for c in response['configurations'] if c.get('configurationUri') ]
+            if justThisApp:
+                localcontribs = [c for c in contribs if c.startswith( self.reluri() ) ]
+    #            print( f"{localcontribs=}" )
+                return localcontribs
+            return contribs
+        else:
+            # return tuples of (config,component,PA) urls
+            contribs = [(c.get('configurationUri'),c.get('componentUri'),c.get('projectAreaUri')) for c in response['configurations'] if c.get('configurationUri') and (not justThisApp or c.get('configurationUri').startswith( self.reluri()) ) ]
+            return contribs
 
     @classmethod
     def add_represt_arguments( cls, subparsers, common_args ):

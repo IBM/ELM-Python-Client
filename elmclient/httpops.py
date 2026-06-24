@@ -263,7 +263,9 @@ class HttpOperations_Mixin():
         if nextpagelink:
             if not merge_linked_pages:
                 if warn_linked_pages:
-                    print( f"Warning unused Link header in response for {response.url} link is {nextpagelink}" )
+                    nextpageurl = findbasepagelink( nextpagelink,'rel="next"' )
+                    if nextpageurl:
+                        print( f"Warning unused Link header in response for {response.url} link is {nextpagelink} {nextpageurl}" )
             else:
                 # loop picking up the linked pages
                 while True:

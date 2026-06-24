@@ -93,6 +93,7 @@ def do_oslc_query(inputargs=None):
     parser.add_argument('-H', '--saveconfigs', default=None, help='Name of CSV file to save details of the local project components and configurations')
     parser.add_argument('-I', '--totalize', action="store_true", help="For any column with multiple results, put in the total instead of the results")
     parser.add_argument("-J", "--jazzurl", default=JAZZURL, help=f"jazz server url (without the /jts!) default {JAZZURL} - Default can be set using environemnt variable QUERY_JAZZURL - defaults to https://jazz.ibm.com:9443 which DOESN'T EXIST")
+    parser.add_argument('-K', '--repeat', default=1,type=int, help=f'Repeat the OSLC Query this many times; you should take care not to overload your server!')
     parser.add_argument('-L', '--loglevel', default=None,help=f'Set logging to file and (by adding a "," and a second level) to console to one of DEBUG, TRACE, INFO, WARNING, ERROR, CRITICAL, OFF - default is {LOGLEVEL} - can be set by environment variable QUERY_LOGLEVEL')
     parser.add_argument('-M', '--maxresults', default=None, type=int, help='Max number of results to retrieve a pagesize at a time, then the query is terminated. default is no limit')
     parser.add_argument('-N', '--noprogressbar', action="store_false", help="Don't show progress bar during query")
@@ -579,18 +580,19 @@ def do_oslc_query(inputargs=None):
             results.update(thisresults)
     else:    
         # do the actual OSLC query
-        results = queryon.do_complex_query( args.resourcetype, querystring=args.query, searchterms=args.searchterms, select=args.select, isnulls=args.null, isnotnulls=args.value
-                        ,orderby=args.orderby
-                        ,show_progress=args.noprogressbar
-                        ,verbose=args.verbose
-                        ,maxresults=args.maxresults
-                        ,delaybetweenpages=args.delaybetweenpages
-                        ,pagesize=args.pagesize
-                        ,resolvenames = args.resolvenames
-                        ,totalize=args.totalize
-                        ,saverawresults=args.saverawresults
-                        ,cacheable=args.cacheable
-                        )
+        for rep in range(args.repeat):
+            results = queryon.do_complex_query( args.resourcetype, querystring=args.query, searchterms=args.searchterms, select=args.select, isnulls=args.null, isnotnulls=args.value
+                            ,orderby=args.orderby
+                            ,show_progress=args.noprogressbar
+                            ,verbose=args.verbose
+                            ,maxresults=args.maxresults
+                            ,delaybetweenpages=args.delaybetweenpages
+                            ,pagesize=args.pagesize
+                            ,resolvenames = args.resolvenames
+                            ,totalize=args.totalize
+                            ,saverawresults=args.saverawresults
+                            ,cacheable=args.cacheable
+                            )
 
     if args.debugprint:
         pp.pprint(results)

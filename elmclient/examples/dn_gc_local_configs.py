@@ -56,7 +56,7 @@ gcnames="gccomp Initial Development,SGC Production stream"
 # 0=fully cached (but code below specifies queries aren't cached) - if you need to clear the cache, delet efolder .web_cache
 # 1=clear cache initially then continue with cache enabled
 # 2=clear cache and disable caching
-caching = 0
+caching = 2
 
 # create our "server" which is how we connect to DOORS Next
 # first enable the proxy so if a proxy is running it can monitor the communication with server (this is ignored if proxy isn't running)
@@ -95,8 +95,15 @@ print( f"\n{allgcs=}\n" )
 alllocalcontribs=[]
 for gcuri in allgcs:
 #    print( f"\n{gcuri=}" )
-    localconfs = dnapp.flatListOfContributionsForGcHierarchy( gcuri )
+    localconfs = dnapp.flatListOfContributionsForGcHierarchy( gcuri, returnCompAndPA=True )
 #    print( f"{localconfs=}" )
+    for contribURI,compURI,paURI in localconfs:
+        print( f"{contribURI=} {compURI=} {paURI=}" )
+        proj = dnapp.find_project( paURI )
+        comp = proj.find_local_component( compURI )
+        conf = comp.get_local_config( contribURI )
+#        print( f"{confname=} {compnane=} {paname=}" )
+        print( f"{conf=} {comp.name=} {proj.name=}" )
     alllocalcontribs.extend( localconfs )
 
 print( f"{alllocalcontribs=}" )

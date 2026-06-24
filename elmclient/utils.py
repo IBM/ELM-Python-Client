@@ -3,12 +3,12 @@
 # SPDX-License-Identifier: MIT
 ##
 
-import os
-import logging
+import base64
 import datetime
 import inspect
-import base64
+import os
 import logging
+import time
 import xml.etree.ElementTree as ET
 
 from . import rdfxml
@@ -400,3 +400,6 @@ except ImportError:
         dr,dw,de = select.select([sys.stdin], [], [], 0)
         termios.tcsetattr(fd, termios.TCSAFLUSH, old_term)
         return dr != []
+
+def uniquestr():
+    return str(time.time())

@@ -89,7 +89,8 @@ c.set_local_config(local_config_u)
 # Query all Test Plans modified after 01/01/2025.
 # For each plan, do a GET to retrieve the full resource, then display:
 #   - URL, identifier, title
-#   - number of test cases and their URLs
+#   - number of test cases
+#   - list validateRequiremtCollection links
 #
 # Why a GET per plan?
 # The OSLC query can return scalar fields via select, but oslc_qm:usesTestCase is
@@ -128,8 +129,9 @@ for tp_url in tps:
     tpObject = TestPlan.from_etree(xml_data)
 
     print(f"Test Cases: {len(tpObject.test_cases)}")
-    for tc_url in tpObject.test_cases:
-        print(f"  - {tc_url}")
+    print(f"validatesRequirementCollection links: {len(tpObject.links)}")
+    for link in tpObject.links:
+        print(f" - {link.predicate} -> {link.target} (title: {link.title})")
 
     print("----------------------------------------------------------")
 

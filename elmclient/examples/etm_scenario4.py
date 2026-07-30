@@ -32,7 +32,7 @@ import logging
 import elmclient.server as elmserver
 import elmclient.utils as utils
 import elmclient.rdfxml as rdfxml
-from elmclient.testplan import TestPlan
+from elmclient.testplan import TestPlan, TestPlanLink
 
 # setup logging - see levels in utils.py
 #loglevel = "INFO,INFO"
@@ -124,7 +124,7 @@ for tp_url in tps:
     print(f"Title:      {tps[tp_url]['dcterms:title']}")
     print(f"Identifier: {tps[tp_url]['rqm_qm:shortIdentifier']}")
 
-    # GET the full Test Plan resource to retrieve the test cases list
+    # GET the full Test Plan resource to retrieve the test cases list and the validatesRequirementCollection links
     xml_data = c.execute_get_rdf_xml(tp_url, cacheable=False)
     tpObject = TestPlan.from_etree(xml_data)
 

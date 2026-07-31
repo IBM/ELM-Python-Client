@@ -7,12 +7,12 @@
 #
 # elmclient sample for TSE
 
-#ETM scenario5: Find Test Plan with identifier 2
-#               -> Update its description
-#               -> Create a new Test Case and add it to the Test Plan
-#               -> Add a new ValidateRequirementCollection link to
-#                  https://jazz.ibm.com:8443/dwa/rm/urn:rational::1-6989e7b94842499a-M-000000e1
-#                  with title "moduleGC"
+#ETM scenario6: Create a new Test Plan
+#               -> Create 3 new Test Cases
+#               -> Add the 3 Test Cases to the Test Plan
+#               -> Add a ValidatesRequirementCollection link to the Test Plan:
+#                  https://jazz.ibm.com:9443/rm/resources/CO_cqyhzqUjEfCyB8IKcgJhMA
+#                  with title "Release 1 Planning"
 #
 #parameters
 jazzhost = 'https://jazz.ibm.com:9443'
@@ -28,14 +28,13 @@ proj = "SGC Quality Management"
 comp = "SGC MTM"
 conf = "SGC MTM Production stream"
 
-#### DO NOT TOUCH elmclient initializing####### Go to scenario5
+#### DO NOT TOUCH elmclient initializing####### Go to scenario6
 import sys
 import os
 import logging
 
 import elmclient.server as elmserver
 import elmclient.utils as utils
-import elmclient.rdfxml as rdfxml
 import elmclient.httpops as httpops
 from elmclient.testplan import TestPlan, TestPlanLink
 from elmclient.testcase import TestCase, TestCaseLink
@@ -91,110 +90,109 @@ if not local_config_u:
 c.set_local_config(local_config_u)
 
 #####################################################################################################
-#SCENARIO 5
+#SCENARIO 6
 #
-# Step 1 - Find Test Plan with identifier 2 and update its description
-# Step 2 - Create a new Test Case
-# Step 3 - Add the new Test Case to the Test Plan
-# Step 4 - Add a new ValidateRequirementCollection link to the Test Plan
+# Step 1 - Create a new Test Plan
+# Step 2 - Create 3 new Test Cases
+# Step 3 - Add the 3 Test Cases to the Test Plan
+# Step 4 - Add a ValidatesRequirementCollection link to the Test Plan
+# Step 5 - Save (PUT) the Test Plan
 
-# ---------------------------------------------------------------------------
-# STEP 1 - Find the Test Plan with shortIdentifier = 2 and update description
-# ---------------------------------------------------------------------------
-
-# Identifier of the Test Plan we are looking for
-tp_identifier = 2
-
-print(f"--- Step 1: Finding Test Plan with identifier = {tp_identifier} ---")
-
-# Get the Test Plan query capability URI
-tpquerybase = c.get_query_capability_uri("oslc_qm:TestPlanQuery")
-if not tpquerybase:
-    raise Exception( "TestPlanQueryBase not found !!!" )
-
-# OSLC query to find the Test Plan by its shortIdentifier
-tps = c.execute_oslc_query(
-        tpquerybase,
-        whereterms=[['rqm_qm:shortIdentifier','=',f'"{tp_identifier}"']],
-        select=['dcterms:identifier,dcterms:title,rqm_qm:shortIdentifier'],
-        prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms',rdfxml.RDF_DEFAULT_PREFIX["rqm_qm"]:'rqm_qm'} # note this is reversed - url to prefix
-        )
-
-if len(tps) == 0:
-    raise Exception( f"No Test Plan found with identifier = {tp_identifier}" )
-if len(tps) > 1:
-    raise Exception( f"More than one Test Plan found with identifier = {tp_identifier} !!!???" )
-
-tp_url = list(tps.keys())[0]
-print(f"Found Test Plan URL: {tp_url}")
-print(f"Title:      {tps[tp_url]['dcterms:title']}")
-print(f"Identifier: {tps[tp_url]['rqm_qm:shortIdentifier']}")
-
-# GET the full Test Plan resource (with ETag for the subsequent PUT)
-print("Doing a GET on the Test Plan URL...")
-xml_data, etag = c.execute_get_rdf_xml(tp_url, return_etag=True, cacheable=False)
-print(f"ETag: {etag}")
-
-# Parse into a TestPlan object
-tpObject = TestPlan.from_etree(xml_data)
-
-# Update the description
-new_description = "Description updated by Python ELMclient (scenario 5)"
-tpObject.description = new_description
-print(f"Updated description to: '{new_description}'")
-
-# ---------------------------------------------------------------------------
-# STEP 2 - Create a new Test Case
-# ---------------------------------------------------------------------------
-
-print("\n--- Step 2: Creating a new Test Case ---")
-
-# Title and description for the new Test Case
-tc_title       = "New TC created by Python ELMclient (scenario 5)"
-tc_description = "Test Case created and linked to Test Plan by Python ELMclient (scenario 5)"
-
-# Create a minimal TestCase object
-newTC = TestCase.create_minimal(tc_title)
-newTC.description = tc_description
-
-# Get the Test Case factory URI
-tc_factory_u = c.get_factory_uri(resource_type='TestCase', context=None, return_shapes=False)
-
-# Get the JSESSIONID cookie required for the POST request
+# Get the JSESSIONID cookie required for POST requests
 jsessionid = httpops.getcookievalue( p.app.server._session.cookies, 'JSESSIONID', None)
 if not jsessionid:
     raise Exception( "JSESSIONID not found!" )
 
-# POST request to create the new Test Case
-xml_data_tc = newTC.to_etree()
+post_headers = {'Referer': jazzhost + '/qm', 'X-Jazz-CSRF-Prevent': jsessionid}
+
+# ---------------------------------------------------------------------------
+# STEP 1 - Create a new Test Plan
+# ---------------------------------------------------------------------------
+
+print("--- Step 1: Creating a new Test Plan ---")
+
+tp_title       = "New TP created by Python ELMclient (scenario 6)"
+tp_description = "Test Plan created by Python ELMclient (scenario 6)"
+
+newTP = TestPlan.create_minimal(tp_title)
+newTP.description = tp_description
+
+tp_factory_u = c.get_factory_uri(resource_type='TestPlan', context=None, return_shapes=False)
+
 response = c.execute_post_rdf_xml(
-    tc_factory_u,
-    data=xml_data_tc,
-    intent="Create a test case",
-    headers={'Referer': jazzhost + '/qm', 'X-Jazz-CSRF-Prevent': jsessionid},
+    tp_factory_u,
+    data=newTP.to_etree(),
+    intent="Create a test plan",
+    headers=post_headers,
     remove_parameters=['oslc_config.context']
 )
 
 if response.status_code != 201:
-    raise Exception( f"Failed to create Test Case: HTTP {response.status_code}" )
+    raise Exception( f"Failed to create Test Plan: HTTP {response.status_code}" )
 
-print("Test Case created successfully")
+print("Test Plan created successfully")
 
-# The Location header in the 201 response directly gives the new Test Case URL
-tc_url = response.headers.get('Location')
-if not tc_url:
-    raise Exception( "No Location header in the Test Case creation response!" )
-print(f"New Test Case URL: {tc_url}")
+# The Location header in the 201 response directly gives the new Test Plan URL
+tp_url = response.headers.get('Location')
+if not tp_url:
+    raise Exception( "No Location header in the Test Plan creation response!" )
+print(f"New Test Plan URL: {tp_url}")
+
+# GET the full Test Plan resource (with ETag for the subsequent PUT)
+print("Doing a GET on the Test Plan URL...")
+xml_data_tp, etag = c.execute_get_rdf_xml(tp_url, return_etag=True, cacheable=False)
+print(f"ETag: {etag}")
+
+tpObject = TestPlan.from_etree(xml_data_tp)
 
 # ---------------------------------------------------------------------------
-# STEP 3 - Add the new Test Case to the Test Plan
+# STEP 2 - Create 3 new Test Cases
 # ---------------------------------------------------------------------------
 
-print("\n--- Step 3: Adding the new Test Case to the Test Plan ---")
+print("\n--- Step 2: Creating 3 new Test Cases ---")
 
-# Add an oslc_qm:usesTestCase link pointing to the newly created Test Case
-tpObject.add_usesTestCase(tc_url)
-print(f"Added usesTestCase link -> {tc_url}")
+tc_factory_u = c.get_factory_uri(resource_type='TestCase', context=None, return_shapes=False)
+
+tc_definitions = [
+    ("TC1 created by Python ELMclient (scenario 6)", "Test Case 1 created by Python ELMclient (scenario 6)"),
+    ("TC2 created by Python ELMclient (scenario 6)", "Test Case 2 created by Python ELMclient (scenario 6)"),
+    ("TC3 created by Python ELMclient (scenario 6)", "Test Case 3 created by Python ELMclient (scenario 6)"),
+]
+
+tc_urls = []
+
+for i, (tc_title, tc_description) in enumerate(tc_definitions, start=1):
+    print(f"  Creating Test Case {i}: '{tc_title}'")
+    newTC = TestCase.create_minimal(tc_title)
+    newTC.description = tc_description
+
+    response = c.execute_post_rdf_xml(
+        tc_factory_u,
+        data=newTC.to_etree(),
+        intent=f"Create test case {i}",
+        headers=post_headers,
+        remove_parameters=['oslc_config.context']
+    )
+
+    if response.status_code != 201:
+        raise Exception( f"Failed to create Test Case {i}: HTTP {response.status_code}" )
+
+    tc_url = response.headers.get('Location')
+    if not tc_url:
+        raise Exception( f"No Location header in Test Case {i} creation response!" )
+
+    tc_urls.append(tc_url)
+    print(f"  Test Case {i} URL: {tc_url}")
+
+# ---------------------------------------------------------------------------
+# STEP 3 - Add the 3 Test Cases to the Test Plan
+# ---------------------------------------------------------------------------
+
+print("\n--- Step 3: Adding the 3 Test Cases to the Test Plan ---")
+
+for tc_url in tc_urls:
+    tpObject.add_usesTestCase(tc_url)
+    print(f"  Added usesTestCase link -> {tc_url}")
 
 # ---------------------------------------------------------------------------
 # STEP 4 - Add a ValidatesRequirementCollection link to the Test Plan
@@ -202,21 +200,21 @@ print(f"Added usesTestCase link -> {tc_url}")
 
 print("\n--- Step 4: Adding a ValidatesRequirementCollection link to the Test Plan ---")
 
-req_collection_url   = "https://jazz.ibm.com:8443/dwa/rm/urn:rational::1-6989e7b94842499a-M-000000e1"
-req_collection_title = "moduleGC"
+req_collection_url   = "https://jazz.ibm.com:9443/rm/resources/CO_cqyhzqUjEfCyB8IKcgJhMA"
+req_collection_title = "Release 1 Planning"
 
 tpObject.add_validatesRequirementCollectionLink(req_collection_url, req_collection_title)
 print(f"Added validatesRequirementCollection link -> {req_collection_url} (title: '{req_collection_title}')")
 
 # ---------------------------------------------------------------------------
-# PUT request to save the updated Test Plan (description + new TC + new link)
+# STEP 5 - PUT the updated Test Plan (3 TCs + requirement collection link)
 # ---------------------------------------------------------------------------
 
-print("\nSending PUT request to update the Test Plan...")
-xml_data_tp = tpObject.to_etree()
+print("\n--- Step 5: Saving the Test Plan (PUT) ---")
+
 response = c.execute_post_rdf_xml(
     tp_url,
-    data=xml_data_tp,
+    data=tpObject.to_etree(),
     put=True,
     cacheable=False,
     headers={'If-Match': etag, 'Content-Type': 'application/rdf+xml'},
@@ -225,9 +223,11 @@ response = c.execute_post_rdf_xml(
 
 if response.status_code == 200:
     print("Test Plan updated successfully")
-    print(f"  - Description set to: '{new_description}'")
-    print(f"  - usesTestCase link added for: {tc_url}")
-    print(f"  - validatesRequirementCollection link added for: {req_collection_url} (title: '{req_collection_title}')")
+    print(f"  - Title: '{tp_title}'")
+    print(f"  - Description: '{tp_description}'")
+    for i, tc_url in enumerate(tc_urls, start=1):
+        print(f"  - usesTestCase {i}: {tc_url}")
+    print(f"  - validatesRequirementCollection: {req_collection_url} (title: '{req_collection_title}')")
 else:
     print(f"Test Plan update failed: HTTP {response.status_code}")
 

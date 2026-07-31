@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import base64
+import uuid
 from dataclasses import dataclass, field
 from typing import Callable, List, Optional, Dict, Tuple
 import lxml.etree as ET
@@ -36,6 +38,39 @@ _NAMESPACES: Dict[str, str] = {
     'oslc_rm':      'http://open-services.net/ns/rm#',
     'foaf':         'http://xmlns.com/foaf/0.1/',
 }
+
+
+# ---------------------------------------------------------------------------
+# _jazz_oid  — generate a Jazz item OID for new step elements
+# ---------------------------------------------------------------------------
+# ETM requires every <ns8:step> to carry a unique ns3:id attribute
+# (namespace http://schema.ibm.com/vega/2008/).
+# Format: '_' + URL-safe Base64 of a random UUID4's 16 bytes, no padding.
+# Example of a real ETM OID: _IeQFEKUlEfC---XKwFe08Q
+
+def _jazz_oid() -> str:
+    return '_' + base64.urlsafe_b64encode(uuid.uuid4().bytes).rstrip(b'=').decode()
+
+
+# ---------------------------------------------------------------------------
+# TestScriptStepDefinition  — plain input record for one step
+# ---------------------------------------------------------------------------
+
+@dataclass
+class TestScriptStepDefinition:
+    """Input record describing one step to be created via the IIntegrationService.
+
+    Pass a list of these to :meth:`TestScript.put_steps`.
+
+    Parameters
+    ----------
+    title            : Step title shown in ETM.
+    description      : Step description (plain text; XHTML is also accepted).
+    expected_result  : Expected result text (plain text; XHTML also accepted).
+    """
+    title:           str
+    description:     str = ""
+    expected_result: str = ""
 
 
 # ---------------------------------------------------------------------------
@@ -181,6 +216,51 @@ class TestScriptStep:
             if not (e[0] == tag and e[1].get('{' + rdf_ns + '}resource') == target)
         ]
         return len(self.links) < initial
+
+    def put_with_link(
+        self,
+        component,
+        post_headers: Dict[str, str],
+        req_url: str,
+        req_title: Optional[str] = None,
+    ) -> None:
+        """GET this step with an ETag, add a ``validatesRequirement`` link, and PUT it back.
+
+        This is a convenience wrapper around the GET → add link → PUT pattern used
+        whenever you need to attach a requirement traceability link to an existing step.
+
+        Parameters
+        ----------
+        component    : The elmclient component object (``c``) — provides
+                       ``execute_get_rdf_xml`` and ``execute_post_rdf_xml``.
+        post_headers : Dict with at least ``Referer`` and ``X-Jazz-CSRF-Prevent``
+                       keys (CSRF protection required for PUT).
+        req_url      : URL of the requirement resource to link.
+        req_title    : Human-readable title for the link (optional).
+
+        Raises
+        ------
+        Exception    : If the PUT does not return HTTP 200.
+        """
+        xml_step, etag = component.execute_get_rdf_xml(
+            self.uri, return_etag=True, cacheable=False
+        )
+        # Re-parse to get a fresh object with the correct ETag state
+        updated = TestScriptStep.from_etree(xml_step)
+        updated.add_validatesRequirementLink(req_url, title=req_title)
+
+        response = component.execute_post_rdf_xml(
+            updated.uri,
+            data=updated.to_etree(),
+            put=True,
+            cacheable=False,
+            headers={**post_headers, 'If-Match': etag, 'Content-Type': 'application/rdf+xml'},
+            intent=f"Update step {updated.index} with validatesRequirement link",
+        )
+        if response.status_code != 200:
+            raise Exception(
+                f"Failed to update step {updated.index}: HTTP {response.status_code}"
+            )
 
     # ------------------------------------------------------------------
     # Parsing
@@ -494,6 +574,118 @@ class TestScript:
             for url in self.step_urls
         ]
         return self.sort_steps(steps)
+
+    def put_steps(
+        self,
+        session,
+        steps: List['TestScriptStepDefinition'],
+        post_headers: Dict[str, str],
+    ) -> None:
+        """Create (or replace) all steps on this script via the IIntegrationService.
+
+        This is the **only reliable way** to create steps in a config-managed ETM
+        project.  The OSLC layer has no creation factory for steps; the
+        IIntegrationService legacy REST endpoint is what the ETM web UI uses
+        internally.
+
+        The method:
+
+        1. GETs the live ETM-native XML document from
+           ``self.execution_instructions_url`` (bypassing OSLC headers that
+           the endpoint rejects).
+        2. Clears any existing steps in the document.
+        3. Injects the supplied steps as ``<ns8:step>`` elements with the
+           correct namespaces, attributes and child elements.
+        4. PUTs the modified document back.
+
+        After a successful return, call
+        ``c.execute_get_rdf_xml(ts_url, cacheable=False)`` and
+        ``TestScript.from_etree(...)`` again to refresh ``step_urls`` with the
+        real ``ExecutionElement2`` URLs ETM has created.
+
+        Parameters
+        ----------
+        session      : The raw ``requests.Session`` held by elmclient,
+                       accessed as ``p.app.server._session``.
+                       Used directly to avoid OSLC headers that the
+                       IIntegrationService rejects.
+        steps        : List of :class:`TestScriptStepDefinition` objects.
+        post_headers : Dict with at least ``Referer`` and ``X-Jazz-CSRF-Prevent``
+                       keys (CSRF protection required for PUT).
+
+        Raises
+        ------
+        Exception : If ``execution_instructions_url`` is not set, or if the
+                    GET or PUT fails.
+        """
+        if not self.execution_instructions_url:
+            raise Exception(
+                "execution_instructions_url is not set on this TestScript.\n"
+                "Call from_etree() after a GET on the script URL to populate it."
+            )
+
+        # --- GET live document (no OSLC headers) ----------------------------
+        get_r = session.get(
+            self.execution_instructions_url,
+            headers={'Accept': 'application/xml'},
+            verify=False,
+        )
+        if get_r.status_code != 200:
+            raise Exception(
+                f"Failed to GET executionInstructions: HTTP {get_r.status_code}"
+            )
+
+        live_root = ET.fromstring(get_r.content)
+
+        # Derive namespaces from the live document so we never hard-code them.
+        # Root is always in http://jazz.net/xmlns/alm/qm/v0.1/ in practice.
+        _NS_QM   = ET.QName(live_root.tag).namespace
+        _NS_STEP = "http://jazz.net/xmlns/alm/qm/v0.1/testscript/v0.1/"
+        _NS_VEGA = "http://schema.ibm.com/vega/2008/"
+
+        steps_el = live_root.find(ET.QName(_NS_QM, 'steps'))
+        if steps_el is None:
+            raise Exception(
+                "Could not find <steps> element in the ETM-native XML document."
+            )
+
+        # --- Replace steps ---------------------------------------------------
+        for child in list(steps_el):
+            steps_el.remove(child)
+
+        for i, step_def in enumerate(steps, start=1):
+            step_el = ET.SubElement(
+                steps_el,
+                ET.QName(_NS_STEP, 'step'),
+                {
+                    'stepIndex':              str(i),
+                    'type':                   'execution',
+                    ET.QName(_NS_VEGA, 'id'): _jazz_oid(),
+                }
+            )
+            ET.SubElement(step_el, ET.QName(_NS_STEP, 'name')).text         = step_def.title
+            ET.SubElement(step_el, ET.QName(_NS_STEP, 'title')).text        = step_def.title
+            ET.SubElement(step_el, ET.QName(_NS_STEP, 'description')).text  = step_def.description
+            ET.SubElement(step_el, ET.QName(_NS_STEP, 'expectedResult')).text = step_def.expected_result
+
+        # --- PUT modified document (no OSLC headers) -------------------------
+        body = ET.tostring(live_root, encoding='unicode', xml_declaration=False)
+
+        put_r = session.put(
+            self.execution_instructions_url,
+            data=body.encode('utf-8'),
+            headers={
+                **post_headers,
+                'Content-Type': 'application/xml',
+                'Accept':       'application/xml',
+            },
+            verify=False,
+        )
+        if put_r.status_code not in (200, 204):
+            raise Exception(
+                f"Failed to PUT steps to executionInstructions: "
+                f"HTTP {put_r.status_code}\n{put_r.text}"
+            )
 
     # ------------------------------------------------------------------
     # Parsing

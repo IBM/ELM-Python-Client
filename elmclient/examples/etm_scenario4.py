@@ -22,7 +22,7 @@ qmappdomain  = 'qm'
 # the project+component+config that will be queried
 proj = "SGC Quality Management"
 comp = "SGC MTM"
-conf = "SGC MTM Production stream"
+conf = "SGC MTM Production stream" #conf="" if project is optout
 
 #### DO NOT TOUCH elmclient initializing####### Go to scenario4
 import sys
@@ -48,7 +48,7 @@ logger = logging.getLogger(__name__)
 utils.log_commandline( os.path.basename(sys.argv[0]) )
 
 # caching control
-# 0=fully cached (but code below specifies queries aren't cached) - if you need to clear the cache, delete folder .web_cache
+# 0=fully cached (but code below specifies queries aren't cached) - if you need to clear the cache, delet efolder .web_cache
 # 1=clear cache initially then continue with cache enabled
 # 2=clear cache and disable caching
 caching = 2
@@ -70,11 +70,17 @@ if not qmapp:
 p = qmapp.find_project( proj )
 if not p:
     raise Exception( f"Project {proj} not found !!!" )
+pa_u = p.project_uri
+#print( f"{pa_u=}" )
+#print( f"{p.get_alias()=}" )
 
 # find the component
 c = p.find_local_component( comp )
 if not c:
     raise Exception( f"Component {comp} not found !!!" )
+
+comp_u = c.project_uri
+#print( f"{comp_u=}" )
 
 # find the config
 local_config_u = c.get_local_config( conf )
@@ -111,12 +117,14 @@ tps = c.execute_oslc_query(
         prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms',rdfxml.RDF_DEFAULT_PREFIX["rqm_qm"]:'rqm_qm'} # note this is reversed - url to prefix
         )
 
-nbTP = len(tps)
+nbTP = len(tps) #count the number of Test Plans returned by the query and display it
 print(f"The query returned {nbTP} Test Plan(s)")
 print("----------------------------------------------------------")
 
+#initialize a count variable to zero
 count = 0
 
+#looping through the test plans returned by the query -> print data
 for tp_url in tps:
     count += 1
     print(f"Test Plan #{count}")
@@ -136,5 +144,6 @@ for tp_url in tps:
     print("----------------------------------------------------------")
 
 #####################################################################################################
+
 
 print( "Finished" )

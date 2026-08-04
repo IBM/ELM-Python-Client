@@ -26,7 +26,7 @@ qmappdomain  = 'qm'
 # the project+component+config that will be used
 proj = "SGC Quality Management"
 comp = "SGC MTM"
-conf = "SGC MTM Production stream"
+conf = "SGC MTM Production stream" #conf="" if project is optout
 
 #### DO NOT TOUCH elmclient initializing####### Go to scenario6
 import sys
@@ -53,7 +53,7 @@ logger = logging.getLogger(__name__)
 utils.log_commandline( os.path.basename(sys.argv[0]) )
 
 # caching control
-# 0=fully cached (but code below specifies queries aren't cached) - if you need to clear the cache, delete folder .web_cache
+# 0=fully cached (but code below specifies queries aren't cached) - if you need to clear the cache, delet efolder .web_cache
 # 1=clear cache initially then continue with cache enabled
 # 2=clear cache and disable caching
 caching = 2
@@ -75,11 +75,17 @@ if not qmapp:
 p = qmapp.find_project( proj )
 if not p:
     raise Exception( f"Project {proj} not found !!!" )
+pa_u = p.project_uri
+#print( f"{pa_u=}" )
+#print( f"{p.get_alias()=}" )
 
 # find the component
 c = p.find_local_component( comp )
 if not c:
     raise Exception( f"Component {comp} not found !!!" )
+
+comp_u = c.project_uri
+#print( f"{comp_u=}" )
 
 # find the config
 local_config_u = c.get_local_config( conf )
@@ -233,4 +239,4 @@ else:
 
 #####################################################################################################
 
-print("\nFinished")
+print( "Finished" )

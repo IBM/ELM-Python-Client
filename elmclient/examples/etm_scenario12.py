@@ -38,8 +38,8 @@ qmappdomain  = 'qm'
 
 # the project+component+config that will be used
 proj = "SGC Quality Management"
-comp = "SGC AMR"
-conf = "SGC AMR Production stream" #conf="" if project is optout
+comp = "SGC MTM"
+conf = "SGC MTM Production stream" #conf="" if project is optout
 
 # Verdict for the Test Result — change to 'failed', 'inconclusive', etc. as needed
 # Full ETM status strings accepted by oslc_qm:status:

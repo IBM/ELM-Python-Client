@@ -6,6 +6,8 @@ import lxml.etree as ET
 
 if TYPE_CHECKING:
     from elmclient.testscript import TestScript
+    from elmclient.testexecutionrecord import TestExecutionRecord
+    from elmclient.testplan import TestPlan
 
 
 @dataclass
@@ -92,6 +94,90 @@ class TestCase:
     namespaces:       Dict[str, str] = field(default_factory=dict)
     elements:         List[Tuple[str, Dict[str, str], Optional[str]]] = field(default_factory=list)
     extra_descriptions: Dict[str, List[Tuple[str, Dict[str, str], Optional[str]]]] = field(default_factory=dict)
+
+    # -------------------------------------------------------------------------
+    # TestExecutionRecord helpers
+    #
+    # NOTE: ETM does NOT embed TCER back-references in the TestCase RDF/XML.
+    # The link is stored on the TCER (oslc_qm:runsTestCase → TestCase URI).
+    # TCERs are discovered through an OSLC query, not by parsing the TestCase.
+    #
+    # These helpers provide convenience entry points for that workflow without
+    # storing network-derived state on the TestCase object itself.
+    # -------------------------------------------------------------------------
+
+    def create_tcer(
+        self,
+        title: str,
+        test_plan: Optional[Union[str, 'TestPlan']] = None,
+    ) -> 'TestExecutionRecord':
+        """Return a new :class:`~elmclient.testexecutionrecord.TestExecutionRecord`
+        pre-wired to this test case, ready to POST.
+
+        When the test case references exactly one test script
+        (``oslc_qm:usesTestScript``), that script is automatically set as
+        ``oslc_qm:executesTestScript`` on the new TCER so ETM assigns the
+        default test script on creation.  If the test case has zero or more
+        than one test script, ``executesTestScript`` is left unset.
+
+        The ``test_plan`` argument must be supplied explicitly because the
+        Test Plan → Test Case link lives on the ``TestPlan`` side and is not
+        visible in the ``TestCase`` XML.
+
+        Parameters
+        ----------
+        title     : Human-readable title for the new TCER.
+        test_plan : Optional URI string *or* ``TestPlan`` object.  When
+                    supplied, sets ``oslc_qm:reportsOnTestPlan`` on the new
+                    TCER so ETM links it to the correct test plan on creation.
+
+        Usage::
+
+            tcer = tc.create_tcer("Login on Chrome", test_plan=tp_url)
+            response = c.execute_post_rdf_xml(
+                tcer_factory_u, data=tcer.to_etree(),
+                intent="Create TCER", headers=post_headers,
+                remove_parameters=['oslc_config.context'],
+            )
+            tcer_url = response.headers['Location']
+
+        Raises ``ValueError`` if ``self.uri`` is empty (the test case has not
+        yet been saved to ETM).
+        """
+        if not self.uri:
+            raise ValueError(
+                "TestCase.uri is empty — save the test case to ETM first "
+                "before creating a TCER from it."
+            )
+        from elmclient.testexecutionrecord import TestExecutionRecord
+        # Auto-wire the single test script when there is exactly one
+        script_uri = self.test_scripts[0] if len(self.test_scripts) == 1 else None
+        return TestExecutionRecord.create_minimal(
+            title,
+            runs_test_case=self.uri,
+            executes_test_script=script_uri,
+            reports_on_test_plan=test_plan,
+        )
+
+    def tcer_query_terms(self) -> List[List[str]]:
+        """Return OSLC ``whereterms`` that find all TCERs for this test case.
+
+        Pass the result directly to ``c.execute_oslc_query``::
+
+            tcers = c.execute_oslc_query(
+                c.get_query_capability_uri("oslc_qm:TestExecutionRecordQuery"),
+                whereterms=tc.tcer_query_terms(),
+                select=['*'],
+            )
+
+        Raises ``ValueError`` if ``self.uri`` is empty.
+        """
+        if not self.uri:
+            raise ValueError(
+                "TestCase.uri is empty — the test case must have a URI "
+                "to query its TCERs."
+            )
+        return [['oslc_qm:runsTestCase', '=', f'<{self.uri}>']]
 
     # -------------------------------------------------------------------------
     # usesTestScript helpers

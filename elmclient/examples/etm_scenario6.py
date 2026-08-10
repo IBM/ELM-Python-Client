@@ -130,7 +130,7 @@ response = c.execute_post_rdf_xml(
     data=newTP.to_etree(),
     intent="Create a test plan",
     headers=post_headers,
-    remove_parameters=['oslc_config.context']
+    remove_headers=['Configuration-Context']
 )
 
 if response.status_code != 201:
@@ -177,7 +177,7 @@ for i, (tc_title, tc_description) in enumerate(tc_definitions, start=1):
         data=newTC.to_etree(),
         intent=f"Create test case {i}",
         headers=post_headers,
-        remove_parameters=['oslc_config.context']
+        remove_headers=['Configuration-Context']
     )
 
     if response.status_code != 201:

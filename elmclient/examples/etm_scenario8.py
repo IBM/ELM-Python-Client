@@ -164,7 +164,7 @@ response = c.execute_post_rdf_xml(
     data=newTS.to_etree(),
     intent="Create a test script",
     headers=post_headers,
-    remove_parameters=['oslc_config.context']
+    remove_headers=['Configuration-Context']
 )
 if response.status_code != 201:
     raise Exception( f"Failed to create Test Script: HTTP {response.status_code}" )
@@ -195,6 +195,7 @@ tsObject.put_steps(
     session      = p.app.server._session,
     steps        = [step_def for step_def, _, _ in step_definitions],
     post_headers = post_headers,
+    config_uri   = c.local_config,
 )
 print("Steps created successfully")
 

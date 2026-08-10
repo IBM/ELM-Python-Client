@@ -7,6 +7,7 @@ import lxml.etree as ET
 if TYPE_CHECKING:
     from elmclient.testcase import TestCase
     from elmclient.testscript import TestScript
+    from elmclient.testplan import TestPlan
 
 
 # ---------------------------------------------------------------------------

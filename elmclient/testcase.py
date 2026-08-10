@@ -137,7 +137,7 @@ class TestCase:
             response = c.execute_post_rdf_xml(
                 tcer_factory_u, data=tcer.to_etree(),
                 intent="Create TCER", headers=post_headers,
-                remove_parameters=['oslc_config.context'],
+                remove_headers=['Configuration-Context'],
             )
             tcer_url = response.headers['Location']
 

@@ -178,7 +178,7 @@ response = c.execute_post_rdf_xml(
     data=xml_data_tc,
     intent="Create a test case",
     headers={'Referer': jazzhost + '/qm', 'X-Jazz-CSRF-Prevent': jsessionid},
-    remove_parameters=['oslc_config.context']
+    remove_headers=['Configuration-Context']
 )
 
 if response.status_code != 201:

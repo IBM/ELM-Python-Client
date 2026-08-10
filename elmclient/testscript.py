@@ -580,6 +580,7 @@ class TestScript:
         session,
         steps: List['TestScriptStepDefinition'],
         post_headers: Dict[str, str],
+        config_uri: Optional[str] = None,
     ) -> None:
         """Create (or replace) all steps on this script via the IIntegrationService.
 
@@ -612,6 +613,12 @@ class TestScript:
         steps        : List of :class:`TestScriptStepDefinition` objects.
         post_headers : Dict with at least ``Referer`` and ``X-Jazz-CSRF-Prevent``
                        keys (CSRF protection required for PUT).
+        config_uri   : Optional OSLC configuration URI (``c.local_config``).
+                       When supplied, it is sent as ``Configuration-Context`` on
+                       both the GET and PUT so that ETM can resolve the script in
+                       config-managed components other than the project's default
+                       stream.  Required when using a component whose stream is
+                       not the project's default (e.g. ``SGC Agile``).
 
         Raises
         ------
@@ -624,10 +631,13 @@ class TestScript:
                 "Call from_etree() after a GET on the script URL to populate it."
             )
 
-        # --- GET live document (no OSLC headers) ----------------------------
+        # --- GET live document (no OSLC headers except optional config) ------
+        get_headers: Dict[str, str] = {'Accept': 'application/xml'}
+        if config_uri:
+            get_headers['Configuration-Context'] = config_uri
         get_r = session.get(
             self.execution_instructions_url,
-            headers={'Accept': 'application/xml'},
+            headers=get_headers,
             verify=False,
         )
         if get_r.status_code != 200:
@@ -668,17 +678,21 @@ class TestScript:
             ET.SubElement(step_el, ET.QName(_NS_STEP, 'description')).text  = step_def.description
             ET.SubElement(step_el, ET.QName(_NS_STEP, 'expectedResult')).text = step_def.expected_result
 
-        # --- PUT modified document (no OSLC headers) -------------------------
+        # --- PUT modified document (no OSLC headers except optional config) --
         body = ET.tostring(live_root, encoding='unicode', xml_declaration=False)
+
+        put_headers: Dict[str, str] = {
+            **post_headers,
+            'Content-Type': 'application/xml',
+            'Accept':       'application/xml',
+        }
+        if config_uri:
+            put_headers['Configuration-Context'] = config_uri
 
         put_r = session.put(
             self.execution_instructions_url,
             data=body.encode('utf-8'),
-            headers={
-                **post_headers,
-                'Content-Type': 'application/xml',
-                'Accept':       'application/xml',
-            },
+            headers=put_headers,
             verify=False,
         )
         if put_r.status_code not in (200, 204):

@@ -148,13 +148,13 @@ class TestResult:
         )
 
         rdf_ns  = _NAMESPACES['rdf']
-        xsd_ns  = _NAMESPACES['xsd']
         dc_ns   = _NAMESPACES['dcterms']
         qm_ns   = _NAMESPACES['oslc_qm']
+        xsd_str = 'http://www.w3.org/2001/XMLSchema#string'
 
         tr.elements.append((
             f'{{{dc_ns}}}title',
-            {f'{{{rdf_ns}}}datatype': f'{{{xsd_ns}}}string'},
+            {f'{{{rdf_ns}}}datatype': xsd_str},
             resolved_title,
         ))
         tr.elements.append((
@@ -179,7 +179,7 @@ class TestResult:
         ))
         tr.elements.append((
             f'{{{qm_ns}}}status',
-            {f'{{{rdf_ns}}}datatype': f'{{{xsd_ns}}}string'},
+            {f'{{{rdf_ns}}}datatype': xsd_str},
             status,
         ))
 

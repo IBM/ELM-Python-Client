@@ -156,7 +156,7 @@ response = c.execute_post_rdf_xml(
     data=newTS.to_etree(),
     intent="Create a test script",
     headers=post_headers,
-    remove_parameters=['oslc_config.context']
+    remove_headers=['Configuration-Context']
 )
 if response.status_code != 201:
     raise Exception( f"Failed to create Test Script: HTTP {response.status_code}" )
@@ -175,6 +175,7 @@ tsObject.put_steps(
     session      = p.app.server._session,
     steps        = step_definitions,
     post_headers = post_headers,
+    config_uri   = c.local_config,
 )
 print("3 steps created successfully")
 
@@ -199,7 +200,7 @@ response = c.execute_post_rdf_xml(
     data=newTC.to_etree(),
     intent="Create a test case",
     headers=post_headers,
-    remove_parameters=['oslc_config.context']
+    remove_headers=['Configuration-Context']
 )
 if response.status_code != 201:
     raise Exception( f"Failed to create Test Case: HTTP {response.status_code}" )
@@ -250,7 +251,7 @@ response = c.execute_post_rdf_xml(
     data=newTP.to_etree(),
     intent="Create a test plan",
     headers=post_headers,
-    remove_parameters=['oslc_config.context']
+    remove_headers=['Configuration-Context']
 )
 if response.status_code != 201:
     raise Exception( f"Failed to create Test Plan: HTTP {response.status_code}" )
@@ -291,7 +292,7 @@ else:
 #                                             lives on the TestPlan side so
 #                                             it is not visible in TestCase XML)
 #
-# The TCER factory requires remove_parameters=['oslc_config.context'] —
+# The TCER factory requires remove_headers=['Configuration-Context'] —
 # this is the same pattern used in etm_simple_updatetestresult.py.
 # ---------------------------------------------------------------------------
 
@@ -312,7 +313,7 @@ response = c.execute_post_rdf_xml(
     data=newTCER.to_etree(),
     intent="Create a TCER linked to the Test Case",
     headers=post_headers,
-    remove_parameters=['oslc_config.context']
+    remove_headers=['Configuration-Context']
 )
 if response.status_code != 201:
     raise Exception( f"Failed to create TCER: HTTP {response.status_code}" )

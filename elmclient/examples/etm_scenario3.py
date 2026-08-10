@@ -125,7 +125,7 @@ if not jsessionid:
     raise Exception( "JSESSIONID not found!" )
 
 #POST request to create the new test case
-response = c.execute_post_rdf_xml( tc_factory_u, data=xml_data, intent="Create a test case", headers={'Referer': 'https://jazz.ibm.com:9443/qm', 'X-Jazz-CSRF-Prevent': jsessionid }, remove_parameters=['oslc_config.context']  )
+response = c.execute_post_rdf_xml( tc_factory_u, data=xml_data, intent="Create a test case", headers={'Referer': 'https://jazz.ibm.com:9443/qm', 'X-Jazz-CSRF-Prevent': jsessionid }, remove_headers=['Configuration-Context']  )
 
 #if response is 201, Test Case has been created succesfully
 if response.status_code != 201:

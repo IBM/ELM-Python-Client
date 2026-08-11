@@ -1894,6 +1894,7 @@ class RMApp (_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
     supports_configs = True
     supports_components = True
     supports_reportable_rest = True
+    supports_app_level_general_config_query=False # since 7.1 RM does have an app-level query but onky for baselines of a stream, i.e. still no general config query
     reportablerestbase='publish'
     reportable_rest_status = "Supported by application and implemented here"
     artifact_formats = [ # For RR

@@ -26,7 +26,8 @@ import threading
 from elmclient import rdfxml
 
 # make this an empty string to disable cookie saving
-COOKIE_SAVE_FILE = ".cookies"
+#COOKIE_SAVE_FILE = ".cookies"
+COOKIE_SAVE_FILE = ""
 
 # headers added to every HTTP operation
 INTENTHEADER = "elmclient-Intent"

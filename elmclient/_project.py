@@ -243,32 +243,35 @@ class _Project( oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_System_Mixi
 #        print( f"{results=}" )
         return results
         
-    def set_local_config(self, name_or_uri, global_config_uri=None):
+    def set_local_config(self, name_or_uri, global_config_uri=None, cloneComponent=False):
+        # use either self or a copy of self - this allows multithreading to change the config in each component object
+        thiscomp = self if not cloneComponent else copy.copy(self)
         if name_or_uri:
             if global_config_uri is None:
-                config_uri = self._do_find_config_by_name(name_or_uri)
+                config_uri = thiscomp._do_find_config_by_name(name_or_uri)
             else:
                 # gc and local config both specified - try to avoid loading all the local configs by using the gc tree to locate the local config
-                gc_contribs = self.get_gc_contributions(global_config_uri)
+                gc_contribs = thiscomp.get_gc_contributions(global_config_uri)
                 # find the contribution for this component
                 config_uri = None
                 for config in gc_contribs['configurations']:
-#                    print( f"Checking {config=} for {self.project_uri=}" )
-                    if config['componentUri'] == self.project_uri:
+#                    print( f"Checking {config=} for {thiscomp.project_uri=}" )
+                    if config['componentUri'] == thiscomp.project_uri:
                         config_uri = config['configurationUri']
                         break  # first match is correct according to GC SDK https://jazz.net/gc/doc/scenario?id=GetFlatListOfContributionsForGcHiearchy
             if not config_uri:
-                raise Exception( 'Cannot find configuration [%s] in project [%s]' % (name_or_uri, self.uri))
+                raise Exception( 'Cannot find configuration [%s] in project [%s]' % (name_or_uri, thiscomp.uri))
         else:
             config_uri = None
 
         # set config to this client
-        self.local_config = config_uri
-        self.global_config = global_config_uri
+        thiscomp.local_config = config_uri
+        thiscomp.global_config = global_config_uri
         # for a component, setting the config is when we can load the services xml!
-        if self.component_project:
+        if thiscomp.component_project:
             # retrieve the services.xml in the current config!
-            self.services_xml = self.execute_get_rdf_xml(self.component_project.services_uri, intent="Retrieve project's services.xml")
+            thiscomp.services_xml = thiscomp.execute_get_rdf_xml(thiscomp.component_project.services_uri, intent="Retrieve project's services.xml")
+        return thiscomp
 
     # create a changeset in the current config (must be a stream)
     def create_changeset( self, name ):

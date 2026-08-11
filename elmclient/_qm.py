@@ -559,6 +559,7 @@ class QMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Syst
     supports_reportable_rest = True
     reportable_rest_status = "Application supports Reportable REST but not implemented here yet"
     reportablerestbase='service/com.ibm.rqm.integration.service.IIntegrationService'
+    supports_app_level_general_config_query=True
     artifactformats = [ # For RR
             '*'
             ,'collections'

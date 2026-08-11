@@ -35,7 +35,6 @@ import urllib.parse
 
 import elmclient.server as elmserver
 import elmclient.utils as utils
-import elmclient.rdfxml as rdfxml
 import elmclient.httpops as httpops
 from elmclient.testcase import TestCase, TestCaseLink
 import lxml.etree as ET
@@ -126,59 +125,41 @@ if not jsessionid:
     raise Exception( "JSESSIONID not found!" )
 
 #POST request to create the new test case
-response = c.execute_post_rdf_xml( tc_factory_u, data=xml_data, intent="Create a test case", headers={'Referer': 'https://jazz.ibm.com:9443/qm', 'X-Jazz-CSRF-Prevent': jsessionid }, remove_parameters=['oslc_config.context']  )
+response = c.execute_post_rdf_xml( tc_factory_u, data=xml_data, intent="Create a test case", headers={'Referer': 'https://jazz.ibm.com:9443/qm', 'X-Jazz-CSRF-Prevent': jsessionid }, remove_headers=['Configuration-Context']  )
 
 #if response is 201, Test Case has been created succesfully
-if response.status_code==201:
-    print("Test Case created succesfully")
-    #Get the url of the new Test case created
-    tcquerybase = c.get_query_capability_uri("oslc_qm:TestCaseQuery")
-    if not tcquerybase:
-        raise Exception( "TestCaseQueryBase not found !!!" )
-    
-    #Getting the created TC to add links
-    print(f"Querying test case with title = {tc_title}")
-    tcs = c.execute_oslc_query(
-            tcquerybase,
-            whereterms=[['dcterms:title','=',f'"{tc_title}"']],
-            select=['*'],
-            prefixes={rdfxml.RDF_DEFAULT_PREFIX["dcterms"]:'dcterms'} # note this is reversed - url to prefix
-            )
-    if len(tcs.items())==1:
-    
-        tc_u = list(tcs.keys())[0]
-        print(f"Found Test Case URL: {tc_u}")
-        print("Doing a Get on test case url")
-        xml_data,etag = c.execute_get_rdf_xml( tc_u, return_etag=True)
-        
-        print("Etag:" + etag)
-        #put the TC data in a test case object
-        newTC = TestCase.from_etree(xml_data)
-        
-        #adding a link to a DWA requirement, provide URL and link title
-        newTC.add_validatesRequirementLink("https://dwa9729rom1.fyre.ibm.com:8443/dwa/rm/urn:rational::1-66cdc1432a885b81-O-2-00000040","Module1 (2)")
-        
-        #adding a link to a DNG requirement, provide URL and link title 
-        newTC.add_validatesRequirementLink("https://jazz.ibm.com:9443/rm/resources/BI_kC8csQ_WEfCjT5cep7iZxA","req3")
-        
-        #get the data from the test case object
-        xml_data = newTC.to_etree()
-        #print(ET.tostring(xml_data))
-        print("sending the PUT request to update the test case")
-        response = c.execute_post_rdf_xml(tc_u, data=xml_data, put=True, cacheable=False, headers={'If-Match':etag,'Content-Type':'application/rdf+xml'}, intent="Update the test case"  )
-        if response.status_code==200:
-            print("Update succesfull")
-        else:
-            print("Update failed")
-        
-    elif len(tcs.items())==0:
-        print("No test case found")
+if response.status_code != 201:
+    raise Exception( f"Failed to create Test Case: HTTP {response.status_code}" )
 
-    else:
-        print(f"We found more than one test case with title {tc_title} !!!???")
-    #print(ET.tostring(xml_data))
+print("Test Case created successfully")
+
+# The Location header in the 201 response directly gives the new Test Case URL
+tc_u = response.headers.get('Location')
+if not tc_u:
+    raise Exception( "No Location header in the Test Case creation response!" )
+print(f"New Test Case URL: {tc_u}")
+
+print("Doing a GET on test case url")
+xml_data, etag = c.execute_get_rdf_xml( tc_u, return_etag=True)
+print("Etag: " + etag)
+
+#put the TC data in a test case object
+newTC = TestCase.from_etree(xml_data)
+
+#adding a link to a DWA requirement, provide URL and link title
+newTC.add_validatesRequirementLink("https://dwa9729rom1.fyre.ibm.com:8443/dwa/rm/urn:rational::1-66cdc1432a885b81-O-2-00000040","Module1 (2)")
+
+#adding a link to a DNG requirement, provide URL and link title
+newTC.add_validatesRequirementLink("https://jazz.ibm.com:9443/rm/resources/BI_kC8csQ_WEfCjT5cep7iZxA","req3")
+
+#get the data from the test case object
+xml_data = newTC.to_etree()
+print("Sending the PUT request to update the test case")
+response = c.execute_post_rdf_xml(tc_u, data=xml_data, put=True, cacheable=False, headers={'If-Match':etag,'Content-Type':'application/rdf+xml'}, intent="Update the test case")
+if response.status_code == 200:
+    print("Update successful")
 else:
-    print(f"Can not create test case: {response.status_code}")
+    print(f"Update failed: HTTP {response.status_code}")
 
 ####################################################################################################
 

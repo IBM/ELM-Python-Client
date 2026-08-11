@@ -99,7 +99,7 @@ def do_oslc_query(inputargs=None):
     parser.add_argument('-N', '--noprogressbar', action="store_false", help="Don't show progress bar during query")
     parser.add_argument('-O', '--outputfile', default=None, help='Name of file to save the CSV to')
     parser.add_argument("-P", "--password", default=PASSWORD, help=f"user password, default {PASSWORD} - Default can be set using environment variable QUERY_PASSWORD - set to PROMPT to be asked for password at runtime")
-    parser.add_argument('-Q', '--resolvenames', action="store_false", help="toggle name resolving off (default on) - can greatly speed up postprocessing but you'll get URIs rather than names")
+    parser.add_argument('-Q', '--resolvenames', action="store_false", help="toggle name resolving off (default on) - can greatly speed up postprocessing but you'll get URIs rather than names - DON'T USE THIS OPTION IF YOU WANT A TYPESYSTEM REPORT!")
     parser.add_argument('-R', '--nodefaultselects', action="store_true", help="Suppress adding default select like for rm rm_nav:folder and dcterms:identifier - can speed up postprocessing because e.g. no need to look up folder name")
     parser.add_argument('-S', '--sort', action="store_false", help="Don't sort results by increasing dcterms:identifier, as is done by default - specifying -o (orderby) disables automatic sorting by dcterms:identifier")
     parser.add_argument('-T', '--certs', action="store_true", help="Verify SSL certificates")
@@ -465,11 +465,12 @@ def do_oslc_query(inputargs=None):
     else:
         # app-level query
         queryon = app
-        if not app.has_typesystem:
+        if not app.supports_app_level_general_config_query or not app.has_typesystem:
             raise Exception( f"The {app.domain} application does not support application-level OSLC Queries - perhaps you meant to provide a project name using -p" )
 
-    #ensure type system is loaded, even if it won't be used
-    queryon.load_types()
+    #ensure type system is loaded if we're going to have to resolve names - even if it might not be used
+    if args.resolvenames:
+        queryon.load_types()
                                     
     if args.typesystemreport:
         # ensure output folder exists

@@ -381,6 +381,7 @@ class GCMApp(_app._App, oslcqueryapi._OSLCOperations_Mixin, _typesystem.Type_Sys
     supports_configs = False
     supports_components = True
     supports_reportable_rest = False
+    supports_app_level_general_config_query=True
 
     relprefixes = (
             ('acclist','acclist#')

@@ -29,6 +29,8 @@ class _App( httpops.HttpOperations_Mixin, _validate.Validate_Mixin, _customScena
     reportablerest_baseurl = "publish"
     supports_reportable_rest = False
     reportable_rest_status = "Not supported by application"
+    supports_app_level_general_config_query=False
+
     majorVersion = None
     version = None
 

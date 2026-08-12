@@ -2,7 +2,7 @@ CacheControl
 anytree
 colorama
 cryptography
-lark_parser
+lark
 lxml
 openpyxl
 python-dateutil

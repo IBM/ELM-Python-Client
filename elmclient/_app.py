@@ -152,7 +152,7 @@ class _App( httpops.HttpOperations_Mixin, _validate.Validate_Mixin, _customScena
     # get an instance for a specific project
     def find_project(self, projectname_or_uri, include_archived=False):
         logger.info( f"Find project {projectname_or_uri}")
-        self._load_projects()
+        self._load_projects(include_archived=include_archived)
         if self.is_project_uri(projectname_or_uri):
             if projectname_or_uri in self._projects:
                 res = self._projects[projectname_or_uri]['project']
